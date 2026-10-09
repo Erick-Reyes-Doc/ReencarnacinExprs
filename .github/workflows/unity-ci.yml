@@ -1,0 +1,51 @@
+
+name: Reencarnacion Express - CI
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+
+  workflow_dispatch:
+
+jobs:
+  verificar-proyecto:
+    name: Verificar proyecto Unity
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el repositorio
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # 2. Verificar carpetas importantes
+      - name: Verificar estructura
+        run: |
+          test -d Assets
+          test -d Packages
+          test -d ProjectSettings
+          echo "Estructura del proyecto correcta"
+
+      # 3. Verificar version de Unity
+      - name: Verificar version de Unity
+        run: |
+          grep -q "6000.6.4f1" ProjectSettings/ProjectVersion.txt
+          echo "Version de Unity correcta"
+
+      # 4. Verificar Git LFS
+      - name: Verificar Git LFS
+        run: |
+          git lfs version
+          git lfs ls-files
+          echo "Git LFS verificado"
+
+      # 5. Finalizar
+      - name: Finalizacion
+        run: echo "Verificaciones completadas"
+git branch --show-current
