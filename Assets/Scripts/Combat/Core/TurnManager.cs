@@ -6,7 +6,8 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [Header("Unidades del combate")]
-    [SerializeField] private List<BattleUnit> units =
+    [SerializeField]
+    private List<BattleUnit> units =
         new List<BattleUnit>();
 
     private List<BattleUnit> turnOrder =
@@ -79,6 +80,7 @@ public class TurnManager : MonoBehaviour
         {
             BattleUnit unit = turnOrder[currentTurnIndex];
 
+
             if (unit != null && unit.IsAlive)
             {
                 CurrentUnit = unit;
@@ -88,8 +90,19 @@ public class TurnManager : MonoBehaviour
                     CurrentUnit.Data.unitName
                 );
 
+                // Procesar efectos de regeneracion
+                // al comenzar el turno del personaje.
+                RegenerationEffect regeneration =
+                    CurrentUnit.GetComponent<RegenerationEffect>();
+
+                if (regeneration != null && regeneration.IsActive)
+                {
+                    regeneration.ProcessTurnStart();
+                }
+
                 return;
             }
+
 
             // Saltar unidad derrotada.
             currentTurnIndex++;

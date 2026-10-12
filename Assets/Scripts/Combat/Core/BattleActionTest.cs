@@ -9,6 +9,8 @@ public class BattleActionTest : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private PositionManager positionManager;
 
+    [SerializeField] private TargetSelector targetSelector;
+
     [Header("Equipo del jugador")]
     [SerializeField]
     private List<BattleUnit> playerUnits =
@@ -42,14 +44,35 @@ public class BattleActionTest : MonoBehaviour
         if (attacker == null || !attacker.IsAlive)
             return;
 
-        // Seleccionar el equipo contrario.
-        List<BattleUnit> targets =
-            attacker.Side == TeamSide.Player
-            ? enemyUnits
-            : playerUnits;
+        BattleUnit target;
 
-        BattleUnit target = GetFirstAliveUnit(targets);
+        // Los jugadores eligen manualmente su objetivo.
+        if (attacker.Side == TeamSide.Player)
+        {
+            if (targetSelector == null)
+            {
+                Debug.LogWarning("Falta asignar TargetSelector.");
+                return;
+            }
 
+            target = targetSelector.SelectedTarget;
+
+            if (target == null ||
+                !target.IsAlive ||
+                target.Side != TeamSide.Enemy)
+            {
+                Debug.Log(
+                    "Selecciona un enemigo valido antes de atacar."
+                );
+                return;
+            }
+        }
+        else
+        {
+            // Los enemigos siguen seleccionando objetivos
+            // automaticamente de forma provisional.
+            target = GetFirstAliveUnit(playerUnits);
+        }
         if (target == null)
         {
             // TurnManager comprobara el resultado.

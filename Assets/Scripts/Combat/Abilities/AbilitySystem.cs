@@ -5,6 +5,7 @@ public class AbilitySystem : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private TurnManager turnManager;
+    [SerializeField] private PositionManager positionManager;
 
     // Comprueba si una habilidad puede utilizarse.
     public bool CanUseAbility(
@@ -113,38 +114,112 @@ public class AbilitySystem : MonoBehaviour
             target.Data.unitName
         );
         // Aplicar el efecto principal de la habilidad.
-if (ability.abilityType == AbilityType.Attack)
-{
-    int damage = DamageCalculator.CalculateDamage(
-        user,
-        target,
-        out bool isCritical
-    );
+        if (ability.abilityType == AbilityType.Attack)
+        {
+            int damage = DamageCalculator.CalculateDamage(
+                user,
+                target,
+                out bool isCritical
+            );
 
-    // La potencia de la habilidad aumenta el daño.
-    damage += ability.basePower;
+            // La potencia de la habilidad aumenta el daño.
+            damage += ability.basePower;
 
-    // Si la habilidad no permite criticos,
-    // recalculamos el daño sin ese multiplicador.
-    if (!ability.canCritical && isCritical)
-    {
-        int normalDamage = Mathf.Max(
-            1,
-            user.Attack - target.Defense
-        );
+            // Si la habilidad no permite criticos,
+            // recalculamos el daño sin ese multiplicador.
+            if (!ability.canCritical && isCritical)
+            {
+                int normalDamage = Mathf.Max(
+                    1,
+                    user.Attack - target.Defense
+                );
 
-        damage = normalDamage + ability.basePower;
-        isCritical = false;
-    }
+                damage = normalDamage + ability.basePower;
+                isCritical = false;
+            }
 
-    Debug.Log(
-        ability.abilityName +
-        " causa " + damage + " de daño." +
-        (isCritical ? " ¡CRITICO!" : "")
-    );
+            Debug.Log(
+                ability.abilityName +
+                " causa " + damage + " de daño." +
+                (isCritical ? " ¡CRITICO!" : "")
+            );
 
-    target.TakeDamage(damage);
-}
+            target.TakeDamage(damage);
+        }
+
+
+        else if (ability.abilityType == AbilityType.Heal)
+        {
+            // Evitar curar personajes con la vida completa.
+            if (target.CurrentHealth >= target.MaxHealth)
+            {
+                Debug.Log(
+                    target.Data.unitName +
+                    " ya tiene toda su vida."
+                );
+
+                return false;
+            }
+
+            int healAmount = Mathf.Max(0, ability.basePower);
+
+            if (healAmount <= 0)
+            {
+                Debug.LogWarning(
+                    "La habilidad no tiene poder de curacion."
+                );
+
+                return false;
+            }
+
+            Debug.Log(
+                user.Data.unitName +
+                " cura a " +
+                target.Data.unitName +
+                " por " +
+                healAmount +
+                " puntos de vida."
+            );
+
+            target.Heal(healAmount);
+        }
+
+
+        else if (ability.abilityType == AbilityType.Support)
+        {
+            if (ability.regenerationPerTurn <= 0 ||
+                ability.regenerationDuration <= 0)
+            {
+                Debug.LogWarning(
+                    "La habilidad no tiene regeneracion configurada."
+                );
+                return false;
+            }
+
+            RegenerationEffect regeneration =
+                target.GetComponent<RegenerationEffect>();
+
+            if (regeneration == null)
+            {
+                Debug.LogWarning(
+                    target.Data.unitName +
+                    " no tiene el componente RegenerationEffect."
+                );
+                return false;
+            }
+
+            regeneration.ApplyRegeneration(
+                ability.regenerationPerTurn,
+                ability.regenerationDuration
+            );
+
+            Debug.Log(
+                user.Data.unitName +
+                " aplica regeneracion a " +
+                target.Data.unitName
+            );
+        }
+
 
         // Pendiente:
         // Aplicar daño, curacion o apoyo.
@@ -156,4 +231,128 @@ if (ability.abilityType == AbilityType.Attack)
         // porque todavia no ejecuta sus efectos.
         return true;
     }
+
+
+    public bool ExecuteGroupRegeneration(
+        BattleUnit user,
+        AbilityData ability
+    )
+    {
+        // Comprobar referencias.
+        if (user == null ||
+            ability == null ||
+            turnManager == null ||
+            positionManager == null)
+        {
+            Debug.LogWarning("Faltan referencias.");
+            return false;
+        }
+
+        // Comprobar el turno y el estado del usuario.
+        if (!user.IsAlive ||
+            turnManager.CurrentUnit != user)
+        {
+            Debug.LogWarning(
+                "No es el turno de este personaje."
+            );
+            return false;
+        }
+
+        // Comprobar las caracteristicas de la habilidad.
+        if (ability.abilityType != AbilityType.Support ||
+            ability.targetType != AbilityTargetType.AllAllies)
+        {
+            Debug.LogWarning(
+                "La habilidad no es de regeneracion grupal."
+            );
+            return false;
+        }
+
+        // Validar la posicion del personaje.
+        if (!ability.CanUseFromPosition(user.Position))
+        {
+            Debug.Log(
+                "No puedes usar esta habilidad desde la posicion " +
+                user.Position
+            );
+            return false;
+        }
+
+        // Validar los valores de regeneracion.
+        if (ability.regenerationPerTurn <= 0 ||
+            ability.regenerationDuration <= 0)
+        {
+            Debug.LogWarning(
+                "La regeneracion no esta configurada."
+            );
+            return false;
+        }
+
+        // Validar los componentes antes de aplicar el efecto.
+        int affectedUnits = 0;
+
+        for (int position = 1; position <= 4; position++)
+        {
+            BattleUnit ally = positionManager.GetUnitAtPosition(
+                user.Side,
+                position
+            );
+
+            if (ally == null || !ally.IsAlive)
+                continue;
+
+            RegenerationEffect regeneration =
+                ally.GetComponent<RegenerationEffect>();
+
+            if (regeneration == null)
+            {
+                Debug.LogWarning(
+                    ally.Data.unitName +
+                    " no tiene RegenerationEffect."
+                );
+                return false;
+            }
+
+            affectedUnits++;
+        }
+
+        if (affectedUnits == 0)
+            return false;
+
+        Debug.Log(
+            user.Data.unitName +
+            " utiliza " + ability.abilityName +
+            " sobre todo su equipo."
+        );
+
+        // Aplicar regeneracion a todos los aliados vivos.
+        for (int position = 1; position <= 4; position++)
+        {
+            BattleUnit ally = positionManager.GetUnitAtPosition(
+                user.Side,
+                position
+            );
+
+            if (ally == null || !ally.IsAlive)
+                continue;
+
+            RegenerationEffect regeneration =
+                ally.GetComponent<RegenerationEffect>();
+
+            // Ya validamos los componentes anteriormente.
+            regeneration.ApplyRegeneration(
+                ability.regenerationPerTurn,
+                ability.regenerationDuration
+            );
+        }
+
+        Debug.Log(
+            "Regeneracion aplicada a " +
+            affectedUnits +
+            " aliados."
+        );
+
+        return true;
+    }
+
 }

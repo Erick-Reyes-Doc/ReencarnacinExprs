@@ -17,6 +17,13 @@ public enum MovementEffect
     Pull
 }
 
+public enum AbilityTargetType
+{
+    Single,
+    AllAllies,
+    AllEnemies
+}
+
 [CreateAssetMenu(
     fileName = "NewAbility",
     menuName = "Reencarnacion Express/Combat/Ability Data"
@@ -33,6 +40,10 @@ public class AbilityData : ScriptableObject
 
     [Header("Tipo de habilidad")]
     public AbilityType abilityType;
+
+    [Header("Tipo de objetivo")]
+    public AbilityTargetType targetType =
+    AbilityTargetType.Single;
 
     [Header("Valores de combate")]
     [Min(0)]
@@ -65,6 +76,14 @@ public class AbilityData : ScriptableObject
     [Header("Tiempo de reutilizacion")]
     [Min(0)]
     public int cooldown = 0;
+
+    [Header("Regeneracion")]
+    [Min(0)]
+    public int regenerationPerTurn = 0;
+
+    [Min(0)]
+    public int regenerationDuration = 0;
+
 
     // Comprueba desde que posicion se puede usar.
     public bool CanUseFromPosition(int position)

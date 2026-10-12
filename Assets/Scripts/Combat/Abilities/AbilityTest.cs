@@ -8,7 +8,9 @@ public class AbilityTest : MonoBehaviour
     [SerializeField] private AbilitySystem abilitySystem;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private PositionManager positionManager;
-    [SerializeField] private BattleUnit target;
+    [SerializeField] private TargetSelector targetSelector;
+
+    [Header("Habilidad de prueba")]
     [SerializeField] private AbilityData ability;
 
     private void Update()
@@ -23,49 +25,96 @@ public class AbilityTest : MonoBehaviour
         }
     }
 
-    private void TestAbility()
+    
+private void TestAbility()
+{
+    if (abilitySystem == null ||
+        turnManager == null ||
+        ability == null)
     {
-        if (abilitySystem == null || turnManager == null)
+        Debug.LogWarning("Faltan referencias.");
+        return;
+    }
+
+    BattleUnit user = turnManager.CurrentUnit;
+
+    if (user == null || !user.IsAlive)
+        return;
+
+    // Las pruebas manuales son para el jugador.
+    if (user.Side != TeamSide.Player)
+    {
+        Debug.Log(
+            "Las habilidades enemigas se implementaran despues."
+        );
+        return;
+    }
+
+    bool success = false;
+
+    if (ability.targetType == AbilityTargetType.AllAllies)
+    {
+        // Una habilidad grupal no necesita
+        // seleccionar un objetivo individual.
+        success = abilitySystem.ExecuteGroupRegeneration(
+            user,
+            ability
+        );
+    }
+    else if (ability.targetType == AbilityTargetType.Single)
+    {
+        if (targetSelector == null)
         {
-            Debug.LogWarning("Faltan referencias.");
+            Debug.LogWarning("Falta TargetSelector.");
             return;
         }
 
-        BattleUnit user = turnManager.CurrentUnit;
+        BattleUnit target = targetSelector.SelectedTarget;
 
-        if (user == null)
+        if (target == null || !target.IsAlive)
+        {
+            Debug.Log(
+                "Selecciona un objetivo antes de usar la habilidad."
+            );
             return;
+        }
 
-        bool success = abilitySystem.ExecuteAbility(
+        success = abilitySystem.ExecuteAbility(
             user,
             target,
             ability
         );
 
-        if (!success)
-        {
-            Debug.Log(
-                "Habilidad fallida. El turno continua."
-            );
-            return;
-        }
-
-        Debug.Log(
-            user.Data.unitName +
-            " utilizo su turno para una habilidad."
-        );
-
-
-        if (target != null &&
-            !target.IsAlive &&
+        // Procesar derrotas de habilidades individuales.
+        if (success && !target.IsAlive &&
             positionManager != null)
         {
             positionManager.HandleDefeatedUnit(target);
         }
-
-
-        // TurnManager comprueba si el combate termino
-        // antes de comenzar el siguiente turno.
-        turnManager.EndTurn();
     }
+    else
+    {
+        Debug.LogWarning(
+            "Este tipo de objetivo aun no esta implementado."
+        );
+        return;
+    }
+
+    if (!success)
+    {
+        Debug.Log(
+            "Habilidad fallida. El turno continua."
+        );
+        return;
+    }
+
+    Debug.Log(
+        user.Data.unitName +
+        " utilizo su turno para una habilidad."
+    );
+
+    // Una habilidad grupal consume un solo turno.
+    turnManager.EndTurn();
+}
+
 }
