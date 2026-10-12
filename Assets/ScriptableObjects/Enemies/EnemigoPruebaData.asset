@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45629c93afa43c42be1590a6e483812, type: 3}
   m_Name: EnemigoPruebaData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  unitName: 
+  unitName: Goblin
   maxHealth: 60
   attack: 10
   defense: 3

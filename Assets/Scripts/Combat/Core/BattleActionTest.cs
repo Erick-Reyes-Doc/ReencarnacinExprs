@@ -1,20 +1,33 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BattleActionTest : MonoBehaviour
 {
-    [Header("Referencias")]
+    [Header("Administradores")]
     [SerializeField] private TurnManager turnManager;
-    [SerializeField] private BattleUnit player;
-    [SerializeField] private BattleUnit enemy;
+    [SerializeField] private PositionManager positionManager;
+
+    [Header("Equipo del jugador")]
+    [SerializeField]
+    private List<BattleUnit> playerUnits =
+        new List<BattleUnit>();
+
+    [Header("Equipo enemigo")]
+    [SerializeField]
+    private List<BattleUnit> enemyUnits =
+        new List<BattleUnit>();
 
     private void Update()
     {
         if (Keyboard.current == null)
             return;
 
-        // Presionar A para atacar.
+        if (turnManager == null)
+            return;
+
+        // A = ataque normal de la unidad activa.
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             PerformTurnAttack();
@@ -23,36 +36,33 @@ public class BattleActionTest : MonoBehaviour
 
     private void PerformTurnAttack()
     {
-        if (turnManager == null ||
-            player == null ||
-            enemy == null)
-        {
-            Debug.LogWarning("Faltan referencias.");
-            return;
-        }
-
         BattleUnit attacker = turnManager.CurrentUnit;
 
+        // Sin unidad activa no se puede atacar.
         if (attacker == null || !attacker.IsAlive)
             return;
 
-        // Elegir el objetivo contrario.
-        BattleUnit target =
+        // Seleccionar el equipo contrario.
+        List<BattleUnit> targets =
             attacker.Side == TeamSide.Player
-            ? enemy
-            : player;
+            ? enemyUnits
+            : playerUnits;
 
-        if (!target.IsAlive)
+        BattleUnit target = GetFirstAliveUnit(targets);
+
+        if (target == null)
         {
-            Debug.Log("El objetivo ya esta derrotado.");
+            // TurnManager comprobara el resultado.
+            turnManager.EndTurn();
             return;
         }
 
-    int damage = DamageCalculator.CalculateDamage(
-    attacker,
-    target,
-    out bool isCritical
-);
+        // Calcular daño.
+        int damage = DamageCalculator.CalculateDamage(
+            attacker,
+            target,
+            out bool isCritical
+        );
 
         Debug.Log(
             attacker.Data.unitName +
@@ -63,20 +73,31 @@ public class BattleActionTest : MonoBehaviour
 
         target.TakeDamage(damage);
 
-        // Detener la prueba si alguien fue derrotado.
-        if (!target.IsAlive)
-        {
-            Debug.Log(
-                attacker.Side == TeamSide.Player
-                ? "¡VICTORIA!"
-                : "DERROTA"
-            );
+        // Gestionar al objetivo derrotado.
 
-            enabled = false;
-            return;
+        if (!target.IsAlive && positionManager != null)
+        {
+            positionManager.HandleDefeatedUnit(target);
         }
 
-        // Terminar turno después de atacar.
+
+        // TurnManager decide si comienza otro turno
+        // o si el combate ha terminado.
         turnManager.EndTurn();
+    }
+
+    private BattleUnit GetFirstAliveUnit(
+        List<BattleUnit> units
+    )
+    {
+        foreach (BattleUnit unit in units)
+        {
+            if (unit != null && unit.IsAlive)
+            {
+                return unit;
+            }
+        }
+
+        return null;
     }
 }
