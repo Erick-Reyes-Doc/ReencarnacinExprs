@@ -16,6 +16,19 @@ public class StatusEffectInstance
 
     public bool IsExpired => RemainingTurns <= 0;
 
+    // Solo para Guard: aliado protegido y porcentaje de su daño
+    // directo que intercepta el portador del efecto.
+    public BattleUnit ProtectedAlly { get; private set; }
+    public int InterceptPercent { get; private set; }
+
+    public void SetProtection(BattleUnit ally, int interceptPercent)
+    {
+        ProtectedAlly = ally;
+        InterceptPercent = ally == null
+            ? 0
+            : UnityEngine.Mathf.Clamp(interceptPercent, 0, 100);
+    }
+
     public StatusEffectInstance(
         StatusEffectType type,
         int potency,

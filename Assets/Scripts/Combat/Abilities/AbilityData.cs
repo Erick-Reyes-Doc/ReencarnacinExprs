@@ -41,6 +41,14 @@ public class AbilityStatusEffect
     }
 }
 
+// Movimiento del usuario durante una habilidad.
+public enum UserMovement
+{
+    None,
+    Forward,   // hacia el frente (posicion -1)
+    Backward   // hacia la retaguardia (posicion +1)
+}
+
 // Tipos generales de habilidades.
 public enum AbilityType
 {
@@ -61,7 +69,8 @@ public enum AbilityTargetType
 {
     Single,
     AllAllies,
-    AllEnemies
+    AllEnemies,
+    Self        // siempre el propio usuario
 }
 
 [CreateAssetMenu(
@@ -86,7 +95,7 @@ public class AbilityData : ScriptableObject
     AbilityTargetType.Single;
 
     [Header("Valores de combate")]
-    [Min(0)]
+    [Tooltip("Se suma al ataque antes de restar la defensa. Puede ser negativo.")]
     public int basePower = 0;
 
     public bool canCritical = true;
@@ -124,9 +133,34 @@ public class AbilityData : ScriptableObject
     [Min(0)]
     public int regenerationDuration = 0;
 
+    [Header("Curacion")]
+    [Tooltip("Si es mayor que 0, la curacion es este % de la vida maxima del objetivo (redondeado) en lugar del Poder fijo.")]
+    [Range(0f, 100f)] public float healPercentMaxHealth = 0f;
+
+    [Header("Preparacion diferida")]
+    [Tooltip("Ataques de area que se anuncian al lanzarlos y impactan en el siguiente turno propio del usuario (PreparedAbilityController). El cooldown empieza al preparar.")]
+    public bool requiresPreparation = false;
+
     [Header("Daño directo")]
     [Tooltip("Desactivar para habilidades que solo aplican estados.")]
     public bool dealsDamage = true;
+
+    [Tooltip("Porcentaje de la defensa efectiva del objetivo que se ignora.")]
+    [Range(0f, 100f)] public float defensePenetration = 0f;
+
+    [Tooltip("Clasificacion para la evasion del objetivo.")]
+    public AttackWeight attackWeight = AttackWeight.Light;
+
+    [Tooltip("Si es true, los estados no se aplican cuando el golpe es esquivado.")]
+    public bool statusesRequireHit = true;
+
+    [Header("Movimiento del usuario")]
+    [Tooltip("Mueve al usuario una posicion tras la accion (una sola accion).")]
+    public UserMovement userMovement = UserMovement.None;
+
+    [Header("Proteccion (Guard)")]
+    [Tooltip("Si la habilidad aplica Guard a un aliado distinto del usuario, % de su daño directo que intercepta el usuario.")]
+    [Range(0, 100)] public int allyProtectionPercent = 0;
 
     [Header("Estados alterados")]
     public List<AbilityStatusEffect> statusEffects =

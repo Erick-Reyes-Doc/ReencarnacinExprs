@@ -21,6 +21,10 @@ public class RegenerationEffect : MonoBehaviour
         int duration
     )
     {
+        // Por si el componente se agrego en tiempo de ejecucion.
+        if (unit == null)
+            unit = GetComponent<BattleUnit>();
+
         if (unit == null || !unit.IsAlive)
             return;
 

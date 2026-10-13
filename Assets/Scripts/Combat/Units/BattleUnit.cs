@@ -49,8 +49,38 @@ public class BattleUnit : MonoBehaviour
         attack, StatusEffectType.Weaken
     );
 
-    public int Defense => ApplyReduction(
-        defense, StatusEffectType.Vulnerability
+    // Defensa efectiva: mejora (DefenseBoost) y luego Vulnerabilidad.
+    // La penetracion de defensa se aplica despues, en DamageCalculator.
+    public int Defense
+    {
+        get
+        {
+            int boost = GetStatusPercent(StatusEffectType.DefenseBoost);
+            int vulnerability =
+                GetStatusPercent(StatusEffectType.Vulnerability);
+
+            if (boost <= 0 && vulnerability <= 0)
+                return defense;
+
+            float value = defense;
+
+            if (boost > 0)
+                value = value * (100 + boost) / 100f;
+
+            if (vulnerability > 0)
+                value = value * (100 - vulnerability) / 100f;
+
+            return Mathf.Max(0, Mathf.RoundToInt(value));
+        }
+    }
+
+    // Maximo de reduccion de daño directo acumulable.
+    public const int MaxDamageReductionPercent = 50;
+
+    // Reduccion actual del daño directo recibido (Guard), con tope.
+    public int DamageReductionPercent => Mathf.Min(
+        MaxDamageReductionPercent,
+        GetStatusPercent(StatusEffectType.Guard)
     );
     public int Speed => speed;
 
@@ -238,6 +268,58 @@ public class BattleUnit : MonoBehaviour
             );
 
             damage = marked;
+        }
+
+        // Un aliado con Guard puede interceptar parte del daño.
+        // El protector lo recibe con su propia reduccion, sin volver
+        // a redirigirlo (evita recursividad).
+        if (damage > 0)
+        {
+            StatusEffectController protector =
+                StatusEffectController.FindProtectorOf(this);
+
+            if (protector != null)
+            {
+                StatusEffectInstance guard =
+                    protector.GetEffect(StatusEffectType.Guard);
+
+                int intercepted = Mathf.RoundToInt(
+                    damage * guard.InterceptPercent / 100f
+                );
+
+                if (intercepted > 0)
+                {
+                    BattleUnit protectorUnit =
+                        protector.GetComponent<BattleUnit>();
+
+                    Debug.Log(
+                        protectorUnit.Data.unitName + " intercepta " +
+                        intercepted + " de daño dirigido a " +
+                        unitData.unitName + "."
+                    );
+
+                    damage -= intercepted;
+                    protectorUnit.TakeReducedDamage(intercepted);
+                }
+            }
+        }
+
+        TakeReducedDamage(damage);
+    }
+
+    // Aplica la reduccion de daño directo propia (Guard, con tope)
+    // y despues el daño. No redirige ni usa Marca.
+    public void TakeReducedDamage(int damage)
+    {
+        int reduction = DamageReductionPercent;
+
+        if (reduction > 0 && damage > 0)
+        {
+            // Un impacto valido nunca baja de 1 por la reduccion.
+            damage = Mathf.Max(
+                1,
+                Mathf.RoundToInt(damage * (100 - reduction) / 100f)
+            );
         }
 
         TakeDamage(damage);

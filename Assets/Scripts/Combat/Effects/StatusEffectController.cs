@@ -119,9 +119,88 @@ public class StatusEffectController : MonoBehaviour
             return false;
 
         activeEffects.Remove(type);
+
+        if (type == StatusEffectType.Guard)
+            protectors.Remove(this);
+
         OnEffectRemoved?.Invoke(effect);
 
         return true;
+    }
+
+    // Controladores con un Guard activo, para buscar protectores
+    // de un aliado sin recorrer toda la escena.
+    private static readonly List<StatusEffectController> protectors =
+        new List<StatusEffectController>();
+
+    private void OnDestroy()
+    {
+        protectors.Remove(this);
+    }
+
+    // Aplica Guard a esta unidad: reduce su daño directo y, si se
+    // indica un aliado, intercepta parte del daño directo de este.
+    // Mismas reglas de reaplicacion: no se acumula, se conserva la
+    // mayor potencia y no se acorta la duracion.
+    public bool ApplyGuard(
+        int reductionPercent,
+        int duration,
+        BattleUnit source,
+        BattleUnit ally,
+        int interceptPercent
+    )
+    {
+        if (reductionPercent < 0 || duration <= 0)
+        {
+            Debug.LogWarning("Valores invalidos para Guard.");
+            return false;
+        }
+
+        if (ally == Unit)
+            ally = null;
+
+        if (!ApplyEffect(
+                StatusEffectType.Guard, reductionPercent, duration, source))
+            return false;
+
+        StatusEffectInstance guard = GetEffect(StatusEffectType.Guard);
+
+        // Un nuevo aliado protegido sustituye al anterior.
+        if (ally != null || guard.ProtectedAlly == null)
+            guard.SetProtection(ally, interceptPercent);
+
+        if (guard.ProtectedAlly != null && !protectors.Contains(this))
+            protectors.Add(this);
+
+        return true;
+    }
+
+    // Busca a un aliado vivo que proteja a 'ally' con un Guard activo.
+    public static StatusEffectController FindProtectorOf(BattleUnit ally)
+    {
+        for (int i = protectors.Count - 1; i >= 0; i--)
+        {
+            StatusEffectController controller = protectors[i];
+
+            if (controller == null)
+            {
+                protectors.RemoveAt(i);
+                continue;
+            }
+
+            BattleUnit holder = controller.Unit;
+            StatusEffectInstance guard =
+                controller.GetEffect(StatusEffectType.Guard);
+
+            if (holder != null && holder != ally && holder.IsAlive &&
+                holder.Side == ally.Side && guard != null &&
+                guard.ProtectedAlly == ally)
+            {
+                return controller;
+            }
+        }
+
+        return null;
     }
 
     public void ClearAllEffects()
@@ -150,6 +229,7 @@ public class StatusEffectController : MonoBehaviour
     private static bool DefersExpiry(StatusEffectType type)
     {
         return type == StatusEffectType.Mark ||
+               type == StatusEffectType.DefenseBoost ||
                type == StatusEffectType.Weaken ||
                type == StatusEffectType.Vulnerability;
     }

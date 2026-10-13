@@ -64,6 +64,23 @@ public class AbilityCooldownController : MonoBehaviour
         }
     }
 
+    // La habilidad 'to' hereda el cooldown pendiente de 'from' si es
+    // mayor que el suyo (usado al cambiar el conjunto de habilidades).
+    public void InheritCooldown(AbilityData from, AbilityData to)
+    {
+        if (from == null || to == null || from == to)
+            return;
+
+        if (!remaining.TryGetValue(from, out int turns) || turns <= 0)
+            return;
+
+        if (!remaining.TryGetValue(to, out int current) ||
+            turns > current)
+        {
+            remaining[to] = turns;
+        }
+    }
+
     public void ResetAll()
     {
         remaining.Clear();

@@ -80,6 +80,21 @@ public class BattleActionTest : MonoBehaviour
             return;
         }
 
+        // Evasion opcional del objetivo (solo si tiene el componente).
+        EvasionController evasion =
+            target.GetComponent<EvasionController>();
+
+        if (evasion != null && evasion.TryEvade(AttackWeight.Light))
+        {
+            Debug.Log(
+                target.Data.unitName + " esquiva el ataque de " +
+                attacker.Data.unitName + "."
+            );
+
+            turnManager.EndTurn();
+            return;
+        }
+
         // Calcular daño.
         int damage = DamageCalculator.CalculateDamage(
             attacker,

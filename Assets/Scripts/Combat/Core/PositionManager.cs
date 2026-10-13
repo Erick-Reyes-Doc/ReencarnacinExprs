@@ -267,6 +267,28 @@ public void HandleDefeatedUnit(BattleUnit unit)
     }
 
     
+    // Comprueba, sin modificar nada, si MoveUnit() tendria exito.
+    public bool CanMoveUnit(BattleUnit unit, int direction)
+    {
+        if (unit == null || !unit.IsAlive)
+            return false;
+
+        if (direction != -1 && direction != 1)
+            return false;
+
+        List<BattleUnit> team =
+            unit.Side == TeamSide.Player
+            ? playerUnits
+            : enemyUnits;
+
+        if (!team.Contains(unit))
+            return false;
+
+        int targetPosition = unit.Position + direction;
+
+        return targetPosition >= 1 && targetPosition <= 4;
+    }
+
     // Mueve una unidad una posicion adelante o atras.
     // direction: -1 = avanzar, +1 = retroceder.
     public bool MoveUnit(BattleUnit unit, int direction)

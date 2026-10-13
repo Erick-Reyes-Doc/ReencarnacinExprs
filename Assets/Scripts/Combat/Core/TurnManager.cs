@@ -21,6 +21,8 @@ public class TurnManager : MonoBehaviour
 
     public BattleUnit CurrentUnit { get; private set; }
 
+    public bool BattleFinished => battleFinished;
+
     private void Start()
     {
         StartBattle();
@@ -66,6 +68,12 @@ public class TurnManager : MonoBehaviour
 
             if (cooldowns != null)
                 cooldowns.ResetAll();
+
+            PreparedAbilityController prepared =
+                unit.GetComponent<PreparedAbilityController>();
+
+            if (prepared != null)
+                prepared.Clear();
         }
     }
 
@@ -174,11 +182,39 @@ public class TurnManager : MonoBehaviour
                     regeneration.ProcessTurnStart();
                 }
 
+                bool stunned = statusEffects != null &&
+                    statusEffects.SkipsCurrentAction;
+
+                // Habilidad preparada (ej. Meteorito): si esta aturdida
+                // se cancela; si no, el impacto es la accion de este
+                // turno y se pasa al siguiente turno valido.
+                PreparedAbilityController prepared =
+                    CurrentUnit.GetComponent<PreparedAbilityController>();
+
+                if (prepared != null && prepared.HasPreparation)
+                {
+                    if (stunned)
+                    {
+                        prepared.Cancel("la unidad esta aturdida");
+                    }
+                    else
+                    {
+                        prepared.Resolve();
+
+                        // La victoria pudo ocurrir durante el impacto.
+                        if (battleFinished)
+                            return;
+
+                        currentTurnIndex++;
+                        StartNextTurn();
+                        return;
+                    }
+                }
+
                 // Aturdida: pierde la accion y pasa al siguiente
                 // turno valido. Se comprueba al final para que el
                 // daño periodico y la regeneracion ya se hayan aplicado.
-                if (statusEffects != null &&
-                    statusEffects.SkipsCurrentAction)
+                if (stunned)
                 {
                     Debug.Log(
                         CurrentUnit.Data.unitName +
@@ -271,6 +307,19 @@ public class TurnManager : MonoBehaviour
 
         battleFinished = true;
         CurrentUnit = null;
+
+        // Las habilidades en preparacion no sobreviven al combate.
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null)
+                continue;
+
+            PreparedAbilityController prepared =
+                unit.GetComponent<PreparedAbilityController>();
+
+            if (prepared != null)
+                prepared.Cancel("el combate termino");
+        }
 
         if (!enemiesAlive && playersAlive)
         {
