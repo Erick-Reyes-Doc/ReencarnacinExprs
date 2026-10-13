@@ -94,15 +94,9 @@ public class BattleActionTest : MonoBehaviour
             (isCritical ? " ¡CRITICO!" : "")
         );
 
-        target.TakeDamage(damage);
+        target.TakeDirectDamage(damage);
 
-        // Gestionar al objetivo derrotado.
-
-        if (!target.IsAlive && positionManager != null)
-        {
-            positionManager.HandleDefeatedUnit(target);
-        }
-
+        // La derrota se gestiona automaticamente con BattleUnit.OnDefeated.
 
         // TurnManager decide si comienza otro turno
         // o si el combate ha terminado.

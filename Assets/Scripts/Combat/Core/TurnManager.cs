@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour
     private int currentRound;
 
     private bool battleFinished;
+    private bool experienceAwarded;
 
     public BattleUnit CurrentUnit { get; private set; }
 
@@ -30,9 +31,52 @@ public class TurnManager : MonoBehaviour
         currentRound = 0;
         currentTurnIndex = 0;
         battleFinished = false;
+        experienceAwarded = false;
         CurrentUnit = null;
 
+        SubscribeToUnits();
+
         StartNewRound();
+    }
+
+    private void OnDestroy()
+    {
+        foreach (BattleUnit unit in units)
+        {
+            if (unit != null)
+                unit.OnDefeated -= HandleUnitDefeated;
+        }
+    }
+
+    // Quitar antes de agregar evita suscripciones duplicadas
+    // si el encuentro se reinicia.
+    private void SubscribeToUnits()
+    {
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null)
+                continue;
+
+            unit.OnDefeated -= HandleUnitDefeated;
+            unit.OnDefeated += HandleUnitDefeated;
+
+            // Un encuentro nuevo empieza sin cooldowns.
+            AbilityCooldownController cooldowns =
+                unit.GetComponent<AbilityCooldownController>();
+
+            if (cooldowns != null)
+                cooldowns.ResetAll();
+        }
+    }
+
+    // Tras cualquier derrota se comprueba el fin del combate.
+    // No avanza el turno: eso sigue haciendolo EndTurn().
+    private void HandleUnitDefeated(BattleUnit unit)
+    {
+        if (battleFinished)
+            return;
+
+        CheckBattleEnd();
     }
 
     private void StartNewRound()
@@ -90,6 +134,36 @@ public class TurnManager : MonoBehaviour
                     CurrentUnit.Data.unitName
                 );
 
+                // Los cooldowns avanzan en cada turno propio, incluso
+                // si la unidad pierde la accion por Stun.
+                AbilityCooldownController cooldowns =
+                    CurrentUnit.GetComponent<AbilityCooldownController>();
+
+                if (cooldowns != null)
+                    cooldowns.TickTurnStart();
+
+                // Daño periodico al comenzar el turno propio.
+                StatusEffectController statusEffects =
+                    CurrentUnit.GetComponent<StatusEffectController>();
+
+                if (statusEffects != null)
+                {
+                    statusEffects.ProcessTurnStart();
+
+                    // La muerte ya notifico a OnDefeated; si el
+                    // combate termino no hay nada mas que hacer.
+                    if (battleFinished)
+                        return;
+
+                    // Murio por daño periodico: pasar al siguiente.
+                    if (!unit.IsAlive)
+                    {
+                        currentTurnIndex++;
+                        StartNextTurn();
+                        return;
+                    }
+                }
+
                 // Procesar efectos de regeneracion
                 // al comenzar el turno del personaje.
                 RegenerationEffect regeneration =
@@ -98,6 +172,21 @@ public class TurnManager : MonoBehaviour
                 if (regeneration != null && regeneration.IsActive)
                 {
                     regeneration.ProcessTurnStart();
+                }
+
+                // Aturdida: pierde la accion y pasa al siguiente
+                // turno valido. Se comprueba al final para que el
+                // daño periodico y la regeneracion ya se hayan aplicado.
+                if (statusEffects != null &&
+                    statusEffects.SkipsCurrentAction)
+                {
+                    Debug.Log(
+                        CurrentUnit.Data.unitName +
+                        " esta aturdido y pierde su accion."
+                    );
+
+                    currentTurnIndex++;
+                    StartNextTurn();
                 }
 
                 return;
@@ -119,6 +208,48 @@ public class TurnManager : MonoBehaviour
 
         currentTurnIndex++;
         StartNextTurn();
+    }
+
+    // Suma la XP de los enemigos originales del encuentro
+    // y la entrega completa a cada protagonista con progresion,
+    // aunque haya caido. Solo se entrega una vez por combate.
+    private void AwardVictoryExperience()
+    {
+        if (experienceAwarded)
+            return;
+
+        experienceAwarded = true;
+
+        int totalExperience = 0;
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null || unit.Side != TeamSide.Enemy)
+                continue;
+
+            EnemyExperienceReward reward =
+                unit.GetComponent<EnemyExperienceReward>();
+
+            if (reward != null)
+                totalExperience += reward.ExperienceReward;
+        }
+
+        if (totalExperience <= 0)
+            return;
+
+        Debug.Log("Experiencia de victoria: " + totalExperience);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null || unit.Side != TeamSide.Player)
+                continue;
+
+            CharacterProgression progression =
+                unit.GetComponent<CharacterProgression>();
+
+            if (progression != null)
+                progression.GainExperience(totalExperience);
+        }
     }
 
     private bool CheckBattleEnd()
@@ -144,6 +275,7 @@ public class TurnManager : MonoBehaviour
         if (!enemiesAlive && playersAlive)
         {
             Debug.Log("¡VICTORIA!");
+            AwardVictoryExperience();
         }
         else if (!playersAlive && enemiesAlive)
         {

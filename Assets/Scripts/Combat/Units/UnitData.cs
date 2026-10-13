@@ -16,6 +16,10 @@ public class UnitData : ScriptableObject
     [Min(0)] public int defense = 5;
     [Min(1)] public int speed = 10;
 
+    [Header("Tipo de unidad")]
+    [Tooltip("Los jefes son inmunes al aturdimiento.")]
+    public bool isBoss = false;
+
     [Header("Criticos")]
     [Range(0, 100)]
     public float criticalChance = 10f;

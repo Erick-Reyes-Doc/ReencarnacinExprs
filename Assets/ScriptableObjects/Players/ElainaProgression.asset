@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ElainaProgression
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProgressionData
   healthPerLevel: 5
-  attackPerLevel: 1
+  attackPerLevel: 2
   defensePerLevel: 1
   speedIncrease: 1
-  speedEveryLevels: 4
+  speedEveryLevels: 3
   baseExperience: 100
   experienceIncrease: 50

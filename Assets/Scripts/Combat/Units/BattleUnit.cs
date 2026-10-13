@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 // Identifica a que equipo pertenece una unidad.
@@ -41,14 +42,25 @@ public class BattleUnit : MonoBehaviour
 
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
-    public int Attack => attack;
-    public int Defense => defense;
+    // Ataque y defensa efectivos: base + nivel, ajustados por
+    // Debilitamiento y Vulnerabilidad. No modifican UnitData ni
+    // los valores calculados por nivel.
+    public int Attack => ApplyReduction(
+        attack, StatusEffectType.Weaken
+    );
+
+    public int Defense => ApplyReduction(
+        defense, StatusEffectType.Vulnerability
+    );
     public int Speed => speed;
 
     public float CriticalChance => criticalChance;
     public float CriticalDamage => criticalDamage;
 
     public bool IsAlive => currentHealth > 0;
+
+    // Se dispara una vez cuando la vida pasa de positiva a 0.
+    public event Action<BattleUnit> OnDefeated;
 
     private void Awake()
     {
@@ -160,6 +172,77 @@ public class BattleUnit : MonoBehaviour
         );
     }
 
+    // Controlador de estados (opcional), buscado una sola vez.
+    private StatusEffectController statusEffects;
+    private bool statusEffectsSearched;
+
+    private StatusEffectController StatusEffects
+    {
+        get
+        {
+            if (!statusEffectsSearched)
+            {
+                statusEffects = GetComponent<StatusEffectController>();
+                statusEffectsSearched = true;
+            }
+
+            return statusEffects;
+        }
+    }
+
+    // Potencia porcentual del estado (20 = 20%), 0 si no esta activo.
+    private int GetStatusPercent(StatusEffectType type)
+    {
+        StatusEffectController controller = StatusEffects;
+
+        if (controller == null)
+            return 0;
+
+        StatusEffectInstance effect = controller.GetEffect(type);
+
+        return effect == null
+            ? 0
+            : Mathf.Clamp(effect.Potency, 0, 100);
+    }
+
+    // Reduce un valor segun el porcentaje del estado. Nunca baja de 0.
+    private int ApplyReduction(int value, StatusEffectType type)
+    {
+        int percent = GetStatusPercent(type);
+
+        if (percent <= 0)
+            return value;
+
+        return Mathf.Max(
+            0,
+            Mathf.RoundToInt(value * (100 - percent) / 100f)
+        );
+    }
+
+    // Daño directo (ataques y habilidades). Aplica el bono de Marca
+    // sobre el daño ya calculado con defensa y criticos.
+    // El daño periodico y las curaciones no pasan por aqui.
+    public void TakeDirectDamage(int damage)
+    {
+        int markPercent = GetStatusPercent(StatusEffectType.Mark);
+
+        if (markPercent > 0 && damage > 0)
+        {
+            int marked = Mathf.RoundToInt(
+                damage * (100 + markPercent) / 100f
+            );
+
+            Debug.Log(
+                unitData.unitName + " esta marcado: daño " +
+                damage + " -> " + marked
+            );
+
+            damage = marked;
+        }
+
+        TakeDamage(damage);
+    }
+
     // Permite que la unidad reciba daño.
     public void TakeDamage(int damage)
     {
@@ -184,6 +267,10 @@ public class BattleUnit : MonoBehaviour
             Debug.Log(
                 unitData.unitName + " ha sido derrotado."
             );
+
+            // Solo se llega aqui al pasar de vida positiva a 0,
+            // porque TakeDamage ignora a las unidades derrotadas.
+            OnDefeated?.Invoke(this);
         }
     }
 

@@ -64,6 +64,6 @@ public class BattleTest : MonoBehaviour
             (isCritical ? " ¡CRITICO!" : "")
         );
 
-        target.TakeDamage(damage);
+        target.TakeDirectDamage(damage);
     }
 }

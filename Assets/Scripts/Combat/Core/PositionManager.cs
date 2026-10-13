@@ -20,8 +20,36 @@ public class PositionManager : MonoBehaviour
     [SerializeField] private Transform[] enemyPositions =
         new Transform[4];
 
+    private void OnDestroy()
+    {
+        SubscribeToTeam(playerUnits, false);
+        SubscribeToTeam(enemyUnits, false);
+    }
+
+    // Suscribe (o cancela) la gestion de derrotas.
+    // Quitar antes de agregar evita suscripciones duplicadas.
+    private void SubscribeToTeam(
+        List<BattleUnit> team,
+        bool subscribe
+    )
+    {
+        foreach (BattleUnit unit in team)
+        {
+            if (unit == null)
+                continue;
+
+            unit.OnDefeated -= HandleDefeatedUnit;
+
+            if (subscribe)
+                unit.OnDefeated += HandleDefeatedUnit;
+        }
+    }
+
     private void Start()
     {
+        SubscribeToTeam(playerUnits, true);
+        SubscribeToTeam(enemyUnits, true);
+
         // Validar las posiciones iniciales.
         ValidateTeam(playerUnits, TeamSide.Player);
         ValidateTeam(enemyUnits, TeamSide.Enemy);

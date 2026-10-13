@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
   m_Name: RegeneracionGrupalPrueba
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: "Regeneraci\xF3n grupal de prueba"
   description: 
   abilityIcon: {fileID: 0}
-  abilityType: 0
-  targetType: 0
+  abilityType: 2
+  targetType: 1
   basePower: 0
-  canCritical: 1
+  canCritical: 0
   usablePositions: 01010101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 0
-  regenerationPerTurn: 0
-  regenerationDuration: 0
+  regenerationPerTurn: 2
+  regenerationDuration: 3

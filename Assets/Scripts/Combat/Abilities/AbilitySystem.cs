@@ -42,6 +42,17 @@ public class AbilitySystem : MonoBehaviour
             return false;
         }
 
+        // Comprobar que la habilidad no este en cooldown.
+        if (!GetCooldowns(user).IsReady(ability))
+        {
+            Debug.Log(
+                ability.abilityName + " esta en cooldown (" +
+                GetCooldowns(user).GetRemainingTurns(ability) +
+                " turnos propios)."
+            );
+            return false;
+        }
+
         // Validar posicion del usuario.
         if (!ability.CanUseFromPosition(user.Position))
         {
@@ -94,6 +105,98 @@ public class AbilitySystem : MonoBehaviour
         return true;
     }
 
+    // Intenta aplicar cada estado de la habilidad. La probabilidad
+    // se comprueba por separado y ApplyEffect() decide las reglas
+    // propias de cada estado (inmunidad de jefes, Marca, etc.).
+    // Devuelve cuantos estados se aplicaron o fallaron por probabilidad
+    // (intentos validos). Los rechazados por ApplyEffect() no cuentan.
+    private int ApplyStatusEffects(
+        BattleUnit user,
+        BattleUnit target,
+        AbilityData ability
+    )
+    {
+        if (ability.statusEffects == null ||
+            ability.statusEffects.Count == 0)
+            return 0;
+
+        StatusEffectController controller =
+            target.GetComponent<StatusEffectController>();
+
+        if (controller == null)
+        {
+            Debug.LogWarning(
+                target.Data.unitName +
+                " no tiene StatusEffectController."
+            );
+            return 0;
+        }
+
+        int validAttempts = 0;
+
+        CharacterProgression progression =
+            user.GetComponent<CharacterProgression>();
+
+        int userLevel = progression != null ? progression.Level : 1;
+
+        foreach (AbilityStatusEffect effect in ability.statusEffects)
+        {
+            if (effect == null)
+                continue;
+
+            // La regeneracion usa RegenerationEffect, no este sistema.
+            if (effect.type == StatusEffectType.Regeneration)
+            {
+                Debug.LogWarning(
+                    "Regeneration se configura con los campos de " +
+                    "regeneracion de la habilidad; se ignora aqui."
+                );
+                continue;
+            }
+
+            if (effect.chance < 100f &&
+                Random.Range(0f, 100f) >= effect.chance)
+            {
+                Debug.Log(
+                    effect.type + " no se aplico (probabilidad)."
+                );
+                validAttempts++;
+                continue;
+            }
+
+            int potency = effect.GetPotency(userLevel);
+            int duration = effect.GetDuration(userLevel);
+
+            if (controller.ApplyEffect(
+                    effect.type, potency, duration, user))
+            {
+                validAttempts++;
+
+                Debug.Log(
+                    target.Data.unitName + " recibe " + effect.type +
+                    " (potencia " + potency + ", " +
+                    duration + " turnos)."
+                );
+            }
+        }
+
+        return validAttempts;
+    }
+
+    // Cooldowns de la unidad. Se crea el componente si falta, para
+    // que ninguna ruta de ejecucion pueda saltarse el cooldown.
+    private AbilityCooldownController GetCooldowns(BattleUnit unit)
+    {
+        AbilityCooldownController cooldowns =
+            unit.GetComponent<AbilityCooldownController>();
+
+        if (cooldowns == null)
+            cooldowns = unit.gameObject
+                .AddComponent<AbilityCooldownController>();
+
+        return cooldowns;
+    }
+
     // Ejecuta una habilidad previamente validada.
     public bool ExecuteAbility(
         BattleUnit user,
@@ -113,8 +216,12 @@ public class AbilitySystem : MonoBehaviour
             " sobre " +
             target.Data.unitName
         );
+        // true si la habilidad hizo daño, curo o aplico regeneracion.
+        bool otherEffect = false;
+
         // Aplicar el efecto principal de la habilidad.
-        if (ability.abilityType == AbilityType.Attack)
+        if (ability.abilityType == AbilityType.Attack &&
+            ability.dealsDamage)
         {
             int damage = DamageCalculator.CalculateDamage(
                 user,
@@ -144,7 +251,8 @@ public class AbilitySystem : MonoBehaviour
                 (isCritical ? " ¡CRITICO!" : "")
             );
 
-            target.TakeDamage(damage);
+            target.TakeDirectDamage(damage);
+            otherEffect = true;
         }
 
 
@@ -182,53 +290,80 @@ public class AbilitySystem : MonoBehaviour
             );
 
             target.Heal(healAmount);
+            otherEffect = true;
         }
 
 
         else if (ability.abilityType == AbilityType.Support)
         {
-            if (ability.regenerationPerTurn <= 0 ||
-                ability.regenerationDuration <= 0)
+            bool hasRegeneration =
+                ability.regenerationPerTurn > 0 &&
+                ability.regenerationDuration > 0;
+
+            bool hasStatusEffects =
+                ability.statusEffects != null &&
+                ability.statusEffects.Count > 0;
+
+            if (!hasRegeneration && !hasStatusEffects)
             {
                 Debug.LogWarning(
-                    "La habilidad no tiene regeneracion configurada."
+                    "La habilidad no tiene regeneracion ni estados configurados."
                 );
                 return false;
             }
 
-            RegenerationEffect regeneration =
-                target.GetComponent<RegenerationEffect>();
-
-            if (regeneration == null)
+            if (hasRegeneration)
             {
-                Debug.LogWarning(
-                    target.Data.unitName +
-                    " no tiene el componente RegenerationEffect."
+                RegenerationEffect regeneration =
+                    target.GetComponent<RegenerationEffect>();
+
+                if (regeneration == null)
+                {
+                    Debug.LogWarning(
+                        target.Data.unitName +
+                        " no tiene el componente RegenerationEffect."
+                    );
+                    return false;
+                }
+
+                regeneration.ApplyRegeneration(
+                    ability.regenerationPerTurn,
+                    ability.regenerationDuration
                 );
-                return false;
+
+                Debug.Log(
+                    user.Data.unitName +
+                    " aplica regeneracion a " +
+                    target.Data.unitName
+                );
+
+                otherEffect = true;
             }
-
-            regeneration.ApplyRegeneration(
-                ability.regenerationPerTurn,
-                ability.regenerationDuration
-            );
-
-            Debug.Log(
-                user.Data.unitName +
-                " aplica regeneracion a " +
-                target.Data.unitName
-            );
         }
 
+        // Despues del efecto principal, intentar los estados
+        // alterados si el objetivo sigue vivo.
+        int statusAttempts = 0;
 
-        // Pendiente:
-        // Aplicar daño, curacion o apoyo.
-        // Aplicar desplazamientos.
-        // Aplicar cooldowns.
-        // Integrar estados alterados.
+        if (target.IsAlive)
+        {
+            statusAttempts = ApplyStatusEffects(user, target, ability);
+        }
 
-        // La habilidad aun no consume turno,
-        // porque todavia no ejecuta sus efectos.
+        // Una habilidad sin otro efecto cuyos estados fueron todos
+        // rechazados no cuenta como accion: no inicia cooldown.
+        if (!otherEffect && statusAttempts == 0)
+        {
+            Debug.Log(
+                ability.abilityName + " no tuvo ningun efecto."
+            );
+            return false;
+        }
+
+        // Accion exitosa: iniciar el cooldown de esta unidad.
+        GetCooldowns(user).StartCooldown(ability);
+
+        // Pendiente: desplazamientos.
         return true;
     }
 
@@ -264,6 +399,19 @@ public class AbilitySystem : MonoBehaviour
         {
             Debug.LogWarning(
                 "La habilidad no es de regeneracion grupal."
+            );
+            return false;
+        }
+
+        // Comprobar que la habilidad no este en cooldown.
+        AbilityCooldownController cooldowns = GetCooldowns(user);
+
+        if (!cooldowns.IsReady(ability))
+        {
+            Debug.Log(
+                ability.abilityName + " esta en cooldown (" +
+                cooldowns.GetRemainingTurns(ability) +
+                " turnos propios)."
             );
             return false;
         }
@@ -351,6 +499,9 @@ public class AbilitySystem : MonoBehaviour
             affectedUnits +
             " aliados."
         );
+
+        // Accion exitosa: iniciar el cooldown de esta unidad.
+        cooldowns.StartCooldown(ability);
 
         return true;
     }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79fb6ad2a90ac14a89011122c09173c, type: 3}
   m_Name: EvanoraProgression
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProgressionData
-  healthPerLevel: 5
-  attackPerLevel: 1
+  healthPerLevel: 4
+  attackPerLevel: 3
   defensePerLevel: 1
   speedIncrease: 1
   speedEveryLevels: 4

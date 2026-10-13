@@ -1,5 +1,45 @@
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+// Estado alterado que una habilidad intenta aplicar al impactar.
+// La Regeneracion se sigue configurando con los campos de
+// regeneracion de AbilityData (RegenerationEffect).
+[Serializable]
+public class AbilityStatusEffect
+{
+    public StatusEffectType type = StatusEffectType.Bleeding;
+
+    [Tooltip("Valor base. Para Marca, Debilitamiento y Vulnerabilidad es un porcentaje (20 = 20%).")]
+    [Min(0)] public int potency = 1;
+
+    [Min(1)] public int duration = 1;
+
+    [Range(0f, 100f)] public float chance = 100f;
+
+    [Header("Escalado por nivel del usuario (nivel 1 = sin bono)")]
+    public float potencyPerLevel = 0f;
+    public float durationPerLevel = 0f;
+
+    public int GetPotency(int userLevel)
+    {
+        int bonus = Mathf.RoundToInt(
+            potencyPerLevel * Mathf.Max(0, userLevel - 1)
+        );
+
+        return Mathf.Max(0, potency + bonus);
+    }
+
+    public int GetDuration(int userLevel)
+    {
+        int bonus = Mathf.RoundToInt(
+            durationPerLevel * Mathf.Max(0, userLevel - 1)
+        );
+
+        return Mathf.Max(1, duration + bonus);
+    }
+}
 
 // Tipos generales de habilidades.
 public enum AbilityType
@@ -83,6 +123,14 @@ public class AbilityData : ScriptableObject
 
     [Min(0)]
     public int regenerationDuration = 0;
+
+    [Header("Daño directo")]
+    [Tooltip("Desactivar para habilidades que solo aplican estados.")]
+    public bool dealsDamage = true;
+
+    [Header("Estados alterados")]
+    public List<AbilityStatusEffect> statusEffects =
+        new List<AbilityStatusEffect>();
 
 
     // Comprueba desde que posicion se puede usar.

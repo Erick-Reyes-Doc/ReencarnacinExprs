@@ -85,12 +85,7 @@ private void TestAbility()
             ability
         );
 
-        // Procesar derrotas de habilidades individuales.
-        if (success && !target.IsAlive &&
-            positionManager != null)
-        {
-            positionManager.HandleDefeatedUnit(target);
-        }
+        // La derrota se gestiona automaticamente con BattleUnit.OnDefeated.
     }
     else
     {
