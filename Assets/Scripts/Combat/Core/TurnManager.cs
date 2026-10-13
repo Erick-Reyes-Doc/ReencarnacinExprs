@@ -1,4 +1,5 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,9 +20,74 @@ public class TurnManager : MonoBehaviour
     private bool battleFinished;
     private bool experienceAwarded;
 
+    [Header("Recompensa del encuentro")]
+    [Tooltip("0 = suma de EnemyExperienceReward de los enemigos. Mayor que 0 = XP fija del encuentro (p. ej. Pradera 50, Bosque 100, Corrupcion 150, Jefe 200), entregada una sola vez.")]
+    [SerializeField, Min(0)]
+    private int encounterExperienceOverride = 0;
+
+    // Identifica la accion enemiga pendiente: invalida ejecuciones
+    // repetidas o de turnos anteriores.
+    private int enemyActionToken;
+
     public BattleUnit CurrentUnit { get; private set; }
 
     public bool BattleFinished => battleFinished;
+
+    public int CurrentRound => currentRound;
+
+    // true mientras hay un combate en curso (iniciado y sin terminar).
+    public bool BattleActive => currentRound > 0 && !battleFinished;
+
+    // ------------------------------------------------------------
+    // Registro de unidades (carga de encuentros)
+    // ------------------------------------------------------------
+
+    // Anade una unidad al combate. Solo se permite fuera de un combate
+    // activo; StartBattle() la suscribe a los eventos de derrota.
+    public bool RegisterUnit(BattleUnit unit)
+    {
+        if (unit == null || BattleActive || units.Contains(unit))
+            return false;
+
+        units.Add(unit);
+        return true;
+    }
+
+    // Quita todas las unidades de un equipo y las devuelve.
+    // Solo se permite fuera de un combate activo.
+    public List<BattleUnit> RemoveUnitsOfSide(TeamSide side)
+    {
+        List<BattleUnit> removed = new List<BattleUnit>();
+
+        if (BattleActive)
+            return removed;
+
+        foreach (BattleUnit unit in units.ToArray())
+        {
+            if (unit == null || unit.Side != side)
+                continue;
+
+            unit.OnDefeated -= HandleUnitDefeated;
+            units.Remove(unit);
+            removed.Add(unit);
+        }
+
+        units.RemoveAll(unit => unit == null);
+
+        return removed;
+    }
+
+    public bool HasAliveUnit(TeamSide side)
+    {
+        return units.Any(unit =>
+            unit != null && unit.Side == side && unit.IsAlive);
+    }
+
+    // XP fija del encuentro (0 = suma de las recompensas de los enemigos).
+    public void SetEncounterExperience(int experience)
+    {
+        encounterExperienceOverride = Mathf.Max(0, experience);
+    }
 
     private void Start()
     {
@@ -35,6 +101,10 @@ public class TurnManager : MonoBehaviour
         battleFinished = false;
         experienceAwarded = false;
         CurrentUnit = null;
+
+        // Descarta cualquier accion enemiga pendiente del encuentro anterior.
+        enemyActionToken++;
+        StopAllCoroutines();
 
         SubscribeToUnits();
 
@@ -223,6 +293,18 @@ public class TurnManager : MonoBehaviour
 
                     currentTurnIndex++;
                     StartNextTurn();
+                    return;
+                }
+
+                // Enemigo con IA: ya se procesaron estados, regeneracion y
+                // Stun, asi que decide y actua (una vez) en este turno.
+                EnemyAIController ai =
+                    CurrentUnit.GetComponent<EnemyAIController>();
+
+                if (ai != null && ai.isActiveAndEnabled &&
+                    unit.Side == TeamSide.Enemy)
+                {
+                    BeginEnemyAction(unit, ai);
                 }
 
                 return;
@@ -235,6 +317,49 @@ public class TurnManager : MonoBehaviour
 
         // Si terminaron los turnos, iniciar otra ronda.
         StartNewRound();
+    }
+
+    // Programa la accion de un enemigo con IA. Con retardo (solo en
+    // ejecucion) se usa una corrutina; sin retardo se ejecuta al momento.
+    private void BeginEnemyAction(BattleUnit unit, EnemyAIController ai)
+    {
+        int token = ++enemyActionToken;
+
+        if (ai.ActionDelay > 0f && Application.isPlaying)
+            StartCoroutine(EnemyActionRoutine(unit, ai, token));
+        else
+            ExecuteEnemyAction(unit, ai, token);
+    }
+
+    private IEnumerator EnemyActionRoutine(
+        BattleUnit unit,
+        EnemyAIController ai,
+        int token
+    )
+    {
+        yield return new WaitForSeconds(ai.ActionDelay);
+
+        ExecuteEnemyAction(unit, ai, token);
+    }
+
+    // Una accion como maximo y un unico EndTurn por turno enemigo.
+    private void ExecuteEnemyAction(
+        BattleUnit unit,
+        EnemyAIController ai,
+        int token
+    )
+    {
+        if (token != enemyActionToken || battleFinished ||
+            CurrentUnit != unit || unit == null || !unit.IsAlive)
+            return;
+
+        // Invalida cualquier otra ejecucion de este mismo turno.
+        enemyActionToken++;
+
+        ai.PerformTurn();
+
+        // No hace nada si la accion termino el combate.
+        EndTurn();
     }
 
     public void EndTurn()
@@ -258,16 +383,24 @@ public class TurnManager : MonoBehaviour
 
         int totalExperience = 0;
 
-        foreach (BattleUnit unit in units)
+        if (encounterExperienceOverride > 0)
         {
-            if (unit == null || unit.Side != TeamSide.Enemy)
-                continue;
+            // XP fija del encuentro, independiente del numero de enemigos.
+            totalExperience = encounterExperienceOverride;
+        }
+        else
+        {
+            foreach (BattleUnit unit in units)
+            {
+                if (unit == null || unit.Side != TeamSide.Enemy)
+                    continue;
 
-            EnemyExperienceReward reward =
-                unit.GetComponent<EnemyExperienceReward>();
+                EnemyExperienceReward reward =
+                    unit.GetComponent<EnemyExperienceReward>();
 
-            if (reward != null)
-                totalExperience += reward.ExperienceReward;
+                if (reward != null)
+                    totalExperience += reward.ExperienceReward;
+            }
         }
 
         if (totalExperience <= 0)

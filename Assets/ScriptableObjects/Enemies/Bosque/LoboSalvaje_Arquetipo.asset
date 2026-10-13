@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b2e47a05a8d284a922ccff33cfdbc2, type: 3}
+  m_Name: LoboSalvaje_Arquetipo
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyArchetypeData
+  archetypeName: Lobo Salvaje
+  zone: 1
+  unitData: {fileID: 11400000, guid: d3b23a9c1b00364499116a49f520829c, type: 2}
+  basicAttack: {fileID: 11400000, guid: 8aa6dd8685a39d2479167f2ca5166414, type: 2}
+  specialAbilities:
+  - {fileID: 11400000, guid: b557d0def2a701140a7d4ba4e9312670, type: 2}
+  aiStyle: 1
+  actionDelay: 0.6

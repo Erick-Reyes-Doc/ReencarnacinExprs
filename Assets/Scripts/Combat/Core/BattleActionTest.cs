@@ -44,6 +44,17 @@ public class BattleActionTest : MonoBehaviour
         if (attacker == null || !attacker.IsAlive)
             return;
 
+        // Los enemigos con IA actuan solos: A no debe duplicar su accion.
+        EnemyAIController ai = attacker.GetComponent<EnemyAIController>();
+
+        if (ai != null && ai.isActiveAndEnabled)
+        {
+            Debug.Log(
+                attacker.Data.unitName + " actua automaticamente."
+            );
+            return;
+        }
+
         BattleUnit target;
 
         // Los jugadores eligen manualmente su objetivo.

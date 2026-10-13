@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b2e47a05a8d284a922ccff33cfdbc2, type: 3}
+  m_Name: GoblinArquero_Arquetipo
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyArchetypeData
+  archetypeName: Goblin Arquero
+  zone: 0
+  unitData: {fileID: 11400000, guid: bd1f429350dee494d8071af56c62342d, type: 2}
+  basicAttack: {fileID: 11400000, guid: e09fbbc7ecb561645bc570781c175839, type: 2}
+  specialAbilities:
+  - {fileID: 11400000, guid: 324501be55acbeb43a66d87086820fb9, type: 2}
+  aiStyle: 0
+  actionDelay: 0.6

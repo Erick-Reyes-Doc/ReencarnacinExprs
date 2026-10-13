@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845ced885d8acae4082ba82d78cf5460, type: 3}
+  m_Name: B3
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterData
+  encounterId: B3
+  displayName: "Bosque 3: Guardi\xE1n, bandido y cham\xE1n"
+  zone: 1
+  mandatory: 1
+  enemies:
+  - prefab: {fileID: 126109078345942815, guid: 1982028764779e54e8017e8edd304c7a, type: 3}
+    position: 1
+  - prefab: {fileID: 8290328465484678521, guid: d7ab0af0c8a92a549adba3cc425858e6, type: 3}
+    position: 2
+  - prefab: {fileID: 42092059375376226, guid: 71e3503e088baa84d8abb3927f5ab4ef, type: 3}
+    position: 3
+  experienceReward: 100

@@ -267,6 +267,49 @@ public void HandleDefeatedUnit(BattleUnit unit)
     }
 
     
+    // Anade una unidad a su formacion (carga de encuentros). Se rechaza si
+    // ya esta registrada, si su posicion es invalida o si esta ocupada.
+    public bool RegisterUnit(BattleUnit unit)
+    {
+        if (unit == null || unit.Position < 1 || unit.Position > 4)
+            return false;
+
+        List<BattleUnit> team =
+            unit.Side == TeamSide.Player
+            ? playerUnits
+            : enemyUnits;
+
+        if (team.Contains(unit) ||
+            GetUnitAtPosition(unit.Side, unit.Position) != null)
+            return false;
+
+        team.Add(unit);
+
+        unit.OnDefeated -= HandleDefeatedUnit;
+        unit.OnDefeated += HandleDefeatedUnit;
+
+        UpdateVisualPositions();
+
+        return true;
+    }
+
+    // Vacia la formacion de un equipo (carga de encuentros).
+    public void ClearTeam(TeamSide side)
+    {
+        List<BattleUnit> team =
+            side == TeamSide.Player
+            ? playerUnits
+            : enemyUnits;
+
+        foreach (BattleUnit unit in team)
+        {
+            if (unit != null)
+                unit.OnDefeated -= HandleDefeatedUnit;
+        }
+
+        team.Clear();
+    }
+
     // Comprueba, sin modificar nada, si MoveUnit() tendria exito.
     public bool CanMoveUnit(BattleUnit unit, int direction)
     {
