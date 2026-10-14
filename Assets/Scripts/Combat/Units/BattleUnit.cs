@@ -182,6 +182,12 @@ public class BattleUnit : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    // Restaura la vida guardada (sesion). Minimo 1: no revive a nadie.
+    public void RestoreHealth(int health)
+    {
+        currentHealth = Mathf.Clamp(health, 1, maxHealth);
+    }
+
     // Calcula las estadisticas segun el nivel actual.
     // No modifica la vida actual.
     private void UpdateStats()
@@ -372,17 +378,27 @@ public class BattleUnit : MonoBehaviour
         TakeDamage(damage);
     }
 
+    // Vida realmente perdida por una unidad (ya con evasion, defensa,
+    // Marca, Guard y proteccion aplicados; sin el exceso sobre la vida
+    // restante). 'periodic' = daño periodico (sangrado, veneno,
+    // quemadura). Solo lectura: lo usan las metricas de diagnostico.
+    public static event Action<BattleUnit, int, bool> DamageApplied;
+
     // Permite que la unidad reciba daño.
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool periodic = false)
     {
         if (!IsAlive) return;
 
         damage = Mathf.Max(0, damage);
 
+        int healthBefore = currentHealth;
+
         currentHealth = Mathf.Max(
             0,
             currentHealth - damage
         );
+
+        DamageApplied?.Invoke(this, healthBefore - currentHealth, periodic);
 
         Debug.Log(
             unitData.unitName +

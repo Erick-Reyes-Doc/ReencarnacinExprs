@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Map.unity
     guid: b2d3e09a10546d148b79a258271f2ab6
   - enabled: 1
-    path: Assets/Scenes/Combate.unity
-    guid: e1bcc5e5cfdf1b84cafcf81b9dd7f289
+    path: Assets/Scenes/CombateIntegracion.unity
+    guid: b8369de64197aef4b959a08a2d636f65
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

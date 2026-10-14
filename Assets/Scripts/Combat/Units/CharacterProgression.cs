@@ -47,6 +47,22 @@ public class CharacterProgression : MonoBehaviour
         currentExperience = Mathf.Max(0, currentExperience);
     }
 
+    // Fija nivel y XP directamente (nueva partida o restauracion de la
+    // sesion). No dispara OnLevelUp: quien lo llame debe refrescar las
+    // estadisticas de BattleUnit (InitializeUnit).
+    public void SetProgress(int newLevel, int newExperience)
+    {
+        level = Mathf.Clamp(newLevel, 1, maxLevel);
+        currentExperience = level >= maxLevel
+            ? 0
+            : Mathf.Max(0, newExperience);
+    }
+
+    public void ResetProgress()
+    {
+        SetProgress(1, 0);
+    }
+
     // Recibe experiencia de misiones o combates.
     public void GainExperience(int amount)
     {

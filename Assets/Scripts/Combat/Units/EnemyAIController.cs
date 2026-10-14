@@ -18,8 +18,46 @@ using UnityEngine;
 //  - Corruption: estados utiles y ataques fuertes; algo de variacion.
 // Para otras estrategias se puede heredar y sobrescribir ChooseOption()
 // y/o ChooseTarget().
-public class EnemyAIController : MonoBehaviour
+public partial class EnemyAIController : MonoBehaviour
 {
+    // Accion realizada por un enemigo (solo lectura: diagnostico).
+    // Parametros: usuario, habilidad, objetivo, es especial.
+    public static event System.Action<BattleUnit, AbilityData, BattleUnit, bool>
+        ActionPerformed;
+
+    private void NotifyAction(BattleUnit self, AbilityData ability, BattleUnit target)
+    {
+        ActionPerformed?.Invoke(self, ability, target, ability != basicAttack);
+    }
+
+    // Lecturas de diagnostico tomadas justo antes de ejecutar la accion
+    // (no influyen en la decision): fraccion de vida del objetivo y si la
+    // habilidad solo repetia estados que ya tenia.
+    public static float LastTargetHpBefore { get; private set; }
+    public static bool LastActionRedundant { get; private set; }
+
+    private static void CaptureBefore(BattleUnit target, AbilityData ability)
+    {
+        LastTargetHpBefore = target.MaxHealth <= 0
+            ? 1f : (float)target.CurrentHealth / target.MaxHealth;
+
+        bool redundant = false;
+
+        if (ability.statusEffects != null && ability.statusEffects.Count > 0)
+        {
+            redundant = true;
+            StatusEffectController effects = target.GetComponent<StatusEffectController>();
+
+            foreach (AbilityStatusEffect status in ability.statusEffects)
+            {
+                if (status != null && (effects == null || !effects.HasEffect(status.type)))
+                    redundant = false;
+            }
+        }
+
+        LastActionRedundant = redundant;
+    }
+
     public enum TurnResult
     {
         Acted,
@@ -389,9 +427,16 @@ public class EnemyAIController : MonoBehaviour
 
         List<Option> options = BuildOptions(self);
 
-        if (options.Count > 0)
+        // IA v0.2 (experimental): puntuacion tactica. Si no consigue
+        // actuar, sigue el flujo normal de reposicionamiento / pasar.
+        if (options.Count > 0 && EnemyAISettings.Active == EnemyAIVersion.V02)
         {
-            // Primero la elegida; si falla, alternativas validas al azar.
+            if (TryTacticalAction(self, options))
+                return TurnResult.Acted;
+        }
+        else if (options.Count > 0)
+        {
+            // IA v0.1. Primero la elegida; si falla, alternativas validas al azar.
             Option chosen = ChooseOption(options, self);
             List<Option> attempts = new List<Option> { chosen };
 
@@ -408,9 +453,15 @@ public class EnemyAIController : MonoBehaviour
             {
                 BattleUnit target = ChooseTarget(option, self);
 
+                if (target != null)
+                    CaptureBefore(target, option.ability);
+
                 if (target != null &&
                     abilitySystem.ExecuteAbility(self, target, option.ability))
+                {
+                    NotifyAction(self, option.ability, target);
                     return TurnResult.Acted;
+                }
             }
         }
 

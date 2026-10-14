@@ -291,7 +291,7 @@ public class StatusEffectController : MonoBehaviour
                 );
 
                 // Dispara OnDefeated si la unidad cae.
-                target.TakeDamage(effect.Potency);
+                target.TakeDamage(effect.Potency, true);
 
                 if (!target.IsAlive)
                 {

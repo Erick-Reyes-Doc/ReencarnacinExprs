@@ -48,6 +48,21 @@ public class EncounterData : ScriptableObject
     [Tooltip("XP total del encuentro, entregada una sola vez al ganar.")]
     [Min(0)] public int experienceReward = 50;
 
+    [Tooltip("Coronas del encuentro (Pradera 25, Bosque 40, Corrupcion 60, Jefe 100). Se entregan una sola vez, la primera vez que se supera.")]
+    [Min(0)] public int coinReward = 25;
+
+    // Coronas segun la zona (Balance de Economia v0.1).
+    public static int DefaultCoinReward(EnemyArchetypeData.Zone zone)
+    {
+        switch (zone)
+        {
+            case EnemyArchetypeData.Zone.Bosque: return 40;
+            case EnemyArchetypeData.Zone.Corrupcion: return 60;
+            case EnemyArchetypeData.Zone.Jefe: return 100;
+            default: return 25;
+        }
+    }
+
     // Comprueba que el encuentro puede cargarse: 1-4 enemigos con
     // prefab, posiciones E1-E4 sin repetir. Devuelve el motivo si falla.
     public bool Validate(out string error)

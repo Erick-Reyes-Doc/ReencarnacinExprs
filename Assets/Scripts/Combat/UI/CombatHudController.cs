@@ -42,11 +42,24 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button endTurnButton;
 
+    [Header("Objetos")]
+    [SerializeField] private Button itemsButton;
+    [SerializeField] private Text resourcesText;
+
     [Header("Derrota total")]
     [Tooltip("Escena a la que se vuelve tras perder (debe estar en Build Settings).")]
     [SerializeField] private string menuSceneName = "Menu";
     [SerializeField] private GameObject defeatPanel;
     [SerializeField] private Button returnToMenuButton;
+
+    [Header("Victoria")]
+    [Tooltip("Escena del mapa a la que se vuelve tras ganar (debe estar en Build Settings).")]
+    [SerializeField] private string mapSceneName = "Map";
+    [SerializeField] private GameObject victoryPanel;
+    [SerializeField] private Button continueButton;
+
+    private bool leavingScene;
+
     [SerializeField] private Button[] tileButtons = new Button[SlotCount];
     [SerializeField] private Image[] tileImages = new Image[SlotCount];
     [SerializeField] private Text[] tileTexts = new Text[SlotCount];
@@ -149,38 +162,54 @@ public class CombatHudController : MonoBehaviour
         endTurnButton.onClick.RemoveAllListeners();
         endTurnButton.onClick.AddListener(OnEndTurnClicked);
 
+        if (itemsButton != null)
+        {
+            itemsButton.onClick.RemoveAllListeners();
+            itemsButton.onClick.AddListener(OnItemsClicked);
+        }
+
         if (returnToMenuButton != null)
         {
             returnToMenuButton.onClick.RemoveAllListeners();
             returnToMenuButton.onClick.AddListener(() => ReturnToMenu());
         }
+
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(() => ContinueToMap());
+        }
+    }
+
+    // Tras una victoria: vuelve al mapa conservando la sesion.
+    public bool ContinueToMap()
+    {
+        if (leavingScene || turnManager == null || !turnManager.BattleFinished ||
+            turnManager.PartyDefeated || !GameSession.IsActive)
+            return false;
+
+        if (!GameSession.IsSceneInBuild(mapSceneName))
+        {
+            Say("No se puede volver al mapa: la escena '" + mapSceneName +
+                "' no esta en Build Settings.", true);
+            return false;
+        }
+
+        leavingScene = true;
+        SceneManager.LoadScene(mapSceneName);
+        return true;
     }
 
     // La escena de menu existe y esta incluida en Build Settings.
     public bool CanReturnToMenu()
     {
-        if (string.IsNullOrEmpty(menuSceneName))
-            return false;
-
-#if UNITY_EDITOR
-        // En el editor se consulta Build Settings directamente.
-        foreach (UnityEditor.EditorBuildSettingsScene scene in
-                 UnityEditor.EditorBuildSettings.scenes)
-        {
-            if (scene.enabled &&
-                System.IO.Path.GetFileNameWithoutExtension(scene.path) ==
-                menuSceneName)
-                return true;
-        }
-
-        return false;
-#else
-        return Application.CanStreamedLevelBeLoaded(menuSceneName);
-#endif
+        return GameSession.IsSceneInBuild(menuSceneName);
     }
 
-    // Vuelve al menu principal solo si la escena es valida.
-    public bool ReturnToMenu()
+    // Descarta la sesion y comprueba la escena del menu. No carga la
+    // escena (lo hace ReturnToMenu). Solo descarta si el menu es valido,
+    // para no dejar al jugador sin salida.
+    public bool PrepareReturnToMenu()
     {
         if (!CanReturnToMenu())
         {
@@ -189,6 +218,18 @@ public class CombatHudController : MonoBehaviour
             return false;
         }
 
+        // Sin reintento: XP, niveles, vida y etapa de Noelle se pierden.
+        GameSession.EndSession();
+        return true;
+    }
+
+    // Vuelve al menu principal descartando toda la sesion.
+    public bool ReturnToMenu()
+    {
+        if (leavingScene || !PrepareReturnToMenu())
+            return false;
+
+        leavingScene = true;
         SceneManager.LoadScene(menuSceneName);
         return true;
     }
@@ -251,16 +292,23 @@ public class CombatHudController : MonoBehaviour
             : null;
     }
 
+    // Menu de objetos abierto y objeto elegido (0 pocion, 1 antidoto).
+    private bool itemMode;
+    private int itemSelected = -1;
+
     private void CancelSelection()
     {
         selectedAbility = null;
         pendingConfirm = null;
+        itemMode = false;
+        itemSelected = -1;
         validTargets.Clear();
     }
 
     private void OnCancelClicked()
     {
-        if (selectedAbility == null && pendingConfirm == null)
+        if (selectedAbility == null && pendingConfirm == null &&
+            !itemMode && itemSelected < 0)
         {
             Say("No hay seleccion que cancelar.");
             return;
@@ -268,6 +316,87 @@ public class CombatHudController : MonoBehaviour
 
         CancelSelection();
         Say("Seleccion cancelada. Elige otra habilidad.");
+    }
+
+    // Abre o cierra el menu de objetos (solo en turno de un protagonista).
+    private void OnItemsClicked()
+    {
+        BattleUnit user = ActivePlayerUnit();
+
+        if (user == null)
+        {
+            Say(turnManager != null && turnManager.BattleFinished
+                ? "El combate ha terminado."
+                : "No es el turno de un protagonista.", true);
+            return;
+        }
+
+        if (itemMode)
+        {
+            CancelSelection();
+            Say("Menu de objetos cerrado.");
+            return;
+        }
+
+        CancelSelection();
+        itemMode = true;
+        Say("Elige un objeto. Usarlo consume tu accion.");
+    }
+
+    private static GameSession.Consumable ItemType(int slot)
+    {
+        return slot == 0
+            ? GameSession.Consumable.Potion
+            : GameSession.Consumable.Antidote;
+    }
+
+    // Clic en uno de los cuatro botones mientras el menu de objetos esta
+    // abierto: 0 pocion, 1 antidoto, 2 volver.
+    private void OnItemSlotClicked(int slot)
+    {
+        if (slot == 2)
+        {
+            CancelSelection();
+            Say("Menu de objetos cerrado.");
+            return;
+        }
+
+        if (slot > 2)
+            return;
+
+        GameSession.Consumable type = ItemType(slot);
+
+        validTargets.Clear();
+        itemSelected = -1;
+
+        string reason = "";
+
+        for (int position = 1; position <= 4; position++)
+        {
+            BattleUnit ally = positionManager.GetUnitAtPosition(
+                TeamSide.Player, position);
+
+            if (ally == null)
+                continue;
+
+            if (ConsumableService.CanUse(type, ally, out string why))
+                validTargets.Add(ally);
+            else if (reason == "")
+                reason = why;
+        }
+
+        if (validTargets.Count == 0)
+        {
+            Say(GameSession.GetCount(type) <= 0
+                ? "No te quedan " + ConsumableService.Name(type) + "."
+                : "Ningun aliado puede usar " +
+                  ConsumableService.Name(type) + ". " + reason, true);
+            return;
+        }
+
+        itemSelected = slot;
+        Say("Elige un aliado para " + ConsumableService.Name(type) +
+            " (o cancela).");
     }
 
     private void OnEndTurnClicked()
@@ -294,6 +423,13 @@ public class CombatHudController : MonoBehaviour
             Say(turnManager != null && turnManager.BattleFinished
                 ? "El combate ha terminado."
                 : "No es el turno de un protagonista.", true);
+            return;
+        }
+
+        // Con el menu de objetos abierto los botones son los objetos.
+        if (itemMode)
+        {
+            OnItemSlotClicked(index);
             return;
         }
 
@@ -392,6 +528,39 @@ public class CombatHudController : MonoBehaviour
     private void OnTileClicked(int slot)
     {
         BattleUnit unit = TileUnit(slot);
+
+        // Objeto elegido: el aliado clicado lo recibe. Si el uso es
+        // valido consume 1 objeto y la accion del turno; si no, nada.
+        if (itemSelected >= 0)
+        {
+            BattleUnit itemUser = ActivePlayerUnit();
+
+            if (itemUser == null)
+            {
+                CancelSelection();
+                return;
+            }
+
+            if (unit == null || !validTargets.Contains(unit))
+            {
+                Say("Aliado no valido para ese objeto.", true);
+                return;
+            }
+
+            if (ConsumableService.TryUse(
+                    ItemType(itemSelected), unit, out string message))
+            {
+                CancelSelection();
+                Say(message);
+                turnManager.EndTurn();
+            }
+            else
+            {
+                Say(message, true);
+            }
+
+            return;
+        }
 
         if (selectedAbility == null)
         {
@@ -558,7 +727,8 @@ public class CombatHudController : MonoBehaviour
         }
 
         // Una seleccion pendiente solo es valida en turno de jugador.
-        if (selectedAbility != null && ActivePlayerUnit() == null)
+        if ((selectedAbility != null || itemMode || itemSelected >= 0) &&
+            ActivePlayerUnit() == null)
             CancelSelection();
 
         SetText(roundText, "Ronda " + turnManager.CurrentRound);
@@ -607,6 +777,15 @@ public class CombatHudController : MonoBehaviour
                 defeatPanel.SetActive(showDefeat);
         }
 
+        if (victoryPanel != null)
+        {
+            bool showVictory = finished && banner == "VICTORIA" &&
+                               GameSession.IsActive;
+
+            if (victoryPanel.activeSelf != showVictory)
+                victoryPanel.SetActive(showVictory);
+        }
+
         // Botones de habilidad del loadout activo.
         CharacterAbilityLoadout loadout = playerTurn
             ? active.GetComponent<CharacterAbilityLoadout>()
@@ -618,6 +797,34 @@ public class CombatHudController : MonoBehaviour
 
         for (int i = 0; i < AbilitySlots; i++)
         {
+            // Menu de objetos: pocion, antidoto y volver.
+            if (playerTurn && itemMode)
+            {
+                if (i < 2)
+                {
+                    GameSession.Consumable type = ItemType(i);
+                    int count = GameSession.GetCount(type);
+                    string extra = i == 0
+                        ? "cura " + ConsumableService.PotionHealPercent + "%"
+                        : "cura sangrado/veneno/quemadura";
+
+                    SetText(abilityLabels[i],
+                        ConsumableService.Name(type) + "\nx" + count + " (" + extra + ")");
+                    abilityLabels[i].color = count > 0 ? TextColor : DimTextColor;
+                    abilityImages[i].color = itemSelected == i
+                        ? ButtonSelected
+                        : (count > 0 ? ButtonColor : ButtonBlocked);
+                }
+                else
+                {
+                    SetText(abilityLabels[i], i == 2 ? "Volver" : "-");
+                    abilityLabels[i].color = i == 2 ? TextColor : DimTextColor;
+                    abilityImages[i].color = i == 2 ? ButtonColor : ButtonBlocked;
+                }
+
+                continue;
+            }
+
             bool has = loadout != null && i < loadout.Abilities.Count;
 
             if (!has)
@@ -652,7 +859,24 @@ public class CombatHudController : MonoBehaviour
         AbilityData detail = selectedAbility != null
             ? selectedAbility : pendingConfirm;
 
-        SetText(detailText, detail == null ? "" : Describe(detail));
+        if (itemSelected >= 0)
+        {
+            SetText(detailText,
+                ConsumableService.Name(ItemType(itemSelected)) +
+                " - consume 1 objeto y tu accion del turno");
+        }
+        else
+        {
+            SetText(detailText, detail == null ? "" : Describe(detail));
+        }
+
+        SetText(resourcesText,
+            "Coronas " + GameSession.Coins +
+            "  Pociones " + GameSession.Potions + "/" + GameSession.MaxPerItem +
+            "  Antídotos " + GameSession.Antidotes + "/" + GameSession.MaxPerItem);
+
+        if (itemsButton != null)
+            itemsButton.interactable = playerTurn;
 
         // Preparacion de Meteorito (o similar) en curso.
         string prep = "";
@@ -834,9 +1058,10 @@ public class CombatHudController : MonoBehaviour
 
         // Barra superior.
         RectTransform top = Box("BarraSuperior", root, new Vector2(0, 0.93f), Vector2.one, PanelColor);
-        roundText = Label("Ronda", top, new Vector2(0, 0), new Vector2(0.18f, 1), 30, TextAnchor.MiddleLeft, TextColor);
-        activeText = Label("TurnoActivo", top, new Vector2(0.18f, 0), new Vector2(0.62f, 1), 32, TextAnchor.MiddleCenter, new Color(0.95f, 0.85f, 0.5f));
-        prepText = Label("Preparacion", top, new Vector2(0.55f, 0), new Vector2(1, 1), 20, TextAnchor.MiddleRight, new Color(0.95f, 0.7f, 0.4f));
+        roundText = Label("Ronda", top, new Vector2(0, 0), new Vector2(0.09f, 1), 30, TextAnchor.MiddleLeft, TextColor);
+        resourcesText = Label("Recursos", top, new Vector2(0.09f, 0), new Vector2(0.33f, 1), 18, TextAnchor.MiddleLeft, new Color(0.85f, 0.8f, 0.6f));
+        activeText = Label("TurnoActivo", top, new Vector2(0.33f, 0), new Vector2(0.67f, 1), 32, TextAnchor.MiddleCenter, new Color(0.95f, 0.85f, 0.5f));
+        prepText = Label("Preparacion", top, new Vector2(0.67f, 0), new Vector2(1, 1), 18, TextAnchor.MiddleRight, new Color(0.95f, 0.7f, 0.4f));
 
         // Casillas: aliados P4..P1 a la izquierda, enemigos E1..E4 a la derecha.
         for (int slot = 0; slot < SlotCount; slot++)
@@ -871,9 +1096,12 @@ public class CombatHudController : MonoBehaviour
         detailText = Label("Detalle", bottom, new Vector2(0.215f, 0.12f), new Vector2(0.84f, 0.3f), 18, TextAnchor.MiddleLeft, new Color(0.85f, 0.78f, 0.55f));
         hintText = Label("Ayuda", bottom, new Vector2(0.215f, 0f), new Vector2(0.84f, 0.12f), 16, TextAnchor.MiddleLeft, DimTextColor);
         Text t1, t2; Image i1, i2;
-        cancelButton = MakeButton("Cancelar", bottom, new Vector2(0.86f, 0.55f), new Vector2(0.99f, 0.92f), ButtonColor, out t1, out i1, 22);
+        Text t3; Image i3;
+        itemsButton = MakeButton("Objetos", bottom, new Vector2(0.86f, 0.69f), new Vector2(0.99f, 0.92f), ButtonColor, out t3, out i3, 22);
+        t3.text = "Objetos";
+        cancelButton = MakeButton("Cancelar", bottom, new Vector2(0.86f, 0.40f), new Vector2(0.99f, 0.63f), ButtonColor, out t1, out i1, 22);
         t1.text = "Cancelar";
-        endTurnButton = MakeButton("TerminarTurno", bottom, new Vector2(0.86f, 0.12f), new Vector2(0.99f, 0.49f), ButtonColor, out t2, out i2, 22);
+        endTurnButton = MakeButton("TerminarTurno", bottom, new Vector2(0.86f, 0.12f), new Vector2(0.99f, 0.34f), ButtonColor, out t2, out i2, 22);
         t2.text = "Terminar turno";
 
         // Panel de derrota total (oculto hasta perder).
@@ -883,6 +1111,14 @@ public class CombatHudController : MonoBehaviour
         returnLabel.text = "Volver al menú";
         defeatPanel = defeat.gameObject;
         defeatPanel.SetActive(false);
+
+        // Panel de victoria (oculto hasta ganar): vuelve al mapa.
+        RectTransform victory = Box("PanelVictoria", root, new Vector2(0.38f, 0.355f), new Vector2(0.62f, 0.44f), PanelColor);
+        Text continueLabel; Image continueImage;
+        continueButton = MakeButton("Continuar", victory, new Vector2(0.04f, 0.1f), new Vector2(0.96f, 0.9f), ButtonColor, out continueLabel, out continueImage, 28);
+        continueLabel.text = "Continuar";
+        victoryPanel = victory.gameObject;
+        victoryPanel.SetActive(false);
 
         // EventSystem compatible con el nuevo Input System.
         EventSystem existing = null;

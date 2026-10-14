@@ -46,8 +46,28 @@ public class TurnManager : MonoBehaviour
     // true si el combate termino con la derrota total del equipo.
     public bool PartyDefeated => partyDefeated;
 
+    // Victoria confirmada (ya entregada la XP y aplicada la recuperacion).
+    public event System.Action OnBattleWon;
+
+    // Derrota total del equipo.
+    public event System.Action OnPartyDefeated;
+
     // true mientras hay un combate en curso (iniciado y sin terminar).
     public bool BattleActive => currentRound > 0 && !battleFinished;
+
+    // Eventos de solo lectura para el diagnostico de balance.
+    // Empieza un combate (estado ya reiniciado).
+    public event System.Action OnBattleStarted;
+
+    // El combate termino (true = victoria de los protagonistas). Se
+    // dispara una sola vez, antes de la XP y de la recuperacion
+    // poscombate, para poder leer la vida final.
+    public event System.Action<bool> OnBattleEnding;
+
+    private bool endingAnnounced;
+
+    // XP entregada de verdad en la ultima victoria.
+    public int LastExperienceAwarded { get; private set; }
 
     // ------------------------------------------------------------
     // Registro de unidades (carga de encuentros)
@@ -102,7 +122,10 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        StartBattle();
+        // El cargador de encuentros puede haber iniciado ya el combate
+        // elegido en el mapa.
+        if (currentRound == 0)
+            StartBattle();
     }
 
     public void StartBattle()
@@ -113,6 +136,8 @@ public class TurnManager : MonoBehaviour
         experienceAwarded = false;
         recoveryApplied = false;
         partyDefeated = false;
+        endingAnnounced = false;
+        LastExperienceAwarded = 0;
         CurrentUnit = null;
 
         // Descarta cualquier accion enemiga pendiente del encuentro anterior.
@@ -120,6 +145,8 @@ public class TurnManager : MonoBehaviour
         StopAllCoroutines();
 
         SubscribeToUnits();
+
+        OnBattleStarted?.Invoke();
 
         StartNewRound();
     }
@@ -419,6 +446,8 @@ public class TurnManager : MonoBehaviour
         if (totalExperience <= 0)
             return;
 
+        LastExperienceAwarded = totalExperience;
+
         Debug.Log("Experiencia de victoria: " + totalExperience);
 
         foreach (BattleUnit unit in units)
@@ -502,19 +531,35 @@ public class TurnManager : MonoBehaviour
                 regeneration.ClearEffect();
         }
 
+        if (!endingAnnounced)
+        {
+            endingAnnounced = true;
+            OnBattleEnding?.Invoke(playersAlive && !enemiesAlive);
+        }
+
         if (!enemiesAlive && playersAlive)
         {
             Debug.Log("¡VICTORIA!");
+            // El resultado se anuncia una sola vez por combate.
+            bool firstTime = !recoveryApplied;
+
             AwardVictoryExperience();
 
             // Despues de la XP y las subidas de nivel, para usar las
             // estadisticas efectivas actualizadas.
             ApplyPostBattleRecovery();
+
+            if (firstTime)
+                OnBattleWon?.Invoke();
         }
         else if (!playersAlive && enemiesAlive)
         {
+            bool firstTime = !partyDefeated;
             partyDefeated = true;
             Debug.Log("DERROTA");
+
+            if (firstTime)
+                OnPartyDefeated?.Invoke();
         }
         else
         {

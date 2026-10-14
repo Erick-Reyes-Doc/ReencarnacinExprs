@@ -22,3 +22,4 @@ MonoBehaviour:
   - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
     position: 2
   experienceReward: 100
+  coinReward: 40

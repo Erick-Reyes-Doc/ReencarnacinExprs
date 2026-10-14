@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 //
 // Solo carga cuando no hay un combate activo. Control de depuracion:
 // L carga el siguiente encuentro de la lista.
+[DefaultExecutionOrder(-50)]   // despues del binder (-100), antes de TurnManager
 public class EncounterLoader : MonoBehaviour
 {
     [Header("Referencias")]
@@ -29,9 +30,39 @@ public class EncounterLoader : MonoBehaviour
 
     public IReadOnlyList<EncounterData> Encounters => encounters;
 
+    [Header("Depuracion")]
+    [Tooltip("Tecla L = siguiente encuentro. Desactivada en el flujo normal para no saltar encuentros.")]
+    [SerializeField] private bool allowDebugKey = false;
+
+    // Carga el encuentro elegido en el mapa antes de que TurnManager
+    // inicie el combate con los enemigos por defecto de la escena.
+    private void Start()
+    {
+        string id = GameSession.TakePendingEncounter();
+
+        if (string.IsNullOrEmpty(id))
+            return;
+
+        EncounterData data = encounters.Find(e => e != null && e.encounterId == id);
+
+        if (data == null)
+        {
+            Debug.LogError("Encuentro pendiente no encontrado: " + id);
+            return;
+        }
+
+        if (!MapProgression.CanStart(id))
+        {
+            Debug.LogWarning("Encuentro no disponible en la progresion: " + id);
+            return;
+        }
+
+        LoadEncounter(data);
+    }
+
     private void Update()
     {
-        if (Keyboard.current != null &&
+        if (allowDebugKey && Debug.isDebugBuild && Keyboard.current != null &&
             Keyboard.current.lKey.wasPressedThisFrame)
         {
             LoadNext();

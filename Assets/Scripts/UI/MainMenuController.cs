@@ -19,10 +19,17 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
 
+    [Header("Nueva partida")]
+    [Tooltip("Escena a la que entra Nueva partida (el mapa). Debe estar en Build Settings.")]
+    [SerializeField] private string newGameScene = "Map";
+
     private Coroutine currentAnimation;
 
     private void Start()
     {
+        // Llegar al menu (por cualquier via) descarta la partida anterior.
+        GameSession.EndSession();
+
         optionsCanvasGroup.alpha = 0f;
         optionsCanvasGroup.interactable = false;
         optionsCanvasGroup.blocksRaycasts = false;
@@ -39,7 +46,27 @@ public class MainMenuController : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("IntroCinematic");
+        if (!PrepareNewGame())
+            return;
+
+        SceneManager.LoadScene(newGameScene);
+    }
+
+    // Empieza una sesion nueva desde cero si la escena de destino esta en
+    // Build Settings. No carga la escena (lo hace NewGame).
+    public bool PrepareNewGame()
+    {
+        if (!GameSession.IsSceneInBuild(newGameScene))
+        {
+            Debug.LogError(
+                "Nueva partida: la escena '" + newGameScene +
+                "' no esta en Build Settings."
+            );
+            return false;
+        }
+
+        GameSession.StartNewGame();
+        return true;
     }
 
     public void OpenOptions()

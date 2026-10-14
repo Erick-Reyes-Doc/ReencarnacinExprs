@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4374495d8cfdebb4e822cb1cc4c9d02a, type: 3}
+  m_Name: MapArtSet
+  m_EditorClassIdentifier: Assembly-CSharp::MapArtSet
+  circle: {fileID: 21300000, guid: 7a46fd40f7961f34298251022c3fcfd6, type: 3}
+  ring: {fileID: 21300000, guid: 77eb0aef0d056a3409bc5f2768aaec4d, type: 3}
+  softCircle: {fileID: 21300000, guid: 96df38875211db541a93ee6aa516ff6a, type: 3}
+  diamond: {fileID: 21300000, guid: 8fd3d6ec5d56bb840b5ac0cf0678f392, type: 3}
+  hexagon: {fileID: 21300000, guid: c2042b44800453d44b9bfc88024fb6c8, type: 3}
+  triangle: {fileID: 21300000, guid: b69fc35d98b6a4548a42710c9944fd43, type: 3}
+  roundedRect: {fileID: 21300000, guid: 31b08604375a36c4a8fa4af754354b65, type: 3}
+  frame: {fileID: 21300000, guid: fca3a57ea1d2d2b47a1cc56a3f145c1f, type: 3}
+  gradient: {fileID: 21300000, guid: 3d28f01af59b44648a17e05f01bf67ea, type: 3}
+  dash: {fileID: 21300000, guid: 4f15df3c4b570d84680a4a5e5bb8321e, type: 3}
+  worldBase: {fileID: 21300000, guid: d52b5c33966d9dd4d9484173c10372d9, type: 3}
+  worldLayers: []
+  atmosphereLayers: []
+  fogLockForest: {fileID: 0}
+  fogLockCorruption: {fileID: 0}
+  lockIcon: {fileID: 21300000, guid: 8d855173e3efa3948b1fe43af00a8808, type: 3}
+  checkIcon: {fileID: 21300000, guid: 946eb069190a9c6439ab5ed90504a42d, type: 3}
+  starIcon: {fileID: 21300000, guid: cf5f0d66df73a7e4392c1e8fbca4d6a8, type: 3}
+  maskIcon: {fileID: 21300000, guid: abbfe4c275e6f9b4bae6fa53c2e203a8, type: 3}
+  skullIcon: {fileID: 21300000, guid: 54184ac1a4a38ca4eaecda3af64d5b3f, type: 3}
+  potionIcon: {fileID: 21300000, guid: f50e9f65b44892042af267dece2838e1, type: 3}
+  antidoteIcon: {fileID: 21300000, guid: 6f9434da7d82e2545bb107c2196055dc, type: 3}

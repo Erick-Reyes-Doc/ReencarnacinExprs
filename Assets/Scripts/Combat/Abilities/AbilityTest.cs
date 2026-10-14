@@ -13,6 +13,10 @@ public class AbilityTest : MonoBehaviour
     [Header("Habilidad de prueba")]
     [SerializeField] private AbilityData ability;
 
+    [Header("Depuracion")]
+    [Tooltip("Y = transformar a la unidad activa. Desactivada: en el flujo normal la transformacion de Noelle ocurre solo con el evento del mapa.")]
+    [SerializeField] private bool allowDebugTransform = false;
+
     private void Update()
     {
         if (Keyboard.current == null)
@@ -33,7 +37,7 @@ public class AbilityTest : MonoBehaviour
 
         // Y = transformar el conjunto de habilidades de la unidad activa
         // (prueba manual de la transformacion de Noelle).
-        if (Keyboard.current.yKey.wasPressedThisFrame)
+        if (allowDebugTransform && Debug.isDebugBuild && Keyboard.current.yKey.wasPressedThisFrame)
         {
             UnlockActiveUnitForm();
         }

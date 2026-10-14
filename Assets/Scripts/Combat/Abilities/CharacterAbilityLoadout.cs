@@ -96,6 +96,13 @@ public class CharacterAbilityLoadout : MonoBehaviour
         isTransformed = false;
     }
 
+    // Fija la etapa directamente (nueva partida o restauracion de la
+    // sesion). No dispara eventos ni hereda cooldowns.
+    public void SetTransformed(bool value)
+    {
+        isTransformed = value && Build(transformedAbilities).Count > 0;
+    }
+
     // Sustituye el conjunto activo por el alternativo. Solo ocurre una
     // vez; no modifica nivel, XP, vida, posicion ni equipo.
     public bool UnlockTransformedForm()
