@@ -1,0 +1,886 @@
+fileFormatVersion: 2
+guid: 7c7194ad953ed4042993120a540fdbad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6622405933233541064
+    second: BARRA 1_0
+  - first:
+      213: -3148590497462376585
+    second: BARRA 1_1
+  - first:
+      213: -2175161116120155450
+    second: BARRA 1_2
+  - first:
+      213: -4173308239657208136
+    second: BARRA 1_3
+  - first:
+      213: -2575767273322489063
+    second: BARRA 1_4
+  - first:
+      213: 2238062435378915103
+    second: BARRA 1_5
+  - first:
+      213: -8120643063632035121
+    second: BARRA 1_6
+  - first:
+      213: -7442303901982613557
+    second: BARRA 1_7
+  - first:
+      213: -5745473466623508721
+    second: BARRA 1_8
+  - first:
+      213: -4974758473348023756
+    second: BARRA 1_9
+  - first:
+      213: 2283144594853386039
+    second: BARRA 1_10
+  - first:
+      213: 8687673221214668946
+    second: BARRA 1_11
+  - first:
+      213: -9035668030482879528
+    second: BARRA 1_12
+  - first:
+      213: 3184338859171922025
+    second: BARRA 1_13
+  - first:
+      213: 5851908491320237175
+    second: BARRA 1_14
+  - first:
+      213: -1500839245043322559
+    second: BARRA 1_15
+  - first:
+      213: -4745271563658411864
+    second: BARRA 1_16
+  - first:
+      213: -6974107867591824117
+    second: BARRA 1_17
+  - first:
+      213: -8585093924401721626
+    second: BARRA 1_18
+  - first:
+      213: 3677467529307588586
+    second: BARRA 1_19
+  - first:
+      213: -6156642279318985570
+    second: BARRA 1_20
+  - first:
+      213: 1708269077597390112
+    second: BARRA 1_21
+  - first:
+      213: 1612684617269282615
+    second: BARRA 1_22
+  - first:
+      213: -6661752106347738087
+    second: BARRA 1_23
+  - first:
+      213: 8896578432110056236
+    second: BARRA 1_24
+  - first:
+      213: 6061080200216053327
+    second: BARRA 1_25
+  - first:
+      213: 8874871033033261164
+    second: BARRA 1_26
+  - first:
+      213: 5131146515256704640
+    second: BARRA 1_27
+  - first:
+      213: -7291167448029578601
+    second: BARRA 1_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BARRA 1_0
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 562
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830fc2704ec7814a0800000000000000
+      internalID: -6622405933233541064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_1
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 571
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 777a59fdf95fd44d0800000000000000
+      internalID: -3148590497462376585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_2
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 546
+        width: 31
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ca7a684d7640d1e0800000000000000
+      internalID: -2175161116120155450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_3
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 558
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b67505644e6516c0800000000000000
+      internalID: -4173308239657208136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_4
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 562
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b5989df49014cd0800000000000000
+      internalID: -2575767273322489063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_5
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 576
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f17e7ed5de13f0f10800000000000000
+      internalID: 2238062435378915103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_6
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 554
+        width: 65
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc2097c982ead4f80800000000000000
+      internalID: -8120643063632035121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_7
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 554
+        width: 243
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf92db3800a7b890800000000000000
+      internalID: -7442303901982613557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_8
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 546
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f397ba25af340b0800000000000000
+      internalID: -5745473466623508721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_9
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 560
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43af9b0a68b16fab0800000000000000
+      internalID: -4974758473348023756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_10
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 550
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737d61399eb5faf10800000000000000
+      internalID: 2283144594853386039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_11
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 536
+        width: 226
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2988c23f3c0d09870800000000000000
+      internalID: 8687673221214668946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_12
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 532
+        width: 96
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dbe6be9ccbda9280800000000000000
+      internalID: -9035668030482879528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_13
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 561
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9604a61325b013c20800000000000000
+      internalID: 3184338859171922025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_14
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 550
+        width: 100
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77c1c33a4c7263150800000000000000
+      internalID: 5851908491320237175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_15
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 546
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1413a3e88a2fb2be0800000000000000
+      internalID: -1500839245043322559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_16
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 546
+        width: 56
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a0c06587a8652eb0800000000000000
+      internalID: -4745271563658411864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_17
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 545
+        width: 78
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0daee648ddf63f90800000000000000
+      internalID: -6974107867591824117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 532
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eecba0cf8e9bd880800000000000000
+      internalID: -8585093924401721626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_19
+      rect:
+        serializedVersion: 2
+        x: 1508
+        y: 546
+        width: 22
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae7896ddb3df80330800000000000000
+      internalID: 3677467529307588586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_20
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 545
+        width: 70
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e946a0c57763f8aa0800000000000000
+      internalID: -6156642279318985570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_21
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 558
+        width: 70
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0250afedcadf4b710800000000000000
+      internalID: 1708269077597390112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_22
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 546
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73782137d18616610800000000000000
+      internalID: 1612684617269282615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_23
+      rect:
+        serializedVersion: 2
+        x: 1754
+        y: 539
+        width: 156
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91cce6731c3bc83a0800000000000000
+      internalID: -6661752106347738087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_24
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 65
+        width: 2068
+        height: 470
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c23525aa2fef67b70800000000000000
+      internalID: 8896578432110056236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_25
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 192
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f46080144584d1450800000000000000
+      internalID: 6061080200216053327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_26
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 176
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c600a57fe20e92b70800000000000000
+      internalID: 8874871033033261164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_27
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 196
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08efb54d19e753740800000000000000
+      internalID: 5131146515256704640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BARRA 1_28
+      rect:
+        serializedVersion: 2
+        x: 1802
+        y: 163
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a3e4616d190da90800000000000000
+      internalID: -7291167448029578601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BARRA 1_0: -6622405933233541064
+      BARRA 1_1: -3148590497462376585
+      BARRA 1_10: 2283144594853386039
+      BARRA 1_11: 8687673221214668946
+      BARRA 1_12: -9035668030482879528
+      BARRA 1_13: 3184338859171922025
+      BARRA 1_14: 5851908491320237175
+      BARRA 1_15: -1500839245043322559
+      BARRA 1_16: -4745271563658411864
+      BARRA 1_17: -6974107867591824117
+      BARRA 1_18: -8585093924401721626
+      BARRA 1_19: 3677467529307588586
+      BARRA 1_2: -2175161116120155450
+      BARRA 1_20: -6156642279318985570
+      BARRA 1_21: 1708269077597390112
+      BARRA 1_22: 1612684617269282615
+      BARRA 1_23: -6661752106347738087
+      BARRA 1_24: 8896578432110056236
+      BARRA 1_25: 6061080200216053327
+      BARRA 1_26: 8874871033033261164
+      BARRA 1_27: 5131146515256704640
+      BARRA 1_28: -7291167448029578601
+      BARRA 1_3: -4173308239657208136
+      BARRA 1_4: -2575767273322489063
+      BARRA 1_5: 2238062435378915103
+      BARRA 1_6: -8120643063632035121
+      BARRA 1_7: -7442303901982613557
+      BARRA 1_8: -5745473466623508721
+      BARRA 1_9: -4974758473348023756
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
