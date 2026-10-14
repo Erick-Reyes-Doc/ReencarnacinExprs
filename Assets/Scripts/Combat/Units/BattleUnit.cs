@@ -92,6 +92,53 @@ public class BattleUnit : MonoBehaviour
     // Se dispara una vez cuando la vida pasa de positiva a 0.
     public event Action<BattleUnit> OnDefeated;
 
+    // Se dispara cuando una unidad derrotada vuelve a la vida
+    // (recuperacion poscombate). PositionManager la reincorpora.
+    public event Action<BattleUnit> OnRevived;
+
+    // Recuperacion poscombate: suma 'percent'% de la vida maxima efectiva
+    // (redondeo al mas cercano, sin pasar del maximo). Una unidad
+    // derrotada revive con exactamente ese porcentaje (minimo 1 HP).
+    // Devuelve true si la unidad estaba derrotada y revivio.
+    public bool RecoverAfterBattle(int percent)
+    {
+        if (unitData == null)
+            return false;
+
+        // Estadisticas efectivas actualizadas (nivel actual).
+        UpdateStats();
+
+        int amount =
+            (maxHealth * Mathf.Clamp(percent, 0, 100) + 50) / 100;
+
+        bool wasDefeated = currentHealth <= 0;
+
+        if (wasDefeated)
+        {
+            currentHealth = Mathf.Clamp(amount, 1, maxHealth);
+
+            Debug.Log(
+                unitData.unitName + " revive con " + currentHealth +
+                "/" + maxHealth + " HP."
+            );
+
+            OnRevived?.Invoke(this);
+        }
+        else
+        {
+            int before = currentHealth;
+            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+
+            Debug.Log(
+                unitData.unitName + " recupera " +
+                (currentHealth - before) + " HP (" +
+                currentHealth + "/" + maxHealth + ")."
+            );
+        }
+
+        return wasDefeated;
+    }
+
     private void Awake()
     {
         if (unitData == null)

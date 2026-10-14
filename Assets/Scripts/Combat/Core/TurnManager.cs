@@ -20,6 +20,14 @@ public class TurnManager : MonoBehaviour
     private bool battleFinished;
     private bool experienceAwarded;
 
+    [Header("Recuperacion poscombate")]
+    [Tooltip("% de la vida maxima efectiva que recuperan (o con el que reviven) los protagonistas al ganar.")]
+    [SerializeField, Range(0, 100)]
+    private int postBattleRecoveryPercent = 40;
+
+    private bool recoveryApplied;
+    private bool partyDefeated;
+
     [Header("Recompensa del encuentro")]
     [Tooltip("0 = suma de EnemyExperienceReward de los enemigos. Mayor que 0 = XP fija del encuentro (p. ej. Pradera 50, Bosque 100, Corrupcion 150, Jefe 200), entregada una sola vez.")]
     [SerializeField, Min(0)]
@@ -34,6 +42,9 @@ public class TurnManager : MonoBehaviour
     public bool BattleFinished => battleFinished;
 
     public int CurrentRound => currentRound;
+
+    // true si el combate termino con la derrota total del equipo.
+    public bool PartyDefeated => partyDefeated;
 
     // true mientras hay un combate en curso (iniciado y sin terminar).
     public bool BattleActive => currentRound > 0 && !battleFinished;
@@ -100,6 +111,8 @@ public class TurnManager : MonoBehaviour
         currentTurnIndex = 0;
         battleFinished = false;
         experienceAwarded = false;
+        recoveryApplied = false;
+        partyDefeated = false;
         CurrentUnit = null;
 
         // Descarta cualquier accion enemiga pendiente del encuentro anterior.
@@ -421,6 +434,25 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    // Recuperacion poscombate: una sola vez por victoria. Los
+    // protagonistas vivos recuperan el porcentaje configurado de su vida
+    // maxima efectiva y los derrotados reviven con ese mismo porcentaje.
+    private void ApplyPostBattleRecovery()
+    {
+        if (recoveryApplied)
+            return;
+
+        recoveryApplied = true;
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null || unit.Side != TeamSide.Player)
+                continue;
+
+            unit.RecoverAfterBattle(postBattleRecoveryPercent);
+        }
+    }
+
     private bool CheckBattleEnd()
     {
         bool playersAlive = units.Any(unit =>
@@ -441,7 +473,11 @@ public class TurnManager : MonoBehaviour
         battleFinished = true;
         CurrentUnit = null;
 
-        // Las habilidades en preparacion no sobreviven al combate.
+        // Nada pendiente del combate sobrevive a su final: acciones
+        // enemigas programadas, preparaciones, estados y regeneracion.
+        enemyActionToken++;
+        StopAllCoroutines();
+
         foreach (BattleUnit unit in units)
         {
             if (unit == null)
@@ -452,15 +488,32 @@ public class TurnManager : MonoBehaviour
 
             if (prepared != null)
                 prepared.Cancel("el combate termino");
+
+            StatusEffectController statusEffects =
+                unit.GetComponent<StatusEffectController>();
+
+            if (statusEffects != null)
+                statusEffects.ClearAllEffects();
+
+            RegenerationEffect regeneration =
+                unit.GetComponent<RegenerationEffect>();
+
+            if (regeneration != null)
+                regeneration.ClearEffect();
         }
 
         if (!enemiesAlive && playersAlive)
         {
             Debug.Log("¡VICTORIA!");
             AwardVictoryExperience();
+
+            // Despues de la XP y las subidas de nivel, para usar las
+            // estadisticas efectivas actualizadas.
+            ApplyPostBattleRecovery();
         }
         else if (!playersAlive && enemiesAlive)
         {
+            partyDefeated = true;
             Debug.Log("DERROTA");
         }
         else

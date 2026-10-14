@@ -39,10 +39,120 @@ public class PositionManager : MonoBehaviour
                 continue;
 
             unit.OnDefeated -= HandleDefeatedUnit;
+            unit.OnRevived -= HandleRevivedUnit;
 
             if (subscribe)
+            {
                 unit.OnDefeated += HandleDefeatedUnit;
+                unit.OnRevived += HandleRevivedUnit;
+            }
         }
+    }
+
+    // Reincorpora a una unidad revivida a su formacion: vuelve a
+    // mostrarse, recupera su posicion si sigue libre (o la primera
+    // libre) y el equipo se reorganiza.
+    private void HandleRevivedUnit(BattleUnit unit)
+    {
+        if (unit == null || !unit.IsAlive)
+            return;
+
+        SpriteRenderer sprite = unit.GetComponent<SpriteRenderer>();
+
+        if (sprite != null)
+            sprite.enabled = true;
+
+        List<BattleUnit> team =
+            unit.Side == TeamSide.Player
+            ? playerUnits
+            : enemyUnits;
+
+        if (!team.Contains(unit))
+            team.Add(unit);
+
+        // Recupera su lugar original en la formacion (la posicion que
+        // tenia al caer); los aliados vivos a partir de ahi retroceden una
+        // posicion. Si el hueco no existe, se coloca tras el ultimo vivo.
+        int aliveOthers = 0;
+
+        foreach (BattleUnit other in team)
+        {
+            if (other != null && other != unit && other.IsAlive)
+                aliveOthers++;
+        }
+
+        int desired = unit.Position;
+
+        if (defeatedAt.TryGetValue(unit, out int slot))
+        {
+            defeatedAt.Remove(unit);
+
+            // Posicion compactada = lugar original menos los huecos
+            // anteriores que siguen ocupados por caidos.
+            desired = slot - DeadSlotsBefore(unit.Side, slot);
+        }
+
+        desired = Mathf.Clamp(desired, 1, Mathf.Min(4, aliveOthers + 1));
+
+        foreach (BattleUnit other in team)
+        {
+            if (other != null && other != unit && other.IsAlive &&
+                other.Position >= desired)
+                other.SetPosition(Mathf.Min(4, other.Position + 1));
+        }
+
+        unit.SetPosition(desired);
+        ReorganizeTeam(unit.Side);
+    }
+
+    // Casilla de la formacion completa (1-4, contando a los caidos) que
+    // ocupaba cada unidad derrotada.
+    private readonly Dictionary<BattleUnit, int> defeatedAt =
+        new Dictionary<BattleUnit, int>();
+
+    private bool IsDeadSlot(TeamSide side, int slot)
+    {
+        foreach (KeyValuePair<BattleUnit, int> entry in defeatedAt)
+        {
+            if (entry.Key != null && entry.Key.Side == side &&
+                entry.Value == slot)
+                return true;
+        }
+
+        return false;
+    }
+
+    private int DeadSlotsBefore(TeamSide side, int slot)
+    {
+        int count = 0;
+
+        foreach (KeyValuePair<BattleUnit, int> entry in defeatedAt)
+        {
+            if (entry.Key != null && entry.Key.Side == side &&
+                entry.Value < slot)
+                count++;
+        }
+
+        return count;
+    }
+
+    // Casilla en la formacion completa de una unidad que acaba de caer:
+    // la n-esima casilla no ocupada por otros caidos, siendo n su
+    // posicion compactada actual.
+    private int FullFormationSlot(BattleUnit unit)
+    {
+        int slot = 0;
+        int free = 0;
+
+        while (free < unit.Position && slot < 4)
+        {
+            slot++;
+
+            if (!IsDeadSlot(unit.Side, slot))
+                free++;
+        }
+
+        return Mathf.Max(1, slot);
     }
 
     private void Start()
@@ -206,6 +316,10 @@ public void HandleDefeatedUnit(BattleUnit unit)
         sprite.enabled = false;
     }
 
+    // Recordar su lugar en la formacion completa (contando los huecos de
+    // los caidos) para poder restaurarlo si revive.
+    defeatedAt[unit] = FullFormationSlot(unit);
+
     // Reorganizar al equipo correspondiente.
     ReorganizeTeam(unit.Side);
 }
@@ -287,6 +401,8 @@ public void HandleDefeatedUnit(BattleUnit unit)
 
         unit.OnDefeated -= HandleDefeatedUnit;
         unit.OnDefeated += HandleDefeatedUnit;
+        unit.OnRevived -= HandleRevivedUnit;
+        unit.OnRevived += HandleRevivedUnit;
 
         UpdateVisualPositions();
 
@@ -304,8 +420,23 @@ public void HandleDefeatedUnit(BattleUnit unit)
         foreach (BattleUnit unit in team)
         {
             if (unit != null)
+            {
                 unit.OnDefeated -= HandleDefeatedUnit;
+                unit.OnRevived -= HandleRevivedUnit;
+            }
         }
+
+        // Los caidos de este equipo ya no cuentan para la formacion.
+        List<BattleUnit> stale = new List<BattleUnit>();
+
+        foreach (BattleUnit key in defeatedAt.Keys)
+        {
+            if (key == null || key.Side == side)
+                stale.Add(key);
+        }
+
+        foreach (BattleUnit key in stale)
+            defeatedAt.Remove(key);
 
         team.Clear();
     }

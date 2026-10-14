@@ -72,6 +72,16 @@ public class EncounterLoader : MonoBehaviour
             return false;
         }
 
+        // Tras una derrota total no se continua: se vuelve al menu.
+        if (turnManager.PartyDefeated ||
+            !turnManager.HasAliveUnit(TeamSide.Player))
+        {
+            Debug.Log(
+                "No se puede cargar un encuentro: el equipo fue derrotado."
+            );
+            return false;
+        }
+
         if (!data.Validate(out string error))
         {
             Debug.LogWarning(

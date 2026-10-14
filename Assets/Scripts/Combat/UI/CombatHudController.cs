@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // Primera interfaz funcional de combate (provisional).
@@ -40,6 +41,12 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Image[] abilityImages = new Image[AbilitySlots];
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button endTurnButton;
+
+    [Header("Derrota total")]
+    [Tooltip("Escena a la que se vuelve tras perder (debe estar en Build Settings).")]
+    [SerializeField] private string menuSceneName = "Menu";
+    [SerializeField] private GameObject defeatPanel;
+    [SerializeField] private Button returnToMenuButton;
     [SerializeField] private Button[] tileButtons = new Button[SlotCount];
     [SerializeField] private Image[] tileImages = new Image[SlotCount];
     [SerializeField] private Text[] tileTexts = new Text[SlotCount];
@@ -141,6 +148,49 @@ public class CombatHudController : MonoBehaviour
 
         endTurnButton.onClick.RemoveAllListeners();
         endTurnButton.onClick.AddListener(OnEndTurnClicked);
+
+        if (returnToMenuButton != null)
+        {
+            returnToMenuButton.onClick.RemoveAllListeners();
+            returnToMenuButton.onClick.AddListener(() => ReturnToMenu());
+        }
+    }
+
+    // La escena de menu existe y esta incluida en Build Settings.
+    public bool CanReturnToMenu()
+    {
+        if (string.IsNullOrEmpty(menuSceneName))
+            return false;
+
+#if UNITY_EDITOR
+        // En el editor se consulta Build Settings directamente.
+        foreach (UnityEditor.EditorBuildSettingsScene scene in
+                 UnityEditor.EditorBuildSettings.scenes)
+        {
+            if (scene.enabled &&
+                System.IO.Path.GetFileNameWithoutExtension(scene.path) ==
+                menuSceneName)
+                return true;
+        }
+
+        return false;
+#else
+        return Application.CanStreamedLevelBeLoaded(menuSceneName);
+#endif
+    }
+
+    // Vuelve al menu principal solo si la escena es valida.
+    public bool ReturnToMenu()
+    {
+        if (!CanReturnToMenu())
+        {
+            Say("No se puede volver al menu: la escena '" + menuSceneName +
+                "' no esta en Build Settings.", true);
+            return false;
+        }
+
+        SceneManager.LoadScene(menuSceneName);
+        return true;
     }
 
     // ------------------------------------------------------------
@@ -152,7 +202,8 @@ public class CombatHudController : MonoBehaviour
         "utiliza", "causa", "prepara", "lanza", "cura ", "derrotado",
         "VICTORIA", "DERROTA", "esquiva", "recibe", "sufre", "aturdid",
         "cancela", "intercepta", "transforma", "Experiencia",
-        "adopta", "obtiene", "subio", "recupera", "inmune", "pasa su turno"
+        "adopta", "obtiene", "subio", "recupera", "inmune", "pasa su turno",
+        "revive"
     };
 
     // Registro basico: ultimas lineas relevantes de combate.
@@ -547,6 +598,15 @@ public class CombatHudController : MonoBehaviour
         }
         SetText(bannerText, banner);
 
+        // Panel de derrota total: permite ver el resultado y volver al menu.
+        if (defeatPanel != null)
+        {
+            bool showDefeat = finished && banner == "DERROTA";
+
+            if (defeatPanel.activeSelf != showDefeat)
+                defeatPanel.SetActive(showDefeat);
+        }
+
         // Botones de habilidad del loadout activo.
         CharacterAbilityLoadout loadout = playerTurn
             ? active.GetComponent<CharacterAbilityLoadout>()
@@ -815,6 +875,14 @@ public class CombatHudController : MonoBehaviour
         t1.text = "Cancelar";
         endTurnButton = MakeButton("TerminarTurno", bottom, new Vector2(0.86f, 0.12f), new Vector2(0.99f, 0.49f), ButtonColor, out t2, out i2, 22);
         t2.text = "Terminar turno";
+
+        // Panel de derrota total (oculto hasta perder).
+        RectTransform defeat = Box("PanelDerrota", root, new Vector2(0.38f, 0.355f), new Vector2(0.62f, 0.44f), PanelColor);
+        Text returnLabel; Image returnImage;
+        returnToMenuButton = MakeButton("VolverMenu", defeat, new Vector2(0.04f, 0.1f), new Vector2(0.96f, 0.9f), ButtonColor, out returnLabel, out returnImage, 28);
+        returnLabel.text = "Volver al menú";
+        defeatPanel = defeat.gameObject;
+        defeatPanel.SetActive(false);
 
         // EventSystem compatible con el nuevo Input System.
         EventSystem existing = null;
