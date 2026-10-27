@@ -1,0 +1,574 @@
+fileFormatVersion: 2
+guid: 7cbaee56d9f29dd4092a3dc9c0373bf1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5210690436132742578
+    second: menuHover_0
+  - first:
+      213: 70565964410655368
+    second: menuHover_1
+  - first:
+      213: 303023309769236924
+    second: menuHover_2
+  - first:
+      213: 2442187908411707898
+    second: menuHover_3
+  - first:
+      213: 4170559615949153087
+    second: menuHover_4
+  - first:
+      213: -4919761979589495567
+    second: menuHover_5
+  - first:
+      213: 6035135125023429033
+    second: menuHover_6
+  - first:
+      213: -881335724341352249
+    second: menuHover_7
+  - first:
+      213: -2706250020691350899
+    second: menuHover_8
+  - first:
+      213: -2406036366031937053
+    second: menuHover_9
+  - first:
+      213: -564913001863049356
+    second: menuHover_10
+  - first:
+      213: -815872706662019057
+    second: menuHover_11
+  - first:
+      213: 2678802416025008153
+    second: menuHover_12
+  - first:
+      213: -6860274878096644939
+    second: menuHover_13
+  - first:
+      213: -4895618735437231559
+    second: menuHover_14
+  - first:
+      213: -6283875322859147355
+    second: menuHover_15
+  - first:
+      213: -9215937255981757865
+    second: menuHover_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 0
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 175, y: 336, z: 175, w: 327}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: menuHover_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 21
+        width: 2111
+        height: 633
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4a58cfd7a8efa7b0800000000000000
+      internalID: -5210690436132742578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_1
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 637
+        width: 136
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8821ee9ee53baf000800000000000000
+      internalID: 70565964410655368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_2
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 628
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb16571481e843400800000000000000
+      internalID: 303023309769236924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 648
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af152a3a6f464e120800000000000000
+      internalID: 2442187908411707898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_4
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 644
+        width: 148
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f332d37cfddc0e930800000000000000
+      internalID: 4170559615949153087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_5
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 586
+        width: 65
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f4781bab8e79bbb0800000000000000
+      internalID: -4919761979589495567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_6
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 642
+        width: 108
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a11182bb6b11c350800000000000000
+      internalID: 6035135125023429033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_7
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 650
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c8a5c604ddd4c3f0800000000000000
+      internalID: -881335724341352249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_8
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 642
+        width: 38
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8a6c4bc1f7717ad0800000000000000
+      internalID: -2706250020691350899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_9
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 647
+        width: 148
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e1aefd3caa0c9ed0800000000000000
+      internalID: -2406036366031937053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_10
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 642
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f04fa2e960928f0800000000000000
+      internalID: -564913001863049356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_11
+      rect:
+        serializedVersion: 2
+        x: 1975
+        y: 644
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f00597198107da4f0800000000000000
+      internalID: -815872706662019057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_12
+      rect:
+        serializedVersion: 2
+        x: 2009
+        y: 610
+        width: 79
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918f0aeba940d2520800000000000000
+      internalID: 2678802416025008153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_13
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 626
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4638d78586bc0a0800000000000000
+      internalID: -6860274878096644939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_14
+      rect:
+        serializedVersion: 2
+        x: 2041
+        y: 626
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a448eb2b44f0cb0800000000000000
+      internalID: -4895618735437231559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_15
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 615
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5af2320ffa03bc8a0800000000000000
+      internalID: -6283875322859147355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menuHover_16
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 586
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a4be0d4e96a1080800000000000000
+      internalID: -9215937255981757865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      menuHover_0: -5210690436132742578
+      menuHover_1: 70565964410655368
+      menuHover_10: -564913001863049356
+      menuHover_11: -815872706662019057
+      menuHover_12: 2678802416025008153
+      menuHover_13: -6860274878096644939
+      menuHover_14: -4895618735437231559
+      menuHover_15: -6283875322859147355
+      menuHover_16: -9215937255981757865
+      menuHover_2: 303023309769236924
+      menuHover_3: 2442187908411707898
+      menuHover_4: 4170559615949153087
+      menuHover_5: -4919761979589495567
+      menuHover_6: 6035135125023429033
+      menuHover_7: -881335724341352249
+      menuHover_8: -2706250020691350899
+      menuHover_9: -2406036366031937053
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

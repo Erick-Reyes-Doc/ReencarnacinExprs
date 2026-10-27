@@ -49,6 +49,44 @@ public enum UserMovement
     Backward   // hacia la retaguardia (posicion +1)
 }
 
+// Area de posiciones que una habilidad preparada puede anunciar
+// (p. ej. "primera linea" = P1 y P2). Se guarda por posiciones, no por
+// personajes: al resolver se consulta quien ocupa esas posiciones.
+[Serializable]
+public class AbilityPositionArea
+{
+    [Tooltip("Nombre corto para el anuncio: 'primera linea', 'retaguardia'.")]
+    public string label = "";
+
+    [Tooltip("Posiciones P1-P4 amenazadas.")]
+    public bool[] positions = new bool[4];
+
+    public bool Contains(int position)
+    {
+        return position >= 1 && position <= 4 &&
+               positions != null && positions.Length >= position &&
+               positions[position - 1];
+    }
+
+    // "P1 y P2", "P3, P4 y ..." segun las posiciones marcadas.
+    public string PositionsText()
+    {
+        List<string> names = new List<string>();
+
+        for (int p = 1; p <= 4; p++)
+        {
+            if (Contains(p))
+                names.Add("P" + p);
+        }
+
+        if (names.Count <= 1)
+            return string.Join("", names);
+
+        return string.Join(", ", names.GetRange(0, names.Count - 1)) +
+               " y " + names[names.Count - 1];
+    }
+}
+
 // Tipos generales de habilidades.
 public enum AbilityType
 {
@@ -89,6 +127,9 @@ public class AbilityData : ScriptableObject
 
     [Header("Tipo de habilidad")]
     public AbilityType abilityType;
+
+    [Tooltip("Opcional. Frase que muestra el HUD cuando un enemigo usa esta habilidad (p. ej. la de un jefe). Vacio = ninguna.")]
+    public string useAnnouncement = "";
 
     [Header("Tipo de objetivo")]
     public AbilityTargetType targetType =
@@ -140,6 +181,9 @@ public class AbilityData : ScriptableObject
     [Header("Preparacion diferida")]
     [Tooltip("Ataques de area que se anuncian al lanzarlos y impactan en el siguiente turno propio del usuario (PreparedAbilityController). El cooldown empieza al preparar.")]
     public bool requiresPreparation = false;
+
+    [Tooltip("Opcional. Si no esta vacia, la preparacion debe elegir una de estas areas por posiciones y solo estas se amenazan al resolver. Vacia = comportamiento original (Golpe de Meteorito).")]
+    public List<AbilityPositionArea> selectableAreas = new List<AbilityPositionArea>();
 
     [Header("Daño directo")]
     [Tooltip("Desactivar para habilidades que solo aplican estados.")]

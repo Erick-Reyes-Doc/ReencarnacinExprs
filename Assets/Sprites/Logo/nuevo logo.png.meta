@@ -1,0 +1,1978 @@
+fileFormatVersion: 2
+guid: f908b1b6b7eaa6e498b228bdddda8eed
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7141851947377682392
+    second: nuevo logo_0
+  - first:
+      213: -8384657591381201986
+    second: nuevo logo_1
+  - first:
+      213: -478481058998171435
+    second: nuevo logo_2
+  - first:
+      213: 2449546442897337943
+    second: nuevo logo_3
+  - first:
+      213: 8240583142975196088
+    second: nuevo logo_4
+  - first:
+      213: 6487507920781324097
+    second: nuevo logo_5
+  - first:
+      213: -2282555861805761743
+    second: nuevo logo_6
+  - first:
+      213: 3800948812507695749
+    second: nuevo logo_7
+  - first:
+      213: -4607427496477253630
+    second: nuevo logo_8
+  - first:
+      213: -5454850520275116403
+    second: nuevo logo_9
+  - first:
+      213: 1531849304630689879
+    second: nuevo logo_10
+  - first:
+      213: 8963496376155839893
+    second: nuevo logo_11
+  - first:
+      213: 440072287531869424
+    second: nuevo logo_12
+  - first:
+      213: 5299340143529517131
+    second: nuevo logo_13
+  - first:
+      213: -3685735417021099921
+    second: nuevo logo_14
+  - first:
+      213: -394862634435390934
+    second: nuevo logo_15
+  - first:
+      213: 4582349928334595783
+    second: nuevo logo_16
+  - first:
+      213: -8181264509883084641
+    second: nuevo logo_17
+  - first:
+      213: -2521482913110589339
+    second: nuevo logo_18
+  - first:
+      213: -5753099624846339392
+    second: nuevo logo_19
+  - first:
+      213: 8794773474628983652
+    second: nuevo logo_20
+  - first:
+      213: -1792227810881583386
+    second: nuevo logo_21
+  - first:
+      213: -3243391150257950204
+    second: nuevo logo_22
+  - first:
+      213: 4720216565335549612
+    second: nuevo logo_23
+  - first:
+      213: -4212046828940131388
+    second: nuevo logo_24
+  - first:
+      213: -1053185495404531516
+    second: nuevo logo_25
+  - first:
+      213: 6079232645520658126
+    second: nuevo logo_26
+  - first:
+      213: -1804901421714925248
+    second: nuevo logo_27
+  - first:
+      213: -7827086743780080645
+    second: nuevo logo_28
+  - first:
+      213: -7265267502499086405
+    second: nuevo logo_29
+  - first:
+      213: -8672154872691615421
+    second: nuevo logo_30
+  - first:
+      213: 7778814158130323520
+    second: nuevo logo_31
+  - first:
+      213: 5684167051806137392
+    second: nuevo logo_32
+  - first:
+      213: 5994312142457057460
+    second: nuevo logo_33
+  - first:
+      213: 365401767877545040
+    second: nuevo logo_34
+  - first:
+      213: -1468119161007719892
+    second: nuevo logo_35
+  - first:
+      213: 5099946841314168874
+    second: nuevo logo_36
+  - first:
+      213: 2886266789308978354
+    second: nuevo logo_37
+  - first:
+      213: 8107602813007026360
+    second: nuevo logo_38
+  - first:
+      213: 4615511900375895921
+    second: nuevo logo_39
+  - first:
+      213: 8695953786480862270
+    second: nuevo logo_40
+  - first:
+      213: -4088049467441850615
+    second: nuevo logo_41
+  - first:
+      213: 8770949966415351842
+    second: nuevo logo_42
+  - first:
+      213: 185875597126769860
+    second: nuevo logo_43
+  - first:
+      213: 8135098952936894294
+    second: nuevo logo_44
+  - first:
+      213: 4172808255172254027
+    second: nuevo logo_45
+  - first:
+      213: -1761943769339562100
+    second: nuevo logo_46
+  - first:
+      213: -6190665860006077943
+    second: nuevo logo_47
+  - first:
+      213: -5688973308720564404
+    second: nuevo logo_48
+  - first:
+      213: 7212290397146220386
+    second: nuevo logo_49
+  - first:
+      213: 5630078585584480012
+    second: nuevo logo_50
+  - first:
+      213: -4589599895886229765
+    second: nuevo logo_51
+  - first:
+      213: 7019319819128247005
+    second: nuevo logo_52
+  - first:
+      213: 2244995066672401541
+    second: nuevo logo_53
+  - first:
+      213: 5759166584024243073
+    second: nuevo logo_54
+  - first:
+      213: -8499706903008998063
+    second: nuevo logo_55
+  - first:
+      213: 7876187856609697512
+    second: nuevo logo_56
+  - first:
+      213: 6644554735933636667
+    second: nuevo logo_57
+  - first:
+      213: -8568137703771036701
+    second: nuevo logo_58
+  - first:
+      213: -6715232756954155078
+    second: nuevo logo_59
+  - first:
+      213: -4230185888314424857
+    second: nuevo logo_60
+  - first:
+      213: -254159621450964549
+    second: nuevo logo_61
+  - first:
+      213: -1752963322126098366
+    second: nuevo logo_62
+  - first:
+      213: 7327823014408698227
+    second: nuevo logo_63
+  - first:
+      213: 5567505007182273451
+    second: nuevo logo_64
+  - first:
+      213: 5344729300407078448
+    second: nuevo logo_65
+  - first:
+      213: 1799391300239416325
+    second: nuevo logo_66
+  - first:
+      213: 8935870094216001515
+    second: nuevo logo_67
+  - first:
+      213: -5886304944599902517
+    second: nuevo logo_68
+  - first:
+      213: 8281794716792512753
+    second: nuevo logo_69
+  - first:
+      213: -3608424944444772900
+    second: nuevo logo_70
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: nuevo logo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 1672
+        height: 882
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d7e0e9c184fc1360800000000000000
+      internalID: 7141851947377682392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_1
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 893
+        width: 49
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebbe07e2856b3ab80800000000000000
+      internalID: -8384657591381201986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_2
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 881
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d849ae03081c59f0800000000000000
+      internalID: -478481058998171435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_3
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 869
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75ea7b5f2898ef120800000000000000
+      internalID: 2449546442897337943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_4
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 867
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bbcb1345be6c5270800000000000000
+      internalID: 8240583142975196088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_5
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 843
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14f24b7e412480a50800000000000000
+      internalID: 6487507920781324097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_6
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 833
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13bf415898bb250e0800000000000000
+      internalID: -2282555861805761743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_7
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 828
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58ac6f28eceafb430800000000000000
+      internalID: 3800948812507695749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_8
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 801
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2002b186a112f00c0800000000000000
+      internalID: -4607427496477253630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_9
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 129
+        width: 81
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e95245a5a7c44b0800000000000000
+      internalID: -5454850520275116403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_10
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 147
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75001f393d8324510800000000000000
+      internalID: 1531849304630689879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_11
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 127
+        width: 88
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59d1546a67cb46c70800000000000000
+      internalID: 8963496376155839893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_12
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 145
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4a4d5f9637b1600800000000000000
+      internalID: 440072287531869424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_13
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 135
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b406b0f88c90b8940800000000000000
+      internalID: 5299340143529517131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_14
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 145
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6091648a23a9dcc0800000000000000
+      internalID: -3685735417021099921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_15
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 115
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a22576ba68a258af0800000000000000
+      internalID: -394862634435390934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_16
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 148
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c69be24bf6c79f30800000000000000
+      internalID: 4582349928334595783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_17
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 148
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9098e2464f467e80800000000000000
+      internalID: -8181264509883084641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_18
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 145
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56083d066a4e10dd0800000000000000
+      internalID: -2521482913110589339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_19
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 145
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c2d9975f52e820b0800000000000000
+      internalID: -5753099624846339392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_20
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 145
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46bd943e0ef4d0a70800000000000000
+      internalID: 8794773474628983652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_21
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 146
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e6c3d73d4ab027e0800000000000000
+      internalID: -1792227810881583386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_22
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 143
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 402ba3ddee82df2d0800000000000000
+      internalID: -3243391150257950204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_23
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 135
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca66db715f3918140800000000000000
+      internalID: 4720216565335549612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_24
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 119
+        width: 35
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c386b7b9bdcb85c0800000000000000
+      internalID: -4212046828940131388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_25
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 127
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c0b1d73f555261f0800000000000000
+      internalID: -1053185495404531516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_26
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 130
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece8737c1e5cd5450800000000000000
+      internalID: 6079232645520658126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_27
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 127
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049951048b3b3f6e0800000000000000
+      internalID: -1804901421714925248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_28
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 131
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3c1d2831a906390800000000000000
+      internalID: -7827086743780080645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_29
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 130
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbf3a5313b59c2b90800000000000000
+      internalID: -7265267502499086405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_30
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 127
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3491b00271156a780800000000000000
+      internalID: -8672154872691615421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_31
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 133
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040232d4346e3fb60800000000000000
+      internalID: 7778814158130323520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_32
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 137
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03c52ee41d732ee40800000000000000
+      internalID: 5684167051806137392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_33
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 112
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b0b6f36223103350800000000000000
+      internalID: 5994312142457057460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_34
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 115
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c04aec8fa221500800000000000000
+      internalID: 365401767877545040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_35
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 102
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2ab038c66130abe0800000000000000
+      internalID: -1468119161007719892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_36
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 117
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2018e9a1a6a6c640800000000000000
+      internalID: 5099946841314168874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_37
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 86
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b4d4cf4a541e0820800000000000000
+      internalID: 2886266789308978354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_38
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 81
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b8dd317dcdf38070800000000000000
+      internalID: 8107602813007026360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_39
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 88
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17f4e7e8e979d0040800000000000000
+      internalID: 4615511900375895921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_40
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 97
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e34a76a45eb3ea870800000000000000
+      internalID: 8695953786480862270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_41
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 96
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90757e43ba45447c0800000000000000
+      internalID: -4088049467441850615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_42
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 90
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22059e2268ca8b970800000000000000
+      internalID: 8770949966415351842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_43
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 98
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc972beedc549200800000000000000
+      internalID: 185875597126769860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_44
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 88
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65fa476656da5e070800000000000000
+      internalID: 8135098952936894294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_45
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 74
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b491c55effac8e930800000000000000
+      internalID: 4172808255172254027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_46
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 72
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c877d4a1a715c87e0800000000000000
+      internalID: -1761943769339562100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_47
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 80
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a133b2336561aa0800000000000000
+      internalID: -6190665860006077943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_48
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 75
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47380dcae4bc01b0800000000000000
+      internalID: -5688973308720564404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_49
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 64
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2678cd267e3371460800000000000000
+      internalID: 7212290397146220386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_50
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 62
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0feb47e4ae022e40800000000000000
+      internalID: 5630078585584480012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_51
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 64
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe088026377e40c0800000000000000
+      internalID: -4589599895886229765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_52
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 56
+        width: 9
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd29fff7f22a96160800000000000000
+      internalID: 7019319819128247005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_53
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 46
+        width: 41
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58c438f5e13d72f10800000000000000
+      internalID: 2244995066672401541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_54
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 79
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18b901bae7bacef40800000000000000
+      internalID: 5759166584024243073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_55
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 72
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15d8637ea99fa0a80800000000000000
+      internalID: -8499706903008998063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_56
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 64
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee57713027dd4d60800000000000000
+      internalID: 7876187856609697512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_57
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 72
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b30c6f5f353363c50800000000000000
+      internalID: 6644554735933636667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_58
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 64
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3a814872cd71980800000000000000
+      internalID: -8568137703771036701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_59
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 80
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab73ea9e263bec2a0800000000000000
+      internalID: -6715232756954155078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_60
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 60
+        width: 21
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e10629d85c5b45c0800000000000000
+      internalID: -4230185888314424857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_61
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 48
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb1ea2fbb2b097cf0800000000000000
+      internalID: -254159621450964549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_62
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 54
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 240a26865293ca7e0800000000000000
+      internalID: -1752963322126098366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_63
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 58
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37933c60538a1b560800000000000000
+      internalID: 7327823014408698227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_64
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 62
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: babde4e5e40c34d40800000000000000
+      internalID: 5567505007182273451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_65
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 49
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03ec26b2bfa4c2a40800000000000000
+      internalID: 5344729300407078448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_66
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 48
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50cd2be9ad8b8f810800000000000000
+      internalID: 1799391300239416325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_67
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 53
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be7f7c4a186920c70800000000000000
+      internalID: 8935870094216001515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_68
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 33
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc65f7107d4af4ea0800000000000000
+      internalID: -5886304944599902517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_69
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 32
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f0ef158a68dee270800000000000000
+      internalID: 8281794716792512753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nuevo logo_70
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 37
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdde5bb91ac4cedc0800000000000000
+      internalID: -3608424944444772900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      nuevo logo_0: 7141851947377682392
+      nuevo logo_1: -8384657591381201986
+      nuevo logo_10: 1531849304630689879
+      nuevo logo_11: 8963496376155839893
+      nuevo logo_12: 440072287531869424
+      nuevo logo_13: 5299340143529517131
+      nuevo logo_14: -3685735417021099921
+      nuevo logo_15: -394862634435390934
+      nuevo logo_16: 4582349928334595783
+      nuevo logo_17: -8181264509883084641
+      nuevo logo_18: -2521482913110589339
+      nuevo logo_19: -5753099624846339392
+      nuevo logo_2: -478481058998171435
+      nuevo logo_20: 8794773474628983652
+      nuevo logo_21: -1792227810881583386
+      nuevo logo_22: -3243391150257950204
+      nuevo logo_23: 4720216565335549612
+      nuevo logo_24: -4212046828940131388
+      nuevo logo_25: -1053185495404531516
+      nuevo logo_26: 6079232645520658126
+      nuevo logo_27: -1804901421714925248
+      nuevo logo_28: -7827086743780080645
+      nuevo logo_29: -7265267502499086405
+      nuevo logo_3: 2449546442897337943
+      nuevo logo_30: -8672154872691615421
+      nuevo logo_31: 7778814158130323520
+      nuevo logo_32: 5684167051806137392
+      nuevo logo_33: 5994312142457057460
+      nuevo logo_34: 365401767877545040
+      nuevo logo_35: -1468119161007719892
+      nuevo logo_36: 5099946841314168874
+      nuevo logo_37: 2886266789308978354
+      nuevo logo_38: 8107602813007026360
+      nuevo logo_39: 4615511900375895921
+      nuevo logo_4: 8240583142975196088
+      nuevo logo_40: 8695953786480862270
+      nuevo logo_41: -4088049467441850615
+      nuevo logo_42: 8770949966415351842
+      nuevo logo_43: 185875597126769860
+      nuevo logo_44: 8135098952936894294
+      nuevo logo_45: 4172808255172254027
+      nuevo logo_46: -1761943769339562100
+      nuevo logo_47: -6190665860006077943
+      nuevo logo_48: -5688973308720564404
+      nuevo logo_49: 7212290397146220386
+      nuevo logo_5: 6487507920781324097
+      nuevo logo_50: 5630078585584480012
+      nuevo logo_51: -4589599895886229765
+      nuevo logo_52: 7019319819128247005
+      nuevo logo_53: 2244995066672401541
+      nuevo logo_54: 5759166584024243073
+      nuevo logo_55: -8499706903008998063
+      nuevo logo_56: 7876187856609697512
+      nuevo logo_57: 6644554735933636667
+      nuevo logo_58: -8568137703771036701
+      nuevo logo_59: -6715232756954155078
+      nuevo logo_6: -2282555861805761743
+      nuevo logo_60: -4230185888314424857
+      nuevo logo_61: -254159621450964549
+      nuevo logo_62: -1752963322126098366
+      nuevo logo_63: 7327823014408698227
+      nuevo logo_64: 5567505007182273451
+      nuevo logo_65: 5344729300407078448
+      nuevo logo_66: 1799391300239416325
+      nuevo logo_67: 8935870094216001515
+      nuevo logo_68: -5886304944599902517
+      nuevo logo_69: 8281794716792512753
+      nuevo logo_7: 3800948812507695749
+      nuevo logo_70: -3608424944444772900
+      nuevo logo_8: -4607427496477253630
+      nuevo logo_9: -5454850520275116403
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

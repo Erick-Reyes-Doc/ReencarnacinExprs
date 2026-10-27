@@ -83,7 +83,8 @@ public class StatusEffectController : MonoBehaviour
                 type, out StatusEffectInstance current))
         {
             // La Marca no se reaplica mientras este activa.
-            if (type == StatusEffectType.Mark)
+            if (type == StatusEffectType.Mark ||
+                type == StatusEffectType.PriorityTarget)
                 return false;
 
             if (potency > current.Potency)
@@ -229,6 +230,7 @@ public class StatusEffectController : MonoBehaviour
     private static bool DefersExpiry(StatusEffectType type)
     {
         return type == StatusEffectType.Mark ||
+               type == StatusEffectType.PriorityTarget ||
                type == StatusEffectType.DefenseBoost ||
                type == StatusEffectType.Weaken ||
                type == StatusEffectType.Vulnerability;

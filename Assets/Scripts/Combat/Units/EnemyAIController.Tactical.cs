@@ -270,6 +270,10 @@ public partial class EnemyAIController
             if (self.Position <= 2)
                 value += 1.5f;    // en primera linea aprovecha mas la defensa
 
+            // Solo jefes con fases (0 para el resto).
+            value = BossSupportValue(self, ability, value);
+            value += BossSelfSupportAdjust(self);
+
             return value;
         }
 
@@ -317,6 +321,9 @@ public partial class EnemyAIController
             if (!ability.dealsDamage && !anyNew)
                 return Invalid;
         }
+
+        // Solo jefes (0 para el resto de enemigos).
+        score += BossScoreAdjust(self, ability, target, maxAttack);
 
         return score;
     }

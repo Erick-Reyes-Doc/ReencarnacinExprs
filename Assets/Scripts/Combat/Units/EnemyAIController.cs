@@ -174,6 +174,10 @@ public partial class EnemyAIController : MonoBehaviour
         if (!ability.CanUseFromPosition(self.Position))
             return false;
 
+        // Habilidades exclusivas de una fase del jefe (solo jefes).
+        if (!PhaseAllows(self, ability))
+            return false;
+
         AbilityCooldownController cooldowns =
             self.GetComponent<AbilityCooldownController>();
 
@@ -424,6 +428,11 @@ public partial class EnemyAIController : MonoBehaviour
             Debug.LogWarning(name + " pasa su turno: faltan referencias de la IA.");
             return TurnResult.Passed;
         }
+
+        // Solo jefes: ataques preparados por areas (ver EnemyAIController.Boss).
+        if (self.Data != null && self.Data.isBoss &&
+            TryBossPreparation(self, out TurnResult bossResult))
+            return bossResult;
 
         List<Option> options = BuildOptions(self);
 

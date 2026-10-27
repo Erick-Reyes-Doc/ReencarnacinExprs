@@ -320,7 +320,11 @@ public partial class WorldMapController
             BuildNodes(area);
         }
 
-        BuildTopBar(canvasGo.transform);
+        // HUD del Paso 89 si estan asignados sus sprites; si no, la barra superior original.
+        if (hudFrame != null)
+            BuildMapHud(canvasGo.transform);
+        else
+            BuildTopBar(canvasGo.transform);
 
         if (!useLocationMarkers)
             BuildInfoPanel(canvasGo.transform);
@@ -926,7 +930,7 @@ public partial class WorldMapController
         Color badgeColor = Color.white;
         bool showBadge = true;
 
-        if (boss)
+        if (boss && state == MapProgression.NodeState.Locked)
         {
             body = new Color(0.23f, 0.13f, 0.24f, 1f);
             frame = new Color(0.55f, 0.30f, 0.55f, 1f);
@@ -969,11 +973,11 @@ public partial class WorldMapController
             }
         }
 
-        node.label.color = state == MapProgression.NodeState.Locked || boss
+        node.label.color = state == MapProgression.NodeState.Locked
             ? new Color(0.78f, 0.80f, 0.88f, 0.92f) : Color.white;
 
         if (node.icon != null)
-            node.icon.color = state == MapProgression.NodeState.Locked || boss
+            node.icon.color = state == MapProgression.NodeState.Locked
                 ? new Color(1f, 1f, 1f, 0.62f) : Color.white;
     }
 

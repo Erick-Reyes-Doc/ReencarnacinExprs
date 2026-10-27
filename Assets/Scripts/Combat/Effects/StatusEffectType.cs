@@ -18,5 +18,9 @@ public enum StatusEffectType
 
     // Reduce el daño directo recibido (potencia = porcentaje) y
     // puede proteger a un aliado. Ver StatusEffectController.ApplyGuard.
-    Guard
+    Guard,
+
+    // Marca tactica del Capitan: el objetivo recibe mas daño directo,
+    // pero solo del atacante que la aplico (StatusEffectInstance.Source).
+    PriorityTarget
 }

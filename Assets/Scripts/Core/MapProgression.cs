@@ -1,5 +1,5 @@
 // Reglas de progresion del mapa. Los encuentros son secuenciales
-// (P1 > P2 > P3 > P4 > B1 > B2 > B3 > C1 > C2) y el estado de cada nodo
+// (P1 > P2 > P3 > P4 > B1 > B2 > B3 > C1 > C2 > BOSS) y el estado de cada nodo
 // se deduce de los encuentros completados en GameSession: no hay un
 // segundo registro que pueda desincronizarse.
 public static class MapProgression
@@ -13,8 +13,12 @@ public static class MapProgression
 
     public static readonly string[] Order =
     {
-        "P1", "P2", "P3", "P4", "B1", GameSession.NoelleEventId, "B2", "B3", "C1", "C2"
+        "P1", "P2", "P3", "P4", "B1", GameSession.NoelleEventId, "B2", "B3", "C1", "C2",
+        BossId
     };
+
+    // Jefe final (Trono Sellado). Se desbloquea al completar C2.
+    public const string BossId = "BOSS";
 
     public const string Meadow = "Pradera";
     public const string Forest = "Bosque";
@@ -30,6 +34,10 @@ public static class MapProgression
     {
         if (string.IsNullOrEmpty(encounterId))
             return "";
+
+        // El jefe vive en la Corrupcion, pero no cuenta en su progreso.
+        if (encounterId == BossId)
+            return Corruption;
 
         switch (encounterId[0])
         {
@@ -108,7 +116,7 @@ public static class MapProgression
 
         foreach (string id in Order)
         {
-            if (ZoneOf(id) != zone)
+            if (id == BossId || ZoneOf(id) != zone)
                 continue;
 
             total++;
@@ -118,9 +126,15 @@ public static class MapProgression
         }
     }
 
-    // Todos los encuentros completados: el jefe seria el siguiente paso.
-    public static bool AllCompleted()
+    // C2 completado: el jefe esta disponible (mientras no se supere).
+    public static bool BossUnlocked()
     {
         return GameSession.IsEncounterCompleted("C2");
+    }
+
+    // Jefe superado: el jugador termino todos los encuentros de la demo.
+    public static bool AllCompleted()
+    {
+        return GameSession.IsEncounterCompleted(BossId);
     }
 }

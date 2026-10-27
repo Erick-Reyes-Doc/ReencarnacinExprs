@@ -36,8 +36,25 @@ public class EncounterLoader : MonoBehaviour
 
     // Carga el encuentro elegido en el mapa antes de que TurnManager
     // inicie el combate con los enemigos por defecto de la escena.
+#if UNITY_EDITOR
+    // Solo pruebas de desarrollo: encuentro que se carga al entrar en la
+    // escena sin pasar por el mapa ni por la progresion (p. ej. el jefe).
+    // Nunca se asigna en el flujo normal; se consume una sola vez.
+    public static EncounterData DevEncounter;
+#endif
+
     private void Start()
     {
+#if UNITY_EDITOR
+        if (DevEncounter != null)
+        {
+            EncounterData dev = DevEncounter;
+            DevEncounter = null;
+            LoadEncounter(dev);
+            return;
+        }
+#endif
+
         string id = GameSession.TakePendingEncounter();
 
         if (string.IsNullOrEmpty(id))

@@ -32,6 +32,31 @@ public static class ConsumableService
         return Mathf.Max(1, (maxHealth * PotionHealPercent + 50) / 100);
     }
 
+    // Texto informativo para el HUD. Se genera con las mismas constantes y
+    // la misma lista de estados curables que usa TryUse, asi no queda
+    // desactualizado. No cambia ninguna regla.
+    public static string Description(GameSession.Consumable type)
+    {
+        if (type == GameSession.Consumable.Potion)
+            return "Restaura el " + PotionHealPercent + "% del HP máximo.\nObjetivo: un aliado vivo.";
+
+        string list = "";
+
+        foreach (StatusEffectType status in System.Enum.GetValues(typeof(StatusEffectType)))
+        {
+            if (!IsCurable(status))
+                continue;
+
+            string name = status == StatusEffectType.Bleeding ? "sangrado"
+                : status == StatusEffectType.Poison ? "veneno"
+                : status == StatusEffectType.Burn ? "quemadura"
+                : status.ToString();
+            list += (list == "" ? "" : ", ") + name;
+        }
+
+        return "Elimina " + list + ".\nObjetivo: un aliado vivo con alguno de esos estados.";
+    }
+
     private static bool IsCurable(StatusEffectType type)
     {
         return type == StatusEffectType.Bleeding ||

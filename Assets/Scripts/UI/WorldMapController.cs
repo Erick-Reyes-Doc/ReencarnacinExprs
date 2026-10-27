@@ -214,7 +214,8 @@ public partial class WorldMapController : MonoBehaviour
         inventoryButton.onClick.AddListener(() => OpenPanel(false));
 
         menuButton.onClick.RemoveAllListeners();
-        menuButton.onClick.AddListener(() => OnMenuClicked());
+        // Desde el Paso 90 el boton de menu abre la pausa; OnMenuClicked queda como acceso directo antiguo.
+        menuButton.onClick.AddListener(() => OpenPause());
 
         WireLocationButtons();
     }
@@ -225,7 +226,7 @@ public partial class WorldMapController : MonoBehaviour
 
     public void Select(string id)
     {
-        if (loading || eventOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
             return;
 
         if (IsKnownId(id))
@@ -241,7 +242,7 @@ public partial class WorldMapController : MonoBehaviour
     // El evento esta disponible (B1 completado) y aun sin completar.
     public bool CanOpenEvent()
     {
-        return !loading && !eventOpen && (shop == null || !shop.IsOpen) &&
+        return !loading && !eventOpen && !PauseOpen && (shop == null || !shop.IsOpen) &&
                MapProgression.CanStart(GameSession.NoelleEventId);
     }
 
@@ -281,7 +282,7 @@ public partial class WorldMapController : MonoBehaviour
 
     private void OpenPanel(bool asShop)
     {
-        if (loading || eventOpen || shop == null)
+        if (loading || eventOpen || PauseOpen || shop == null)
             return;
 
         confirmMenu = false;
@@ -292,7 +293,7 @@ public partial class WorldMapController : MonoBehaviour
     // (guarda el encuentro pendiente). No carga la escena.
     public bool PrepareStart()
     {
-        if (loading || eventOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
             return false;
 
         // Los eventos no son combates: no hay encuentro que cargar.
@@ -406,10 +407,6 @@ public partial class WorldMapController : MonoBehaviour
 
     public string StateText(string id)
     {
-        if (id == BossId)
-            return MapProgression.AllCompleted()
-                ? "Pendiente de implementación" : "Bloqueado";
-
         switch (MapProgression.GetState(id))
         {
             case MapProgression.NodeState.Completed:
@@ -469,14 +466,23 @@ public partial class WorldMapController : MonoBehaviour
         MapProgression.ZoneProgress(MapProgression.Corruption, out int cd, out int ct);
         SetText(progressText,
             "Pradera " + pd + "/" + pt + "   Bosque " + bd + "/" + bt +
-            "   Corrupción " + cd + "/" + ct);
+            "   Corrupción " + cd + "/" + ct +
+            (MapProgression.AllCompleted() ? "   Jefe 1/1" : ""));
 
         // Confirmacion intencional: el primer clic avisa y el segundo
         // termina la partida (se pierde todo el progreso).
         SetText(menuButtonLabel, confirmMenu ? "¿Perder todo? Pulsa otra vez" : "Volver al menú");
-        menuButton.targetGraphic.color = confirmMenu
-            ? new Color(0.55f, 0.18f, 0.18f, 1f)
-            : ButtonColor;
+
+        if (menuButtonLabel != null)
+            menuButton.targetGraphic.color = confirmMenu
+                ? new Color(0.55f, 0.18f, 0.18f, 1f)
+                : ButtonColor;
+        else
+            menuButton.targetGraphic.color = confirmMenu
+                ? new Color(1f, 0.62f, 0.58f, 1f)   // HUD del Paso 89: el aviso lo muestra hudMenuHint
+                : Color.white;
+
+        RefreshHud();
 
         string recommended = MapProgression.NextRecommended();
 
@@ -492,10 +498,7 @@ public partial class WorldMapController : MonoBehaviour
 
         foreach (NodeView node in nodes)
         {
-            bool isBoss = node.id == BossId;
-            MapProgression.NodeState state = isBoss
-                ? MapProgression.NodeState.Locked
-                : MapProgression.GetState(node.id);
+            MapProgression.NodeState state = MapProgression.GetState(node.id);
 
             ApplyNodeVisual(node, state, recommended);
             node.ring.gameObject.SetActive(node.id == selectedId || node.id == recommended);
@@ -547,16 +550,6 @@ public partial class WorldMapController : MonoBehaviour
                         ? "Evento superado: no se puede repetir."
                         : "Debes completarlo para continuar con Bosque 2.");
         }
-        else if (selectedId == BossId)
-        {
-            SetText(infoTitle, "Jefe");
-            SetText(infoSubtitle, "Zona: Corrupción     Estado: " + StateText(BossId));
-            SetText(infoRewards, "XP: por definir     Coronas: 100 (previstas)");
-            SetText(infoEnemies, "Enemigos: por definir");
-            SetText(infoNote, MapProgression.AllCompleted()
-                ? "El jefe aún no está implementado."
-                : "Completa Corrupción 2 para llegar al jefe.");
-        }
         else
         {
             EncounterData data = FindEncounter(selectedId);
@@ -576,11 +569,15 @@ public partial class WorldMapController : MonoBehaviour
                 SetText(infoEnemies, "Enemigos: " + EnemySummary(data));
             }
 
+            bool isBoss = selectedId == MapProgression.BossId;
+
             SetText(infoNote,
                 state == MapProgression.NodeState.Locked
-                    ? "Completa el encuentro anterior para desbloquearlo."
+                    ? (isBoss ? "Completa Corrupción 2 para llegar al jefe."
+                              : "Completa el encuentro anterior para desbloquearlo.")
                     : state == MapProgression.NodeState.Completed
-                        ? "Encuentro superado: no se puede repetir."
+                        ? (isBoss ? "Jefe derrotado: demo completada."
+                                  : "Encuentro superado: no se puede repetir.")
                         : "");
         }
 

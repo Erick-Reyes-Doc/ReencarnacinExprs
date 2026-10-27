@@ -1,0 +1,88 @@
+==================== Assets/Scenes/Menu.unity ====================
+objetos=33 inactivos=1 scriptsFaltantes=0
+-- Raices (profundidad 2) --
+Main Camera [0] pos(0.00, 0.00, -10.00) scl(1.00, 1.00, 1.00) :: Camera AudioListener UniversalAdditionalCameraData 
+Global Light 2D [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: Light2D 
+Canvas [4] rect(anch (0.00, 0.00)-(0.00, 0.00) pos (960.00, 540.00) size (1920.00, 1080.00)) :: Canvas CanvasScaler GraphicRaycaster 
+  MenuBackground [0] rect(anch (0.00, 0.00)-(1.00, 1.00) pos (0.00, 0.00) size (0.00, 0.00)) :: CanvasRenderer Image 
+  GameLogo [0] rect(anch (0.50, 1.00)-(0.50, 1.00) pos (0.00, -300.00) size (1050.00, 420.00)) :: CanvasRenderer Image 
+  ButtonsContainer [3] rect(anch (0.50, 0.50)-(0.50, 0.50) pos (0.00, -180.00) size (500.00, 450.00)) :: CanvasRenderer VerticalLayoutGroup 
+  (off) OptionsPanel [1] rect(anch (0.00, 0.00)-(1.00, 1.00) pos (0.00, 0.00) size (0.00, 0.00)) :: CanvasRenderer Image CanvasGroup 
+EventSystem [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: EventSystem InputSystemUIInputModule 
+MainMenuManager [0] pos(1.27, 1.00, 0.00) scl(1.00, 1.00, 1.00) :: MainMenuController AudioSource 
+-- Camaras --
+Main Camera ortho=True size=5 pos=(0.00, 0.00, -10.00) clear=SolidColor bg=RGBA(0.192, 0.302, 0.475, 0.000) aspect=1.777778 depth=-1 activa=True
+-- Canvas --
+Canvas modo=ScreenSpaceOverlay orden=0 layer=Default raiz=True activo=True hijos=4 rect=(1920.00, 1080.00) escala=(1.00, 1.00, 1.00) | Scaler ScaleWithScreenSize ref=(1920.00, 1080.00) match=MatchWidthOrHeight/0.5 | GraphicRaycaster=True
+-- SpriteRenderers --
+-- EventSystem / AudioListener --
+EventSystem=1 AudioListener=1
+==================== Assets/Scenes/Map.unity ====================
+objetos=310 inactivos=18 scriptsFaltantes=0
+-- Raices (profundidad 2) --
+Main Camera [0] pos(0.00, 0.00, -10.00) scl(1.00, 1.00, 1.00) :: Camera AudioListener 
+MapShop [2] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: MapShopController 
+  Canvas [2] rect(anch (0.00, 0.00)-(0.00, 0.00) pos (960.00, 540.00) size (1920.00, 1080.00)) :: Canvas CanvasScaler GraphicRaycaster 
+  EventSystem [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: EventSystem InputSystemUIInputModule 
+WorldMap [1] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: WorldMapController MapAmbientController 
+  WorldMapCanvas [4] rect(anch (0.00, 0.00)-(0.00, 0.00) pos (960.00, 540.00) size (1920.00, 1080.00)) :: Canvas CanvasScaler GraphicRaycaster 
+-- Camaras --
+Main Camera ortho=True size=5 pos=(0.00, 0.00, -10.00) clear=Skybox bg=RGBA(0.192, 0.302, 0.475, 0.000) aspect=1.777778 depth=-1 activa=True
+-- Canvas --
+Canvas modo=ScreenSpaceOverlay orden=100 layer=Default raiz=True activo=True hijos=2 rect=(1920.00, 1080.00) escala=(1.00, 1.00, 1.00) | Scaler ScaleWithScreenSize ref=(1920.00, 1080.00) match=MatchWidthOrHeight/0.5 | GraphicRaycaster=True
+WorldMapCanvas modo=ScreenSpaceOverlay orden=0 layer=Default raiz=True activo=True hijos=4 rect=(1920.00, 1080.00) escala=(1.00, 1.00, 1.00) | Scaler ScaleWithScreenSize ref=(1920.00, 1080.00) match=Expand/0 | GraphicRaycaster=True
+-- SpriteRenderers --
+-- EventSystem / AudioListener --
+EventSystem=1 AudioListener=1
+==================== Assets/Scenes/CombateIntegracion.unity ====================
+objetos=164 inactivos=26 scriptsFaltantes=0
+-- Raices (profundidad 2) --
+Main Camera [0] pos(0.00, 0.00, -10.00) scl(1.00, 1.00, 1.00) :: Camera AudioListener UniversalAdditionalCameraData 
+PlayerCaballero [0] pos(-1.35, 0.79, 0.00) scl(0.30, 0.30, 1.00) :: BattleUnit SpriteRenderer RegenerationEffect CharacterProgression StatusEffectController CharacterAbilityLoadout 
+PlayerArquera [0] pos(-5.45, 0.79, 0.00) scl(0.30, 0.30, 1.00) :: BattleUnit SpriteRenderer RegenerationEffect CharacterProgression StatusEffectController EvasionController CharacterAbilityLoadout 
+EnemyPrueba [0] pos(1.30, 0.38, 0.00) scl(0.22, 0.22, 1.00) :: BattleUnit SpriteRenderer EnemyExperienceReward StatusEffectController EnemyAIController 
+EnemyPrueba 2 [0] pos(3.42, 0.38, 0.00) scl(0.22, 0.22, 1.00) :: BattleUnit SpriteRenderer EnemyExperienceReward StatusEffectController EnemyAIController 
+(off) BattleTestManager [0] pos(0.53, -0.61, 0.00) scl(1.00, 1.00, 1.00) :: BattleTest 
+TurnManager [0] pos(0.53, -0.61, 0.00) scl(1.00, 1.00, 1.00) :: TurnManager BattleActionTest TargetSelector StatusEffectTest 
+PositionManager [0] pos(0.21, -0.28, 0.00) scl(1.00, 1.00, 1.00) :: PositionManager MovementTest 
+BattlePositions [2] pos(-0.91, -0.09, 0.00) scl(1.00, 1.00, 1.00) :: 
+  PlayerPositions [4] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: 
+  EnemyPositions [4] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: 
+AbilitySystem [0] pos(-0.91, -0.09, 0.00) scl(1.00, 1.00, 1.00) :: AbilitySystem AbilityTest 
+ExperienceTest [0] pos(4.33, 1.09, 0.00) scl(1.00, 1.00, 1.00) :: ExperienceTest 
+PlayerNoelle [0] pos(-3.40, 0.79, 0.00) scl(0.30, 0.30, 1.00) :: BattleUnit SpriteRenderer RegenerationEffect CharacterProgression StatusEffectController CharacterAbilityLoadout 
+PlayerEvanora [0] pos(-7.50, 0.79, 0.00) scl(0.30, 0.30, 1.00) :: BattleUnit SpriteRenderer RegenerationEffect CharacterProgression StatusEffectController CharacterAbilityLoadout 
+EnemyPrueba 3 [0] pos(5.54, 0.38, 0.00) scl(0.22, 0.22, 1.00) :: BattleUnit SpriteRenderer EnemyExperienceReward StatusEffectController EnemyAIController 
+EnemyPrueba 4 [0] pos(7.66, 0.38, 0.00) scl(0.22, 0.22, 1.00) :: BattleUnit SpriteRenderer EnemyExperienceReward StatusEffectController EnemyAIController 
+CombatHUD [2] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: CombatHudController 
+  Canvas [1] rect(anch (0.00, 0.00)-(0.00, 0.00) pos (0.00, 0.00) size (1920.00, 1080.00)) :: Canvas CanvasScaler GraphicRaycaster 
+  EventSystem [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: EventSystem InputSystemUIInputModule 
+EncounterLoader [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: EncounterLoader 
+CombatSession [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: CombatSessionBinder 
+CombatMetrics [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: CombatMetricsCollector 
+EnemyAISettings [0] pos(0.00, 0.00, 0.00) scl(1.00, 1.00, 1.00) :: EnemyAISettings 
+-- Camaras --
+Main Camera ortho=True size=5 pos=(0.00, 0.00, -10.00) clear=Skybox bg=RGBA(0.095, 0.125, 0.170, 0.000) aspect=1.777778 depth=-1 activa=True
+-- Canvas --
+Canvas modo=ScreenSpaceCamera orden=100 layer=Default raiz=True activo=True hijos=1 rect=(1920.00, 1080.00) escala=(0.01, 0.01, 0.01) | Scaler ScaleWithScreenSize ref=(1920.00, 1080.00) match=MatchWidthOrHeight/1 | GraphicRaycaster=True
+-- SpriteRenderers --
+PlayerNoelle sprite=caballero (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(-3.40, 0.79, 0.00) escala=(0.30, 0.30, 1.00) bounds=(3.76, 3.76, 0.20) activo=True padre=-
+PlayerEvanora sprite=caballero (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(-7.50, 0.79, 0.00) escala=(0.30, 0.30, 1.00) bounds=(3.76, 3.76, 0.20) activo=True padre=-
+EnemyPrueba 3 sprite=enemigo (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(5.54, 0.38, 0.00) escala=(0.22, 0.22, 1.00) bounds=(2.76, 2.76, 0.20) activo=True padre=-
+EnemyPrueba 2 sprite=enemigo (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(3.42, 0.38, 0.00) escala=(0.22, 0.22, 1.00) bounds=(2.76, 2.76, 0.20) activo=True padre=-
+EnemyPrueba sprite=enemigo (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(1.30, 0.38, 0.00) escala=(0.22, 0.22, 1.00) bounds=(2.76, 2.76, 0.20) activo=True padre=-
+PlayerArquera sprite=caballero (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(-5.45, 0.79, 0.00) escala=(0.30, 0.30, 1.00) bounds=(3.76, 3.76, 0.20) activo=True padre=-
+EnemyPrueba 4 sprite=enemigo (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(7.66, 0.38, 0.00) escala=(0.22, 0.22, 1.00) bounds=(2.76, 2.76, 0.20) activo=True padre=-
+PlayerCaballero sprite=caballero (1254.00, 1254.00) ppu=100 layer=Default orden=1 pos=(-1.35, 0.79, 0.00) escala=(0.30, 0.30, 1.00) bounds=(3.76, 3.76, 0.20) activo=True padre=-
+-- EventSystem / AudioListener --
+EventSystem=1 AudioListener=1
+==================== Assets/Scenes/IntroCinematic.unity ====================
+objetos=1 inactivos=0 scriptsFaltantes=0
+-- Raices (profundidad 2) --
+Main Camera [0] pos(0.00, 0.00, -10.00) scl(1.00, 1.00, 1.00) :: Camera AudioListener 
+-- Camaras --
+Main Camera ortho=True size=5 pos=(0.00, 0.00, -10.00) clear=Skybox bg=RGBA(0.192, 0.302, 0.475, 0.000) aspect=1.777778 depth=-1 activa=True
+-- Canvas --
+-- SpriteRenderers --
+-- EventSystem / AudioListener --
+EventSystem=0 AudioListener=1

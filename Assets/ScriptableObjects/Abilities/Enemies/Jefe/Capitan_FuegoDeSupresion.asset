@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
+  m_Name: Capitan_FuegoDeSupresion
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  abilityName: "Fuego de Supresi\xF3n"
+  description: "Ataque f\xEDsico anunciado: al siguiente turno del Capit\xE1n golpea a quienes ocupen las posiciones amenazadas (primera l\xEDnea P1-P2 o retaguardia P3-P4)."
+  abilityIcon: {fileID: 0}
+  abilityType: 0
+  targetType: 2
+  basePower: 4
+  canCritical: 1
+  usablePositions: 01010101y
+  targetPositions: 01010101y
+  movementEffect: 0
+  movementDistance: 0
+  movementChance: 100
+  cooldown: 4
+  regenerationPerTurn: 0
+  regenerationDuration: 0
+  healPercentMaxHealth: 0
+  requiresPreparation: 1
+  selectableAreas:
+  - label: "la primera l\xEDnea"
+    positions: 01010000y
+  - label: la retaguardia
+    positions: 00000101y
+  dealsDamage: 1
+  defensePenetration: 0
+  attackWeight: 0
+  statusesRequireHit: 1
+  userMovement: 0
+  allyProtectionPercent: 0
+  statusEffects: []

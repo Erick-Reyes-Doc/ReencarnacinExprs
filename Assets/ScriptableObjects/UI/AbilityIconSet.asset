@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6751e8bfb72d9441afa9b590cb5bf5c, type: 3}
+  m_Name: AbilityIconSet
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityIconSet
+  entries:
+  - abilityAsset: Valerian_CortePreciso
+    icon: {fileID: 21300000, guid: 6a5a9f37b3df1714ea86f6086aba0889, type: 3}
+  - abilityAsset: Valerian_HeridaProfunda
+    icon: {fileID: 21300000, guid: 91e2c3948b3416b4cb608cb2b57a3b89, type: 3}
+  - abilityAsset: Valerian_GuardiaDeTrinchera
+    icon: {fileID: 21300000, guid: 21d3e5e7c7e5d8347aa5e8b5d5d70ba2, type: 3}
+  - abilityAsset: Valerian_GolpeBajo
+    icon: {fileID: 21300000, guid: 91a83463ff18bcc4cb68478c0f26dfc1, type: 3}
+  - abilityAsset: Elaina_DisparoCertero
+    icon: {fileID: 21300000, guid: c76db6dd24c70244f9408ce6340ba98a, type: 3}
+  - abilityAsset: Elaina_MarcaDelCazador
+    icon: {fileID: 21300000, guid: 059acb53912f7b34da6f03c11c51f820, type: 3}
+  - abilityAsset: Elaina_TiroEvasivo
+    icon: {fileID: 21300000, guid: 08f82824d8c16564d834fb5dd10ef75d, type: 3}
+  - abilityAsset: Elaina_FlechaPerforante
+    icon: {fileID: 21300000, guid: cac0f062c338b6e4b9a79582ff8751f5, type: 3}
+  - abilityAsset: NoelleMasked_GolpeDeLucero
+    icon: {fileID: 21300000, guid: 0016bb57b092c4044bf30b6d31508da6, type: 3}
+  - abilityAsset: NoelleMasked_ImpactoQuebrantador
+    icon: {fileID: 21300000, guid: a7b1b206ea214e247906d15456026fa7, type: 3}
+  - abilityAsset: NoelleMasked_ResistenciaObstinada
+    icon: {fileID: 21300000, guid: bc09219e90cf36a4983a30c0f14fc2e5, type: 3}
+  - abilityAsset: NoelleMasked_AuxilioImprovisado
+    icon: {fileID: 21300000, guid: 696cf059e96935a43a6bcbc430018538, type: 3}
+  - abilityAsset: NoelleUnmasked_ImpactoConsagrado
+    icon: {fileID: 21300000, guid: 253b68b003205a54abaf0833473418bf, type: 3}
+  - abilityAsset: NoelleUnmasked_PlegariaFocalizada
+    icon: {fileID: 21300000, guid: dcd63bfa1e7817943bb9a50802500f46, type: 3}
+  - abilityAsset: NoelleUnmasked_BendicionContinua
+    icon: {fileID: 21300000, guid: 90a12285551205c4b9f6cef0322c4981, type: 3}
+  - abilityAsset: NoelleUnmasked_AmparoDivino
+    icon: {fileID: 21300000, guid: 4cd5c1e25009769489d401b0da282579, type: 3}
+  - abilityAsset: Evanora_OrbeArcano
+    icon: {fileID: 21300000, guid: 756a66ab9ede5bf4ca0e6d7bbf808b04, type: 3}
+  - abilityAsset: Evanora_Llamarada
+    icon: {fileID: 21300000, guid: 734f310f31cd3ce448ce0b39140c018a, type: 3}
+  - abilityAsset: Evanora_SelloDeRuptura
+    icon: {fileID: 21300000, guid: f9e8fd83af2cb2b439388237ab4c912d, type: 3}
+  - abilityAsset: Evanora_GolpeDeMeteorito
+    icon: {fileID: 21300000, guid: 75cadeabbdb463b48a5563268a376944, type: 3}

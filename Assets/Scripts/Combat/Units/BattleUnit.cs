@@ -305,8 +305,34 @@ public class BattleUnit : MonoBehaviour
     // Daño directo (ataques y habilidades). Aplica el bono de Marca
     // sobre el daño ya calculado con defensa y criticos.
     // El daño periodico y las curaciones no pasan por aqui.
-    public void TakeDirectDamage(int damage)
+    // 'attacker' (opcional) permite bonos ligados al origen, como
+    // PriorityTarget: solo suma si el atacante es quien aplico la marca.
+    public void TakeDirectDamage(int damage, BattleUnit attacker = null)
     {
+        if (attacker != null && damage > 0)
+        {
+            StatusEffectController statuses =
+                GetComponent<StatusEffectController>();
+
+            StatusEffectInstance priority = statuses != null
+                ? statuses.GetEffect(StatusEffectType.PriorityTarget)
+                : null;
+
+            if (priority != null && priority.Source == attacker)
+            {
+                int boosted = Mathf.RoundToInt(
+                    damage * (100 + Mathf.Clamp(priority.Potency, 0, 100)) / 100f
+                );
+
+                Debug.Log(
+                    unitData.unitName + " es objetivo prioritario de " +
+                    attacker.Data.unitName + ": daño " + damage + " -> " + boosted
+                );
+
+                damage = boosted;
+            }
+        }
+
         int markPercent = GetStatusPercent(StatusEffectType.Mark);
 
         if (markPercent > 0 && damage > 0)

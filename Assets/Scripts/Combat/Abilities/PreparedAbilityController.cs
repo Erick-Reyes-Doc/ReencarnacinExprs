@@ -11,6 +11,10 @@ public class PreparedAbilityController : MonoBehaviour
 
     public AbilityData PreparedAbility { get; private set; }
 
+    // Area de posiciones fijada al preparar (null = comportamiento
+    // original, p. ej. Golpe de Meteorito).
+    public AbilityPositionArea PreparedArea { get; private set; }
+
     public bool HasPreparation => PreparedAbility != null;
 
     private BattleUnit Unit
@@ -31,9 +35,14 @@ public class PreparedAbilityController : MonoBehaviour
     }
 
     // Registra la preparacion. Si la unidad cae, se cancela.
-    public void Prepare(AbilityData ability, AbilitySystem abilitySystem)
+    public void Prepare(
+        AbilityData ability,
+        AbilitySystem abilitySystem,
+        AbilityPositionArea area = null
+    )
     {
         PreparedAbility = ability;
+        PreparedArea = area;
         system = abilitySystem;
 
         Unit.OnDefeated -= HandleDefeated;
@@ -67,6 +76,7 @@ public class PreparedAbilityController : MonoBehaviour
     public void Clear()
     {
         PreparedAbility = null;
+        PreparedArea = null;
     }
 
     // Ejecuta el impacto. El estado se limpia antes de resolver, de
@@ -80,10 +90,11 @@ public class PreparedAbilityController : MonoBehaviour
         }
 
         AbilityData ability = PreparedAbility;
+        AbilityPositionArea area = PreparedArea;
         AbilitySystem abilitySystem = system;
 
         Clear();
 
-        return abilitySystem.ResolvePreparedAbility(Unit, ability);
+        return abilitySystem.ResolvePreparedAbility(Unit, ability, area);
     }
 }

@@ -88,6 +88,18 @@ public class AbilitySystem : MonoBehaviour
             return false;
         }
 
+        // Habilidades exclusivas de una fase de jefe (solo jefes con fases).
+        BossPhaseController bossPhases = user.GetComponent<BossPhaseController>();
+
+        if (bossPhases != null && !bossPhases.IsAbilityAvailable(ability))
+        {
+            Debug.Log(
+                ability.abilityName + " no esta disponible en la fase actual de " +
+                user.Data.unitName + "."
+            );
+            return false;
+        }
+
         // Comprobar que sea el turno del usuario.
         if (turnManager == null ||
             turnManager.CurrentUnit != user)
@@ -367,7 +379,7 @@ public class AbilitySystem : MonoBehaviour
                     (isCritical ? " ¡CRITICO!" : "")
                 );
 
-                target.TakeDirectDamage(damage);
+                target.TakeDirectDamage(damage, user);
                 hadEffect = true;
             }
         }
@@ -523,9 +535,12 @@ public class AbilitySystem : MonoBehaviour
     // Ataque de area: afecta a todos los enemigos validos con una sola
     // accion y un solo cooldown. Cada objetivo recibe su propia
     // evasion, daño y tiradas de probabilidad.
+    // 'area' (opcional) solo se usa con habilidades que definen
+    // selectableAreas: fija las posiciones amenazadas al preparar.
     public bool ExecuteAreaAbility(
         BattleUnit user,
-        AbilityData ability
+        AbilityData ability,
+        AbilityPositionArea area = null
     )
     {
         if (user == null || ability == null ||
@@ -547,7 +562,39 @@ public class AbilitySystem : MonoBehaviour
         if (!CanUserAct(user, ability))
             return false;
 
-        List<BattleUnit> targets = CollectAreaTargets(user, ability);
+        // Con un ataque preparado pendiente no se lanza otro de area: el
+        // turno siguiente se dedica a resolverlo.
+        PreparedAbilityController pending =
+            user.GetComponent<PreparedAbilityController>();
+
+        if (pending != null && pending.HasPreparation)
+        {
+            Debug.Log(
+                user.Data.unitName + " tiene " +
+                pending.PreparedAbility.abilityName + " pendiente."
+            );
+            return false;
+        }
+
+        // Habilidades con areas por posiciones: hay que elegir una de
+        // las areas definidas (nunca una inventada).
+        if (ability.selectableAreas != null &&
+            ability.selectableAreas.Count > 0)
+        {
+            if (area == null || !ability.selectableAreas.Contains(area))
+            {
+                Debug.Log(
+                    ability.abilityName + " requiere elegir una de sus areas."
+                );
+                return false;
+            }
+        }
+        else
+        {
+            area = null;
+        }
+
+        List<BattleUnit> targets = CollectAreaTargets(user, ability, area);
 
         if (targets.Count == 0)
         {
@@ -577,7 +624,7 @@ public class AbilitySystem : MonoBehaviour
                 return false;
             }
 
-            prepared.Prepare(ability, this);
+            prepared.Prepare(ability, this, area);
             GetCooldowns(user).StartCooldown(ability);
 
             return true;
@@ -606,7 +653,8 @@ public class AbilitySystem : MonoBehaviour
     // reorganizan posiciones mientras se procesa la habilidad.
     private List<BattleUnit> CollectAreaTargets(
         BattleUnit user,
-        AbilityData ability
+        AbilityData ability,
+        AbilityPositionArea area = null
     )
     {
         TeamSide enemySide = user.Side == TeamSide.Player
@@ -618,6 +666,11 @@ public class AbilitySystem : MonoBehaviour
         for (int position = 1; position <= 4; position++)
         {
             if (!ability.CanTargetPosition(position))
+                continue;
+
+            // Areas por posiciones: solo las del area elegida, leidas en
+            // este momento (quien ocupe la posicion al resolver).
+            if (area != null && !area.Contains(position))
                 continue;
 
             BattleUnit enemy = positionManager.GetUnitAtPosition(
@@ -663,14 +716,15 @@ public class AbilitySystem : MonoBehaviour
     // cooldown (se inicio al preparar). Devuelve true si impacto.
     public bool ResolvePreparedAbility(
         BattleUnit user,
-        AbilityData ability
+        AbilityData ability,
+        AbilityPositionArea area = null
     )
     {
         if (user == null || ability == null || positionManager == null ||
             turnManager == null || !user.IsAlive)
             return false;
 
-        List<BattleUnit> targets = CollectAreaTargets(user, ability);
+        List<BattleUnit> targets = CollectAreaTargets(user, ability, area);
 
         if (targets.Count == 0)
         {

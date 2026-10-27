@@ -18,6 +18,6 @@ MonoBehaviour:
   defense: 3
   speed: 13
   isBoss: 0
-  criticalChance: 18
+  criticalChance: 2
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

@@ -1,0 +1,652 @@
+fileFormatVersion: 2
+guid: 75cadeabbdb463b48a5563268a376944
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2348297528580692898
+    second: evanora4_0
+  - first:
+      213: -8155703943198095340
+    second: evanora4_1
+  - first:
+      213: -6353568462624840576
+    second: evanora4_2
+  - first:
+      213: 15003393467146821
+    second: evanora4_3
+  - first:
+      213: -1708538993773995727
+    second: evanora4_4
+  - first:
+      213: -2477677303665373468
+    second: evanora4_5
+  - first:
+      213: 3552639305870062652
+    second: evanora4_6
+  - first:
+      213: -7749823155009228831
+    second: evanora4_7
+  - first:
+      213: 7973018151060292568
+    second: evanora4_8
+  - first:
+      213: -606732025781029086
+    second: evanora4_9
+  - first:
+      213: -6715704034409538734
+    second: evanora4_10
+  - first:
+      213: -1892744690198566391
+    second: evanora4_11
+  - first:
+      213: -7767881959354288579
+    second: evanora4_12
+  - first:
+      213: -5445684446815274997
+    second: evanora4_13
+  - first:
+      213: -1755976072272296324
+    second: evanora4_14
+  - first:
+      213: -7054563384256053650
+    second: evanora4_15
+  - first:
+      213: 6760699426544860820
+    second: evanora4_16
+  - first:
+      213: -5582753853929376563
+    second: evanora4_17
+  - first:
+      213: 7465421017523182652
+    second: evanora4_18
+  - first:
+      213: 1923524646214158982
+    second: evanora4_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: evanora4_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1223
+        height: 1232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2abdaf11924d69020800000000000000
+      internalID: 2348297528580692898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_1
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1183
+        width: 62
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 418cc64797e11de80800000000000000
+      internalID: -8155703943198095340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 727
+        width: 8
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0842f19552793d7a0800000000000000
+      internalID: -6353568462624840576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 734
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 542e802c18d453000800000000000000
+      internalID: 15003393467146821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_4
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 740
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 139923f56dc0a48e0800000000000000
+      internalID: -1708538993773995727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 718
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ee4afe9e958d9dd0800000000000000
+      internalID: -2477677303665373468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_6
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 708
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34b97140a28d4130800000000000000
+      internalID: 3552639305870062652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_7
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 449
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1efe39d96e8137490800000000000000
+      internalID: -7749823155009228831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 403
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3c0b9f3c9d5ae60800000000000000
+      internalID: 7973018151060292568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_9
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 385
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 227f779ef647497f0800000000000000
+      internalID: -606732025781029086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_10
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 357
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25b9c5413c60dc2a0800000000000000
+      internalID: -6715704034409538734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_11
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 320
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a25328bbe9bb5e0800000000000000
+      internalID: -1892744690198566391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_12
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 304
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d36b5839380f23490800000000000000
+      internalID: -7767881959354288579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_13
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 95
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b08b4bc19da0d64b0800000000000000
+      internalID: -5445684446815274997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_14
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 95
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76cf1ad01581a7e0800000000000000
+      internalID: -1755976072272296324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_15
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 63
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6eb0fb8af7291e90800000000000000
+      internalID: -7054563384256053650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_16
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 69
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49eb4680f44d2dd50800000000000000
+      internalID: 6760699426544860820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_17
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 49
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc4b814d2f21682b0800000000000000
+      internalID: -5582753853929376563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_18
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 0
+        width: 36
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3c5438acd08a9760800000000000000
+      internalID: 7465421017523182652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: evanora4_19
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 17
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68acd46797bb1ba10800000000000000
+      internalID: 1923524646214158982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      evanora4_0: 2348297528580692898
+      evanora4_1: -8155703943198095340
+      evanora4_10: -6715704034409538734
+      evanora4_11: -1892744690198566391
+      evanora4_12: -7767881959354288579
+      evanora4_13: -5445684446815274997
+      evanora4_14: -1755976072272296324
+      evanora4_15: -7054563384256053650
+      evanora4_16: 6760699426544860820
+      evanora4_17: -5582753853929376563
+      evanora4_18: 7465421017523182652
+      evanora4_19: 1923524646214158982
+      evanora4_2: -6353568462624840576
+      evanora4_3: 15003393467146821
+      evanora4_4: -1708538993773995727
+      evanora4_5: -2477677303665373468
+      evanora4_6: 3552639305870062652
+      evanora4_7: -7749823155009228831
+      evanora4_8: 7973018151060292568
+      evanora4_9: -606732025781029086
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

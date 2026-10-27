@@ -43,6 +43,13 @@ public class TurnManager : MonoBehaviour
 
     public int CurrentRound => currentRound;
 
+    // Copia de solo lectura del orden de la ronda actual (de mayor a menor
+    // velocidad). La usa el HUD; modificarla no altera los turnos.
+    public List<BattleUnit> GetTurnOrderSnapshot()
+    {
+        return new List<BattleUnit>(turnOrder);
+    }
+
     // true si el combate termino con la derrota total del equipo.
     public bool PartyDefeated => partyDefeated;
 

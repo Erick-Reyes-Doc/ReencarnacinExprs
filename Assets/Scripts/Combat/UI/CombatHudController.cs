@@ -65,18 +65,169 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Text[] tileTexts = new Text[SlotCount];
     [SerializeField] private RectTransform[] tileBars = new RectTransform[SlotCount];
 
-    // Colores provisionales (fantasia oscura, fondo azul grisaceo).
-    private static readonly Color PanelColor = new Color(0.07f, 0.09f, 0.14f, 0.92f);
-    private static readonly Color AllyColor = new Color(0.14f, 0.25f, 0.38f, 1f);
-    private static readonly Color EnemyColor = new Color(0.38f, 0.16f, 0.17f, 1f);
+    // Rediseno (Paso 64.2): paneles y marcos provisionales a partir de los
+    // sprites de MapArtSet. Sustituir los sprites del MapArtSet por los
+    // marcos finales no requiere tocar este codigo.
+    [Header("Rediseno del HUD (generado por BuildUI)")]
+    [SerializeField] private MapArtSet art;
+    [SerializeField] private Text regionText;
+    [SerializeField] private Image[] turnChips = new Image[8];
+    [SerializeField] private Text[] turnChipTexts = new Text[8];
+    [SerializeField] private Text[] tileStatus = new Text[SlotCount];
+    [SerializeField] private Image[] tileBorders = new Image[SlotCount];
+    [SerializeField] private RectTransform[] unitMarkers = new RectTransform[SlotCount];
+    [SerializeField] private Button[] itemButtons = new Button[2];
+    [SerializeField] private Image[] itemImages = new Image[2];
+    [SerializeField] private Text[] itemTexts = new Text[2];
+    [SerializeField] private Text[] itemDescriptions = new Text[2];
+    [SerializeField] private Text abilityTitleText;
+    [SerializeField] private GameObject toastRoot;
+    [SerializeField] private RectTransform canvasRect;
+    [SerializeField] private EncounterLoader encounterLoader;
+
+    // Sprites de Assets/Sprites/Buttons (recortados al marco visible, con
+    // bordes 9-slice definidos en su importacion). Si alguno falta, el HUD
+    // usa los paneles provisionales de MapArtSet.
+    [Header("Sprites del HUD (Paso 64.3)")]
+    [SerializeField] private Sprite headerSprite;       // BARRA 1
+    [SerializeField] private Sprite dividerSprite;      // BARRA 2
+    [SerializeField] private Sprite panelSprite;        // marco 1
+    [SerializeField] private Sprite wideFrameSprite;    // borde 3
+    [SerializeField] private Sprite chipSprite;         // marco 4
+    [SerializeField] private Sprite buttonNormal;       // Button_Normal
+    [SerializeField] private Sprite buttonHover;        // Button_Hover
+    [SerializeField] private Sprite buttonDisabled;     // Button_Disabled
+    [SerializeField] private Sprite pointSprite;        // PUNTO
+
+    [Header("Iconos de habilidades (Paso 64.4)")]
+    [SerializeField] private AbilityIconSet iconSet;
+    [SerializeField] private Image[] abilityIcons = new Image[AbilitySlots];
+    [SerializeField] private Text[] abilityCooldowns = new Text[AbilitySlots];
+
+    [Header("Referencia visual (Paso 64.7)")]
+    [SerializeField] private Sprite cardSprite;         // HUD3 recortado: tarjetas de unidad
+    [SerializeField] private Sprite abilityFrameSprite; // HUD6 recortado: botones de habilidad
+    [SerializeField] private Image infoIcon;
+    [SerializeField] private Material frameMaterial;    // HudFrameSoft: saturacion/brillo de los marcos
+    [SerializeField] private Text[] itemCounts = new Text[2];
+
+    // Nombres de presentacion de los protagonistas (solo HUD: no cambia los
+    // datos del personaje ni su identidad en el combate).
+    private static string DisplayName(BattleUnit unit)
+    {
+        if (unit == null || unit.Data == null)
+            return "";
+
+        switch (unit.Data.unitName)
+        {
+            case "Caballero": return "Valerian";
+            case "Arquera": return "Elaina";
+            // Nombre corto para tarjetas y turnos; el nombre completo se ve en la cabecera.
+            case "Capitán de las Fuerzas Expedicionarias": return "Capitán";
+            default: return unit.Data.unitName;
+        }
+    }
+
+    private static string Abbreviation(BattleUnit unit)
+    {
+        string name = DisplayName(unit);
+
+        switch (name)
+        {
+            case "Valerian": return "VAL";
+            case "Elaina": return "ELA";
+            case "Noelle": return "NOE";
+            case "Evanora": return "EVA";
+            default: return name.Length > 3 ? name.Substring(0, 3).ToUpper() : name.ToUpper();
+        }
+    }
+
+    private enum ButtonState { Normal, Selected, Blocked }
+
+    // Icono de una habilidad (solo presentacion). Atenuado si no se puede
+    // usar; el contador de recarga se dibuja encima.
+    private void ShowAbilityIcon(int i, AbilityData ability, bool blocked, int cooldown)
+    {
+        if (abilityIcons[i] == null)
+            return;
+
+        Sprite sprite = ability != null && iconSet != null ? iconSet.Get(ability) : null;
+        bool show = sprite != null;
+
+        if (abilityIcons[i].enabled != show)
+            abilityIcons[i].enabled = show;
+
+        if (show)
+        {
+            if (abilityIcons[i].sprite != sprite)
+                abilityIcons[i].sprite = sprite;
+
+            abilityIcons[i].color = blocked ? new Color(0.38f, 0.38f, 0.42f, 1f) : Color.white;
+        }
+
+        if (abilityCooldowns[i] != null)
+            SetText(abilityCooldowns[i], cooldown > 0 ? cooldown.ToString() : "");
+    }
+
+
+    private bool Skinned => buttonNormal != null && buttonHover != null && buttonDisabled != null;
+
+    private static Color Dim(Color c, float k)
+    {
+        return new Color(c.r * k, c.g * k, c.b * k, c.a);
+    }
+
+    // Estado visual de un boton: con sprites ilustrados se cambia el
+    // sprite (normal / resaltado / deshabilitado); sin ellos, el color.
+    private void SetButtonState(Image image, ButtonState state, bool ability = false)
+    {
+        if (image == null)
+            return;
+
+        if (Skinned)
+        {
+            // Seleccionado = relleno ambar suave (HUD8); disponible = marco
+            // dorado discreto; bloqueado = mismo marco atenuado.
+            Sprite frame = ability && abilityFrameSprite != null ? abilityFrameSprite : buttonNormal;
+            Sprite blocked = ability && abilityFrameSprite != null ? abilityFrameSprite : buttonDisabled;
+            Sprite sprite = state == ButtonState.Selected ? buttonHover
+                : (state == ButtonState.Blocked ? blocked : frame);
+
+            if (image.sprite != sprite)
+                image.sprite = sprite;
+
+            image.color = state == ButtonState.Selected ? FrameSelected
+                : (state == ButtonState.Blocked ? FrameDisabled : FrameTint);
+            return;
+        }
+
+        image.color = state == ButtonState.Selected ? ButtonSelected
+            : (state == ButtonState.Blocked ? ButtonBlocked : ButtonColor);
+    }
+
+    // Paleta: negro azulado, paneles oscuros y oro apagado.
+    private static readonly Color BackColor = new Color(0.063f, 0.082f, 0.118f, 1f);       // #10151E
+    private static readonly Color PanelColor = new Color(0.090f, 0.110f, 0.149f, 0.96f);  // #171C26
+    private static readonly Color SurfaceColor = new Color(0.145f, 0.169f, 0.208f, 1f);   // #252B35
+    private static readonly Color GoldColor = new Color(0.659f, 0.541f, 0.345f, 1f);      // #A88A58 dorado normal
+    private static readonly Color GoldBright = new Color(0.831f, 0.659f, 0.357f, 1f);     // #D4A85B dorado seleccionado
+    private static readonly Color AllyColor = new Color(0.105f, 0.145f, 0.200f, 0.94f);
+    private static readonly Color EnemyColor = new Color(0.200f, 0.105f, 0.115f, 0.94f);
     private static readonly Color EmptyColor = new Color(0.12f, 0.13f, 0.17f, 0.7f);
-    private static readonly Color ActiveColor = new Color(0.30f, 0.45f, 0.62f, 1f);
-    private static readonly Color TargetColor = new Color(0.78f, 0.62f, 0.18f, 1f);
-    private static readonly Color ButtonColor = new Color(0.19f, 0.23f, 0.32f, 1f);
-    private static readonly Color ButtonBlocked = new Color(0.12f, 0.13f, 0.17f, 1f);
-    private static readonly Color ButtonSelected = new Color(0.45f, 0.36f, 0.12f, 1f);
-    private static readonly Color TextColor = new Color(0.90f, 0.92f, 0.96f, 1f);
-    private static readonly Color DimTextColor = new Color(0.55f, 0.58f, 0.66f, 1f);
+    private static readonly Color ActiveColor = new Color(0.17f, 0.22f, 0.30f, 0.98f);
+    private static readonly Color TargetColor = new Color(0.95f, 0.45f, 0.35f, 1f);
+    private static readonly Color ButtonColor = SurfaceColor;
+    private static readonly Color ButtonBlocked = new Color(0.105f, 0.120f, 0.150f, 1f);
+    private static readonly Color ButtonSelected = new Color(0.40f, 0.30f, 0.12f, 1f);
+    private static readonly Color TextColor = new Color(0.902f, 0.867f, 0.792f, 1f);      // #E6DDCA
+    private static readonly Color DimTextColor = new Color(0.46f, 0.47f, 0.50f, 1f);
+    private static readonly Color SecondaryText = new Color(0.710f, 0.667f, 0.588f, 1f);  // #B5AA96
+    // Tintes que apagan los marcos dorados originales sin tocar los PNG.
+    private static readonly Color FrameTint = new Color(0.60f, 0.58f, 0.52f, 1f);
+    private static readonly Color FrameSelected = new Color(0.95f, 0.88f, 0.72f, 1f);
+    private static readonly Color FrameDisabled = new Color(0.40f, 0.40f, 0.44f, 1f);
+    private static readonly Color HealthColor = new Color(0.62f, 0.14f, 0.16f, 1f);
+    private static readonly Color HealthEnemyColor = new Color(0.72f, 0.20f, 0.16f, 1f);
 
     private BattleUnit[] allUnits = new BattleUnit[0];
     private BattleUnit lastActive;
@@ -97,6 +248,7 @@ public class CombatHudController : MonoBehaviour
         if (canvas == null)
             BuildUI();
 
+        ApplyFont();
         CacheUnits();
         WireButtons();
     }
@@ -104,16 +256,141 @@ public class CombatHudController : MonoBehaviour
     private void OnEnable()
     {
         Application.logMessageReceived += OnLogMessage;
+        EnemyAIController.ActionPerformed += OnEnemyAction;
+        BossPhaseController.PhaseChanged += OnBossPhaseChanged;
     }
 
     private void OnDisable()
     {
         Application.logMessageReceived -= OnLogMessage;
+        EnemyAIController.ActionPerformed -= OnEnemyAction;
+        BossPhaseController.PhaseChanged -= OnBossPhaseChanged;
+    }
+
+    // Cambio de fase de un jefe (solo presentacion).
+    private void OnBossPhaseChanged(BossPhaseController boss, BossPhaseData.Phase previous, BossPhaseData.Phase next)
+    {
+        if (next == null)
+            return;
+
+        if (!string.IsNullOrEmpty(next.announcement))
+            phaseMessage = next.announcement;
+
+        if (string.IsNullOrEmpty(next.bannerText) || bannerText == null)
+            return;
+
+        // El rotulo se crea la primera vez que hace falta (no se guarda en la escena).
+        if (phaseNotice == null)
+        {
+            phaseNotice = Label("AvisoFase", bannerText.transform.parent,
+                new Vector2(0.735f, 0.800f), new Vector2(0.990f, 0.875f), 30,
+                TextAnchor.MiddleCenter, new Color(1f, 0.74f, 0.34f));
+            phaseNotice.fontStyle = FontStyle.Bold;
+            phaseNotice.resizeTextForBestFit = true;
+            phaseNotice.resizeTextMinSize = 16;
+            phaseNotice.resizeTextMaxSize = 30;
+            phaseNotice.horizontalOverflow = HorizontalWrapMode.Wrap;
+            Outline outline = phaseNotice.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.9f);
+            outline.effectDistance = new Vector2(2f, -2f);
+        }
+
+        phaseNotice.text = next.bannerText;
+        phaseNoticeUntil = Time.unscaledTime + PhaseNoticeSeconds;
+    }
+
+    private static string PhaseTag(BattleUnit unit)
+    {
+        BossPhaseController phases = unit != null ? unit.GetComponent<BossPhaseController>() : null;
+
+        return phases != null && phases.CurrentIndex > 0
+            ? "<color=#F1B35A>FASE" + (phases.CurrentIndex + 1) + "</color> "
+            : "";
+    }
+
+    // Aviso de la marca tactica del Capitan (solo presentacion).
+    private void OnEnemyAction(BattleUnit self, AbilityData ability, BattleUnit target, bool special)
+    {
+        // Habilidad con frase de uso (p. ej. Ultima Orden): frase ahora y, un
+        // instante despues, el nombre y los efectos realmente aplicados.
+        if (ability != null && self != null && !string.IsNullOrEmpty(ability.useAnnouncement))
+        {
+            Say(ability.useAnnouncement);
+
+            List<string> names = new List<string>();
+            int affected = 0;
+
+            foreach (AbilityStatusEffect status in ability.statusEffects)
+            {
+                if (status == null)
+                    continue;
+
+                string label = status.type == StatusEffectType.Weaken
+                    ? "Debilitamiento " + status.potency + "% ATK (" + status.duration + (status.duration == 1 ? " turno)" : " turnos)")
+                    : status.type.ToString();
+                names.Add(label);
+
+                foreach (BattleUnit unit in allUnits)
+                {
+                    if (unit == null || !unit.IsAlive || unit.Side == self.Side)
+                        continue;
+
+                    StatusEffectController fx = unit.GetComponent<StatusEffectController>();
+                    StatusEffectInstance applied = fx != null ? fx.GetEffect(status.type) : null;
+
+                    if (applied != null && applied.Source == self)
+                        affected++;
+                }
+            }
+
+            followUpText = ability.abilityName + (names.Count > 0
+                ? ": " + string.Join(", ", names) + " sobre " + affected + (affected == 1 ? " protagonista." : " protagonistas.")
+                : ".");
+            followUpAt = Time.unscaledTime + 1.8f;
+            return;
+        }
+
+        // Anuncio de un ataque preparado por areas (Fuego de Supresion).
+        if (ability != null && self != null && ability.requiresPreparation &&
+            ability.selectableAreas != null && ability.selectableAreas.Count > 0)
+        {
+            PreparedAbilityController pc = self.GetComponent<PreparedAbilityController>();
+
+            if (pc != null && pc.PreparedArea != null)
+                Say("El " + DisplayName(self) + " prepara fuego sobre " +
+                    pc.PreparedArea.label + ": " + pc.PreparedArea.PositionsText() + ".");
+
+            return;
+        }
+
+        if (ability == null || target == null || ability.statusEffects == null ||
+            !ability.statusEffects.Exists(s => s != null && s.type == StatusEffectType.PriorityTarget))
+            return;
+
+        StatusEffectController effects = target.GetComponent<StatusEffectController>();
+        StatusEffectInstance mark = effects != null ? effects.GetEffect(StatusEffectType.PriorityTarget) : null;
+
+        Say(mark != null && mark.Source == self
+            ? "El " + DisplayName(self) + " designa a " + DisplayName(target) + " como objetivo prioritario."
+            : DisplayName(target) + " esquiva la designación del " + DisplayName(self) + ".");
     }
 
     private void Update()
     {
+        // Esc cancela cualquier seleccion pendiente (habilidad, objeto o
+        // movimiento) sin consumir el turno.
+        UnityEngine.InputSystem.Keyboard keyboard = UnityEngine.InputSystem.Keyboard.current;
+
+        if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame && HasPendingSelection())
+            OnCancelClicked();
+
         Refresh();
+    }
+
+    private bool HasPendingSelection()
+    {
+        return selectedAbility != null || pendingConfirm != null || previewItem >= 0 ||
+               moveMode || itemMode || itemSelected >= 0;
     }
 
     // Vuelve a leer las unidades de la escena (tras cargar un encuentro).
@@ -159,6 +436,30 @@ public class CombatHudController : MonoBehaviour
         cancelButton.onClick.RemoveAllListeners();
         cancelButton.onClick.AddListener(OnCancelClicked);
 
+        for (int i = 0; i < moveDirButtons.Length; i++)
+        {
+            if (moveDirButtons[i] == null)
+                continue;
+
+            int index = i;
+            moveDirButtons[i].onClick.RemoveAllListeners();
+            moveDirButtons[i].onClick.AddListener(() => OnMoveDirectionClicked(index));
+        }
+
+        if (moveButton != null)
+        {
+            moveButton.onClick.RemoveAllListeners();
+            moveButton.onClick.AddListener(OnMoveClicked);
+
+            MapHoverTarget hover = moveButton.GetComponent<MapHoverTarget>();
+
+            if (hover != null)
+            {
+                hover.entered = () => moveHover = true;
+                hover.exited = () => moveHover = false;
+            }
+        }
+
         endTurnButton.onClick.RemoveAllListeners();
         endTurnButton.onClick.AddListener(OnEndTurnClicked);
 
@@ -166,6 +467,16 @@ public class CombatHudController : MonoBehaviour
         {
             itemsButton.onClick.RemoveAllListeners();
             itemsButton.onClick.AddListener(OnItemsClicked);
+        }
+
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            if (itemButtons[i] == null)
+                continue;
+
+            int slot = i;
+            itemButtons[i].onClick.RemoveAllListeners();
+            itemButtons[i].onClick.AddListener(() => OnConsumableClicked(slot));
         }
 
         if (returnToMenuButton != null)
@@ -267,13 +578,25 @@ public class CombatHudController : MonoBehaviour
         }
     }
 
+    // Aviso de cambio de fase de un jefe: mensaje (se muestra en el toast al
+    // siguiente Refresh, para no ser pisado por "X uso Y") y rotulo temporal.
+    private string phaseMessage = "";
+    private string followUpText = "";
+    private float followUpAt;
+    private Text phaseNotice;
+    private float phaseNoticeUntil;
+    private const float PhaseNoticeSeconds = 3.5f;
+
     private string feedback = "";
     private bool feedbackIsError;
+
+    private float feedbackTime;
 
     private void Say(string text, bool error = false)
     {
         feedback = text;
         feedbackIsError = error;
+        feedbackTime = Time.unscaledTime;
     }
 
     // ------------------------------------------------------------
@@ -296,8 +619,199 @@ public class CombatHudController : MonoBehaviour
     private bool itemMode;
     private int itemSelected = -1;
 
+    // Consumible solo consultado (sin existencias): muestra su informacion
+    // pero nunca se puede usar.
+    private int previewItem = -1;
+
+    // ------------------------------------------------------------
+    // Movimiento tactico (Paso 64.8). Las reglas de formacion son las de
+    // PositionManager (CanMoveUnit / MoveUnit, que ya intercambia con el
+    // aliado de la casilla destino). Mover consume la accion completa y
+    // termina el turno con TurnManager.EndTurn; no inicia cooldowns.
+    // ------------------------------------------------------------
+
+    [Header("Movimiento tactico (generado por BuildUI)")]
+    [SerializeField] private Button moveButton;
+    [SerializeField] private Image moveButtonImage;
+    [SerializeField] private GameObject moveContainer;
+    [SerializeField] private Button[] moveDirButtons = new Button[2];
+    [SerializeField] private Image[] moveDirImages = new Image[2];
+    [SerializeField] private Text[] moveDirTexts = new Text[2];
+
+    private bool moveMode;
+    private int moveDirection;      // 0 sin elegir, -1 avanzar, +1 retroceder
+    private bool moveHover;
+
+    private const string MoveInfo =
+        "Permite avanzar o retroceder una posición. Consume la acción del personaje activo.";
+
+    // Evalua una direccion para el protagonista activo.
+    // Devuelve true si es valida; 'swap' es el aliado que cambia de lugar.
+    private bool EvaluateMove(BattleUnit user, int direction, out BattleUnit swap, out int target, out string reason)
+    {
+        swap = null;
+        reason = "";
+        target = user.Position + direction;
+
+        if (target < 1)
+        {
+            reason = "Ya estás en P1: no se puede avanzar.";
+            return false;
+        }
+
+        if (target > 4)
+        {
+            reason = "Ya estás en P4: no se puede retroceder.";
+            return false;
+        }
+
+        // La formacion se compacta al caer unidades: el destino debe estar
+        // ocupado por un aliado vivo (intercambio), nunca un hueco.
+        swap = positionManager.GetUnitAtPosition(TeamSide.Player, target);
+
+        if (swap == null)
+        {
+            reason = "No hay ningún aliado en P" + target + ".";
+            return false;
+        }
+
+        if (!positionManager.CanMoveUnit(user, direction))
+        {
+            reason = "Movimiento no permitido.";
+            return false;
+        }
+
+        return true;
+    }
+
+    // Texto de una direccion: titulo y subtitulo (destino / aliado, o motivo breve).
+    private bool MoveOptionLines(BattleUnit user, int direction, out string title, out string subtitle)
+    {
+        string name = direction < 0 ? "Avanzar" : "Retroceder";
+
+        if (EvaluateMove(user, direction, out BattleUnit swap, out int target, out _))
+        {
+            title = name + " a P" + target;
+            subtitle = "Intercambia posición con " + DisplayName(swap);
+            return true;
+        }
+
+        title = name;
+        int raw = user.Position + direction;
+        subtitle = raw < 1 || raw > 4
+            ? "No disponible desde P" + user.Position
+            : "No hay ningún aliado en P" + raw;
+        return false;
+    }
+
+    // Muestra u oculta los cuatro botones de habilidad y el contenedor de
+    // movimiento, y refresca los dos cuadros de direccion.
+    private void RefreshMoveOptions(BattleUnit active, bool playerTurn)
+    {
+        bool show = moveMode && playerTurn && active != null;
+
+        if (moveContainer != null && moveContainer.activeSelf != show)
+            moveContainer.SetActive(show);
+
+        foreach (Button b in abilityButtons)
+            if (b != null && b.gameObject.activeSelf == show)
+                b.gameObject.SetActive(!show);
+
+        if (!show)
+            return;
+
+        for (int i = 0; i < 2; i++)
+        {
+            int dir = i == 0 ? -1 : 1;
+            bool ok = MoveOptionLines(active, dir, out string title, out string subtitle);
+            moveDirTexts[i].supportRichText = true;
+            SetText(moveDirTexts[i], "<size=32><b>" + title + "</b></size>\n<size=22>" + subtitle + "</size>");
+            moveDirTexts[i].color = ok ? TextColor : DimTextColor;
+            SetButtonState(moveDirImages[i], moveDirection == dir ? ButtonState.Selected
+                : (ok ? ButtonState.Normal : ButtonState.Blocked), true);
+        }
+    }
+
+    private void OnMoveClicked()
+    {
+        BattleUnit user = ActivePlayerUnit();
+
+        if (user == null)
+        {
+            Say(turnManager != null && turnManager.BattleFinished
+                ? "El combate ha terminado."
+                : "No es el turno de un protagonista.", true);
+            return;
+        }
+
+        if (moveMode)
+        {
+            CancelSelection();
+            Say("Movimiento cancelado.");
+            return;
+        }
+
+        CancelSelection();
+        moveMode = true;
+        Say("Elige una dirección. Esc para volver.");
+    }
+
+    // Clic en uno de los dos botones de direccion (0 avanzar, 1 retroceder).
+    // Primer clic: vista previa del destino. Segundo clic: confirma.
+    private void OnMoveDirectionClicked(int index)
+    {
+        BattleUnit user = ActivePlayerUnit();
+
+        if (user == null)
+        {
+            CancelSelection();
+            return;
+        }
+
+        if (index > 1)
+            return;
+
+        int direction = index == 0 ? -1 : 1;
+
+        if (!EvaluateMove(user, direction, out BattleUnit swap, out int target, out string reason))
+        {
+            moveDirection = 0;
+            validTargets.Clear();
+            Say(reason, true);
+            return;
+        }
+
+        if (moveDirection != direction)
+        {
+            moveDirection = direction;
+            validTargets.Clear();
+            validTargets.Add(swap);
+            Say(DisplayName(user) + ": P" + user.Position + " → P" + target +
+                " (intercambia con " + DisplayName(swap) + "). Pulsa de nuevo para confirmar.");
+            return;
+        }
+
+        int from = user.Position;
+        string userName = DisplayName(user);
+        string swapName = DisplayName(swap);
+
+        if (!positionManager.MoveUnit(user, direction))
+        {
+            Say("No se pudo realizar el movimiento.", true);
+            return;
+        }
+
+        CancelSelection();
+        Say(userName + " se mueve de P" + from + " a P" + user.Position + " (intercambia con " + swapName + ").");
+        Debug.Log(userName + " utiliza Mover: de P" + from + " a P" + user.Position);
+        turnManager.EndTurn();
+    }
+
     private void CancelSelection()
     {
+        moveMode = false;
+        moveDirection = 0;
+        previewItem = -1;
         selectedAbility = null;
         pendingConfirm = null;
         itemMode = false;
@@ -307,7 +821,7 @@ public class CombatHudController : MonoBehaviour
 
     private void OnCancelClicked()
     {
-        if (selectedAbility == null && pendingConfirm == null &&
+        if (selectedAbility == null && pendingConfirm == null && previewItem < 0 && !moveMode &&
             !itemMode && itemSelected < 0)
         {
             Say("No hay seleccion que cancelar.");
@@ -341,6 +855,48 @@ public class CombatHudController : MonoBehaviour
         CancelSelection();
         itemMode = true;
         Say("Elige un objeto. Usarlo consume tu accion.");
+    }
+
+    // Panel de consumibles permanente: 0 pocion, 1 antidoto. Reutiliza la
+    // misma seleccion de objetivo y el mismo ConsumableService que el menu
+    // de objetos anterior; no duplica ninguna regla.
+    private void OnConsumableClicked(int slot)
+    {
+        BattleUnit user = ActivePlayerUnit();
+
+        if (user == null)
+        {
+            // Fuera de turno solo se consulta la informacion.
+            previewItem = previewItem == slot ? -1 : slot;
+            Say(turnManager != null && turnManager.BattleFinished
+                ? "El combate ha terminado."
+                : "No es el turno de un protagonista.", true);
+            return;
+        }
+
+        if (itemSelected == slot || previewItem == slot)
+        {
+            CancelSelection();
+            Say("Seleccion cancelada. Elige otra accion.");
+            return;
+        }
+
+        CancelSelection();
+
+        // Sin existencias: solo se muestra su informacion.
+        if (GameSession.GetCount(ItemType(slot)) <= 0)
+        {
+            previewItem = slot;
+            Say("No te quedan " + ConsumableService.Name(ItemType(slot)) + ".", true);
+            return;
+        }
+
+        OnItemSlotClicked(slot);
+
+        // Si ningun aliado puede usarlo ahora (p. ej. vida completa) la
+        // seleccion se rechaza, pero su informacion debe verse igualmente.
+        if (itemSelected < 0)
+            previewItem = slot;
     }
 
     private static GameSession.Consumable ItemType(int slot)
@@ -410,7 +966,7 @@ public class CombatHudController : MonoBehaviour
         }
 
         CancelSelection();
-        Say(user.Data.unitName + " termina su turno.");
+        Say(DisplayName(user) + " termina su turno.");
         turnManager.EndTurn();
     }
 
@@ -433,6 +989,13 @@ public class CombatHudController : MonoBehaviour
             return;
         }
 
+        // En modo movimiento los dos primeros botones son Avanzar / Retroceder.
+        if (moveMode)
+        {
+            OnMoveDirectionClicked(index);
+            return;
+        }
+
         CharacterAbilityLoadout loadout =
             user.GetComponent<CharacterAbilityLoadout>();
 
@@ -440,6 +1003,7 @@ public class CombatHudController : MonoBehaviour
             return;
 
         AbilityData ability = loadout.Abilities[index];
+        previewItem = -1;
 
         selectedAbility = null;
         validTargets.Clear();
@@ -451,7 +1015,7 @@ public class CombatHudController : MonoBehaviour
             pendingConfirm = ability;
             Say(ability.abilityName + " requiere preparacion: se anuncia " +
                 "ahora y impacta en el siguiente turno de " +
-                user.Data.unitName + ". Pulsa de nuevo para confirmar.");
+                DisplayName(user) + ". Pulsa de nuevo para confirmar.");
             return;
         }
 
@@ -566,7 +1130,7 @@ public class CombatHudController : MonoBehaviour
         {
             Say(unit == null
                 ? "Posicion vacia."
-                : unit.Data.unitName + ": " + unit.CurrentHealth + "/" +
+                : DisplayName(unit) + ": " + unit.CurrentHealth + "/" +
                   unit.MaxHealth + " HP. Elige primero una habilidad.");
             return;
         }
@@ -606,9 +1170,9 @@ public class CombatHudController : MonoBehaviour
         CancelSelection();
 
         Say(ability.requiresPreparation
-            ? user.Data.unitName + " prepara " + ability.abilityName +
+            ? DisplayName(user) + " prepara " + ability.abilityName +
               ": impactara en su siguiente turno."
-            : user.Data.unitName + " uso " + ability.abilityName + ".");
+            : DisplayName(user) + " uso " + ability.abilityName + ".");
 
         turnManager.EndTurn();
     }
@@ -746,10 +1310,10 @@ public class CombatHudController : MonoBehaviour
         {
             string side = active.Side == TeamSide.Player
                 ? "Turno de " : "Turno enemigo: ";
-            SetText(activeText, side + active.Data.unitName);
+            SetText(activeText, side + DisplayName(active));
             SetText(infoText,
-                active.Data.unitName + "\nHP " + active.CurrentHealth +
-                " / " + active.MaxHealth + "\nPosicion P" + active.Position);
+                DisplayName(active) + "     HP " + active.CurrentHealth +
+                " / " + active.MaxHealth + "     Posición P" + active.Position);
         }
 
         // Banner de victoria / derrota.
@@ -797,40 +1361,18 @@ public class CombatHudController : MonoBehaviour
 
         for (int i = 0; i < AbilitySlots; i++)
         {
-            // Menu de objetos: pocion, antidoto y volver.
-            if (playerTurn && itemMode)
-            {
-                if (i < 2)
-                {
-                    GameSession.Consumable type = ItemType(i);
-                    int count = GameSession.GetCount(type);
-                    string extra = i == 0
-                        ? "cura " + ConsumableService.PotionHealPercent + "%"
-                        : "cura sangrado/veneno/quemadura";
-
-                    SetText(abilityLabels[i],
-                        ConsumableService.Name(type) + "\nx" + count + " (" + extra + ")");
-                    abilityLabels[i].color = count > 0 ? TextColor : DimTextColor;
-                    abilityImages[i].color = itemSelected == i
-                        ? ButtonSelected
-                        : (count > 0 ? ButtonColor : ButtonBlocked);
-                }
-                else
-                {
-                    SetText(abilityLabels[i], i == 2 ? "Volver" : "-");
-                    abilityLabels[i].color = i == 2 ? TextColor : DimTextColor;
-                    abilityImages[i].color = i == 2 ? ButtonColor : ButtonBlocked;
-                }
-
+            // Modo movimiento: los cuatro botones de habilidad se ocultan (los dos
+            // cuadros de Avanzar / Retroceder viven en su propio contenedor).
+            if (playerTurn && moveMode)
                 continue;
-            }
 
             bool has = loadout != null && i < loadout.Abilities.Count;
 
             if (!has)
             {
                 SetText(abilityLabels[i], playerTurn ? "-" : "");
-                abilityImages[i].color = ButtonBlocked;
+                SetButtonState(abilityImages[i], ButtonState.Blocked, true);
+                ShowAbilityIcon(i, null, true, 0);
                 abilityLabels[i].color = DimTextColor;
                 continue;
             }
@@ -842,38 +1384,81 @@ public class CombatHudController : MonoBehaviour
                 !ability.CanUseFromPosition(active.Position);
 
             string status = remaining > 0
-                ? "Cooldown " + remaining
+                ? "<color=#C9965A>Recarga " + remaining + "</color>"
                 : (!ability.CanUseFromPosition(active.Position)
-                    ? "Posicion no valida"
-                    : (ability.requiresPreparation ? "Lista (prepara)" : "Lista"));
+                    ? "<color=#C98A8A>Solo desde " + PositionList(ability.usablePositions) + "</color>"
+                    : "");
 
-            SetText(abilityLabels[i], ability.abilityName + "\n" + status);
+            SetText(abilityLabels[i], status == "" ? ability.abilityName : ability.abilityName + "\n" + status);
             abilityLabels[i].color = blocked ? DimTextColor : TextColor;
-            abilityImages[i].color =
+            ShowAbilityIcon(i, ability, blocked, remaining);
+            SetButtonState(abilityImages[i],
                 (selectedAbility == ability || pendingConfirm == ability)
-                    ? ButtonSelected
-                    : (blocked ? ButtonBlocked : ButtonColor);
+                    ? ButtonState.Selected
+                    : (blocked ? ButtonState.Blocked : ButtonState.Normal), true);
         }
 
         // Detalle de la habilidad seleccionada.
         AbilityData detail = selectedAbility != null
             ? selectedAbility : pendingConfirm;
 
-        if (itemSelected >= 0)
+        // Consumible elegido (o consultado sin existencias).
+        int infoItem = itemSelected >= 0 ? itemSelected : previewItem;
+
+        bool showMoveInfo = moveMode || (moveHover && detail == null && infoItem < 0 && playerTurn);
+
+        if (showMoveInfo)
         {
-            SetText(detailText,
-                ConsumableService.Name(ItemType(itemSelected)) +
-                " - consume 1 objeto y tu accion del turno");
+            SetText(abilityTitleText, "Movimiento táctico");
+
+            if (moveMode && active != null)
+            {
+                SetText(detailText, MoveInfo + "\nPosición actual: P" + active.Position +
+                    (moveDirection == 0 ? "." : "") +
+                    (moveDirection == 0 ? "\nElige una dirección." : "\nPulsa de nuevo la dirección elegida para confirmar."));
+            }
+            else
+            {
+                SetText(detailText, MoveInfo);
+            }
+        }
+        else if (infoItem >= 0)
+        {
+            SetText(abilityTitleText, ConsumableService.Name(ItemType(infoItem)));
+            SetText(detailText, ItemDescription(infoItem) +
+                (GameSession.GetCount(ItemType(infoItem)) <= 0
+                    ? "\nSin existencias."
+                    : (itemSelected == infoItem
+                        ? "\nConsume 1 objeto y la acción del turno."
+                        : "\nNo se puede usar ahora (sin objetivo válido o fuera de turno).")));
         }
         else
         {
-            SetText(detailText, detail == null ? "" : Describe(detail));
+            SetText(abilityTitleText, detail == null ? "Información" : detail.abilityName);
+            SetText(detailText, detail == null
+                ? (playerTurn ? "Selecciona una habilidad o un consumible." : "")
+                : Describe(detail));
         }
 
-        SetText(resourcesText,
-            "Coronas " + GameSession.Coins +
-            "  Pociones " + GameSession.Potions + "/" + GameSession.MaxPerItem +
-            "  Antídotos " + GameSession.Antidotes + "/" + GameSession.MaxPerItem);
+        // Icono de la opcion consultada (habilidad real o icono provisional del consumible).
+        if (infoIcon != null)
+        {
+            Sprite shown = null;
+
+            if (infoItem >= 0)
+                shown = art != null ? (infoItem == 0 ? art.potionIcon : art.antidoteIcon) : null;
+            else if (detail != null && iconSet != null)
+                shown = iconSet.Get(detail);
+
+            if (infoIcon.sprite != shown)
+                infoIcon.sprite = shown;
+
+            if (infoIcon.enabled != (shown != null))
+                infoIcon.enabled = shown != null;
+        }
+
+        // Las cantidades de consumibles se muestran en su propio panel.
+        SetText(resourcesText, "Coronas " + GameSession.Coins);
 
         if (itemsButton != null)
             itemsButton.interactable = playerTurn;
@@ -886,29 +1471,92 @@ public class CombatHudController : MonoBehaviour
             PreparedAbilityController prepared =
                 unit.GetComponent<PreparedAbilityController>();
             if (prepared != null && prepared.HasPreparation)
-                prep += unit.Data.unitName + " prepara " +
-                        prepared.PreparedAbility.abilityName +
-                        ": impacta en su siguiente turno.  ";
+            {
+                if (prepared.PreparedArea != null)
+                    prep += DisplayName(unit) + " prepara " +
+                            prepared.PreparedAbility.abilityName + " sobre " +
+                            prepared.PreparedArea.label + " (" +
+                            prepared.PreparedArea.PositionsText() +
+                            "): impacta en su siguiente turno.  ";
+                else
+                    prep += DisplayName(unit) + " prepara " +
+                            prepared.PreparedAbility.abilityName +
+                            ": impacta en su siguiente turno.  ";
+            }
         }
         SetText(prepText, prep);
 
-        // Mensajes.
-        SetText(messageText, feedback);
-        messageText.color = feedbackIsError
-            ? new Color(0.95f, 0.55f, 0.45f) : TextColor;
+        // Cambio de fase de un jefe: mensaje narrativo y rotulo temporal.
+        if (phaseMessage != "")
+        {
+            Say(phaseMessage);
+            phaseMessage = "";
+        }
 
+        // Segundo mensaje de una habilidad con frase de uso.
+        if (followUpText != "" && Time.unscaledTime >= followUpAt)
+        {
+            Say(followUpText);
+            followUpText = "";
+        }
+
+        if (phaseNotice != null)
+        {
+            bool showNotice = Time.unscaledTime < phaseNoticeUntil && !finished;
+
+            if (phaseNotice.gameObject.activeSelf != showNotice)
+                phaseNotice.gameObject.SetActive(showNotice);
+        }
+
+        // Mensajes.
+        // Los mensajes caducan (los antiguos no se quedan en pantalla).
+        bool showToast = feedback != "" && Time.unscaledTime - feedbackTime < (feedbackIsError ? 5f : 4f);
+        SetText(messageText, feedback);
+        // Error en ambar claro (legible sobre fondo oscuro), informacion en crema.
+        messageText.color = feedbackIsError
+            ? new Color(0.97f, 0.76f, 0.46f) : TextColor;
+
+        if (toastRoot != null && toastRoot.activeSelf != showToast)
+            toastRoot.SetActive(showToast);
+
+        // El registro interno se conserva (oculto) para diagnostico.
         SetText(logText, string.Join("\n", recentLog.ToArray()));
 
-        SetText(hintText, finished
-            ? ""
-            : (playerTurn
-                ? "Elige una habilidad. Y: transformar a Noelle (depuracion)."
-                : (active != null &&
-                   active.GetComponent<EnemyAIController>() != null
-                    ? "Turno enemigo: actua automaticamente."
-                    : "Turno enemigo: pulsa A para que ataque.")));
+        string hint;
+        if (finished)
+            hint = "";
+        else if (moveMode)
+            hint = moveDirection == 0 ? "Elige Avanzar o Retroceder. Esc para volver." : "Pulsa de nuevo la dirección para confirmar. Esc para volver.";
+        else if (itemSelected >= 0)
+            hint = "Elige un aliado resaltado para usar el objeto.";
+        else if (selectedAbility != null)
+            hint = "Elige un objetivo resaltado. Esc o Volver para cancelar.";
+        else if (pendingConfirm != null)
+            hint = "Pulsa de nuevo la habilidad para confirmar.";
+        else if (playerTurn)
+            hint = "";
+        else
+            hint = active != null && active.GetComponent<EnemyAIController>() != null
+                ? "Turno enemigo: actua automaticamente."
+                : "Turno enemigo: pulsa A para que ataque.";
+
+        SetText(hintText, hint);
+
+        RefreshHeader(active);
+        RefreshConsumables(playerTurn);
+        RefreshMoveOptions(active, playerTurn);
+
+        // Volver (cancelacion contextual) solo aparece con una seleccion pendiente.
+        bool pending = HasPendingSelection() && !finished;
+        if (cancelButton.gameObject.activeSelf != pending)
+            cancelButton.gameObject.SetActive(pending);
 
         cancelButton.interactable = !finished;
+        if (moveButton != null)
+        {
+            moveButton.interactable = playerTurn;
+            SetButtonState(moveButtonImage, moveMode ? ButtonState.Selected : (playerTurn ? ButtonState.Normal : ButtonState.Blocked));
+        }
         endTurnButton.interactable = playerTurn;
 
         // Casillas de unidades.
@@ -919,28 +1567,302 @@ public class CombatHudController : MonoBehaviour
             int position = ally ? 4 - slot : slot - 3;
             string label = (ally ? "P" : "E") + position;
 
+            // Posicion vacia: la tarjeta se oculta (el boton sigue existiendo).
             if (unit == null)
             {
                 SetText(tileTexts[slot], label + "\n(vacio)");
-                tileImages[slot].color = EmptyColor;
                 tileBars[slot].anchorMax = new Vector2(0f, 1f);
-                tileTexts[slot].color = DimTextColor;
+                SetText(tileStatus[slot], "");
+
+                if (tileImages[slot].gameObject.activeSelf)
+                    tileImages[slot].gameObject.SetActive(false);
+
+                if (unitMarkers[slot] != null && unitMarkers[slot].gameObject.activeSelf)
+                    unitMarkers[slot].gameObject.SetActive(false);
+
                 continue;
             }
 
+            if (!tileImages[slot].gameObject.activeSelf)
+                tileImages[slot].gameObject.SetActive(true);
+
             SetText(tileTexts[slot],
-                unit.Data.unitName + "  " + label +
-                "\nHP " + unit.CurrentHealth + "/" + unit.MaxHealth +
-                "\n" + StatusLine(unit));
+                DisplayName(unit) + "  " + label +
+                "\nHP " + unit.CurrentHealth + "/" + unit.MaxHealth);
             tileTexts[slot].color = TextColor;
+            // La tarjeta de un jefe da mas espacio a los estados (menos al nombre).
+            bool bossCard = unit.Data != null && unit.Data.isBoss;
+            tileStatus[slot].rectTransform.anchorMin = new Vector2(bossCard ? 0.50f : 0.58f, 0.36f);
+
+            bool threatened = IsThreatenedByPreparedArea(unit);
+            SetText(tileStatus[slot],
+                PhaseTag(unit) + (threatened ? "<color=#F28B3C>FUEGO</color> " : "") + StatusTags(unit));
 
             tileBars[slot].anchorMax = new Vector2(
                 Mathf.Clamp01((float)unit.CurrentHealth / unit.MaxHealth), 1f);
 
-            Color baseColor = ally ? AllyColor : EnemyColor;
-            tileImages[slot].color =
-                validTargets.Contains(unit) ? TargetColor
-                : (unit == active ? ActiveColor : baseColor);
+            bool isTarget = validTargets.Contains(unit);
+            bool isActive = unit == active && !finished;
+
+            if (Skinned)
+            {
+                // Con marcos ilustrados el color de la tarjeta es un tinte del marco.
+                tileImages[slot].color = isTarget ? new Color(1f, 0.82f, 0.50f, 1f)
+                    : (isActive ? FrameSelected
+                        : (threatened ? new Color(1f, 0.50f, 0.32f, 1f)
+                            : (ally ? new Color(0.50f, 0.50f, 0.48f, 1f) : new Color(0.58f, 0.48f, 0.45f, 1f))));
+            }
+            else
+            {
+                tileImages[slot].color = isActive ? ActiveColor : (ally ? AllyColor : EnemyColor);
+            }
+
+            if (tileBorders[slot] != null)
+                tileBorders[slot].color = isTarget ? GoldBright
+                    : (isActive ? GoldColor : new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.28f));
+
+            PlaceUnitCard(slot, unit, isActive, isTarget);
+        }
+    }
+
+    // ------------------------------------------------------------
+    // Rediseno: cabecera, consumibles y tarjetas de unidad
+    // ------------------------------------------------------------
+
+    private static string PositionList(bool[] flags)
+    {
+        string text = "";
+
+        for (int i = 0; flags != null && i < flags.Length; i++)
+            if (flags[i]) text += (text == "" ? "" : ", ") + "P" + (i + 1);
+
+        return text == "" ? "-" : text;
+    }
+
+    private static string ItemDescription(int slot)
+    {
+        // Texto generado por ConsumableService (mismas reglas que TryUse).
+        return ConsumableService.Description(ItemType(slot));
+    }
+
+    private static string ZoneLabel(EnemyArchetypeData.Zone zone)
+    {
+        switch (zone)
+        {
+            case EnemyArchetypeData.Zone.Pradera: return "PRADERA";
+            case EnemyArchetypeData.Zone.Bosque: return "BOSQUE";
+            case EnemyArchetypeData.Zone.Corrupcion: return "CORRUPCION";
+            default: return "JEFE";
+        }
+    }
+
+    // Region, codigo del encuentro y orden de turnos (solo lectura).
+    private void RefreshHeader(BattleUnit active)
+    {
+        if (encounterLoader == null)
+            encounterLoader = FindAnyObjectByType<EncounterLoader>();
+
+        EncounterData encounter = encounterLoader != null ? encounterLoader.Current : null;
+
+        if (regionText != null)
+        {
+            SetText(regionText, encounter != null
+                ? ZoneLabel(encounter.zone) + "  " + encounter.encounterId + "\n<size=19>" + encounter.displayName + "</size>"
+                : "COMBATE");
+        }
+
+        List<BattleUnit> order = turnManager.GetTurnOrderSnapshot();
+        int activeIndex = active != null ? order.IndexOf(active) : -1;
+        int shown = 0;
+
+        for (int i = 0; i < order.Count && shown < turnChips.Length; i++)
+        {
+            BattleUnit unit = order[i];
+
+            if (unit == null || !unit.IsAlive)
+                continue;
+
+            bool ally = unit.Side == TeamSide.Player;
+            bool acted = activeIndex >= 0 && i < activeIndex;
+            bool isActive = i == activeIndex && !turnManager.BattleFinished;
+            string abbr = Abbreviation(unit);
+
+            if (!turnChips[shown].gameObject.activeSelf)
+                turnChips[shown].gameObject.SetActive(true);
+
+            SetText(turnChipTexts[shown], abbr);
+            Color fill = ally ? new Color(0.11f, 0.15f, 0.21f, 1f) : new Color(0.20f, 0.11f, 0.12f, 1f);
+            turnChips[shown].color = isActive ? Color.Lerp(fill, GoldBright, 0.30f) : (acted ? Dim(fill, 0.7f) : fill);
+            Outline chipOutline = turnChips[shown].GetComponent<Outline>();
+            if (chipOutline != null)
+                chipOutline.effectColor = isActive ? GoldBright : new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.22f);
+            turnChipTexts[shown].color = acted ? DimTextColor : (isActive ? Color.white : TextColor);
+            shown++;
+        }
+
+        for (int i = shown; i < turnChips.Length; i++)
+            if (turnChips[i].gameObject.activeSelf)
+                turnChips[i].gameObject.SetActive(false);
+    }
+
+    // Cantidades reales del inventario y disponibilidad segun el turno.
+    private void RefreshConsumables(bool playerTurn)
+    {
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            if (itemButtons[i] == null)
+                continue;
+
+            GameSession.Consumable type = ItemType(i);
+            int count = GameSession.GetCount(type);
+            bool usable = playerTurn && count > 0;
+
+            SetText(itemTexts[i], ConsumableService.Name(type));
+            if (itemCounts[i] != null)
+            {
+                SetText(itemCounts[i], "x" + count);
+                itemCounts[i].color = usable ? TextColor : DimTextColor;
+            }
+            itemTexts[i].color = usable ? TextColor : DimTextColor;
+            Transform itemIcon = itemButtons[i].transform.Find("Icono");
+            if (itemIcon != null)
+                itemIcon.GetComponent<Image>().color = usable ? Color.white : new Color(0.45f, 0.45f, 0.48f, 1f);
+            SetButtonState(itemImages[i], (itemSelected == i || previewItem == i) ? ButtonState.Selected
+                : (usable ? ButtonState.Normal : ButtonState.Blocked));
+        }
+    }
+
+    // Estados compactos con duracion: SNG2 = sangrado, 2 turnos.
+    private static string StatusTag(StatusEffectType type)
+    {
+        switch (type)
+        {
+            case StatusEffectType.Bleeding: return "SNG";
+            case StatusEffectType.Burn: return "QUE";
+            case StatusEffectType.Poison: return "VEN";
+            case StatusEffectType.Mark: return "MAR";
+            case StatusEffectType.Stun: return "ATU";
+            case StatusEffectType.Weaken: return "DEB";
+            case StatusEffectType.Vulnerability: return "VUL";
+            case StatusEffectType.DefenseBoost: return "DEF+";
+            case StatusEffectType.Guard: return "GRD";
+            case StatusEffectType.PriorityTarget: return "OBJ";
+            default: return type.ToString().Substring(0, Mathf.Min(3, type.ToString().Length)).ToUpper();
+        }
+    }
+
+    // true si la unidad ocupa hoy una posicion amenazada por el area que un
+    // rival tiene preparada (se calcula por posiciones, no por personajes).
+    private bool IsThreatenedByPreparedArea(BattleUnit unit)
+    {
+        if (unit == null || !unit.IsAlive)
+            return false;
+
+        foreach (BattleUnit caster in allUnits)
+        {
+            if (caster == null || !caster.IsAlive || caster.Side == unit.Side)
+                continue;
+
+            PreparedAbilityController prepared = caster.GetComponent<PreparedAbilityController>();
+
+            if (prepared != null && prepared.HasPreparation &&
+                prepared.PreparedArea != null && prepared.PreparedArea.Contains(unit.Position))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsPositive(StatusEffectType type)
+    {
+        return type == StatusEffectType.DefenseBoost || type == StatusEffectType.Guard;
+    }
+
+    private string StatusTags(BattleUnit unit)
+    {
+        List<string> tags = new List<string>();
+
+        // La preparacion pendiente es lo mas importante de un jefe: va primero.
+        PreparedAbilityController prepared = unit.GetComponent<PreparedAbilityController>();
+
+        if (prepared != null && prepared.HasPreparation)
+            tags.Add("<color=#F1C879>PRE</color>");
+
+        StatusEffectController effects = unit.GetComponent<StatusEffectController>();
+
+        if (effects != null)
+        {
+            foreach (StatusEffectInstance effect in effects.GetActiveEffects())
+            {
+                string color = IsPositive(effect.Type) ? "#8FD3A0" : "#E58A7B";
+                tags.Add("<color=" + color + ">" + StatusTag(effect.Type) + effect.RemainingTurns + "</color>");
+            }
+        }
+
+        RegenerationEffect regeneration = unit.GetComponent<RegenerationEffect>();
+
+        if (regeneration != null && regeneration.IsActive)
+            tags.Add("<color=#8FD3A0>REG</color>");
+
+        // Los jefes pueden acumular muchos estados: se muestran los primeros
+        // y se resume el resto ("+2") para que la tarjeta siga legible.
+        const int BossMaxTags = 4;
+        int extra = 0;
+
+        if (unit.Data != null && unit.Data.isBoss && tags.Count > BossMaxTags)
+        {
+            extra = tags.Count - BossMaxTags;
+            tags.RemoveRange(BossMaxTags, extra);
+        }
+
+        string text = string.Join(" ", tags);
+
+        if (extra > 0)
+            text += " <color=#B9B2A3>+" + extra + "</color>";
+
+        return text + (text == "" ? "" : " ");
+    }
+
+    // Coloca la tarjeta bajo los pies de la unidad y el marcador sobre su
+    // cabeza. Con Match=Altura del escalador, la altura del lienzo equivale
+    // a 2 x tamano ortografico de la camara, asi que la conversion no
+    // depende de la resolucion.
+    private void PlaceUnitCard(int slot, BattleUnit unit, bool isActive, bool isTarget)
+    {
+        Camera cam = canvas != null && canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
+
+        if (cam == null || canvasRect == null)
+            return;
+
+        float ppu = canvasRect.rect.height / (2f * cam.orthographicSize);
+        SpriteRenderer sr = unit.GetComponentInChildren<SpriteRenderer>();
+        Vector3 center = unit.transform.position;
+        float feet = sr != null ? sr.bounds.min.y + sr.bounds.size.y * 0.09f : center.y - 1.5f;
+        float head = sr != null ? sr.bounds.max.y - sr.bounds.size.y * 0.06f : center.y + 1.5f;
+        float x = (center.x - cam.transform.position.x) * ppu;
+
+        RectTransform card = (RectTransform)tileImages[slot].transform;
+        // La tarjeta nunca baja de los paneles inferiores (margen de 8 px sobre su borde).
+        float cardY = (feet - 0.08f - cam.transform.position.y) * ppu - card.sizeDelta.y * 0.5f;
+        float minCardY = -canvasRect.rect.height * 0.5f + canvasRect.rect.height * 0.297f + 8f + card.sizeDelta.y * 0.5f;
+        card.anchoredPosition = new Vector2(x, Mathf.Max(cardY, minCardY));
+
+        RectTransform marker = unitMarkers[slot];
+
+        if (marker == null)
+            return;
+
+        bool show = isActive || isTarget;
+
+        if (marker.gameObject.activeSelf != show)
+            marker.gameObject.SetActive(show);
+
+        if (show)
+        {
+            marker.anchoredPosition = new Vector2(x, (head - cam.transform.position.y) * ppu + (pointSprite != null ? 40f : 26f));
+            marker.GetComponent<Image>().color = pointSprite != null
+                ? (isTarget ? new Color(1f, 0.62f, 0.5f, 1f) : Color.white)
+                : (isTarget ? GoldBright : GoldColor);
         }
     }
 
@@ -958,14 +1880,21 @@ public class CombatHudController : MonoBehaviour
                 break;
         }
 
-        string text = ability.abilityName + " - objetivo: " + target +
-                      " - cooldown " + ability.cooldown;
+        string text = string.IsNullOrEmpty(ability.description) ? "" : ability.description + "\n";
+
+        text += "Objetivo: " + target + "   Recarga: " + ability.cooldown;
+
+        if (ability.targetType == AbilityTargetType.Single)
+            text += "\nSe usa desde: " + PositionList(ability.usablePositions) +
+                    "   Alcanza: " + PositionList(ability.targetPositions);
+        else
+            text += "\nSe usa desde: " + PositionList(ability.usablePositions);
 
         if (ability.requiresPreparation)
-            text += " - REQUIERE PREPARACION (impacta en el siguiente turno)";
+            text += "\nREQUIERE PREPARACION: impacta en el siguiente turno.";
 
         if (ability.userMovement != UserMovement.None)
-            text += " - mueve al usuario";
+            text += "\nMueve al usuario.";
 
         return text;
     }
@@ -976,7 +1905,7 @@ public class CombatHudController : MonoBehaviour
 
     private Font font;
 
-    private RectTransform Box(string name, Transform parent, Vector2 min, Vector2 max, Color color)
+    private RectTransform Box(string name, Transform parent, Vector2 min, Vector2 max, Color color, Sprite sprite = null)
     {
         GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
         go.transform.SetParent(parent, false);
@@ -984,6 +1913,7 @@ public class CombatHudController : MonoBehaviour
         rect.anchorMin = min; rect.anchorMax = max;
         rect.offsetMin = Vector2.zero; rect.offsetMax = Vector2.zero;
         go.GetComponent<Image>().color = color;
+        go.GetComponent<Image>().sprite = sprite;
         return rect;
     }
 
@@ -1019,13 +1949,141 @@ public class CombatHudController : MonoBehaviour
         return button;
     }
 
-    // Genera (o regenera) toda la interfaz bajo este GameObject.
+
+    // ---- Estilo: sprites de Assets/Sprites/HUD (o MapArtSet como respaldo) ----
+
+    // Aplica un sprite 9-slice. 'borderScale' = escala de los bordes (1 = tamano
+    // del sprite; menor = bordes mas finos). Equivale a ajustar
+    // Pixels Per Unit Multiplier para que ornamentos y esquinas no se deformen.
+    private void Slice(Image image, Sprite sprite, float borderScale)
+    {
+        image.sprite = sprite;
+        image.type = Image.Type.Sliced;
+        image.pixelsPerUnitMultiplier = 1f / Mathf.Max(0.01f, borderScale);
+        image.color = FrameTint;
+        // Material de UI que suaviza el dorado de los PNG (solo marcos y botones).
+        if (frameMaterial != null)
+            image.material = frameMaterial;
+    }
+
+    // Respaldo provisional (marcos de MapArtSet) cuando no hay sprites del HUD.
+    private Image Skin(RectTransform rect, Color frameColor)
+    {
+        Image image = rect.GetComponent<Image>();
+
+        if (art != null && art.roundedRect != null)
+        {
+            image.sprite = art.roundedRect;
+            image.type = Image.Type.Sliced;
+        }
+
+        if (art == null || art.frame == null)
+            return null;
+
+        RectTransform border = Box("Borde", rect, Vector2.zero, Vector2.one, frameColor);
+        Image borderImage = border.GetComponent<Image>();
+        borderImage.sprite = art.frame;
+        borderImage.type = Image.Type.Sliced;
+        borderImage.raycastTarget = false;
+        return borderImage;
+    }
+
+    // Panel con marco. 'sprite' null = panelSprite.
+    private RectTransform Panel(string name, Transform parent, Vector2 min, Vector2 max, Color color,
+        Sprite sprite = null, float borderScale = 0.34f)
+    {
+        RectTransform rect = Box(name, parent, min, max, color);
+        sprite = sprite != null ? sprite : panelSprite;
+
+        if (sprite != null)
+            Slice(rect.GetComponent<Image>(), sprite, borderScale);
+        else
+            Skin(rect, new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.85f));
+
+        return rect;
+    }
+
+    // Boton con marco: el estado visual lo fija SetButtonState; el cursor
+    // encima solo aclara el color.
+    private Button SkinButton(string name, Transform parent, Vector2 min, Vector2 max,
+        Color color, out Text label, out Image image, int size, Color frameColor,
+        float borderScale = 0.28f, Sprite frame = null)
+    {
+        Button button = MakeButton(name, parent, min, max, color, out label, out image, size);
+
+        if (Skinned)
+        {
+            Slice(image, frame != null ? frame : buttonNormal, borderScale);
+            button.transition = Selectable.Transition.ColorTint;
+            ColorBlock colors = button.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.12f, 1.10f, 1.04f, 1f);
+            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f, 1f);
+            colors.selectedColor = Color.white;
+            colors.disabledColor = Color.white;
+            button.colors = colors;
+        }
+        else
+        {
+            Skin(image.rectTransform, frameColor);
+        }
+
+        return button;
+    }
+
+    // Linea fina dorada (Image sencilla).
+    private void Divider(Transform parent, float y, float xMin = 0.06f, float xMax = 0.94f)
+    {
+        RectTransform line = Box("Separador", parent, new Vector2(xMin, y), new Vector2(xMax, y),
+            new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.55f));
+        line.offsetMin = new Vector2(0, -1f);
+        line.offsetMax = new Vector2(0, 1f);
+        line.GetComponent<Image>().raycastTarget = false;
+    }
+
+    // El texto se reduce (hasta un minimo) en lugar de desbordar su marco.
+    private static void Fit(Text text, int min, int max)
+    {
+        text.resizeTextForBestFit = true;
+        text.resizeTextMinSize = min;
+        text.resizeTextMaxSize = max;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+    }
+
+    private static Font serifFont;
+
+    // Fuente con serifa del sistema para parecerse a la referencia; si no
+    // existe, se queda la fuente integrada.
+    private Font ResolveFont()
+    {
+        if (serifFont == null)
+            serifFont = Font.CreateDynamicFontFromOSFont(new[] { "Georgia", "Palatino Linotype", "Times New Roman" }, 24);
+
+        return serifFont != null ? serifFont : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+    }
+
+    // Las fuentes del SO no se serializan en la escena: se reasignan al iniciar.
+    private void ApplyFont()
+    {
+        font = ResolveFont();
+
+        foreach (Text text in GetComponentsInChildren<Text>(true))
+            text.font = font;
+    }
+
+    // Genera (o regenera) toda la interfaz bajo este GameObject. Distribucion
+    // calcada de la referencia visual (1920x1080): cabecera, mensaje central,
+    // tarjetas bajo cada unidad y tres paneles inferiores (consumibles,
+    // personaje y habilidades, informacion y acciones). Todo vive dentro de un
+    // contenedor 16:9 centrado, asi las pantallas mas anchas solo amplian el
+    // escenario.
     public void BuildUI()
     {
         for (int i = transform.childCount - 1; i >= 0; i--)
             DestroyImmediate(transform.GetChild(i).gameObject);
 
-        font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        font = ResolveFont();
 
         Camera cam = null;
         foreach (Camera c in FindObjectsByType<Camera>())
@@ -1035,12 +2093,14 @@ public class CombatHudController : MonoBehaviour
             typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         canvasGo.transform.SetParent(transform, false);
         canvas = canvasGo.GetComponent<Canvas>();
+        canvasRect = (RectTransform)canvasGo.transform;
 
         if (cam != null)
         {
             canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = cam;
             canvas.planeDistance = 5f;
+            cam.backgroundColor = new Color(0.095f, 0.125f, 0.17f, 0f);
         }
         else
         {
@@ -1049,76 +2109,291 @@ public class CombatHudController : MonoBehaviour
 
         canvas.sortingOrder = 100;
 
+        // Referencia 1920x1080 con ajuste por altura.
         CanvasScaler scaler = canvasGo.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
-        scaler.matchWidthOrHeight = 0.5f;
+        scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+        scaler.matchWidthOrHeight = 1f;
 
-        Transform root = canvasGo.transform;
+        // Contenedor 16:9 centrado.
+        GameObject frameGo = new GameObject("Marco", typeof(RectTransform));
+        frameGo.transform.SetParent(canvasGo.transform, false);
+        RectTransform frameRect = (RectTransform)frameGo.transform;
+        frameRect.anchorMin = frameRect.anchorMax = new Vector2(0.5f, 0.5f);
+        frameRect.pivot = new Vector2(0.5f, 0.5f);
+        frameRect.sizeDelta = new Vector2(1920f, 1080f);
+        frameRect.anchoredPosition = Vector2.zero;
+        Transform root = frameGo.transform;
 
-        // Barra superior.
-        RectTransform top = Box("BarraSuperior", root, new Vector2(0, 0.93f), Vector2.one, PanelColor);
-        roundText = Label("Ronda", top, new Vector2(0, 0), new Vector2(0.09f, 1), 30, TextAnchor.MiddleLeft, TextColor);
-        resourcesText = Label("Recursos", top, new Vector2(0.09f, 0), new Vector2(0.33f, 1), 18, TextAnchor.MiddleLeft, new Color(0.85f, 0.8f, 0.6f));
-        activeText = Label("TurnoActivo", top, new Vector2(0.33f, 0), new Vector2(0.67f, 1), 32, TextAnchor.MiddleCenter, new Color(0.95f, 0.85f, 0.5f));
-        prepText = Label("Preparacion", top, new Vector2(0.67f, 0), new Vector2(1, 1), 18, TextAnchor.MiddleRight, new Color(0.95f, 0.7f, 0.4f));
+        Color gold = new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.85f);
+        Color goldDim = new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.45f);
 
-        // Casillas: aliados P4..P1 a la izquierda, enemigos E1..E4 a la derecha.
+        // ---------------- Cabecera ----------------
+        RectTransform top = Box("BarraSuperior", root, new Vector2(0.005f, 0.894f), new Vector2(0.995f, 0.995f), BackColor);
+        RectTransform topLine = Box("LineaDorada", top, Vector2.zero, new Vector2(1, 0), gold);
+        topLine.offsetMax = new Vector2(0, 3);
+
+        if (headerSprite != null)
+        {
+            Slice(top.GetComponent<Image>(), headerSprite, 0.40f);
+            topLine.gameObject.SetActive(false);
+        }
+
+        regionText = Label("Region", top, new Vector2(0.02f, 0.05f), new Vector2(0.24f, 0.95f), 28, TextAnchor.MiddleLeft, GoldBright);
+        regionText.fontStyle = FontStyle.Bold;
+        regionText.supportRichText = true;
+        regionText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        regionText.verticalOverflow = VerticalWrapMode.Truncate;
+        roundText = Label("Ronda", top, new Vector2(0.275f, 0.50f), new Vector2(0.43f, 0.95f), 28, TextAnchor.MiddleLeft, TextColor);
+        roundText.fontStyle = FontStyle.Bold;
+        roundText.horizontalOverflow = HorizontalWrapMode.Overflow;
+        activeText = Label("TurnoActivo", top, new Vector2(0.275f, 0.05f), new Vector2(0.52f, 0.50f), 24, TextAnchor.MiddleLeft, GoldBright);
+        activeText.horizontalOverflow = HorizontalWrapMode.Overflow;
+
+        for (int i = 0; i < turnChips.Length; i++)
+        {
+            float x0 = 0.525f + i * 0.0425f;
+            // Fichas simples: solo la activa lleva borde dorado.
+            RectTransform chip = Box("Turno_" + i, top, new Vector2(x0, 0.20f), new Vector2(x0 + 0.0385f, 0.80f), SurfaceColor);
+            turnChips[i] = chip.GetComponent<Image>();
+            Outline chipOutline = chip.gameObject.AddComponent<Outline>();
+            chipOutline.effectDistance = new Vector2(2f, -2f);
+            chipOutline.effectColor = new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.22f);
+
+            turnChipTexts[i] = Label("Texto", chip, Vector2.zero, Vector2.one, 19, TextAnchor.MiddleCenter, TextColor);
+            turnChipTexts[i].fontStyle = FontStyle.Bold;
+            turnChipTexts[i].horizontalOverflow = HorizontalWrapMode.Overflow;
+            chip.gameObject.SetActive(false);
+        }
+
+        resourcesText = Label("Recursos", top, new Vector2(0.86f, 0.05f), new Vector2(0.975f, 0.95f), 24, TextAnchor.MiddleRight, GoldColor);
+        resourcesText.horizontalOverflow = HorizontalWrapMode.Overflow;
+
+        // ---------------- Unidades (tarjetas) y marcadores ----------------
+        RectTransform units = Box("Unidades", root, Vector2.zero, Vector2.one, new Color(0, 0, 0, 0));
+        units.GetComponent<Image>().raycastTarget = false;
+
         for (int slot = 0; slot < SlotCount; slot++)
         {
-            float x0 = slot < 4 ? 0.015f + slot * 0.118f : 0.515f + (slot - 4) * 0.118f;
-            RectTransform tile = Box("Casilla_" + slot, root, new Vector2(x0, 0.775f), new Vector2(x0 + 0.112f, 0.925f), AllyColor);
+            bool ally = slot < 4;
+            RectTransform tile = Box("Casilla_" + slot, units, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ally ? AllyColor : EnemyColor);
+            tile.pivot = new Vector2(0.5f, 0.5f);
+            tile.sizeDelta = new Vector2(202f, 98f);
+            tile.anchoredPosition = new Vector2(ally ? -600f + slot * 200f : 200f + (slot - 4) * 200f, -330f);
             tileImages[slot] = tile.GetComponent<Image>();
+
+            if (cardSprite != null || panelSprite != null)
+            {
+                Slice(tileImages[slot], cardSprite != null ? cardSprite : panelSprite, 0.24f);
+                tileBorders[slot] = null;
+            }
+            else
+            {
+                tileBorders[slot] = Skin(tile, goldDim);
+            }
+
             Button b = tile.gameObject.AddComponent<Button>();
             b.targetGraphic = tileImages[slot];
+            b.transition = Selectable.Transition.None;
             tileButtons[slot] = b;
-            tileTexts[slot] = Label("Texto", tile, new Vector2(0, 0.12f), Vector2.one, 20, TextAnchor.UpperLeft, TextColor);
-            RectTransform barBg = Box("BarraFondo", tile, new Vector2(0.04f, 0.04f), new Vector2(0.96f, 0.12f), new Color(0.05f, 0.05f, 0.08f, 1f));
-            tileBars[slot] = Box("Vida", barBg, Vector2.zero, Vector2.one, slot < 4 ? new Color(0.35f, 0.75f, 0.45f) : new Color(0.85f, 0.35f, 0.3f));
+
+            tileTexts[slot] = Label("Texto", tile, new Vector2(0.07f, 0.38f), new Vector2(0.58f, 0.95f), 18, TextAnchor.UpperLeft, TextColor);
+            Fit(tileTexts[slot], 12, 18);
+            RectTransform barBg = Box("BarraFondo", tile, new Vector2(0.09f, 0.14f), new Vector2(0.91f, 0.30f), new Color(0.04f, 0.05f, 0.07f, 1f));
+            tileBars[slot] = Box("Vida", barBg, Vector2.zero, Vector2.one, ally ? HealthColor : HealthEnemyColor);
+            tileStatus[slot] = Label("Estado", tile, new Vector2(0.58f, 0.36f), new Vector2(0.96f, 0.96f), 14, TextAnchor.UpperRight, TextColor);
+            tileStatus[slot].supportRichText = true;
+            Fit(tileStatus[slot], 9, 14);
         }
 
-        // Mensajes y registro.
-        RectTransform mid = Box("Mensajes", root, new Vector2(0.015f, 0.635f), new Vector2(0.985f, 0.77f), new Color(0.05f, 0.07f, 0.11f, 0.93f));
-        messageText = Label("Mensaje", mid, new Vector2(0, 0.58f), Vector2.one, 24, TextAnchor.MiddleCenter, TextColor);
-        logText = Label("Registro", mid, new Vector2(0, 0), new Vector2(1, 0.58f), 16, TextAnchor.LowerCenter, DimTextColor);
-        bannerText = Label("Banner", root, new Vector2(0.2f, 0.4f), new Vector2(0.8f, 0.6f), 90, TextAnchor.MiddleCenter, Color.white);
+        RectTransform markers = Box("Marcadores", root, Vector2.zero, Vector2.one, new Color(0, 0, 0, 0));
+        markers.GetComponent<Image>().raycastTarget = false;
+
+        for (int slot = 0; slot < SlotCount; slot++)
+        {
+            RectTransform marker = Box("Marcador_" + slot, markers, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                pointSprite != null ? Color.white : GoldColor,
+                pointSprite != null ? pointSprite : (art != null ? art.triangle : null));
+            marker.pivot = new Vector2(0.5f, 0.5f);
+            marker.sizeDelta = pointSprite != null ? new Vector2(44f, 49f) : new Vector2(32f, 26f);
+            marker.localRotation = Quaternion.Euler(0f, 0f, pointSprite != null ? 0f : 180f);
+            marker.GetComponent<Image>().preserveAspect = true;
+            marker.GetComponent<Image>().raycastTarget = false;
+            unitMarkers[slot] = marker;
+            marker.gameObject.SetActive(false);
+        }
+
+        // ---------------- Mensaje contextual ----------------
+        RectTransform toast = Box("Mensajes", root, new Vector2(0.275f, 0.809f), new Vector2(0.725f, 0.875f), new Color(0.05f, 0.065f, 0.10f, 0.92f));
+
+        if (headerSprite != null)
+            Slice(toast.GetComponent<Image>(), headerSprite, 0.30f);
+        else
+            Skin(toast, goldDim);
+
+        messageText = Label("Mensaje", toast, new Vector2(0.06f, 0.08f), new Vector2(0.94f, 0.92f), 22, TextAnchor.MiddleCenter, TextColor);
+        Fit(messageText, 13, 22);
+        toastRoot = toast.gameObject;
+        toastRoot.SetActive(false);
+
+        // Registro interno (oculto): se conserva para diagnostico.
+        RectTransform logRoot = Box("Registro", root, Vector2.zero, new Vector2(0.01f, 0.01f), new Color(0, 0, 0, 0));
+        logText = Label("Texto", logRoot, Vector2.zero, Vector2.one, 12, TextAnchor.LowerLeft, DimTextColor);
+        logRoot.gameObject.SetActive(false);
+
+        prepText = Label("Preparacion", root, new Vector2(0.20f, 0.765f), new Vector2(0.80f, 0.805f), 16, TextAnchor.MiddleCenter, new Color(0.95f, 0.78f, 0.50f));
+        bannerText = Label("Banner", root, new Vector2(0.2f, 0.62f), new Vector2(0.8f, 0.76f), 80, TextAnchor.MiddleCenter, Color.white);
         bannerText.fontStyle = FontStyle.Bold;
 
-        // Panel inferior del personaje activo.
-        RectTransform bottom = Box("PanelPersonaje", root, Vector2.zero, new Vector2(1, 0.34f), PanelColor);
-        infoText = Label("Info", bottom, new Vector2(0.01f, 0.1f), new Vector2(0.2f, 0.95f), 26, TextAnchor.UpperLeft, TextColor);
+        // ---------------- Panel inferior izquierdo: consumibles ----------------
+        RectTransform items = Panel("PanelConsumibles", root, new Vector2(0.005f, 0.017f), new Vector2(0.227f, 0.297f), PanelColor, panelSprite, 0.34f);
+        Text itemsTitle = Label("Titulo", items, new Vector2(0.08f, 0.79f), new Vector2(0.95f, 0.95f), 24, TextAnchor.MiddleLeft, GoldBright);
+        itemsTitle.fontStyle = FontStyle.Bold;
+        itemsTitle.text = "CONSUMIBLES";
+
+        bool sk = Skinned;
+
+        for (int i = 0; i < 2; i++)
+        {
+            float y0 = i == 0 ? 0.456f : 0.110f;
+            float y1 = i == 0 ? 0.753f : 0.420f;
+            Text rowLabel; Image rowImage;
+            itemButtons[i] = SkinButton(i == 0 ? "Pocion" : "Antidoto", items, new Vector2(0.07f, y0), new Vector2(0.93f, y1),
+                ButtonColor, out rowLabel, out rowImage, 20, goldDim, 0.28f);
+            itemImages[i] = rowImage;
+            rowLabel.gameObject.SetActive(false);
+
+            RectTransform icon = Box("Icono", itemButtons[i].transform, new Vector2(0.09f, 0.16f), new Vector2(0.22f, 0.84f), Color.white,
+                art != null ? (i == 0 ? art.potionIcon : art.antidoteIcon) : null);
+            Image iconImage = icon.GetComponent<Image>();
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            iconImage.enabled = iconImage.sprite != null;
+
+            // Solo icono, nombre y cantidad (los detalles van en el panel derecho).
+            itemTexts[i] = Label("Nombre", itemButtons[i].transform, new Vector2(0.27f, 0.08f), new Vector2(0.78f, 0.92f), 21, TextAnchor.MiddleLeft, TextColor);
+            itemTexts[i].horizontalOverflow = HorizontalWrapMode.Overflow;
+            itemCounts[i] = Label("Cantidad", itemButtons[i].transform, new Vector2(0.78f, 0.08f), new Vector2(0.92f, 0.92f), 21, TextAnchor.MiddleRight, TextColor);
+            itemCounts[i].horizontalOverflow = HorizontalWrapMode.Overflow;
+        }
+
+        // ---------------- Panel inferior central: personaje y habilidades ----------------
+        RectTransform bottom = Panel("PanelPersonaje", root, new Vector2(0.234f, 0.017f), new Vector2(0.746f, 0.297f), PanelColor, wideFrameSprite, 0.36f);
+        infoText = Label("Info", bottom, new Vector2(0.035f, 0.78f), new Vector2(0.965f, 0.95f), 24, TextAnchor.MiddleLeft, GoldBright);
+        infoText.fontStyle = FontStyle.Bold;
+        infoText.horizontalOverflow = HorizontalWrapMode.Overflow;
+
+        // Cuatro habilidades en una sola fila, mismo tamano y espaciado uniforme.
         for (int i = 0; i < AbilitySlots; i++)
         {
-            float x0 = 0.215f + i * 0.158f;
-            abilityButtons[i] = MakeButton("Habilidad_" + i, bottom, new Vector2(x0, 0.3f), new Vector2(x0 + 0.15f, 0.92f),
-                ButtonColor, out abilityLabels[i], out abilityImages[i], 24);
+            float x0 = 0.030f + i * 0.2395f;
+            abilityButtons[i] = SkinButton("Habilidad_" + i, bottom, new Vector2(x0, 0.16f), new Vector2(x0 + 0.2250f, 0.74f),
+                ButtonColor, out abilityLabels[i], out abilityImages[i], 19, goldDim, 0.35f, abilityFrameSprite);
+            abilityLabels[i].supportRichText = true;
+
+            // Icono arriba (sin deformar), nombre y estado debajo.
+            RectTransform iconRect = Box("Icono", abilityButtons[i].transform, new Vector2(0.27f, 0.40f), new Vector2(0.73f, 0.97f), Color.white);
+            Image iconImage = iconRect.GetComponent<Image>();
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            iconImage.enabled = false;
+            abilityIcons[i] = iconImage;
+
+            Text cooldown = Label("Recarga", iconRect, Vector2.zero, Vector2.one, 30, TextAnchor.MiddleCenter, Color.white);
+            cooldown.fontStyle = FontStyle.Bold;
+            cooldown.horizontalOverflow = HorizontalWrapMode.Overflow;
+            Outline outline = cooldown.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.9f);
+            outline.effectDistance = new Vector2(2f, -2f);
+            abilityCooldowns[i] = cooldown;
+
+            RectTransform labelRect = abilityLabels[i].rectTransform;
+            labelRect.anchorMin = new Vector2(0.05f, 0.05f);
+            labelRect.anchorMax = new Vector2(0.95f, 0.40f);
+            abilityLabels[i].alignment = TextAnchor.MiddleCenter;
+            Fit(abilityLabels[i], 12, 19);
         }
-        detailText = Label("Detalle", bottom, new Vector2(0.215f, 0.12f), new Vector2(0.84f, 0.3f), 18, TextAnchor.MiddleLeft, new Color(0.85f, 0.78f, 0.55f));
-        hintText = Label("Ayuda", bottom, new Vector2(0.215f, 0f), new Vector2(0.84f, 0.12f), 16, TextAnchor.MiddleLeft, DimTextColor);
-        Text t1, t2; Image i1, i2;
-        Text t3; Image i3;
-        itemsButton = MakeButton("Objetos", bottom, new Vector2(0.86f, 0.69f), new Vector2(0.99f, 0.92f), ButtonColor, out t3, out i3, 22);
-        t3.text = "Objetos";
-        cancelButton = MakeButton("Cancelar", bottom, new Vector2(0.86f, 0.40f), new Vector2(0.99f, 0.63f), ButtonColor, out t1, out i1, 22);
-        t1.text = "Cancelar";
-        endTurnButton = MakeButton("TerminarTurno", bottom, new Vector2(0.86f, 0.12f), new Vector2(0.99f, 0.34f), ButtonColor, out t2, out i2, 22);
+        // Contenedor propio de movimiento: solo dos cuadros iguales, centrados y
+        // con separacion uniforme (aparece unicamente en modo Mover).
+        RectTransform moveBox = Box("OpcionesMovimiento", bottom, new Vector2(0.05f, 0.08f), new Vector2(0.95f, 0.76f), new Color(0, 0, 0, 0));
+        moveBox.GetComponent<Image>().raycastTarget = false;
+        moveContainer = moveBox.gameObject;
+
+        for (int i = 0; i < 2; i++)
+        {
+            float x0 = i == 0 ? 0.125f : 0.525f;
+            Text dirLabel; Image dirImage;
+            moveDirButtons[i] = SkinButton(i == 0 ? "Avanzar" : "Retroceder", moveBox, new Vector2(x0, 0.02f), new Vector2(x0 + 0.35f, 0.98f),
+                ButtonColor, out dirLabel, out dirImage, 26, goldDim, 0.35f, abilityFrameSprite);
+            moveDirImages[i] = dirImage;
+            moveDirTexts[i] = dirLabel;
+            dirLabel.supportRichText = true;
+            dirLabel.alignment = TextAnchor.MiddleCenter;
+            dirLabel.fontStyle = FontStyle.Normal;
+            RectTransform lr = dirLabel.rectTransform;
+            lr.anchorMin = new Vector2(0.06f, 0.08f);
+            lr.anchorMax = new Vector2(0.94f, 0.92f);
+            lr.offsetMin = Vector2.zero; lr.offsetMax = Vector2.zero;
+            dirLabel.resizeTextForBestFit = false;
+            dirLabel.horizontalOverflow = HorizontalWrapMode.Wrap;
+            dirLabel.verticalOverflow = VerticalWrapMode.Truncate;
+        }
+
+        moveContainer.SetActive(false);
+
+
+        // ---------------- Panel inferior derecho: informacion y acciones ----------------
+        RectTransform info = Panel("PanelInformacion", root, new Vector2(0.752f, 0.017f), new Vector2(0.996f, 0.297f), PanelColor, panelSprite, 0.34f);
+        abilityTitleText = Label("TituloHabilidad", info, new Vector2(0.07f, 0.80f), new Vector2(0.71f, 0.95f), 26, TextAnchor.MiddleLeft, GoldBright);
+        abilityTitleText.fontStyle = FontStyle.Bold;
+        Fit(abilityTitleText, 16, 26);
+
+        RectTransform infoIconRect = Box("IconoInfo", info, new Vector2(0.07f, 0.49f), new Vector2(0.21f, 0.77f), Color.white);
+        infoIcon = infoIconRect.GetComponent<Image>();
+        infoIcon.preserveAspect = true;
+        infoIcon.raycastTarget = false;
+        infoIcon.enabled = false;
+
+        detailText = Label("Detalle", info, new Vector2(0.23f, 0.47f), new Vector2(0.94f, 0.79f), 18, TextAnchor.UpperLeft, TextColor);
+        Fit(detailText, 11, 18);
+        Divider(info, 0.455f);
+        hintText = Label("Ayuda", info, new Vector2(0.07f, 0.285f), new Vector2(0.93f, 0.44f), 18, TextAnchor.MiddleLeft, TextColor);
+        Fit(hintText, 12, 18);
+
+        Text t1, t2, t3; Image i1, i2, i3;
+
+        // Mover (sustituye al antiguo Cancelar permanente) y Terminar turno.
+        moveButton = SkinButton("Mover", info, new Vector2(0.07f, 0.075f), new Vector2(0.49f, 0.265f), ButtonColor, out t3, out i3, 21, gold, 0.28f);
+        t3.text = "Mover";
+        moveButtonImage = i3;
+        moveButton.gameObject.AddComponent<MapHoverTarget>();
+
+        // Cancelacion contextual: pequeno "Volver" arriba a la derecha, solo con una seleccion pendiente.
+        cancelButton = SkinButton("Volver", info, new Vector2(0.72f, 0.82f), new Vector2(0.95f, 0.955f), ButtonColor, out t1, out i1, 16, gold, 0.20f);
+        t1.text = "Volver";
+        cancelButton.gameObject.SetActive(false);
+        endTurnButton = SkinButton("TerminarTurno", info, new Vector2(0.51f, 0.075f), new Vector2(0.93f, 0.265f), ButtonColor, out t2, out i2, 21, gold, 0.28f);
         t2.text = "Terminar turno";
 
-        // Panel de derrota total (oculto hasta perder).
-        RectTransform defeat = Box("PanelDerrota", root, new Vector2(0.38f, 0.355f), new Vector2(0.62f, 0.44f), PanelColor);
+        // ---------------- Derrota y victoria ----------------
+        RectTransform defeat = Panel("PanelDerrota", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, panelSprite, 0.30f);
         Text returnLabel; Image returnImage;
-        returnToMenuButton = MakeButton("VolverMenu", defeat, new Vector2(0.04f, 0.1f), new Vector2(0.96f, 0.9f), ButtonColor, out returnLabel, out returnImage, 28);
+        returnToMenuButton = SkinButton("VolverMenu", defeat, new Vector2(0.06f, 0.14f), new Vector2(0.94f, 0.86f), ButtonColor, out returnLabel, out returnImage, 28, gold, 0.24f);
         returnLabel.text = "Volver al menú";
         defeatPanel = defeat.gameObject;
         defeatPanel.SetActive(false);
 
-        // Panel de victoria (oculto hasta ganar): vuelve al mapa.
-        RectTransform victory = Box("PanelVictoria", root, new Vector2(0.38f, 0.355f), new Vector2(0.62f, 0.44f), PanelColor);
+        RectTransform victory = Panel("PanelVictoria", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, panelSprite, 0.30f);
         Text continueLabel; Image continueImage;
-        continueButton = MakeButton("Continuar", victory, new Vector2(0.04f, 0.1f), new Vector2(0.96f, 0.9f), ButtonColor, out continueLabel, out continueImage, 28);
+        continueButton = SkinButton("Continuar", victory, new Vector2(0.06f, 0.14f), new Vector2(0.94f, 0.86f), ButtonColor, out continueLabel, out continueImage, 28, gold, 0.24f);
         continueLabel.text = "Continuar";
         victoryPanel = victory.gameObject;
         victoryPanel.SetActive(false);
+
+        // Fuente con serifa en todo el HUD.
+        foreach (Text text in canvasGo.GetComponentsInChildren<Text>(true))
+            text.font = font;
 
         // EventSystem compatible con el nuevo Input System.
         EventSystem existing = null;

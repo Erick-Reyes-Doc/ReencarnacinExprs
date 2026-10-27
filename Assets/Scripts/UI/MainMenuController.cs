@@ -23,7 +23,30 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Escena a la que entra Nueva partida (el mapa). Debe estar en Build Settings.")]
     [SerializeField] private string newGameScene = "Map";
 
+    [Header("Transiciones")]
+    [SerializeField] private float musicFadeInDuration = 2f;
+    [SerializeField] private float newGameFadeDuration = 2f;
+    [Tooltip("Imagen negra a pantalla completa (Canvas Overlay por encima de toda la interfaz).")]
+    [SerializeField] private Image transitionOverlay;
+
     private Coroutine currentAnimation;
+
+    // Volumen de musica elegido por el jugador; el fade solo escala el AudioSource, nunca este valor.
+    private float musicTargetVolume;
+    private float musicFadeFactor = 1f;
+    private bool transitioning;
+
+    private void Awake()
+    {
+        // La musica arranca en silencio (el AudioSource tiene Play On Awake) y sube con el fade in.
+        if (menuMusic != null)
+        {
+            musicTargetVolume = menuMusic.volume;
+            menuMusic.volume = 0f;
+        }
+
+        musicFadeFactor = 0f;
+    }
 
     private void Start()
     {
@@ -37,17 +60,138 @@ public class MainMenuController : MonoBehaviour
         optionsWindow.localScale = Vector3.one * 0.95f;
         optionsPanel.SetActive(false);
 
+        // Si el volumen de musica se cambio en otra escena (pausa del mapa), se respeta aqui.
+        if (GameAudioSettings.HasMusicVolume)
+            musicTargetVolume = GameAudioSettings.MusicVolume;
+
+        if (transitionOverlay != null)
+        {
+            Color clear = transitionOverlay.color;
+            clear.a = 0f;
+            transitionOverlay.color = clear;
+            transitionOverlay.raycastTarget = false;
+        }
+
         masterVolumeSlider.SetValueWithoutNotify(AudioListener.volume);
-        musicVolumeSlider.SetValueWithoutNotify(menuMusic.volume);
+        musicVolumeSlider.SetValueWithoutNotify(musicTargetVolume);
 
         masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+
+        StartCoroutine(FadeMusicIn());
+    }
+
+    // Fade in unico al abrir el menu: la musica ya esta en bucle (loop del AudioSource), asi que
+    // las repeticiones no vuelven a pasar por aqui.
+    private IEnumerator FadeMusicIn()
+    {
+        float duration = Mathf.Max(musicFadeInDuration, 0.01f);
+
+        // El primer fotograma tras cargar la escena arrastra el tiempo de carga: el reloj de
+        // 2 segundos empieza un fotograma despues.
+        yield return null;
+
+        float startTime = Time.unscaledTime;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            if (menuMusic == null)
+                yield break;
+
+            elapsed = Time.unscaledTime - startTime;
+            musicFadeFactor = Mathf.Clamp01(elapsed / duration);
+            menuMusic.volume = musicTargetVolume * musicFadeFactor;
+            yield return null;
+        }
+
+        musicFadeFactor = 1f;
+
+        if (menuMusic != null)
+            menuMusic.volume = musicTargetVolume;
     }
 
     public void NewGame()
     {
-        if (!PrepareNewGame())
+        if (transitioning)
             return;
+
+        // Si la escena de destino no esta en Build Settings no hay transicion: PrepareNewGame
+        // registra el error igual que antes.
+        if (!GameSession.IsSceneInBuild(newGameScene))
+        {
+            PrepareNewGame();
+            return;
+        }
+
+        StartCoroutine(NewGameTransition());
+    }
+
+    // Fade out de la musica y pantalla negra sincronizados (tiempo no escalado); al terminar ambos
+    // se ejecuta el flujo existente de Nueva partida.
+    private IEnumerator NewGameTransition()
+    {
+        transitioning = true;
+
+        if (currentAnimation != null)
+        {
+            StopCoroutine(currentAnimation);
+            currentAnimation = null;
+        }
+
+        // Bloquea cualquier interaccion durante la transicion.
+        if (transitionOverlay != null)
+            transitionOverlay.raycastTarget = true;
+
+        float startVolume = menuMusic != null ? menuMusic.volume : 0f;
+        float duration = Mathf.Max(newGameFadeDuration, 0.01f);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            if (menuMusic != null)
+                menuMusic.volume = startVolume * (1f - t);
+
+            if (transitionOverlay != null)
+            {
+                Color c = transitionOverlay.color;
+                c.a = t;
+                transitionOverlay.color = c;
+            }
+
+            yield return null;
+        }
+
+        if (menuMusic != null)
+            menuMusic.volume = 0f;
+
+        if (transitionOverlay != null)
+        {
+            Color c = transitionOverlay.color;
+            c.a = 1f;
+            transitionOverlay.color = c;
+        }
+
+        if (!PrepareNewGame())
+        {
+            // No deberia ocurrir (se comprobo antes); se devuelve el menu a su estado normal.
+            if (transitionOverlay != null)
+            {
+                Color c = transitionOverlay.color;
+                c.a = 0f;
+                transitionOverlay.color = c;
+                transitionOverlay.raycastTarget = false;
+            }
+
+            if (menuMusic != null)
+                menuMusic.volume = musicTargetVolume;
+
+            transitioning = false;
+            yield break;
+        }
 
         SceneManager.LoadScene(newGameScene);
     }
@@ -71,6 +215,9 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenOptions()
     {
+        if (transitioning)
+            return;
+
         if (currentAnimation != null)
             StopCoroutine(currentAnimation);
 
@@ -147,11 +294,19 @@ public class MainMenuController : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        menuMusic.volume = volume;
+        musicTargetVolume = volume;
+        GameAudioSettings.MusicVolume = volume;
+
+        // Durante el fade in el volumen audible es el objetivo escalado por el progreso del fade.
+        if (menuMusic != null && !transitioning)
+            menuMusic.volume = volume * musicFadeFactor;
     }
 
     public void QuitGame()
     {
+        if (transitioning)
+            return;
+
         Debug.Log("Saliendo de Reencarnación Express...");
         Application.Quit();
     }

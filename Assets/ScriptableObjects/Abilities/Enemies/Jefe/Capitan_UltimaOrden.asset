@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
+  m_Name: Capitan_UltimaOrden
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  abilityName: "\xDAltima Orden"
+  description: "Ataque f\xEDsico inmediato contra todos los protagonistas vivos; los debilita (-15% ATK) durante 1 turno. Solo en Fase 2."
+  abilityIcon: {fileID: 0}
+  abilityType: 0
+  useAnnouncement: "\xA1Por orden de mi se\xF1or, ninguno saldr\xE1 con vida!"
+  targetType: 2
+  basePower: -4
+  canCritical: 1
+  usablePositions: 01010101y
+  targetPositions: 01010101y
+  movementEffect: 0
+  movementDistance: 0
+  movementChance: 100
+  cooldown: 4
+  regenerationPerTurn: 0
+  regenerationDuration: 0
+  healPercentMaxHealth: 0
+  requiresPreparation: 0
+  selectableAreas: []
+  dealsDamage: 1
+  defensePenetration: 0
+  attackWeight: 0
+  statusesRequireHit: 1
+  userMovement: 0
+  allyProtectionPercent: 0
+  statusEffects:
+  - type: 6
+    potency: 15
+    duration: 1
+    chance: 100
+    potencyPerLevel: 0
+    durationPerLevel: 0

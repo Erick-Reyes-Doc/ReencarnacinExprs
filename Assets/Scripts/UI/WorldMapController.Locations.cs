@@ -127,7 +127,7 @@ public partial class WorldMapController
     // el recomendado, si no el primero disponible, si no el primero.
     public bool SelectLocation(string id)
     {
-        if (loading || eventOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
             return false;
 
         MapLocationDef def = FindLocation(id);
@@ -143,7 +143,7 @@ public partial class WorldMapController
 
         if (pick == null)
             foreach (string eid in def.encounterIds)
-                if (eid != BossId && MapProgression.GetState(eid) == MapProgression.NodeState.Available)
+                if (MapProgression.GetState(eid) == MapProgression.NodeState.Available)
                 {
                     pick = eid;
                     break;
@@ -219,9 +219,6 @@ public partial class WorldMapController
 
     private PlaceState StateOfLocation(MapLocationDef def, string recommended)
     {
-        if (def.encounterIds.Contains(BossId))
-            return PlaceState.Locked;
-
         bool anyAvailable = false, allDone = true, hasRecommended = false;
 
         foreach (string eid in def.encounterIds)
@@ -260,7 +257,7 @@ public partial class WorldMapController
             Sprite icon;
             Color iconColor = Color.white;
 
-            if (boss)
+            if (boss && state == PlaceState.Locked)
             {
                 body = new Color(0.24f, 0.12f, 0.26f, 1f); frame = new Color(0.62f, 0.30f, 0.62f, 1f);
                 icon = IcSkull; iconColor = new Color(0.90f, 0.75f, 0.95f, 0.85f);
@@ -388,11 +385,11 @@ public partial class WorldMapController
             string eid = def.encounterIds[i];
             bool boss = eid == BossId;
             bool evt = MapProgression.IsEvent(eid);
-            MapProgression.NodeState s = boss ? MapProgression.NodeState.Locked : MapProgression.GetState(eid);
+            MapProgression.NodeState s = MapProgression.GetState(eid);
             bool isRecommended = eid == MapProgression.NextRecommended();
 
             Sprite icon; Color iconColor = Color.white;
-            if (boss) { icon = IcSkull; iconColor = new Color(0.9f, 0.75f, 0.95f, 0.85f); }
+            if (boss && s == MapProgression.NodeState.Locked) { icon = IcSkull; iconColor = new Color(0.9f, 0.75f, 0.95f, 0.85f); }
             else if (s == MapProgression.NodeState.Completed) { icon = IcCheck; iconColor = new Color(0.55f, 0.95f, 0.62f, 1f); }
             else if (s == MapProgression.NodeState.Locked) { icon = IcLock; iconColor = new Color(0.72f, 0.74f, 0.82f, 1f); }
             else if (evt) { icon = IcMask; iconColor = new Color(0.85f, 0.70f, 1f, 1f); }
