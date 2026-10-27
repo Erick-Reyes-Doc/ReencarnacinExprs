@@ -46,14 +46,46 @@ public class MapShopController : MonoBehaviour
     [SerializeField] private TMP_Text[] productDescriptions = new TMP_Text[2];
     [SerializeField] private TMP_Text[] productPrices = new TMP_Text[2];
     [SerializeField] private Sprite[] productIcons = new Sprite[2];
-    [SerializeField] private Sprite rowNormalSprite;
-    [SerializeField] private Sprite rowSelectedSprite;
     [SerializeField] private Image detailIcon;
+    [SerializeField] private Vector2 detailIconBasePos;
+    [SerializeField] private Vector2[] detailIconSizes = new Vector2[2];
+    [SerializeField] private Vector2[] detailIconOffsets = new Vector2[2];
     [SerializeField] private TMP_Text detailName;
     [SerializeField] private TMP_Text detailDescription;
     [SerializeField] private TMP_Text detailAvailable;
     [SerializeField] private TMP_Text detailOwned;
     [SerializeField] private Button detailBuyButton;
+    [SerializeField] private GameObject[] cardHoverFrame = new GameObject[2];
+    [SerializeField] private ShopCardHover[] cardHover = new ShopCardHover[2];
+    [SerializeField] private GameObject[] cardSoldOut = new GameObject[2];
+    [SerializeField] private GameObject[] cardPriceGroup = new GameObject[2];
+    [SerializeField] private Image[] cardIcon = new Image[2];
+
+    // Ventana de inventario del mapa (solo consulta): cuadricula de 4 x 3 casillas y panel de detalle. Muestra
+    // unicamente los consumibles que el jugador tiene en GameSession; usar objetos solo ocurre en combate.
+    private const int InventorySlots = 12;
+
+    [Header("Ventana de inventario")]
+    [SerializeField] private GameObject inventoryWindow;
+    [SerializeField] private Button inventoryCloseButton;
+    [SerializeField] private Button[] invSlotButtons = new Button[InventorySlots];
+    [SerializeField] private Image[] invSlotIcons = new Image[InventorySlots];
+    [SerializeField] private TMP_Text[] invSlotQuantities = new TMP_Text[InventorySlots];
+    [SerializeField] private GameObject[] invSlotSelection = new GameObject[InventorySlots];
+    [SerializeField] private GameObject invEmptyMessage;
+    [SerializeField] private GameObject invDetailContent;
+    [SerializeField] private Image invDetailIcon;
+    [SerializeField] private TMP_Text invDetailName;
+    [SerializeField] private TMP_Text invDetailDescription;
+    [SerializeField] private TMP_Text invDetailQuantity;
+    [SerializeField] private Vector2[] invSlotIconSizes = new Vector2[2];
+    [SerializeField] private Vector2[] invSlotIconOffsets = new Vector2[2];
+    [SerializeField] private Vector2 invDetailIconBase;
+    [SerializeField] private Vector2[] invDetailIconSizes = new Vector2[2];
+    [SerializeField] private Vector2[] invDetailIconOffsets = new Vector2[2];
+
+    private int invSelected = -1;
+    private readonly int[] invSlotItem = new int[InventorySlots];
 
     private int selectedProduct;
     private int closedFrame = -1;
@@ -86,6 +118,14 @@ public class MapShopController : MonoBehaviour
         isOpen = true;
         shopMode = asShop;
         message = "";
+        invSelected = -1;   // al abrir el inventario se selecciona el primer objeto disponible
+    }
+
+    // Casilla del inventario (solo consulta): selecciona el objeto que contiene; las vacias no hacen nada.
+    public void SelectInventorySlot(int slot)
+    {
+        if (slot >= 0 && slot < InventorySlots && invSlotItem[slot] >= 0)
+            invSelected = invSlotItem[slot];
     }
 
     public void Close()
@@ -155,6 +195,22 @@ public class MapShopController : MonoBehaviour
             shopCloseButton.onClick.AddListener(Close);
         }
 
+        if (inventoryCloseButton != null)
+        {
+            inventoryCloseButton.onClick.RemoveAllListeners();
+            inventoryCloseButton.onClick.AddListener(Close);
+        }
+
+        for (int i = 0; i < invSlotButtons.Length; i++)
+        {
+            if (invSlotButtons[i] == null)
+                continue;
+
+            int slot = i;
+            invSlotButtons[i].onClick.RemoveAllListeners();
+            invSlotButtons[i].onClick.AddListener(() => SelectInventorySlot(slot));
+        }
+
         if (detailBuyButton != null)
         {
             detailBuyButton.onClick.RemoveAllListeners();
@@ -219,13 +275,17 @@ public class MapShopController : MonoBehaviour
 
         bool open = isOpen && CanOpen();
         bool showShopWindow = open && shopMode && shopWindow != null;
-        bool showPanel = open && !showShopWindow;
+        bool showInventory = open && !shopMode && inventoryWindow != null;
+        bool showPanel = open && !showShopWindow && !showInventory;
 
         if (panel.activeSelf != showPanel)
             panel.SetActive(showPanel);
 
         if (shopWindow != null && shopWindow.activeSelf != showShopWindow)
             shopWindow.SetActive(showShopWindow);
+
+        if (inventoryWindow != null && inventoryWindow.activeSelf != showInventory)
+            inventoryWindow.SetActive(showInventory);
 
         if (veil != null && veil.activeSelf != open)
             veil.SetActive(open);
@@ -236,6 +296,12 @@ public class MapShopController : MonoBehaviour
         if (showShopWindow)
         {
             RefreshShopWindow();
+            return;
+        }
+
+        if (showInventory)
+        {
+            RefreshInventoryWindow();
             return;
         }
 
@@ -297,8 +363,83 @@ public class MapShopController : MonoBehaviour
             : "Elimina Sangrado, Veneno y Quemadura.";
     }
 
-    // Datos de la ventana de tienda, siempre tomados de ConsumableService y GameSession. La tienda
-    // no limita existencias (solo el maximo del inventario), asi que no se muestra una cifra.
+    // Inventario del mapa: las casillas se rellenan en orden con los consumibles que el jugador tiene
+    // (GameSession); el resto queda vacio. La seleccion se conserva mientras el objeto siga disponible.
+    private void RefreshInventoryWindow()
+    {
+        int[] items = new int[2];
+        int count = 0;
+
+        for (int i = 0; i < 2; i++)
+            if (GameSession.GetCount((GameSession.Consumable)i) > 0)
+                items[count++] = i;
+
+        bool valid = false;
+
+        for (int k = 0; k < count; k++)
+            if (items[k] == invSelected)
+                valid = true;
+
+        if (!valid)
+            invSelected = count > 0 ? items[0] : -1;
+
+        for (int s = 0; s < InventorySlots; s++)
+        {
+            bool has = s < count;
+            int type = has ? items[s] : -1;
+            invSlotItem[s] = type;
+
+            if (invSlotButtons[s] != null && invSlotButtons[s].interactable != has)
+                invSlotButtons[s].interactable = has;
+
+            if (invSlotIcons[s] != null)
+            {
+                if (invSlotIcons[s].enabled != has)
+                    invSlotIcons[s].enabled = has;
+
+                if (has)
+                {
+                    invSlotIcons[s].sprite = productIcons[type];
+                    invSlotIcons[s].rectTransform.sizeDelta = invSlotIconSizes[type];
+                    invSlotIcons[s].rectTransform.anchoredPosition = invSlotIconOffsets[type];
+                }
+            }
+
+            if (invSlotQuantities[s] != null)
+                SetText(invSlotQuantities[s], has ? GameSession.GetCount((GameSession.Consumable)type).ToString() : "");
+
+            bool selected = has && type == invSelected;
+
+            if (invSlotSelection[s] != null && invSlotSelection[s].activeSelf != selected)
+                invSlotSelection[s].SetActive(selected);
+        }
+
+        if (invEmptyMessage != null && invEmptyMessage.activeSelf != (count == 0))
+            invEmptyMessage.SetActive(count == 0);
+
+        if (invDetailContent != null && invDetailContent.activeSelf != (count > 0))
+            invDetailContent.SetActive(count > 0);
+
+        if (count == 0)
+            return;
+
+        GameSession.Consumable current = (GameSession.Consumable)invSelected;
+
+        if (invDetailIcon != null)
+        {
+            invDetailIcon.sprite = productIcons[invSelected];
+            invDetailIcon.rectTransform.sizeDelta = invDetailIconSizes[invSelected];
+            invDetailIcon.rectTransform.anchoredPosition = invDetailIconBase + invDetailIconOffsets[invSelected];
+        }
+
+        SetText(invDetailName, ConsumableService.Name(current));
+        SetText(invDetailDescription, ProductDescription(current));
+        // Solo las unidades que posee el jugador (sin el limite maximo); se refresca cada fotograma.
+        SetText(invDetailQuantity, GameSession.GetCount(current).ToString());
+    }
+
+    // Datos de la ventana de tienda, siempre tomados de ConsumableService y GameSession (precios,
+    // inventario del jugador y existencias reales de la tienda).
     private void RefreshShopWindow()
     {
         SetText(shopCoinsText, GameSession.Coins.ToString());
@@ -309,33 +450,63 @@ public class MapShopController : MonoBehaviour
             GameSession.Consumable type = (GameSession.Consumable)i;
             bool selected = i == selectedProduct;
 
+            // Marco de la tarjeta: con el cursor encima o seleccionada se muestra "hovertienda" en lugar del
+            // marco normal; en reposo se conserva el marco normal discreto. Sin resplandores ni escala.
+            bool hovered = cardHover != null && i < cardHover.Length && cardHover[i] != null && cardHover[i].Hovered;
+            bool showHover = selected || hovered;
+
             if (productRowImages[i] != null)
             {
-                Sprite wanted = selected ? rowSelectedSprite : rowNormalSprite;
+                if (productRowImages[i].enabled == showHover)
+                    productRowImages[i].enabled = !showHover;
 
-                if (wanted != null && productRowImages[i].sprite != wanted)
-                    productRowImages[i].sprite = wanted;
-
-                productRowImages[i].color = selected
-                    ? Color.white
-                    : new Color(0.50f, 0.50f, 0.56f, 1f);
+                productRowImages[i].color = new Color(0.42f, 0.36f, 0.32f, 1f);
             }
 
+            if (cardHoverFrame != null && i < cardHoverFrame.Length && cardHoverFrame[i] != null && cardHoverFrame[i].activeSelf != showHover)
+                cardHoverFrame[i].SetActive(showHover);
+
+            bool soldOut = GameSession.GetShopStock(type) <= 0;
+
+            if (cardSoldOut != null && i < cardSoldOut.Length && cardSoldOut[i] != null && cardSoldOut[i].activeSelf != soldOut)
+                cardSoldOut[i].SetActive(soldOut);
+
+            // Agotado: el texto AGOTADO sustituye al precio y el icono se atenua (sin superponerse).
+            if (cardPriceGroup != null && i < cardPriceGroup.Length && cardPriceGroup[i] != null && cardPriceGroup[i].activeSelf == soldOut)
+                cardPriceGroup[i].SetActive(!soldOut);
+
+            if (cardIcon != null && i < cardIcon.Length && cardIcon[i] != null)
+                cardIcon[i].color = soldOut ? new Color(0.38f, 0.38f, 0.42f, 1f) : Color.white;
+
             SetText(productNames[i], ConsumableService.Name(type));
-            SetText(productDescriptions[i], ProductDescription(type));
             SetText(productPrices[i], ConsumableService.Price(type).ToString());
         }
 
         GameSession.Consumable current = (GameSession.Consumable)selectedProduct;
+        int stock = GameSession.GetShopStock(current);
 
         if (detailIcon != null && selectedProduct < productIcons.Length)
+        {
             detailIcon.sprite = productIcons[selectedProduct];
+
+            if (detailIconSizes != null && selectedProduct < detailIconSizes.Length)
+            {
+                RectTransform iconRect = detailIcon.rectTransform;
+                iconRect.sizeDelta = detailIconSizes[selectedProduct];
+                iconRect.anchoredPosition = detailIconBasePos + detailIconOffsets[selectedProduct];
+            }
+        }
 
         SetText(detailName, ConsumableService.Name(current));
         SetText(detailDescription, ProductDescription(current));
-        SetText(detailAvailable, "Disponible");
-        SetText(detailOwned, "Inventario: " + GameSession.GetCount(current) +
+        SetText(detailAvailable, stock > 0 ? "Disponibles: " + stock : "Agotado");
+        SetText(detailOwned, "En inventario: " + GameSession.GetCount(current) +
                              "/" + GameSession.MaxPerItem);
+
+        // Sin existencias no se puede comprar (el rechazo por Coronas o inventario lleno sigue
+        // mostrando su mensaje al pulsar).
+        if (detailBuyButton != null && detailBuyButton.interactable != (stock > 0))
+            detailBuyButton.interactable = stock > 0;
     }
 
     // ------------------------------------------------------------
@@ -399,6 +570,59 @@ public class MapShopController : MonoBehaviour
         return label;
     }
 
+    // Tamano y desplazamiento de un icono para que su CONTENIDO visible (pixeles con alfa) mida 'fit' px en su
+    // lado mayor y quede centrado en el punto de colocacion, sea cual sea el margen transparente del sprite.
+    // Respeta la proporcion del sprite (la misma escala en ambos ejes).
+    private static void ShopIconPlacement(Sprite sprite, float fit, out Vector2 size, out Vector2 offset)
+    {
+        size = new Vector2(fit, fit);
+        offset = Vector2.zero;
+
+        if (sprite == null)
+            return;
+
+        string path = UnityEditor.AssetDatabase.GetAssetPath(sprite.texture);
+        Texture2D file = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+
+        if (!file.LoadImage(System.IO.File.ReadAllBytes(path)))
+        {
+            Object.DestroyImmediate(file);
+            return;
+        }
+
+        Rect r = sprite.rect;
+        int minX = int.MaxValue, maxX = -1, minY = int.MaxValue, maxY = -1;
+        Color32[] px = file.GetPixels32();
+
+        for (int y = (int)r.yMin; y < (int)r.yMax; y++)
+        {
+            for (int x = (int)r.xMin; x < (int)r.xMax; x++)
+            {
+                if (px[y * file.width + x].a <= 20)
+                    continue;
+
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+        }
+
+        Object.DestroyImmediate(file);
+
+        if (maxX < minX)
+            return;
+
+        float contentW = maxX - minX + 1, contentH = maxY - minY + 1;
+        float scale = fit / Mathf.Max(contentW, contentH);
+        size = new Vector2(r.width * scale, r.height * scale);
+
+        // Centro del contenido respecto al centro del rectangulo del sprite (el pivote es el centro).
+        Vector2 contentCenter = new Vector2((minX + maxX + 1) * 0.5f - r.xMin, (minY + maxY + 1) * 0.5f - r.yMin);
+        Vector2 rectCenter = new Vector2(r.width * 0.5f, r.height * 0.5f);
+        offset = -(contentCenter - rectCenter) * scale;
+    }
+
     private static Sprite ShopSubSprite(string path, string name)
     {
         foreach (Object asset in UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path))
@@ -419,20 +643,19 @@ public class MapShopController : MonoBehaviour
             DestroyImmediate(old.gameObject);
 
         Sprite windowSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/opciones 1.png");
-        Sprite normal = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/menuNormal.png");
-        Sprite hover = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/menuHover.png");
-        Sprite disabled = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/menuDisable.png");
+        Sprite marcoSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/marco.png");
+        Sprite cafeSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/boton cafe.png");
+        Sprite buySprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/compra.png");
         Sprite closeSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Iconos/Ayuda/UI_Cerrar.png");
-        Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/vida.png", "vida_0");
+        Sprite ribbonSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/titulos.png");
+        Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");   // sustituye a "vida" (que se conserva en el proyecto)
         Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
         Sprite crowns = ShopSubSprite("Assets/Sprites/Iconos/coronas.png", "coronas");
         TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
         TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
 
-        // Las filas se distinguen por tinte (seleccionada = marco dorado brillante), sin cambiar de sprite.
-        rowNormalSprite = null;
-        rowSelectedSprite = null;
         productIcons = new[] { potion, antidote };
+        Color navyFill = new Color(0.090f, 0.122f, 0.169f, 1f);   // #171F2B
 
         // Velo que oscurece el mapa y bloquea los clics sobre sus nodos.
         if (veil != null)
@@ -444,121 +667,230 @@ public class MapShopController : MonoBehaviour
 
         // Medidas de referencia (1920x1080). La ventana se centra visualmente: el marco visible deja
         // ~24 px arriba y ~31 px abajo, de ahi el desplazamiento de -3,5 px.
-        const float WinW = 960f, WinH = 772f;
+        const float WinW = 980f, WinH = 800f;   // ancho ampliado (880 -> 980) para repartir bien la franja superior
         const float VisTop = WinH * 0.5f - 24f;
         RectTransform window = ShopRect("VentanaTienda", parent, new Vector2(0f, -3.5f), new Vector2(WinW, WinH));
         shopWindow = window.gameObject;
         ShopImage(window, windowSprite, 4.4f, Color.white, true);
 
-        // Lista de productos (se crea antes que la pestana para que esta quede encima del borde).
-        const float TabH = 64f, RowH = 120f, Gap = 10f, ListPad = 30f, SideX = 380f;
-        float tabTop = VisTop - 36f;
-        float panelTop = tabTop - TabH + 6f;
-        float panelH = 2f * RowH + Gap + 2f * ListPad;
-        RectTransform listPanel = ShopRect("PanelProductos", window, new Vector2(0f, panelTop - panelH * 0.5f), new Vector2(2f * SideX, panelH));
-        ShopImage(listPanel, windowSprite, 7f, Color.white, false);
+        // Marco decorativo (sprite "marco", 9-slice): el rectangulo incluye los margenes transparentes
+        // del sprite (149 px a los lados y 268 px arriba+abajo en la textura), asi que 'vis' es el
+        // tamano visible del marco.
+        RectTransform Marco(Transform p, string name, Vector2 pos, Vector2 vis, float m, Color tint)
+        {
+            RectTransform r = ShopRect(name, p, pos, new Vector2(vis.x + 149f / m, vis.y + 268f / m));
+            ShopImage(r, marcoSprite, m, tint, false);
+            return r;
+        }
+
+        RectTransform Fill(Transform p, string name, Vector2 pos, Vector2 size, bool raycast)
+        {
+            RectTransform r = ShopRect(name, p, pos, size);
+            Image img = r.gameObject.AddComponent<Image>();
+            img.color = navyFill;
+            img.raycastTarget = raycast;
+            return r;
+        }
+
+        // Zona anclada al borde superior de la ventana. Cada elemento del encabezado vive dentro de su
+        // propia zona (centrado en ella), de modo que ninguna posicion depende de la de otro elemento.
+        RectTransform Zone(string name, Vector2 anchor, Vector2 pos, Vector2 size)
+        {
+            RectTransform z = ShopRect(name, window, Vector2.zero, size);
+            z.anchorMin = z.anchorMax = anchor;
+            z.pivot = new Vector2(anchor.x, 1f);
+            z.sizeDelta = size;
+            z.anchoredPosition = pos;
+            return z;
+        }
+
+        // Franja superior con tres zonas independientes:
+        //  - ZonaTitulo (antes ZonaTodo): ancla superior-centro, centrada respecto al ancho total de la ventana.
+        //  - ZonaCoronas: ancla superior-derecha, espacio reservado solo para el contador (con aire
+        //    a ambos lados: ~48 px hasta TODO y ~48 px hasta la X).
+        //  - ZonaCerrar: ancla en la esquina superior-derecha, con el area de clic de la X (72 x 72).
+        // TODO y Coronas comparten el mismo centro vertical (zonas con la misma altura y posicion).
+        const float HeadH = 54f, HeadZoneH = 64f;
+        float headTop = VisTop - 34f;
+        float headY = headTop - HeadH * 0.5f;
+        float zoneY = -(24f + 34f + HeadH * 0.5f - HeadZoneH * 0.5f);   // borde superior de las zonas, medido desde el de la ventana
+        RectTransform zoneTodo = Zone("ZonaTodo", new Vector2(0.5f, 1f), new Vector2(0f, zoneY), new Vector2(240f, HeadZoneH));
+        // Coronas se desplaza 50 px a la derecha (de -132,5 a -82,5) para dejar libre el rollo derecho del estandarte.
+        RectTransform zoneCoins = Zone("ZonaCoronas", new Vector2(1f, 1f), new Vector2(-82.5f, zoneY), new Vector2(220f, HeadZoneH));
+        // Misma disposicion que la X del menu PAUSA: el centro de la X queda 10 px por dentro del marco visible
+        // (29 px de margen lateral y 24 px superior de la ventana), de modo que sobresale ~14 px de la esquina.
+        // La zona (72 x 72) centra la X de 48 x 48 y conserva un area de clic comoda.
+        RectTransform zoneClose = Zone("ZonaCerrar", new Vector2(1f, 1f), new Vector2(-3f, 2f), new Vector2(72f, 72f));
+
+        // Titulo decorativo TIENDA: estandarte "titulos" (no interactivo), centrado en el ancho de la ventana y
+        // superpuesto al borde superior. La textura (2172 x 724) se dibuja a escala uniforme 0,1845 (lado visible
+        // de 380 px) para no deformar los rollos de los extremos. Su contenido empieza 41 px (textura) bajo el
+        // borde superior del sprite y el panel de texto queda centrado 217 px bajo ese borde.
+        const float RibbonScale = 380f / 2060f;
+        float ribbonTopOffset = 41f * RibbonScale;                 // margen transparente superior del sprite (7,6 px)
+        // El contenido visible arranca 24 px por encima del marco visible de la ventana (= borde del rectangulo).
+        zoneTodo.gameObject.name = "ZonaTitulo";
+        zoneTodo.sizeDelta = new Vector2(2172f * RibbonScale, 724f * RibbonScale);
+        // Elevado 30 px: el borde superior del panel queda a la altura de la parte inferior del panel de texto
+        // del estandarte, que sobresale mas por encima del marco (sigue dentro del Canvas y sin recorte).
+        const float RibbonRaise = 30f;
+        zoneTodo.anchoredPosition = new Vector2(0f, ribbonTopOffset + RibbonRaise);
+        Image ribbonImage = zoneTodo.gameObject.AddComponent<Image>();
+        ribbonImage.sprite = ribbonSprite;
+        ribbonImage.preserveAspect = true;
+        ribbonImage.raycastTarget = false;
+        TMP_Text ribbonLabel = ShopText(zoneTodo, "Titulo", new Vector2(0f, zoneTodo.sizeDelta.y * 0.5f - 217f * RibbonScale), new Vector2(240f, 46f), "TIENDA", 30f, ShopIvory, TextAlignmentOptions.Center, bold, 3f);
+        ribbonLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        zoneTodo.SetAsLastSibling();
+
+        Fill(zoneCoins, "FondoCoronas", Vector2.zero, new Vector2(196f, HeadH - 6f), false);
+        RectTransform chip = Marco(zoneCoins, "Coronas", Vector2.zero, new Vector2(200f, HeadH), 9f, Color.white);
+        ShopImage(ShopRect("Icono", chip, new Vector2(-62f, 0f), new Vector2(42f, 42f)), crowns, 0f, Color.white, false);
+        shopCoinsText = ShopText(chip, "Cantidad", new Vector2(22f, 0f), new Vector2(110f, 44f), "", 32f, ShopIvory, TextAlignmentOptions.Center, bold);
+        shopCoinsText.textWrappingMode = TextWrappingModes.NoWrap;
+
+        // Tarjetas verticales de producto, una junto a la otra y con las mismas dimensiones.
+        const float CardW = 340f, CardH = 346f, CardGap = 40f;
+        float cardTop = headTop - HeadH - 12f;
+        float cardY = cardTop - CardH * 0.5f;
 
         productRows = new Button[2];
         productRowImages = new Image[2];
         productNames = new TMP_Text[2];
         productDescriptions = new TMP_Text[2];
         productPrices = new TMP_Text[2];
+        cardHoverFrame = new GameObject[2];
+        cardHover = new ShopCardHover[2];
+        cardSoldOut = new GameObject[2];
+        Sprite hoverSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/hovertienda.png");
+        cardPriceGroup = new GameObject[2];
+        cardIcon = new Image[2];
         Sprite[] icons = { potion, antidote };
 
         for (int i = 0; i < 2; i++)
         {
-            float y = panelTop - ListPad - RowH * 0.5f - i * (RowH + Gap);
-            RectTransform row = ShopRect("Fila_Producto_" + i, window, new Vector2(0f, y), new Vector2(676f, RowH));
-            Image rowImage = ShopImage(row, windowSprite, 9f, Color.white, true);
-            Button rowButton = row.gameObject.AddComponent<Button>();
-            rowButton.targetGraphic = rowImage;
-            rowButton.transition = Selectable.Transition.None;
-            Navigation none = rowButton.navigation;
+            float cx = (i == 0 ? -1f : 1f) * (CardW + CardGap) * 0.5f;
+            RectTransform card = Fill(window, "Tarjeta_Producto_" + i, new Vector2(cx, cardY), new Vector2(CardW, CardH), true);
+            Button cardButton = card.gameObject.AddComponent<Button>();
+            cardButton.targetGraphic = card.GetComponent<Image>();
+            cardButton.transition = Selectable.Transition.None;
+            Navigation none = cardButton.navigation;
             none.mode = Navigation.Mode.None;
-            rowButton.navigation = none;
-            productRows[i] = rowButton;
-            productRowImages[i] = rowImage;
+            cardButton.navigation = none;
+            productRows[i] = cardButton;
 
-            RectTransform frame = ShopRect("MarcoIcono", row, new Vector2(-262f, 0f), new Vector2(92f, 92f));
-            ShopImage(frame, windowSprite, 11f, Color.white, false);
-            ShopImage(ShopRect("Icono", row, new Vector2(-262f, 0f), new Vector2(68f, 68f)), icons[i], 0f, Color.white, false);
+            // Marco normal (en reposo) y marco "hovertienda" (cursor encima o tarjeta seleccionada). El segundo
+            // es un 9-slice a 1/4,5 que mide lo mismo que la tarjeta: sus esquinas no se deforman. El rectangulo
+            // incluye los margenes transparentes del sprite (133 px a los lados y 244 px arriba+abajo).
+            RectTransform border = Marco(card, "Marco", Vector2.zero, new Vector2(CardW, CardH), 8f, Color.white);
+            productRowImages[i] = border.GetComponent<Image>();
+            RectTransform hoverFrame = ShopRect("MarcoHover", card, Vector2.zero, new Vector2(CardW + 133f / 4.5f, CardH + 244f / 4.5f));
+            ShopImage(hoverFrame, hoverSprite, 4.5f, Color.white, false);
+            hoverFrame.gameObject.SetActive(false);
+            cardHoverFrame[i] = hoverFrame.gameObject;
+            cardHover[i] = card.gameObject.AddComponent<ShopCardHover>();
 
-            productNames[i] = ShopText(row, "Nombre", new Vector2(-2f, 27f), new Vector2(392f, 40f), "", 32f, ShopIvory, TextAlignmentOptions.TopLeft, bold);
+            // Los dos iconos se ajustan por su contenido visible (no por el rectangulo del sprite, que tiene
+            // margenes distintos): misma altura visual (128 px) y centro del contenido en el mismo punto.
+            ShopIconPlacement(icons[i], 128f, out Vector2 iconSize, out Vector2 iconOffset);
+            cardIcon[i] = ShopImage(ShopRect("Icono", card, new Vector2(0f, 72f) + iconOffset, iconSize), icons[i], 0f, Color.white, false);
+
+            // Nombre dentro del marco "boton cafe" (9-slice, proporcion original ~3,5:1).
+            RectTransform nameFrame = ShopRect("MarcoNombre", card, new Vector2(0f, -52f), new Vector2(318f, 132f));
+            ShopImage(nameFrame, cafeSprite, 6.5f, Color.white, false);
+            productNames[i] = ShopText(nameFrame, "Nombre", Vector2.zero, new Vector2(250f, 40f), "", 25f, ShopIvory, TextAlignmentOptions.Center, bold);
             productNames[i].textWrappingMode = TextWrappingModes.NoWrap;
-            productDescriptions[i] = ShopText(row, "Descripcion", new Vector2(-2f, -18f), new Vector2(392f, 52f), "", 20f, ShopIvory, TextAlignmentOptions.TopLeft, regular);
-            ShopImage(ShopRect("Corona", row, new Vector2(226f, 0f), new Vector2(48f, 48f)), crowns, 0f, Color.white, false);
-            productPrices[i] = ShopText(row, "Precio", new Vector2(288f, 0f), new Vector2(64f, 44f), "", 34f, ShopGold, TextAlignmentOptions.Center, bold);
+
+            // Icono de Coronas y precio debajo (agrupados: se ocultan si el producto esta agotado).
+            RectTransform priceGroup = ShopRect("Precio", card, new Vector2(0f, -128f), new Vector2(CardW - 40f, 52f));
+            ShopImage(ShopRect("Corona", priceGroup, new Vector2(-46f, 0f), new Vector2(44f, 44f)), crowns, 0f, Color.white, false);
+            // Midline: centra por la linea de texto (no por los glifos), asi "35" y "20" quedan en la misma
+            // linea aunque las cifras de Georgia tengan alturas distintas.
+            productPrices[i] = ShopText(priceGroup, "Cantidad", new Vector2(26f, 0f), new Vector2(110f, 46f), "", 36f, ShopGold, TextAlignmentOptions.Midline, bold);
             productPrices[i].textWrappingMode = TextWrappingModes.NoWrap;
+            cardPriceGroup[i] = priceGroup.gameObject;
+
+            // AGOTADO ocupa la zona del precio (visible solo sin existencias); el icono queda atenuado.
+            TMP_Text soldOutLabel = ShopText(card, "Agotado", new Vector2(0f, -128f), new Vector2(CardW - 40f, 52f), "AGOTADO", 32f, ShopGold, TextAlignmentOptions.Center, bold, 4f);
+            soldOutLabel.textWrappingMode = TextWrappingModes.NoWrap;
+            cardSoldOut[i] = soldOutLabel.gameObject;
+            soldOutLabel.gameObject.SetActive(false);
         }
 
-        // Cabecera: TODO a la izquierda y Coronas a la derecha, a la misma altura y alineadas con los
-        // bordes visibles del panel de productos (~362 px del centro).
-        float tabY = tabTop - TabH * 0.5f;
-        RectTransform tab = ShopRect("PestanaTodo", window, new Vector2(-262f, tabY), new Vector2(226f, TabH));
-        ShopImage(tab, windowSprite, 10f, Color.white, false);
-        TMP_Text tabLabel = ShopText(tab, "Texto", Vector2.zero, new Vector2(200f, 46f), "TODO", 30f, ShopGold, TextAlignmentOptions.Center, bold, 3f);
-        tabLabel.textWrappingMode = TextWrappingModes.NoWrap;
-
-        RectTransform chip = ShopRect("Coronas", window, new Vector2(262f, tabY), new Vector2(226f, TabH));
-        ShopImage(chip, windowSprite, 10f, Color.white, false);
-        ShopImage(ShopRect("Icono", chip, new Vector2(-66f, 0f), new Vector2(44f, 44f)), crowns, 0f, Color.white, false);
-        shopCoinsText = ShopText(chip, "Cantidad", new Vector2(24f, 0f), new Vector2(120f, 46f), "", 32f, ShopIvory, TextAlignmentOptions.Center, bold);
-        shopCoinsText.textWrappingMode = TextWrappingModes.NoWrap;
-
         // Mensaje de compra.
-        float messageY = panelTop - panelH - 6f - 14f;
-        shopMessageText = ShopText(window, "Mensaje", new Vector2(0f, messageY), new Vector2(2f * SideX, 30f), "", 22f, ShopGold, TextAlignmentOptions.Center, regular);
+        float messageY = cardTop - CardH - 12f - 14f;
+        shopMessageText = ShopText(window, "Mensaje", new Vector2(0f, messageY), new Vector2(2f * 380f, 28f), "", 22f, ShopGold, TextAlignmentOptions.Center, regular);
         shopMessageText.fontStyle = FontStyles.Italic;
         shopMessageText.textWrappingMode = TextWrappingModes.NoWrap;
 
-        // Detalle del producto seleccionado: icono a la izquierda, nombre/descripcion y las dos
-        // etiquetas (Disponible / Inventario) en el centro, boton COMPRAR a la derecha.
-        float detailTop = messageY - 14f - 6f;
-        const float DetailH = 244f, DetailPad = 34f;
+        // Panel inferior de detalles: icono ampliado | nombre y descripcion | existencias, inventario y COMPRAR.
+        float detailTop = messageY - 14f - 8f;
+        const float DetailH = 232f, DetailPad = 36f;
         float detailY = detailTop - DetailH * 0.5f;
-        RectTransform detail = ShopRect("PanelDetalle", window, new Vector2(0f, detailY), new Vector2(2f * SideX, DetailH));
+        RectTransform detail = ShopRect("PanelDetalle", window, new Vector2(0f, detailY), new Vector2(760f, DetailH));
         ShopImage(detail, windowSprite, 7f, Color.white, false);
-
         float innerTop = detailTop - DetailPad;
         float innerBottom = detailTop - DetailH + DetailPad;
-        RectTransform bigFrame = ShopRect("MarcoIconoDetalle", window, new Vector2(-266f, detailY), new Vector2(132f, 132f));
-        ShopImage(bigFrame, windowSprite, 8f, Color.white, false);
-        detailIcon = ShopImage(ShopRect("IconoDetalle", window, new Vector2(-266f, detailY), new Vector2(92f, 92f)), potion, 0f, Color.white, false);
 
-        const float CenterX = -42f, CenterW = 270f;
-        detailName = ShopText(window, "NombreDetalle", new Vector2(CenterX, innerTop - 20f), new Vector2(CenterW, 40f), "", 30f, ShopIvory, TextAlignmentOptions.TopLeft, bold);
+        Fill(window, "FondoIconoDetalle", new Vector2(-284f, detailY), new Vector2(108f, 108f), false);
+        Marco(window, "MarcoIconoDetalle", new Vector2(-284f, detailY), new Vector2(112f, 112f), 8f, Color.white);
+        // Icono del panel inferior: cada producto tiene su tamano y desplazamiento (contenido visible de 84 px,
+        // centrado en el marco); MapShopController los aplica al cambiar de producto.
+        detailIconBasePos = new Vector2(-284f, detailY);
+        detailIconSizes = new Vector2[2];
+        detailIconOffsets = new Vector2[2];
+        for (int d = 0; d < 2; d++)
+            ShopIconPlacement(icons[d], 84f, out detailIconSizes[d], out detailIconOffsets[d]);
+
+        detailIcon = ShopImage(ShopRect("IconoDetalle", window, detailIconBasePos + detailIconOffsets[0], detailIconSizes[0]), potion, 0f, Color.white, false);
+
+        // Zona central mas ancha (308 px) y con aire entre nombre y descripcion; interlineado ampliado.
+        // Texto: 24 px tras el icono y 20 px antes del divisor (zona de 302 px).
+        const float CenterX = -53f, CenterW = 302f;
+        detailName = ShopText(window, "NombreDetalle", new Vector2(CenterX, innerTop - 20f), new Vector2(CenterW, 40f), "", 28f, ShopIvory, TextAlignmentOptions.TopLeft, bold);
         detailName.textWrappingMode = TextWrappingModes.NoWrap;
-        detailDescription = ShopText(window, "DescripcionDetalle", new Vector2(CenterX, innerTop - 40f - 34f), new Vector2(CenterW, 78f), "", 20f, ShopIvory, TextAlignmentOptions.TopLeft, regular);
+        detailDescription = ShopText(window, "DescripcionDetalle", new Vector2(CenterX, innerTop - 52f - 46f), new Vector2(CenterW, 92f), "", 20f, ShopIvory, TextAlignmentOptions.TopLeft, regular);
+        detailDescription.lineSpacing = 12f;
 
-        float pillY = innerBottom + 21f;
-        RectTransform pillA = ShopRect("Disponible", window, new Vector2(CenterX - CenterW * 0.5f + 70f, pillY), new Vector2(140f, 46f));
-        ShopImage(pillA, windowSprite, 14f, Color.white, false);
-        detailAvailable = ShopText(pillA, "Texto", Vector2.zero, new Vector2(120f, 30f), "", 18f, ShopGold, TextAlignmentOptions.Center, bold);
+        // Divisor vertical entre la descripcion y las existencias (como en la referencia).
+        RectTransform divider = ShopRect("Divisor", window, new Vector2(118f, detailY), new Vector2(2f, DetailH - 2f * DetailPad - 8f));
+        ShopImage(divider, null, 0f, new Color(ShopGold.r, ShopGold.g, ShopGold.b, 0.45f), false);
+
+        // Columna derecha: tres elementos con 10 px de separacion, todos centrados en RightX.
+        const float RightX = 240f, RightW = 200f;
+        detailAvailable = ShopText(window, "Disponibles", new Vector2(RightX, innerTop - 25f), new Vector2(RightW, 30f), "", 23f, ShopGold, TextAlignmentOptions.Center, bold);
         detailAvailable.textWrappingMode = TextWrappingModes.NoWrap;
-        RectTransform pillB = ShopRect("Inventario", window, new Vector2(CenterX - CenterW * 0.5f + 70f + 150f, pillY), new Vector2(140f, 46f));
-        ShopImage(pillB, windowSprite, 14f, new Color(0.62f, 0.62f, 0.68f, 1f), false);
-        detailOwned = ShopText(pillB, "Texto", Vector2.zero, new Vector2(124f, 30f), "", 17f, ShopIvory, TextAlignmentOptions.Center, regular);
+        detailOwned = ShopText(window, "EnInventario", new Vector2(RightX, innerTop - 65f), new Vector2(RightW, 30f), "", 21f, ShopIvory, TextAlignmentOptions.Center, regular);
         detailOwned.textWrappingMode = TextWrappingModes.NoWrap;
 
-        // Boton COMPRAR con el sprite de boton del juego: la parte visible mide ~0,93 x 0,42 del rectangulo
-        // (como los botones de la pausa), asi que el raycast se recorta a la parte visible.
-        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(228f, detailY), new Vector2(252f, 150f));
-        Image buyImage = ShopImage(buy, normal, 4.49f, Color.white, true);
-        buyImage.raycastPadding = new Vector4(8f, 44f, 8f, 44f);
+        // Boton COMPRAR con el sprite "compra" (proporcion original: 246 x 102 a escala 1/7,9).
+        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(RightX, innerTop - 120f), new Vector2(224f, 93f));
+        Image buyImage = ShopImage(buy, buySprite, 0f, Color.white, true);
+        buyImage.preserveAspect = false;
+        buyImage.raycastPadding = new Vector4(11f, 16f, 11f, 15f);
         detailBuyButton = buy.gameObject.AddComponent<Button>();
         detailBuyButton.targetGraphic = buyImage;
-        detailBuyButton.transition = Selectable.Transition.SpriteSwap;
-        SpriteState state = new SpriteState { highlightedSprite = hover, pressedSprite = hover, selectedSprite = normal, disabledSprite = disabled };
-        detailBuyButton.spriteState = state;
+        detailBuyButton.transition = Selectable.Transition.ColorTint;
+        ColorBlock buyColors = detailBuyButton.colors;
+        buyColors.normalColor = new Color(0.94f, 0.94f, 0.94f, 1f);
+        buyColors.highlightedColor = Color.white;
+        buyColors.pressedColor = new Color(0.76f, 0.76f, 0.76f, 1f);
+        buyColors.selectedColor = buyColors.normalColor;
+        buyColors.disabledColor = new Color(0.45f, 0.45f, 0.45f, 0.75f);
+        buyColors.colorMultiplier = 1f;
+        buyColors.fadeDuration = 0.08f;
+        detailBuyButton.colors = buyColors;
         Navigation buyNav = detailBuyButton.navigation;
         buyNav.mode = Navigation.Mode.None;
         detailBuyButton.navigation = buyNav;
-        TMP_Text buyLabel = ShopText(buy, "Texto", Vector2.zero, new Vector2(230f, 50f), "COMPRAR", 28f, ShopIvory, TextAlignmentOptions.Center, bold, 2f);
+        TMP_Text buyLabel = ShopText(buy, "Texto", Vector2.zero, new Vector2(190f, 44f), "COMPRAR", 28f, ShopNavy, TextAlignmentOptions.Center, bold, 2f);
         buyLabel.textWrappingMode = TextWrappingModes.NoWrap;
 
         // Boton X (UI_Cerrar) de 48 x 48, dentro del marco (a ~10 px del borde) y con el area de clic
-        // ampliada 12 px por lado (72 x 72).
-        RectTransform close = ShopRect("BotonCerrar", window, new Vector2(WinW * 0.5f - 29f - 34f, WinH * 0.5f - 24f - 34f), new Vector2(48f, 48f));
+        // ampliada 12 px por lado (72 x 72). No tapa el contador de Coronas.
+        // La X (48 x 48) ocupa el centro de ZonaCerrar (72 x 72, ancla en la esquina superior-derecha), igual
+        // que en PAUSA: ligeramente superpuesta a la esquina y lejos del contador de Coronas.
+        RectTransform close = ShopRect("BotonCerrar", zoneClose, Vector2.zero, new Vector2(48f, 48f));
         Image closeImage = ShopImage(close, closeSprite, 0f, Color.white, true);
         closeImage.raycastPadding = new Vector4(-12f, -12f, -12f, -12f);
         shopCloseButton = close.gameObject.AddComponent<Button>();
@@ -577,6 +909,203 @@ public class MapShopController : MonoBehaviour
         shopCloseButton.navigation = closeNav;
 
         shopWindow.SetActive(false);
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    // Construye "VentanaInventario" (solo consulta) dentro del mismo Canvas: estandarte INVENTARIO, cuadricula de
+    // 4 x 3 casillas cuadradas a la izquierda, panel de detalle a la derecha y X de cierre. Reutiliza los sprites
+    // y las medidas de la tienda; no usa el boceto como imagen. Requiere que la tienda ya se haya construido
+    // (productIcons y el velo).
+    public void BuildInventoryWindowInEditor()
+    {
+        Transform parent = canvas.transform;
+        Transform old = parent.Find("VentanaInventario");
+
+        if (old != null)
+            DestroyImmediate(old.gameObject);
+
+        Sprite windowSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/opciones 1.png");
+        Sprite marcoSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/marco.png");
+        Sprite cafeSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/boton cafe.png");
+        Sprite hoverSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/hovertienda.png");
+        Sprite closeSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Iconos/Ayuda/UI_Cerrar.png");
+        Sprite ribbonSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/titulos.png");
+        Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");
+        Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
+        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
+        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
+        Sprite[] icons = { potion, antidote };
+        productIcons = icons;
+        Color navyFill = new Color(0.063f, 0.082f, 0.118f, 1f);   // #10151E (fondo oscuro de las casillas)
+
+        if (veil != null)
+        {
+            Image veilImage = veil.GetComponent<Image>();
+            veilImage.color = new Color(ShopNavy.r, ShopNavy.g, ShopNavy.b, 0.8f);
+            veilImage.raycastTarget = true;
+        }
+
+        // Ventana (mismo sprite y escala que la tienda). El marco visible deja 29 px laterales, 24 arriba y 31 abajo.
+        const float WinW = 1100f, WinH = 610f;
+        const float VisTop = WinH * 0.5f - 24f;
+        RectTransform window = ShopRect("VentanaInventario", parent, new Vector2(0f, -3.5f), new Vector2(WinW, WinH));
+        inventoryWindow = window.gameObject;
+        ShopImage(window, windowSprite, 4.4f, Color.white, true);
+
+        RectTransform Marco(Transform p, string name, Vector2 pos, Vector2 vis, float m, Color tint)
+        {
+            RectTransform r = ShopRect(name, p, pos, new Vector2(vis.x + 149f / m, vis.y + 268f / m));
+            ShopImage(r, marcoSprite, m, tint, false);
+            return r;
+        }
+
+        RectTransform Fill(Transform p, string name, Vector2 pos, Vector2 size, bool raycast)
+        {
+            RectTransform r = ShopRect(name, p, pos, size);
+            Image img = r.gameObject.AddComponent<Image>();
+            img.color = navyFill;
+            img.raycastTarget = raycast;
+            return r;
+        }
+
+        RectTransform Zone(string name, Vector2 anchor, Vector2 pos, Vector2 size)
+        {
+            RectTransform z = ShopRect(name, window, Vector2.zero, size);
+            z.anchorMin = z.anchorMax = anchor;
+            z.pivot = new Vector2(anchor.x, 1f);
+            z.sizeDelta = size;
+            z.anchoredPosition = pos;
+            return z;
+        }
+
+        // Paneles: cuadricula a la izquierda y detalle a la derecha, con la misma altura.
+        const float SlotSize = 124f, SlotGap = 14f, GridPad = 26f, PanelGap = 24f, SideMargin = 34f;
+        float gridW = 4f * SlotSize + 3f * SlotGap, gridH = 3f * SlotSize + 2f * SlotGap;
+        float leftW = gridW + 2f * GridPad, panelH = gridH + 2f * GridPad;
+        float innerW = (WinW - 58f) - 2f * SideMargin;       // ancho visible menos los margenes laterales
+        float rightW = innerW - leftW - PanelGap;
+        float panelTop = VisTop - 70f;                         // por debajo de los rollos del estandarte
+        float panelCenterY = panelTop - panelH * 0.5f;
+        float leftX = -(WinW - 58f) * 0.5f + SideMargin + leftW * 0.5f;
+        float rightX = leftX + leftW * 0.5f + PanelGap + rightW * 0.5f;
+
+        ShopImage(ShopRect("PanelCuadricula", window, new Vector2(leftX, panelCenterY), new Vector2(leftW, panelH)), windowSprite, 7f, Color.white, false);
+        ShopImage(ShopRect("PanelDetalle", window, new Vector2(rightX, panelCenterY), new Vector2(rightW, panelH)), windowSprite, 7f, Color.white, false);
+
+        // Cuadricula 4 x 3: casillas cuadradas e iguales; marco dorado discreto y seleccion con "hovertienda".
+        invSlotButtons = new Button[InventorySlots];
+        invSlotIcons = new Image[InventorySlots];
+        invSlotQuantities = new TMP_Text[InventorySlots];
+        invSlotSelection = new GameObject[InventorySlots];
+        invSlotIconSizes = new Vector2[2];
+        invSlotIconOffsets = new Vector2[2];
+        invDetailIconSizes = new Vector2[2];
+        invDetailIconOffsets = new Vector2[2];
+
+        for (int t = 0; t < 2; t++)
+        {
+            ShopIconPlacement(icons[t], 84f, out invSlotIconSizes[t], out invSlotIconOffsets[t]);
+            ShopIconPlacement(icons[t], 130f, out invDetailIconSizes[t], out invDetailIconOffsets[t]);
+        }
+
+        float gridLeft = leftX - gridW * 0.5f, gridTop = panelCenterY + gridH * 0.5f;
+
+        for (int s = 0; s < InventorySlots; s++)
+        {
+            int col = s % 4, row = s / 4;
+            Vector2 center = new Vector2(gridLeft + SlotSize * 0.5f + col * (SlotSize + SlotGap), gridTop - SlotSize * 0.5f - row * (SlotSize + SlotGap));
+            RectTransform slot = Fill(window, "Casilla_" + s, center, new Vector2(SlotSize, SlotSize), true);
+            Button slotButton = slot.gameObject.AddComponent<Button>();
+            slotButton.targetGraphic = slot.GetComponent<Image>();
+            slotButton.transition = Selectable.Transition.None;
+            Navigation none = slotButton.navigation;
+            none.mode = Navigation.Mode.None;
+            slotButton.navigation = none;
+            invSlotButtons[s] = slotButton;
+
+            Marco(slot, "Marco", Vector2.zero, new Vector2(SlotSize, SlotSize), 12f, new Color(0.62f, 0.52f, 0.40f, 1f));
+
+            RectTransform selection = ShopRect("Seleccion", slot, Vector2.zero, new Vector2(SlotSize + 133f / 6f, SlotSize + 244f / 6f));
+            ShopImage(selection, hoverSprite, 6f, Color.white, false);
+            selection.gameObject.SetActive(false);
+            invSlotSelection[s] = selection.gameObject;
+
+            Image icon = ShopImage(ShopRect("Icono", slot, Vector2.zero, new Vector2(84f, 84f)), potion, 0f, Color.white, false);
+            icon.enabled = false;
+            invSlotIcons[s] = icon;
+
+            TMP_Text qty = ShopText(slot, "Cantidad", new Vector2(SlotSize * 0.5f - 24f, -SlotSize * 0.5f + 20f), new Vector2(44f, 32f), "", 26f, ShopIvory, TextAlignmentOptions.Center, bold);
+            qty.textWrappingMode = TextWrappingModes.NoWrap;
+            invSlotQuantities[s] = qty;
+        }
+
+        // Mensaje discreto cuando no hay objetos.
+        TMP_Text empty = ShopText(window, "InventarioVacio", new Vector2(leftX, panelCenterY), new Vector2(leftW - 80f, 40f), "Inventario vacío", 26f, ShopIvory, TextAlignmentOptions.Center, regular);
+        empty.fontStyle = FontStyles.Italic;
+        empty.textWrappingMode = TextWrappingModes.NoWrap;
+        empty.color = new Color(ShopIvory.r, ShopIvory.g, ShopIvory.b, 0.7f);
+        invEmptyMessage = empty.gameObject;
+        invEmptyMessage.SetActive(false);
+
+        // Detalle (vertical): icono ampliado, nombre en el marco cafe, descripcion y cantidad X/5.
+        RectTransform detail = ShopRect("Contenido", window, new Vector2(rightX, panelCenterY), new Vector2(rightW, panelH));
+        invDetailContent = detail.gameObject;
+        // Distribucion vertical (origen en el centro del panel de detalle, alto 452): margen 24, icono 130, hueco 18,
+        // marco del nombre (visible ~66), hueco 16, descripcion 112, hueco 16, cantidad 46 y margen 24.
+        float top = panelH * 0.5f;
+        invDetailIconBase = new Vector2(0f, top - 24f - 65f);
+        invDetailIcon = ShopImage(ShopRect("Icono", detail, invDetailIconBase + invDetailIconOffsets[0], invDetailIconSizes[0]), potion, 0f, Color.white, false);
+
+        RectTransform nameFrame = ShopRect("MarcoNombre", detail, new Vector2(0f, top - 24f - 130f - 18f - 33f), new Vector2(rightW - 40f, 128f));
+        ShopImage(nameFrame, cafeSprite, 6.5f, Color.white, false);
+        invDetailName = ShopText(nameFrame, "Nombre", Vector2.zero, new Vector2(rightW - 100f, 40f), "", 25f, ShopIvory, TextAlignmentOptions.Center, bold);
+        invDetailName.textWrappingMode = TextWrappingModes.NoWrap;
+
+        float descCenter = top - 24f - 130f - 18f - 66f - 16f - 56f;
+        RectTransform descBox = ShopRect("MarcoDescripcion", detail, new Vector2(0f, descCenter), new Vector2(rightW - 40f, 112f));
+        ShopImage(descBox, windowSprite, 10f, Color.white, false);
+        invDetailDescription = ShopText(detail, "Descripcion", new Vector2(0f, descCenter), new Vector2(rightW - 90f, 92f), "", 20f, ShopIvory, TextAlignmentOptions.Center, regular);
+        invDetailDescription.lineSpacing = 8f;
+
+        float qtyCenter = descCenter - 56f - 16f - 23f;
+        Fill(detail, "FondoCantidad", new Vector2(0f, qtyCenter), new Vector2(rightW - 48f, 40f), false);
+        Marco(detail, "MarcoCantidad", new Vector2(0f, qtyCenter), new Vector2(rightW - 40f, 46f), 9f, Color.white);
+        TMP_Text qtyLabel = ShopText(detail, "EtiquetaCantidad", new Vector2(-(rightW - 40f) * 0.5f + 94f, qtyCenter), new Vector2(130f, 36f), "Cantidad:", 22f, ShopIvory, TextAlignmentOptions.Left, regular);
+        qtyLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        invDetailQuantity = ShopText(detail, "Cantidad", new Vector2((rightW - 40f) * 0.5f - 76f, qtyCenter), new Vector2(90f, 36f), "", 26f, ShopGold, TextAlignmentOptions.Right, bold);
+        invDetailQuantity.textWrappingMode = TextWrappingModes.NoWrap;
+
+        // Estandarte INVENTARIO (decorativo, centrado y superpuesto al borde superior como en la tienda).
+        const float RibbonScale = 440f / 2060f;
+        RectTransform ribbon = Zone("ZonaTitulo", new Vector2(0.5f, 1f), new Vector2(0f, 48f), new Vector2(2172f * RibbonScale, 724f * RibbonScale));
+        Image ribbonImage = ribbon.gameObject.AddComponent<Image>();
+        ribbonImage.sprite = ribbonSprite;
+        ribbonImage.preserveAspect = true;
+        ribbonImage.raycastTarget = false;
+        TMP_Text ribbonLabel = ShopText(ribbon, "Titulo", new Vector2(0f, ribbon.sizeDelta.y * 0.5f - 217f * RibbonScale), new Vector2(290f, 50f), "INVENTARIO", 28f, ShopIvory, TextAlignmentOptions.Center, bold, 2f);
+        ribbonLabel.textWrappingMode = TextWrappingModes.NoWrap;
+
+        // X (UI_Cerrar): misma posicion visual que en PAUSA y en la tienda (zona de clic de 72 x 72).
+        RectTransform zoneClose = Zone("ZonaCerrar", new Vector2(1f, 1f), new Vector2(-3f, 2f), new Vector2(72f, 72f));
+        RectTransform close = ShopRect("BotonCerrar", zoneClose, Vector2.zero, new Vector2(48f, 48f));
+        Image closeImage = ShopImage(close, closeSprite, 0f, Color.white, true);
+        inventoryCloseButton = close.gameObject.AddComponent<Button>();
+        inventoryCloseButton.targetGraphic = closeImage;
+        inventoryCloseButton.transition = Selectable.Transition.ColorTint;
+        ColorBlock colors = inventoryCloseButton.colors;
+        colors.normalColor = new Color(0.88f, 0.88f, 0.88f, 1f);
+        colors.highlightedColor = Color.white;
+        colors.pressedColor = new Color(0.7f, 0.7f, 0.7f, 1f);
+        colors.selectedColor = colors.normalColor;
+        colors.colorMultiplier = 1f;
+        colors.fadeDuration = 0.08f;
+        inventoryCloseButton.colors = colors;
+        Navigation closeNav = inventoryCloseButton.navigation;
+        closeNav.mode = Navigation.Mode.None;
+        inventoryCloseButton.navigation = closeNav;
+
+        ribbon.SetAsLastSibling();
+        inventoryWindow.SetActive(false);
         UnityEditor.EditorUtility.SetDirty(this);
     }
 #endif

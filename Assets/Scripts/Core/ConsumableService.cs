@@ -93,6 +93,9 @@ public static class ConsumableService
                 return "Inventario lleno: maximo " +
                        GameSession.MaxPerItem + " de " + Name(type) + ".";
 
+            case GameSession.PurchaseResult.OutOfStock:
+                return "Agotado: la tienda ya no tiene " + Name(type) + ".";
+
             case GameSession.PurchaseResult.InsufficientFunds:
                 return "Fondos insuficientes: " + Name(type) + " cuesta " +
                        Price(type) + " CR.";

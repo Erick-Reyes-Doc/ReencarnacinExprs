@@ -1,0 +1,964 @@
+fileFormatVersion: 2
+guid: d1e5b6eb567ad9a4f8f0ba6e55ca1b5f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -614189321113752755
+    second: curacion_0
+  - first:
+      213: -302215433087263941
+    second: curacion_1
+  - first:
+      213: 3170425046710505718
+    second: curacion_2
+  - first:
+      213: -3699923494915615833
+    second: curacion_3
+  - first:
+      213: 2294897208572969266
+    second: curacion_4
+  - first:
+      213: 5611746194459302538
+    second: curacion_5
+  - first:
+      213: -4197092583403622590
+    second: curacion_6
+  - first:
+      213: -3019105828694026158
+    second: curacion_7
+  - first:
+      213: 4778303116589589031
+    second: curacion_8
+  - first:
+      213: 7337418788363275641
+    second: curacion_9
+  - first:
+      213: 8680181740760127407
+    second: curacion_10
+  - first:
+      213: 8840630246838648241
+    second: curacion_11
+  - first:
+      213: -3250676693240462108
+    second: curacion_12
+  - first:
+      213: -8831193504898165464
+    second: curacion_13
+  - first:
+      213: -2464940692567459635
+    second: curacion_14
+  - first:
+      213: 6324533041178518238
+    second: curacion_15
+  - first:
+      213: 5479251938388676492
+    second: curacion_16
+  - first:
+      213: -1017571766910152814
+    second: curacion_17
+  - first:
+      213: -5464260121596329420
+    second: curacion_18
+  - first:
+      213: 4885523718809874640
+    second: curacion_19
+  - first:
+      213: 3384630885318390522
+    second: curacion_20
+  - first:
+      213: -5785414552746005584
+    second: curacion_21
+  - first:
+      213: -5010450942181241162
+    second: curacion_22
+  - first:
+      213: 1072160524393936870
+    second: curacion_23
+  - first:
+      213: 8479057065946600950
+    second: curacion_24
+  - first:
+      213: -4199261801797242438
+    second: curacion_25
+  - first:
+      213: -9067765084363234385
+    second: curacion_26
+  - first:
+      213: 3105753016606499081
+    second: curacion_27
+  - first:
+      213: -7702397939291363633
+    second: curacion_28
+  - first:
+      213: -354334588848108200
+    second: curacion_29
+  - first:
+      213: 1367483248493442761
+    second: curacion_30
+  - first:
+      213: 2292595010471432862
+    second: curacion_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: curacion_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1241
+        height: 1236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b2d2a0116f977f0800000000000000
+      internalID: -614189321113752755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_1
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 1124
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b51313aa05ecbf0800000000000000
+      internalID: -302215433087263941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1124
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f05e2848cc9ffb20800000000000000
+      internalID: 3170425046710505718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_3
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 1102
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a3de653f2b37acc0800000000000000
+      internalID: -3699923494915615833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_4
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 1094
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23107013adc19df10800000000000000
+      internalID: 2294897208572969266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_5
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 1060
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8a956a7e6de0ed40800000000000000
+      internalID: 5611746194459302538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_6
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 1062
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24fecc4588ee0c5c0800000000000000
+      internalID: -4197092583403622590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_7
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 1052
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2589165ae3bf916d0800000000000000
+      internalID: -3019105828694026158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_8
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 1044
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 722e6753e51ff4240800000000000000
+      internalID: 4778303116589589031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_9
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 1044
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97d8ba0438fb3d560800000000000000
+      internalID: 7337418788363275641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_10
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 634
+        width: 93
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa7d6dbbd43367870800000000000000
+      internalID: 8680181740760127407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_11
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 738
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bd346dae5a30ba70800000000000000
+      internalID: 8840630246838648241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_12
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 658
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e4c2c335c643e2d0800000000000000
+      internalID: -3250676693240462108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_13
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 664
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825dec50c4c417580800000000000000
+      internalID: -8831193504898165464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_14
+      rect:
+        serializedVersion: 2
+        x: 1035
+        y: 600
+        width: 33
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc87c1bff75cacdd0800000000000000
+      internalID: -2464940692567459635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_15
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 618
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed2aaa9ca4145c750800000000000000
+      internalID: 6324533041178518238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_16
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 617
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f078e8b963a0c40800000000000000
+      internalID: 5479251938388676492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_17
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 601
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29f8adb8edbd0e1f0800000000000000
+      internalID: -1017571766910152814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_18
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 562
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4320bebce5c0b24b0800000000000000
+      internalID: -5464260121596329420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_19
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 552
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d0786900fddcc340800000000000000
+      internalID: 4885523718809874640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_20
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 538
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af2f73f8bdf98fe20800000000000000
+      internalID: 3384630885318390522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_21
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 385
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bbe231ed1416bfa0800000000000000
+      internalID: -5785414552746005584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_22
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 301
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6be04c22a6d477ab0800000000000000
+      internalID: -5010450942181241162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_23
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 248
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e772bef05411ee00800000000000000
+      internalID: 1072160524393936870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_24
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 166
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5530e3a79aba570800000000000000
+      internalID: 8479057065946600950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_25
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 163
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab13201d3a939b5c0800000000000000
+      internalID: -4199261801797242438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_26
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 95
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa3e6d7e2b3d82280800000000000000
+      internalID: -9067765084363234385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_27
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 85
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901ade2e9e9d91b20800000000000000
+      internalID: 3105753016606499081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_28
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 10
+        width: 77
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc666dd12e59b1590800000000000000
+      internalID: -7702397939291363633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_29
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 49
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d031c9196251bf0800000000000000
+      internalID: -354334588848108200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_30
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 46
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c6bfbee4c64af210800000000000000
+      internalID: 1367483248493442761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: curacion_31
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 0
+        width: 61
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e929bfce30fe0df10800000000000000
+      internalID: 2292595010471432862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      curacion_0: -614189321113752755
+      curacion_1: -302215433087263941
+      curacion_10: 8680181740760127407
+      curacion_11: 8840630246838648241
+      curacion_12: -3250676693240462108
+      curacion_13: -8831193504898165464
+      curacion_14: -2464940692567459635
+      curacion_15: 6324533041178518238
+      curacion_16: 5479251938388676492
+      curacion_17: -1017571766910152814
+      curacion_18: -5464260121596329420
+      curacion_19: 4885523718809874640
+      curacion_2: 3170425046710505718
+      curacion_20: 3384630885318390522
+      curacion_21: -5785414552746005584
+      curacion_22: -5010450942181241162
+      curacion_23: 1072160524393936870
+      curacion_24: 8479057065946600950
+      curacion_25: -4199261801797242438
+      curacion_26: -9067765084363234385
+      curacion_27: 3105753016606499081
+      curacion_28: -7702397939291363633
+      curacion_29: -354334588848108200
+      curacion_3: -3699923494915615833
+      curacion_30: 1367483248493442761
+      curacion_31: 2292595010471432862
+      curacion_4: 2294897208572969266
+      curacion_5: 5611746194459302538
+      curacion_6: -4197092583403622590
+      curacion_7: -3019105828694026158
+      curacion_8: 4778303116589589031
+      curacion_9: 7337418788363275641
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

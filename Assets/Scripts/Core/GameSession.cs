@@ -18,6 +18,10 @@ public static class GameSession
     // Maximo de unidades de cada consumible.
     public const int MaxPerItem = 5;
 
+    // Existencias de la tienda por producto al empezar una partida. No hay reposicion automatica y
+    // son independientes del inventario del jugador.
+    public const int StartingShopStock = 3;
+
     public enum Consumable
     {
         Potion,
@@ -29,7 +33,8 @@ public static class GameSession
         Success,
         NoSession,
         InsufficientFunds,
-        InventoryFull
+        InventoryFull,
+        OutOfStock
     }
 
     // Progreso de un protagonista.
@@ -69,6 +74,12 @@ public static class GameSession
         return type == Consumable.Potion ? Potions : Antidotes;
     }
 
+    // Existencias que le quedan a la tienda de este producto en la partida actual.
+    public static int GetShopStock(Consumable type)
+    {
+        return type == Consumable.Potion ? PotionShopStock : AntidoteShopStock;
+    }
+
     // ------------------------------------------------------------
     // Coronas
     // ------------------------------------------------------------
@@ -97,15 +108,25 @@ public static class GameSession
         if (GetCount(type) >= MaxPerItem)
             return PurchaseResult.InventoryFull;
 
+        if (GetShopStock(type) <= 0)
+            return PurchaseResult.OutOfStock;
+
         if (Coins < price)
             return PurchaseResult.InsufficientFunds;
 
+        // Todo se comprobo antes: una compra rechazada no descuenta Coronas ni existencias.
         Coins -= price;
 
         if (type == Consumable.Potion)
+        {
             Potions++;
+            PotionShopStock--;
+        }
         else
+        {
             Antidotes++;
+            AntidoteShopStock--;
+        }
 
         return PurchaseResult.Success;
     }
@@ -187,6 +208,9 @@ public static class GameSession
     public static int Potions { get; private set; }
     public static int Antidotes { get; private set; }
 
+    private static int PotionShopStock { get; set; }
+    private static int AntidoteShopStock { get; set; }
+
     // Encuentros superados en esta partida.
     private static readonly HashSet<string> completedEncounters =
         new HashSet<string>();
@@ -221,6 +245,8 @@ public static class GameSession
         Coins = StartingCoins;
         Potions = StartingPotions;
         Antidotes = StartingAntidotes;
+        PotionShopStock = StartingShopStock;
+        AntidoteShopStock = StartingShopStock;
 
         Debug.Log("Nueva partida: sesion iniciada desde cero.");
     }
@@ -235,6 +261,8 @@ public static class GameSession
         Coins = 0;
         Potions = 0;
         Antidotes = 0;
+        PotionShopStock = 0;
+        AntidoteShopStock = 0;
 
         completedEncounters.Clear();
         unlockedZones.Clear();
