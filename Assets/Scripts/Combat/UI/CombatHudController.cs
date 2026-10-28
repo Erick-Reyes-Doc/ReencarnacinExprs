@@ -111,6 +111,10 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Material frameMaterial;    // HudFrameSoft: saturacion/brillo de los marcos
     [SerializeField] private Text[] itemCounts = new Text[2];
 
+    [Header("Estilo plano (Paso 926)")]
+    [SerializeField] private Sprite[] consumableIcons = new Sprite[2];   // curacion y antidoto
+    [SerializeField] private Text cancelLabel;
+
     // Nombres de presentacion de los protagonistas (solo HUD: no cambia los
     // datos del personaje ni su identidad en el combate).
     private static string DisplayName(BattleUnit unit)
@@ -170,7 +174,44 @@ public class CombatHudController : MonoBehaviour
     }
 
 
-    private bool Skinned => buttonNormal != null && buttonHover != null && buttonDisabled != null;
+    // Estilo del HUD: paneles planos azul marino con bordes finos (Outline) en lugar de los marcos
+    // ornamentales. El dorado queda para titulos, botones principales y elementos seleccionados.
+    private static readonly bool FlatStyle = true;
+
+    // Los marcos ornamentales de los sprites traen un bisel negro integrado que se ve como una banda oscura
+    // dentro del borde dorado; los contenedores usan una linea dorada fina sobre el relleno azul marino.
+    private static readonly bool OrnateContainers = false;
+
+    private bool Skinned => !FlatStyle && buttonNormal != null && buttonHover != null && buttonDisabled != null;
+
+    private static readonly Color LineBlue = new Color(0.239f, 0.290f, 0.361f, 1f);       // azul grisaceo
+    private static readonly Color AgedGold = new Color(0.62f, 0.52f, 0.34f, 1f);          // dorado envejecido
+    private static readonly Color RaisedNavy = new Color(0.130f, 0.176f, 0.247f, 1f);     // fondo de seleccion
+    private static readonly Color CardLine = new Color(0.33f, 0.41f, 0.52f, 1f);       // borde de tarjetas de unidad
+    private static readonly Color HoverNavy = new Color(0.112f, 0.150f, 0.212f, 1f);
+
+    // Borde fino de un elemento (Outline de 1,5 px). 'interactive' anade el componente de hover.
+    private static void AddFlatBorder(GameObject go, Color border, bool interactive, float width = 1.5f)
+    {
+        Outline outline = go.GetComponent<Outline>();
+
+        if (outline == null)
+            outline = go.AddComponent<Outline>();
+
+        outline.effectColor = border;
+        outline.effectDistance = new Vector2(width, -width);
+        outline.useGraphicAlpha = false;
+
+        if (!interactive)
+            return;
+
+        HudFrameStyle style = go.GetComponent<HudFrameStyle>();
+
+        if (style == null)
+            style = go.AddComponent<HudFrameStyle>();
+
+        style.normalBorder = border;
+    }
 
     private static Color Dim(Color c, float k)
     {
@@ -183,6 +224,24 @@ public class CombatHudController : MonoBehaviour
     {
         if (image == null)
             return;
+
+        if (FlatStyle)
+        {
+            // Normal / Hover / Seleccionado / Deshabilitado: relleno azul y borde fino (dorado solo al seleccionar).
+            HudFrameStyle style = image.GetComponent<HudFrameStyle>();
+            Outline border = image.GetComponent<Outline>();
+            bool hovered = style != null && style.Hovered && state != ButtonState.Blocked;
+
+            image.color = state == ButtonState.Selected ? RaisedNavy
+                : (state == ButtonState.Blocked ? ButtonBlocked : (hovered ? HoverNavy : ButtonColor));
+
+            if (border != null)
+                border.effectColor = state == ButtonState.Selected ? GoldBright
+                    : (state == ButtonState.Blocked ? Dim(LineBlue, 0.65f)
+                        : (hovered ? AgedGold : (style != null ? style.normalBorder : LineBlue)));
+
+            return;
+        }
 
         if (Skinned)
         {
@@ -198,6 +257,8 @@ public class CombatHudController : MonoBehaviour
 
             image.color = state == ButtonState.Selected ? FrameSelected
                 : (state == ButtonState.Blocked ? FrameDisabled : FrameTint);
+            SetFill(image, state == ButtonState.Selected ? RaisedNavy
+                : (state == ButtonState.Blocked ? ButtonBlocked : ButtonColor));
             return;
         }
 
@@ -207,17 +268,17 @@ public class CombatHudController : MonoBehaviour
 
     // Paleta: negro azulado, paneles oscuros y oro apagado.
     private static readonly Color BackColor = new Color(0.063f, 0.082f, 0.118f, 1f);       // #10151E
-    private static readonly Color PanelColor = new Color(0.090f, 0.110f, 0.149f, 0.96f);  // #171C26
+    private static readonly Color PanelColor = new Color(0.090f, 0.122f, 0.169f, 1f);  // #171F2B
     private static readonly Color SurfaceColor = new Color(0.145f, 0.169f, 0.208f, 1f);   // #252B35
     private static readonly Color GoldColor = new Color(0.659f, 0.541f, 0.345f, 1f);      // #A88A58 dorado normal
     private static readonly Color GoldBright = new Color(0.831f, 0.659f, 0.357f, 1f);     // #D4A85B dorado seleccionado
-    private static readonly Color AllyColor = new Color(0.105f, 0.145f, 0.200f, 0.94f);
-    private static readonly Color EnemyColor = new Color(0.200f, 0.105f, 0.115f, 0.94f);
+    private static readonly Color AllyColor = new Color(0.090f, 0.122f, 0.169f, 1f);
+    private static readonly Color EnemyColor = new Color(0.118f, 0.110f, 0.160f, 1f);
     private static readonly Color EmptyColor = new Color(0.12f, 0.13f, 0.17f, 0.7f);
     private static readonly Color ActiveColor = new Color(0.17f, 0.22f, 0.30f, 0.98f);
     private static readonly Color TargetColor = new Color(0.95f, 0.45f, 0.35f, 1f);
-    private static readonly Color ButtonColor = SurfaceColor;
-    private static readonly Color ButtonBlocked = new Color(0.105f, 0.120f, 0.150f, 1f);
+    private static readonly Color ButtonColor = new Color(0.078f, 0.102f, 0.145f, 1f);
+    private static readonly Color ButtonBlocked = new Color(0.058f, 0.074f, 0.106f, 1f);
     private static readonly Color ButtonSelected = new Color(0.40f, 0.30f, 0.12f, 1f);
     private static readonly Color TextColor = new Color(0.902f, 0.867f, 0.792f, 1f);      // #E6DDCA
     private static readonly Color DimTextColor = new Color(0.46f, 0.47f, 0.50f, 1f);
@@ -725,7 +786,7 @@ public class CombatHudController : MonoBehaviour
             int dir = i == 0 ? -1 : 1;
             bool ok = MoveOptionLines(active, dir, out string title, out string subtitle);
             moveDirTexts[i].supportRichText = true;
-            SetText(moveDirTexts[i], "<size=32><b>" + title + "</b></size>\n<size=22>" + subtitle + "</size>");
+            SetText(moveDirTexts[i], "<size=28><b>" + title + "</b></size>\n<size=20>" + subtitle + "</size>");
             moveDirTexts[i].color = ok ? TextColor : DimTextColor;
             SetButtonState(moveDirImages[i], moveDirection == dir ? ButtonState.Selected
                 : (ok ? ButtonState.Normal : ButtonState.Blocked), true);
@@ -1446,7 +1507,9 @@ public class CombatHudController : MonoBehaviour
             Sprite shown = null;
 
             if (infoItem >= 0)
-                shown = art != null ? (infoItem == 0 ? art.potionIcon : art.antidoteIcon) : null;
+                shown = consumableIcons != null && infoItem < consumableIcons.Length && consumableIcons[infoItem] != null
+                    ? consumableIcons[infoItem]
+                    : (art != null ? (infoItem == 0 ? art.potionIcon : art.antidoteIcon) : null);
             else if (detail != null && iconSet != null)
                 shown = iconSet.Get(detail);
 
@@ -1457,8 +1520,6 @@ public class CombatHudController : MonoBehaviour
                 infoIcon.enabled = shown != null;
         }
 
-        // Las cantidades de consumibles se muestran en su propio panel.
-        SetText(resourcesText, "Coronas " + GameSession.Coins);
 
         if (itemsButton != null)
             itemsButton.interactable = playerTurn;
@@ -1530,7 +1591,7 @@ public class CombatHudController : MonoBehaviour
         else if (itemSelected >= 0)
             hint = "Elige un aliado resaltado para usar el objeto.";
         else if (selectedAbility != null)
-            hint = "Elige un objetivo resaltado. Esc o Volver para cancelar.";
+            hint = "Elige un objetivo resaltado. Esc para cancelar.";
         else if (pendingConfirm != null)
             hint = "Pulsa de nuevo la habilidad para confirmar.";
         else if (playerTurn)
@@ -1546,12 +1607,11 @@ public class CombatHudController : MonoBehaviour
         RefreshConsumables(playerTurn);
         RefreshMoveOptions(active, playerTurn);
 
-        // Volver (cancelacion contextual) solo aparece con una seleccion pendiente.
-        bool pending = HasPendingSelection() && !finished;
-        if (cancelButton.gameObject.activeSelf != pending)
-            cancelButton.gameObject.SetActive(pending);
+        // VOLVER vive dentro de las opciones de movimiento (solo visible en modo Mover) y regresa a las
+        // habilidades sin gastar turno. Cancelar habilidades u objetos se hace con Esc o volviendo a pulsarlos.
+        if (cancelButton != null)
+            cancelButton.interactable = !finished;
 
-        cancelButton.interactable = !finished;
         if (moveButton != null)
         {
             moveButton.interactable = playerTurn;
@@ -1604,13 +1664,29 @@ public class CombatHudController : MonoBehaviour
             bool isTarget = validTargets.Contains(unit);
             bool isActive = unit == active && !finished;
 
-            if (Skinned)
+            if (FlatStyle)
+            {
+                // Tarjeta plana: relleno azul oscuro y borde fino. Activo = borde dorado envejecido y fondo algo
+                // mas claro; objetivo valido = borde dorado; amenaza de area = borde naranja.
+                tileImages[slot].color = isTarget ? HoverNavy
+                    : (isActive ? RaisedNavy : (ally ? AllyColor : EnemyColor));
+
+                Outline tileOutline = tileImages[slot].GetComponent<Outline>();
+
+                if (tileOutline != null)
+                    tileOutline.effectColor = isTarget ? GoldBright
+                        : (isActive ? GoldBright
+                            : (threatened ? new Color(0.90f, 0.52f, 0.25f, 1f)
+                                : CardLine));
+            }
+            else if (Skinned)
             {
                 // Con marcos ilustrados el color de la tarjeta es un tinte del marco.
                 tileImages[slot].color = isTarget ? new Color(1f, 0.82f, 0.50f, 1f)
                     : (isActive ? FrameSelected
                         : (threatened ? new Color(1f, 0.50f, 0.32f, 1f)
                             : (ally ? new Color(0.50f, 0.50f, 0.48f, 1f) : new Color(0.58f, 0.48f, 0.45f, 1f))));
+                SetFill(tileImages[slot], isTarget ? HoverNavy : (isActive ? RaisedNavy : (ally ? AllyColor : EnemyColor)));
             }
             else
             {
@@ -1691,11 +1767,11 @@ public class CombatHudController : MonoBehaviour
                 turnChips[shown].gameObject.SetActive(true);
 
             SetText(turnChipTexts[shown], abbr);
-            Color fill = ally ? new Color(0.11f, 0.15f, 0.21f, 1f) : new Color(0.20f, 0.11f, 0.12f, 1f);
-            turnChips[shown].color = isActive ? Color.Lerp(fill, GoldBright, 0.30f) : (acted ? Dim(fill, 0.7f) : fill);
+            Color fill = ally ? new Color(0.095f, 0.130f, 0.185f, 1f) : new Color(0.150f, 0.105f, 0.140f, 1f);
+            turnChips[shown].color = isActive ? Color.Lerp(fill, GoldBright, 0.14f) : (acted ? Dim(fill, 0.7f) : fill);
             Outline chipOutline = turnChips[shown].GetComponent<Outline>();
             if (chipOutline != null)
-                chipOutline.effectColor = isActive ? GoldBright : new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.22f);
+                chipOutline.effectColor = isActive ? GoldBright : (acted ? Dim(LineBlue, 0.6f) : LineBlue);
             turnChipTexts[shown].color = acted ? DimTextColor : (isActive ? Color.white : TextColor);
             shown++;
         }
@@ -1964,6 +2040,35 @@ public class CombatHudController : MonoBehaviour
         // Material de UI que suaviza el dorado de los PNG (solo marcos y botones).
         if (frameMaterial != null)
             image.material = frameMaterial;
+
+        // Solo se dibuja el marco del sprite; el interior es un relleno azul marino propio (hijo "Relleno",
+        // inscrito dentro del borde) cuyo color depende del estado del elemento.
+        image.fillCenter = false;
+
+        float k = Mathf.Max(0.01f, image.pixelsPerUnit * image.pixelsPerUnitMultiplier);
+        Vector4 b = sprite != null ? sprite.border / k * 0.5f : Vector4.zero;   // cubre la banda oscura interior del marco
+        RectTransform fill = Box("Relleno", image.transform, Vector2.zero, Vector2.one, ButtonColor);
+        fill.offsetMin = new Vector2(b.x, b.y);
+        fill.offsetMax = new Vector2(-b.z, -b.w);
+        fill.GetComponent<Image>().raycastTarget = false;
+        fill.SetAsFirstSibling();
+    }
+
+    // Color del relleno interior de un elemento con marco (ver Slice).
+    private static void SetFill(Image frame, Color color)
+    {
+        if (frame == null)
+            return;
+
+        Transform fill = frame.transform.Find("Relleno");
+
+        if (fill == null)
+            return;
+
+        Image fillImage = fill.GetComponent<Image>();
+
+        if (fillImage != null && fillImage.color != color)
+            fillImage.color = color;
     }
 
     // Respaldo provisional (marcos de MapArtSet) cuando no hay sprites del HUD.
@@ -1995,8 +2100,15 @@ public class CombatHudController : MonoBehaviour
         RectTransform rect = Box(name, parent, min, max, color);
         sprite = sprite != null ? sprite : panelSprite;
 
-        if (sprite != null)
+        // Los contenedores principales conservan el marco ornamental fino del sprite; los elementos
+        // secundarios usan bordes planos (ver SkinButton y las tarjetas).
+        if (OrnateContainers && sprite != null)
+        {
             Slice(rect.GetComponent<Image>(), sprite, borderScale);
+            SetFill(rect.GetComponent<Image>(), color);
+        }
+        else if (FlatStyle)
+            AddFlatBorder(rect.gameObject, AgedGold, false, 2f);
         else
             Skin(rect, new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.85f));
 
@@ -2011,7 +2123,14 @@ public class CombatHudController : MonoBehaviour
     {
         Button button = MakeButton(name, parent, min, max, color, out label, out image, size);
 
-        if (Skinned)
+        if (FlatStyle)
+        {
+            // Boton plano: el estado lo pinta SetButtonState. Borde dorado envejecido solo en los botones
+            // principales (los que se crean con el dorado "normal"); el resto, azul grisaceo.
+            button.transition = Selectable.Transition.None;
+            AddFlatBorder(image.gameObject, frameColor.a >= 0.8f ? AgedGold : LineBlue, true);
+        }
+        else if (Skinned)
         {
             Slice(image, frame != null ? frame : buttonNormal, borderScale);
             button.transition = Selectable.Transition.ColorTint;
@@ -2035,7 +2154,7 @@ public class CombatHudController : MonoBehaviour
     private void Divider(Transform parent, float y, float xMin = 0.06f, float xMax = 0.94f)
     {
         RectTransform line = Box("Separador", parent, new Vector2(xMin, y), new Vector2(xMax, y),
-            new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.55f));
+            FlatStyle ? LineBlue : new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.55f));
         line.offsetMin = new Vector2(0, -1f);
         line.offsetMax = new Vector2(0, 1f);
         line.GetComponent<Image>().raycastTarget = false;
@@ -2070,6 +2189,33 @@ public class CombatHudController : MonoBehaviour
 
         foreach (Text text in GetComponentsInChildren<Text>(true))
             text.font = font;
+    }
+
+    // Iconos de los consumibles: sprites del proyecto "curacion" y "antidoto" (se asignan al construir en el editor).
+    private void EnsureConsumableIcons()
+    {
+#if UNITY_EDITOR
+        if (consumableIcons == null || consumableIcons.Length < 2)
+            consumableIcons = new Sprite[2];
+
+        string[] paths = { "Assets/Sprites/Iconos/curacion.png", "Assets/Sprites/Iconos/antidoto.png" };
+        string[] subNames = { "curacion_0", "antidoto_1" };
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (consumableIcons[i] != null)
+                continue;
+
+            foreach (UnityEngine.Object asset in UnityEditor.AssetDatabase.LoadAllAssetsAtPath(paths[i]))
+            {
+                if (asset is Sprite sprite && sprite.name == subNames[i])
+                    consumableIcons[i] = sprite;
+            }
+
+            if (consumableIcons[i] == null)
+                consumableIcons[i] = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(paths[i]);
+        }
+#endif
     }
 
     // Genera (o regenera) toda la interfaz bajo este GameObject. Distribucion
@@ -2130,36 +2276,52 @@ public class CombatHudController : MonoBehaviour
         Color goldDim = new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.45f);
 
         // ---------------- Cabecera ----------------
-        RectTransform top = Box("BarraSuperior", root, new Vector2(0.005f, 0.894f), new Vector2(0.995f, 0.995f), BackColor);
+        RectTransform top = Box("BarraSuperior", root, new Vector2(0.005f, 0.915f), new Vector2(0.995f, 0.995f), BackColor);
         RectTransform topLine = Box("LineaDorada", top, Vector2.zero, new Vector2(1, 0), gold);
         topLine.offsetMax = new Vector2(0, 3);
 
-        if (headerSprite != null)
+        if (OrnateContainers && headerSprite != null)
         {
             Slice(top.GetComponent<Image>(), headerSprite, 0.40f);
+            SetFill(top.GetComponent<Image>(), BackColor);
+            topLine.gameObject.SetActive(false);
+        }
+        else if (FlatStyle)
+        {
+            AddFlatBorder(top.gameObject, AgedGold, false, 2f);
             topLine.gameObject.SetActive(false);
         }
 
-        regionText = Label("Region", top, new Vector2(0.02f, 0.05f), new Vector2(0.24f, 0.95f), 28, TextAnchor.MiddleLeft, GoldBright);
+        // Divisiones discretas entre encuentro, ronda/turno y orden de turnos.
+        foreach (float dividerX in new[] { 0.292f, 0.552f })
+        {
+            RectTransform vLine = Box("Division", top, new Vector2(dividerX, 0.20f), new Vector2(dividerX, 0.80f), LineBlue);
+            vLine.offsetMin = new Vector2(-1f, 0f);
+            vLine.offsetMax = new Vector2(1f, 0f);
+            vLine.GetComponent<Image>().raycastTarget = false;
+        }
+
+        // Sin Coronas en el combate: el espacio liberado se reparte entre encuentro, ronda/turno y orden de turnos.
+        regionText = Label("Region", top, new Vector2(0.02f, 0.05f), new Vector2(0.275f, 0.95f), 28, TextAnchor.MiddleLeft, GoldBright);
         regionText.fontStyle = FontStyle.Bold;
         regionText.supportRichText = true;
         regionText.horizontalOverflow = HorizontalWrapMode.Wrap;
         regionText.verticalOverflow = VerticalWrapMode.Truncate;
-        roundText = Label("Ronda", top, new Vector2(0.275f, 0.50f), new Vector2(0.43f, 0.95f), 28, TextAnchor.MiddleLeft, TextColor);
+        roundText = Label("Ronda", top, new Vector2(0.315f, 0.50f), new Vector2(0.54f, 0.95f), 28, TextAnchor.MiddleLeft, TextColor);
         roundText.fontStyle = FontStyle.Bold;
         roundText.horizontalOverflow = HorizontalWrapMode.Overflow;
-        activeText = Label("TurnoActivo", top, new Vector2(0.275f, 0.05f), new Vector2(0.52f, 0.50f), 24, TextAnchor.MiddleLeft, GoldBright);
+        activeText = Label("TurnoActivo", top, new Vector2(0.315f, 0.05f), new Vector2(0.54f, 0.50f), 24, TextAnchor.MiddleLeft, GoldBright);
         activeText.horizontalOverflow = HorizontalWrapMode.Overflow;
 
         for (int i = 0; i < turnChips.Length; i++)
         {
-            float x0 = 0.525f + i * 0.0425f;
+            float x0 = 0.565f + i * 0.0525f;
             // Fichas simples: solo la activa lleva borde dorado.
-            RectTransform chip = Box("Turno_" + i, top, new Vector2(x0, 0.20f), new Vector2(x0 + 0.0385f, 0.80f), SurfaceColor);
+            RectTransform chip = Box("Turno_" + i, top, new Vector2(x0, 0.20f), new Vector2(x0 + 0.0475f, 0.80f), SurfaceColor);
             turnChips[i] = chip.GetComponent<Image>();
             Outline chipOutline = chip.gameObject.AddComponent<Outline>();
-            chipOutline.effectDistance = new Vector2(2f, -2f);
-            chipOutline.effectColor = new Color(GoldColor.r, GoldColor.g, GoldColor.b, 0.22f);
+            chipOutline.effectDistance = new Vector2(1.5f, -1.5f);
+            chipOutline.effectColor = LineBlue;
 
             turnChipTexts[i] = Label("Texto", chip, Vector2.zero, Vector2.one, 19, TextAnchor.MiddleCenter, TextColor);
             turnChipTexts[i].fontStyle = FontStyle.Bold;
@@ -2167,8 +2329,8 @@ public class CombatHudController : MonoBehaviour
             chip.gameObject.SetActive(false);
         }
 
-        resourcesText = Label("Recursos", top, new Vector2(0.86f, 0.05f), new Vector2(0.975f, 0.95f), 24, TextAnchor.MiddleRight, GoldColor);
-        resourcesText.horizontalOverflow = HorizontalWrapMode.Overflow;
+        // Las Coronas no se muestran en el combate (la economia no cambia).
+        resourcesText = null;
 
         // ---------------- Unidades (tarjetas) y marcadores ----------------
         RectTransform units = Box("Unidades", root, Vector2.zero, Vector2.one, new Color(0, 0, 0, 0));
@@ -2183,7 +2345,12 @@ public class CombatHudController : MonoBehaviour
             tile.anchoredPosition = new Vector2(ally ? -600f + slot * 200f : 200f + (slot - 4) * 200f, -330f);
             tileImages[slot] = tile.GetComponent<Image>();
 
-            if (cardSprite != null || panelSprite != null)
+            if (FlatStyle)
+            {
+                AddFlatBorder(tile.gameObject, CardLine, false);
+                tileBorders[slot] = null;
+            }
+            else if (cardSprite != null || panelSprite != null)
             {
                 Slice(tileImages[slot], cardSprite != null ? cardSprite : panelSprite, 0.24f);
                 tileBorders[slot] = null;
@@ -2200,8 +2367,9 @@ public class CombatHudController : MonoBehaviour
 
             tileTexts[slot] = Label("Texto", tile, new Vector2(0.07f, 0.38f), new Vector2(0.58f, 0.95f), 18, TextAnchor.UpperLeft, TextColor);
             Fit(tileTexts[slot], 12, 18);
-            RectTransform barBg = Box("BarraFondo", tile, new Vector2(0.09f, 0.14f), new Vector2(0.91f, 0.30f), new Color(0.04f, 0.05f, 0.07f, 1f));
+            RectTransform barBg = Box("BarraFondo", tile, new Vector2(0.08f, 0.12f), new Vector2(0.92f, 0.32f), new Color(0.04f, 0.05f, 0.07f, 1f));
             tileBars[slot] = Box("Vida", barBg, Vector2.zero, Vector2.one, ally ? HealthColor : HealthEnemyColor);
+            AddFlatBorder(barBg.gameObject, CardLine, false);
             tileStatus[slot] = Label("Estado", tile, new Vector2(0.58f, 0.36f), new Vector2(0.96f, 0.96f), 14, TextAnchor.UpperRight, TextColor);
             tileStatus[slot].supportRichText = true;
             Fit(tileStatus[slot], 9, 14);
@@ -2225,10 +2393,15 @@ public class CombatHudController : MonoBehaviour
         }
 
         // ---------------- Mensaje contextual ----------------
-        RectTransform toast = Box("Mensajes", root, new Vector2(0.275f, 0.809f), new Vector2(0.725f, 0.875f), new Color(0.05f, 0.065f, 0.10f, 0.92f));
+        RectTransform toast = Box("Mensajes", root, new Vector2(0.275f, 0.832f), new Vector2(0.725f, 0.895f), new Color(0.075f, 0.098f, 0.141f, 1f));
 
-        if (headerSprite != null)
+        if (FlatStyle)
+            AddFlatBorder(toast.gameObject, AgedGold, false);
+        else if (headerSprite != null)
+        {
             Slice(toast.GetComponent<Image>(), headerSprite, 0.30f);
+            SetFill(toast.GetComponent<Image>(), PanelColor);
+        }
         else
             Skin(toast, goldDim);
 
@@ -2247,7 +2420,8 @@ public class CombatHudController : MonoBehaviour
         bannerText.fontStyle = FontStyle.Bold;
 
         // ---------------- Panel inferior izquierdo: consumibles ----------------
-        RectTransform items = Panel("PanelConsumibles", root, new Vector2(0.005f, 0.017f), new Vector2(0.227f, 0.297f), PanelColor, panelSprite, 0.34f);
+        EnsureConsumableIcons();
+        RectTransform items = Panel("PanelConsumibles", root, new Vector2(0.005f, 0.017f), new Vector2(0.227f, 0.297f), PanelColor, headerSprite, 0.40f);
         Text itemsTitle = Label("Titulo", items, new Vector2(0.08f, 0.79f), new Vector2(0.95f, 0.95f), 24, TextAnchor.MiddleLeft, GoldBright);
         itemsTitle.fontStyle = FontStyle.Bold;
         itemsTitle.text = "CONSUMIBLES";
@@ -2264,8 +2438,10 @@ public class CombatHudController : MonoBehaviour
             itemImages[i] = rowImage;
             rowLabel.gameObject.SetActive(false);
 
-            RectTransform icon = Box("Icono", itemButtons[i].transform, new Vector2(0.09f, 0.16f), new Vector2(0.22f, 0.84f), Color.white,
-                art != null ? (i == 0 ? art.potionIcon : art.antidoteIcon) : null);
+            Sprite itemSprite = consumableIcons != null && i < consumableIcons.Length && consumableIcons[i] != null
+                ? consumableIcons[i]
+                : (art != null ? (i == 0 ? art.potionIcon : art.antidoteIcon) : null);
+            RectTransform icon = Box("Icono", itemButtons[i].transform, new Vector2(0.03f, 0.08f), new Vector2(0.21f, 0.92f), Color.white, itemSprite);
             Image iconImage = icon.GetComponent<Image>();
             iconImage.preserveAspect = true;
             iconImage.raycastTarget = false;
@@ -2279,8 +2455,8 @@ public class CombatHudController : MonoBehaviour
         }
 
         // ---------------- Panel inferior central: personaje y habilidades ----------------
-        RectTransform bottom = Panel("PanelPersonaje", root, new Vector2(0.234f, 0.017f), new Vector2(0.746f, 0.297f), PanelColor, wideFrameSprite, 0.36f);
-        infoText = Label("Info", bottom, new Vector2(0.035f, 0.78f), new Vector2(0.965f, 0.95f), 24, TextAnchor.MiddleLeft, GoldBright);
+        RectTransform bottom = Panel("PanelPersonaje", root, new Vector2(0.234f, 0.017f), new Vector2(0.746f, 0.297f), PanelColor, headerSprite, 0.40f);
+        infoText = Label("Info", bottom, new Vector2(0.035f, 0.78f), new Vector2(0.965f, 0.95f), 24, TextAnchor.MiddleLeft, TextColor);
         infoText.fontStyle = FontStyle.Bold;
         infoText.horizontalOverflow = HorizontalWrapMode.Overflow;
 
@@ -2288,12 +2464,12 @@ public class CombatHudController : MonoBehaviour
         for (int i = 0; i < AbilitySlots; i++)
         {
             float x0 = 0.030f + i * 0.2395f;
-            abilityButtons[i] = SkinButton("Habilidad_" + i, bottom, new Vector2(x0, 0.16f), new Vector2(x0 + 0.2250f, 0.74f),
+            abilityButtons[i] = SkinButton("Habilidad_" + i, bottom, new Vector2(x0, 0.09f), new Vector2(x0 + 0.2250f, 0.74f),
                 ButtonColor, out abilityLabels[i], out abilityImages[i], 19, goldDim, 0.35f, abilityFrameSprite);
             abilityLabels[i].supportRichText = true;
 
             // Icono arriba (sin deformar), nombre y estado debajo.
-            RectTransform iconRect = Box("Icono", abilityButtons[i].transform, new Vector2(0.27f, 0.40f), new Vector2(0.73f, 0.97f), Color.white);
+            RectTransform iconRect = Box("Icono", abilityButtons[i].transform, new Vector2(0.20f, 0.36f), new Vector2(0.80f, 0.97f), Color.white);
             Image iconImage = iconRect.GetComponent<Image>();
             iconImage.preserveAspect = true;
             iconImage.raycastTarget = false;
@@ -2309,8 +2485,8 @@ public class CombatHudController : MonoBehaviour
             abilityCooldowns[i] = cooldown;
 
             RectTransform labelRect = abilityLabels[i].rectTransform;
-            labelRect.anchorMin = new Vector2(0.05f, 0.05f);
-            labelRect.anchorMax = new Vector2(0.95f, 0.40f);
+            labelRect.anchorMin = new Vector2(0.04f, 0.03f);
+            labelRect.anchorMax = new Vector2(0.96f, 0.34f);
             abilityLabels[i].alignment = TextAnchor.MiddleCenter;
             Fit(abilityLabels[i], 12, 19);
         }
@@ -2322,7 +2498,8 @@ public class CombatHudController : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            float x0 = i == 0 ? 0.125f : 0.525f;
+            // Tres cuadros: Avanzar, Retroceder y Volver (mas estrecho).
+            float x0 = i == 0 ? 0.01f : 0.375f;
             Text dirLabel; Image dirImage;
             moveDirButtons[i] = SkinButton(i == 0 ? "Avanzar" : "Retroceder", moveBox, new Vector2(x0, 0.02f), new Vector2(x0 + 0.35f, 0.98f),
                 ButtonColor, out dirLabel, out dirImage, 26, goldDim, 0.35f, abilityFrameSprite);
@@ -2340,51 +2517,52 @@ public class CombatHudController : MonoBehaviour
             dirLabel.verticalOverflow = VerticalWrapMode.Truncate;
         }
 
+        // Volver: regresa a las habilidades sin gastar turno (mismo metodo que Esc).
+        Text backLabel; Image backImage;
+        cancelButton = SkinButton("Volver", moveBox, new Vector2(0.74f, 0.02f), new Vector2(0.99f, 0.98f),
+            ButtonColor, out backLabel, out backImage, 26, goldDim, 0.35f, abilityFrameSprite);
+        backLabel.text = "Volver";
+        backLabel.alignment = TextAnchor.MiddleCenter;
+        backLabel.fontStyle = FontStyle.Bold;
+        cancelLabel = backLabel;
+
         moveContainer.SetActive(false);
 
 
         // ---------------- Panel inferior derecho: informacion y acciones ----------------
-        RectTransform info = Panel("PanelInformacion", root, new Vector2(0.752f, 0.017f), new Vector2(0.996f, 0.297f), PanelColor, panelSprite, 0.34f);
-        abilityTitleText = Label("TituloHabilidad", info, new Vector2(0.07f, 0.80f), new Vector2(0.71f, 0.95f), 26, TextAnchor.MiddleLeft, GoldBright);
+        RectTransform info = Panel("PanelInformacion", root, new Vector2(0.752f, 0.017f), new Vector2(0.996f, 0.297f), PanelColor, headerSprite, 0.40f);
+        // Panel sencillo: titulo, texto, separador y dos botones (sin iconos ni boton de cancelar).
+        abilityTitleText = Label("TituloHabilidad", info, new Vector2(0.07f, 0.80f), new Vector2(0.93f, 0.95f), 26, TextAnchor.MiddleLeft, GoldBright);
         abilityTitleText.fontStyle = FontStyle.Bold;
         Fit(abilityTitleText, 16, 26);
+        infoIcon = null;
 
-        RectTransform infoIconRect = Box("IconoInfo", info, new Vector2(0.07f, 0.49f), new Vector2(0.21f, 0.77f), Color.white);
-        infoIcon = infoIconRect.GetComponent<Image>();
-        infoIcon.preserveAspect = true;
-        infoIcon.raycastTarget = false;
-        infoIcon.enabled = false;
-
-        detailText = Label("Detalle", info, new Vector2(0.23f, 0.47f), new Vector2(0.94f, 0.79f), 18, TextAnchor.UpperLeft, TextColor);
+        detailText = Label("Detalle", info, new Vector2(0.07f, 0.47f), new Vector2(0.93f, 0.79f), 18, TextAnchor.UpperLeft, TextColor);
         Fit(detailText, 11, 18);
-        Divider(info, 0.455f);
+        Divider(info, 0.455f, 0.07f, 0.93f);
         hintText = Label("Ayuda", info, new Vector2(0.07f, 0.285f), new Vector2(0.93f, 0.44f), 18, TextAnchor.MiddleLeft, TextColor);
         Fit(hintText, 12, 18);
 
-        Text t1, t2, t3; Image i1, i2, i3;
+        Text t2, t3; Image i2, i3;
 
         // Mover (sustituye al antiguo Cancelar permanente) y Terminar turno.
-        moveButton = SkinButton("Mover", info, new Vector2(0.07f, 0.075f), new Vector2(0.49f, 0.265f), ButtonColor, out t3, out i3, 21, gold, 0.28f);
+        moveButton = SkinButton("Mover", info, new Vector2(0.07f, 0.07f), new Vector2(0.485f, 0.25f), ButtonColor, out t3, out i3, 21, gold, 0.28f);
         t3.text = "Mover";
         moveButtonImage = i3;
         moveButton.gameObject.AddComponent<MapHoverTarget>();
 
-        // Cancelacion contextual: pequeno "Volver" arriba a la derecha, solo con una seleccion pendiente.
-        cancelButton = SkinButton("Volver", info, new Vector2(0.72f, 0.82f), new Vector2(0.95f, 0.955f), ButtonColor, out t1, out i1, 16, gold, 0.20f);
-        t1.text = "Volver";
-        cancelButton.gameObject.SetActive(false);
-        endTurnButton = SkinButton("TerminarTurno", info, new Vector2(0.51f, 0.075f), new Vector2(0.93f, 0.265f), ButtonColor, out t2, out i2, 21, gold, 0.28f);
+        endTurnButton = SkinButton("TerminarTurno", info, new Vector2(0.515f, 0.07f), new Vector2(0.93f, 0.25f), ButtonColor, out t2, out i2, 21, gold, 0.28f);
         t2.text = "Terminar turno";
 
         // ---------------- Derrota y victoria ----------------
-        RectTransform defeat = Panel("PanelDerrota", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, panelSprite, 0.30f);
+        RectTransform defeat = Panel("PanelDerrota", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, headerSprite, 0.40f);
         Text returnLabel; Image returnImage;
         returnToMenuButton = SkinButton("VolverMenu", defeat, new Vector2(0.06f, 0.14f), new Vector2(0.94f, 0.86f), ButtonColor, out returnLabel, out returnImage, 28, gold, 0.24f);
         returnLabel.text = "Volver al menú";
         defeatPanel = defeat.gameObject;
         defeatPanel.SetActive(false);
 
-        RectTransform victory = Panel("PanelVictoria", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, panelSprite, 0.30f);
+        RectTransform victory = Panel("PanelVictoria", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, headerSprite, 0.40f);
         Text continueLabel; Image continueImage;
         continueButton = SkinButton("Continuar", victory, new Vector2(0.06f, 0.14f), new Vector2(0.94f, 0.86f), ButtonColor, out continueLabel, out continueImage, 28, gold, 0.24f);
         continueLabel.text = "Continuar";

@@ -455,12 +455,13 @@ public class MapShopController : MonoBehaviour
             bool hovered = cardHover != null && i < cardHover.Length && cardHover[i] != null && cardHover[i].Hovered;
             bool showHover = selected || hovered;
 
+            // Borde fino: azul grisaceo en reposo, dorado envejecido con el cursor encima y dorado al estar
+            // seleccionada. Sin resplandor ni escala.
             if (productRowImages[i] != null)
             {
-                if (productRowImages[i].enabled == showHover)
-                    productRowImages[i].enabled = !showHover;
-
-                productRowImages[i].color = new Color(0.42f, 0.36f, 0.32f, 1f);
+                productRowImages[i].color = selected ? new Color(0.831f, 0.686f, 0.416f, 1f)
+                    : hovered ? new Color(0.62f, 0.52f, 0.34f, 1f)
+                    : new Color(0.239f, 0.290f, 0.361f, 1f);
             }
 
             if (cardHoverFrame != null && i < cardHoverFrame.Length && cardHoverFrame[i] != null && cardHoverFrame[i].activeSelf != showHover)
@@ -1106,6 +1107,162 @@ public class MapShopController : MonoBehaviour
 
         ribbon.SetAsLastSibling();
         inventoryWindow.SetActive(false);
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    // Rehace solo el aspecto del panel de detalle del inventario (marco fino, icono, nombre, descripcion y
+    // cantidad) sin tocar la cuadricula, el estandarte ni la X. Los datos se siguen refrescando igual.
+    public void RebuildInventoryDetailInEditor()
+    {
+        Transform window = inventoryWindow.transform;
+        Transform panel = window.Find("PanelDetalle");
+        Transform oldContent = window.Find("Contenido");
+        int contentIndex = oldContent.GetSiblingIndex();
+        RectTransform panelRect = (RectTransform)panel;
+        float rightW = panelRect.sizeDelta.x, panelH = panelRect.sizeDelta.y;
+        Vector2 center = panelRect.anchoredPosition;
+
+        Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");
+        Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
+        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
+        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
+        Sprite[] icons = { potion, antidote };
+
+        Color mainFill = new Color(0.063f, 0.082f, 0.118f, 1f);       // #10151E
+        Color boxFill = new Color(0.090f, 0.122f, 0.169f, 1f);        // #171F2B
+        Color boxLine = new Color(0.239f, 0.290f, 0.361f, 1f);        // azul grisaceo discreto
+        Color brownFill = new Color(0.247f, 0.157f, 0.098f, 1f);      // cafe oscuro
+
+        Image PlainRect(Transform p, string name, Vector2 pos, Vector2 size, Color color)
+        {
+            RectTransform r = ShopRect(name, p, pos, size);
+            Image img = r.gameObject.AddComponent<Image>();
+            img.color = color;
+            img.raycastTarget = false;
+            return img;
+        }
+
+        // Caja con borde de 'line' px: el borde es la propia imagen y el relleno un hijo inset.
+        RectTransform ThinBox(Transform p, string name, Vector2 pos, Vector2 size, Color fill, Color border, float line)
+        {
+            Image outer = PlainRect(p, name, pos, size, border);
+            Image inner = PlainRect(outer.transform, "Relleno", Vector2.zero, size - new Vector2(2f * line, 2f * line), fill);
+            return (RectTransform)outer.transform;
+        }
+
+        // Panel principal: marco dorado fino solo en el contorno exterior.
+        Image panelImage = panel.GetComponent<Image>();
+        panelImage.sprite = null;
+        panelImage.type = Image.Type.Simple;
+        panelImage.color = ShopGold;
+        panelImage.raycastTarget = false;
+
+        for (int i = panel.childCount - 1; i >= 0; i--)
+            DestroyImmediate(panel.GetChild(i).gameObject);
+
+        PlainRect(panel, "Relleno", Vector2.zero, panelRect.sizeDelta - new Vector2(4f, 4f), mainFill);
+
+        DestroyImmediate(oldContent.gameObject);
+        RectTransform detail = ShopRect("Contenido", window, center, panelRect.sizeDelta);
+        detail.SetSiblingIndex(contentIndex);
+        invDetailContent = detail.gameObject;
+
+        float top = panelH * 0.5f;
+        float boxW = rightW - 48f;
+
+        // Icono centrado arriba (contenido visible de 140 px).
+        invDetailIconSizes = new Vector2[2];
+        invDetailIconOffsets = new Vector2[2];
+
+        for (int t = 0; t < 2; t++)
+            ShopIconPlacement(icons[t], 140f, out invDetailIconSizes[t], out invDetailIconOffsets[t]);
+
+        invDetailIconBase = new Vector2(0f, top - 22f - 70f);
+        invDetailIcon = ShopImage(ShopRect("Icono", detail, invDetailIconBase + invDetailIconOffsets[0], invDetailIconSizes[0]), potion, 0f, Color.white, false);
+
+        // Nombre: panel cafe oscuro con borde dorado fino.
+        RectTransform nameBox = ThinBox(detail, "MarcoNombre", new Vector2(0f, 24f), new Vector2(boxW, 48f), brownFill, ShopGold, 1.5f);
+        invDetailName = ShopText(nameBox, "Nombre", Vector2.zero, new Vector2(boxW - 24f, 40f), "", 23f, ShopIvory, TextAlignmentOptions.Center, bold);
+        invDetailName.textWrappingMode = TextWrappingModes.NoWrap;
+
+        // Descripcion: panel azul oscuro distinto del fondo, borde azul grisaceo.
+        RectTransform descBox = ThinBox(detail, "MarcoDescripcion", new Vector2(0f, -76f), new Vector2(boxW, 120f), boxFill, boxLine, 1.5f);
+        invDetailDescription = ShopText(descBox, "Descripcion", Vector2.zero, new Vector2(boxW - 40f, 104f), "", 20f, ShopIvory, TextAlignmentOptions.Center, regular);
+        invDetailDescription.lineSpacing = 10f;
+
+        // Cantidad: etiqueta a la izquierda y numero a la derecha.
+        RectTransform qtyBox = ThinBox(detail, "MarcoCantidad", new Vector2(0f, -176f), new Vector2(boxW, 48f), boxFill, boxLine, 1.5f);
+        TMP_Text qtyLabel = ShopText(qtyBox, "EtiquetaCantidad", new Vector2(-boxW * 0.5f + 20f + 70f, 0f), new Vector2(140f, 36f), "Cantidad:", 22f, ShopIvory, TextAlignmentOptions.Left, regular);
+        qtyLabel.textWrappingMode = TextWrappingModes.NoWrap;
+        invDetailQuantity = ShopText(qtyBox, "Cantidad", new Vector2(boxW * 0.5f - 20f - 45f, 0f), new Vector2(90f, 36f), "", 26f, ShopIvory, TextAlignmentOptions.Right, bold);
+        invDetailQuantity.textWrappingMode = TextWrappingModes.NoWrap;
+
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    // Aligera el aspecto de la ventana de tienda (mismo estilo que el detalle del inventario): bordes finos en
+    // las tarjetas, nombre en panel cafe sencillo y panel inferior con divisiones azul grisaceas. No cambia
+    // dimensiones, posiciones, textos ni logica; solo sustituye los marcos gruesos por rectangulos UI.
+    public void RestyleShopWindowInEditor()
+    {
+        Transform window = shopWindow.transform;
+        Color line = new Color(0.239f, 0.290f, 0.361f, 1f);          // azul grisaceo
+        Color agedGold = new Color(0.62f, 0.52f, 0.34f, 1f);         // dorado envejecido
+        Color brown = new Color(0.247f, 0.157f, 0.098f, 1f);
+        Color cardFill = new Color(0.075f, 0.098f, 0.141f, 1f);
+
+        // Convierte un Image existente en caja de borde fino: la imagen es el borde y "Relleno" el interior.
+        void Thin(Image img, Vector2 size, Color border, Color fill, float width)
+        {
+            img.sprite = null;
+            img.type = Image.Type.Simple;
+            img.preserveAspect = false;
+            img.color = border;
+            img.raycastTarget = false;
+            img.enabled = true;
+            img.rectTransform.sizeDelta = size;
+
+            Transform old = img.transform.Find("Relleno");
+            if (old != null)
+                DestroyImmediate(old.gameObject);
+
+            RectTransform inner = ShopRect("Relleno", img.transform, Vector2.zero, size - new Vector2(2f * width, 2f * width));
+            Image fillImage = inner.gameObject.AddComponent<Image>();
+            fillImage.color = fill;
+            fillImage.raycastTarget = false;
+            inner.SetAsFirstSibling();
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            Transform card = window.Find("Tarjeta_Producto_" + i);
+            Vector2 cardSize = ((RectTransform)card).sizeDelta;
+
+            Thin(productRowImages[i], cardSize, line, cardFill, 1.5f);
+
+            Transform hover = card.Find("MarcoHover");
+            if (hover != null)
+                DestroyImmediate(hover.gameObject);
+            cardHoverFrame[i] = null;
+
+            Image nameFrame = card.Find("MarcoNombre").GetComponent<Image>();
+            Thin(nameFrame, new Vector2(304f, 52f), agedGold, brown, 1.5f);
+            nameFrame.rectTransform.anchoredPosition = new Vector2(0f, -52f);
+        }
+
+        Image panelImage = window.Find("PanelDetalle").GetComponent<Image>();
+        Thin(panelImage, panelImage.rectTransform.sizeDelta, line, new Color(0.075f, 0.098f, 0.141f, 1f), 1.5f);
+
+        Transform iconBack = window.Find("FondoIconoDetalle");
+        if (iconBack != null)
+            DestroyImmediate(iconBack.gameObject);
+
+        Image iconFrame = window.Find("MarcoIconoDetalle").GetComponent<Image>();
+        Thin(iconFrame, new Vector2(112f, 112f), line, cardFill, 1.5f);
+
+        Image divider = window.Find("Divisor").GetComponent<Image>();
+        divider.color = line;
+
         UnityEditor.EditorUtility.SetDirty(this);
     }
 #endif
