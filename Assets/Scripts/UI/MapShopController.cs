@@ -90,6 +90,119 @@ public class MapShopController : MonoBehaviour
     private int selectedProduct;
     private int closedFrame = -1;
 
+    // Animacion de entrada y salida, igual que la del menu de pausa y las Opciones del menu principal: fundido
+    // y escala de 0,95 a 1 con smoothstep en 0,3 s, con tiempo no escalado. Afecta a la ventana (tienda o
+    // inventario) y al velo del fondo.
+    private const float OpenAnimationSeconds = 0.3f;
+    private const float ClosedWindowScale = 0.95f;
+    private float openProgress;      // velo: 0 cerrado, 1 abierto (lineal; la curva se aplica al dibujar)
+    private float windowProgress;    // ventana: igual, pero vuelve a 0 al cambiar de tienda a inventario y viceversa
+    private int lastKind;            // 1 tienda, 2 inventario, 3 panel antiguo (para animar tambien al cerrar)
+    private CanvasGroup shopGroup;
+    private CanvasGroup inventoryGroup;
+    private CanvasGroup veilGroup;
+
+    // Color del borde de un recuadro hecho con cuatro franjas ("Borde_*"). Sin franjas (estructura antigua),
+    // cambia el color de la propia imagen.
+    private static void SetBorderColor(Image box, Color color)
+    {
+        bool found = false;
+
+        foreach (Transform child in box.transform)
+        {
+            if (!child.name.StartsWith("Borde_"))
+                continue;
+
+            Image strip = child.GetComponent<Image>();
+
+            if (strip != null && strip.color != color)
+                strip.color = color;
+
+            found = true;
+        }
+
+        if (!found && box.color != color)
+            box.color = color;
+    }
+
+    private static CanvasGroup GroupOf(GameObject go, ref CanvasGroup cache)
+    {
+        if (cache == null && go != null)
+        {
+            cache = go.GetComponent<CanvasGroup>();
+
+            if (cache == null)
+                cache = go.AddComponent<CanvasGroup>();
+        }
+
+        return cache;
+    }
+
+    // Aplica la curva smoothstep al fundido y a la escala de una ventana.
+    private static void ApplyWindowAnimation(GameObject window, CanvasGroup group, float eased, bool interactable)
+    {
+        if (window == null || group == null)
+            return;
+
+        group.alpha = eased;
+        group.interactable = interactable;
+        window.transform.localScale = Vector3.one * Mathf.Lerp(ClosedWindowScale, 1f, eased);
+    }
+
+    // Con una ventana abierta, los botones Inventario y Tienda del HUD se dibujan por encima del velo y siguen
+    // activos (sin recuadro ni hueco en el velo). Se consigue con un Canvas anidado que sobrescribe el orden de
+    // dibujo del grupo de atajos, solo mientras la tienda o el inventario estan visibles.
+    private const int ShortcutsSortingOrder = 150;
+    private Transform shortcutGroup;
+    private float nextShortcutSearch;
+
+    private void SetShortcutsOnTop(bool onTop)
+    {
+        if (shortcutGroup == null)
+        {
+            if (!onTop || Time.unscaledTime < nextShortcutSearch)
+                return;
+
+            nextShortcutSearch = Time.unscaledTime + 1f;
+            GameObject found = GameObject.Find("GrupoAtajos");
+
+            if (found == null)
+                return;
+
+            shortcutGroup = found.transform;
+        }
+
+        Canvas nested = shortcutGroup.GetComponent<Canvas>();
+
+        if (onTop)
+        {
+            if (nested == null)
+            {
+                nested = shortcutGroup.gameObject.AddComponent<Canvas>();
+                shortcutGroup.gameObject.AddComponent<GraphicRaycaster>();
+            }
+
+            if (!nested.overrideSorting || nested.sortingOrder != ShortcutsSortingOrder)
+            {
+                nested.overrideSorting = true;
+                nested.sortingOrder = ShortcutsSortingOrder;
+            }
+
+            return;
+        }
+
+        if (nested != null)
+        {
+            GraphicRaycaster raycaster = shortcutGroup.GetComponent<GraphicRaycaster>();
+
+            if (raycaster != null)
+                Destroy(raycaster);
+
+            Destroy(nested);
+        }
+    }
+
+
     private static readonly Color PanelColor = new Color(0.050f, 0.062f, 0.100f, 0.97f);
     private static readonly Color RowColor = new Color(0.095f, 0.118f, 0.185f, 1f);
     private static readonly Color GoldLine = new Color(0.78f, 0.62f, 0.30f, 0.85f);
@@ -134,6 +247,31 @@ public class MapShopController : MonoBehaviour
             closedFrame = Time.frameCount;
 
         isOpen = false;
+    }
+
+    // Botones de acceso rapido del HUD (Tienda e Inventario): sin nada abierto abren esa vista; con una vista
+    // abierta cambian a la otra sin cerrar el velo; con la misma vista ya abierta la cierran.
+    public void Toggle(bool asShop)
+    {
+        if (!CanOpen())
+            return;
+
+        if (!isOpen)
+        {
+            Open(asShop);
+            return;
+        }
+
+        if (shopMode == asShop)
+        {
+            Close();
+            return;
+        }
+
+        shopMode = asShop;
+        message = "";
+        invSelected = -1;
+        windowProgress = 0f;   // la nueva ventana aparece con el mismo fundido; el velo se queda como esta
     }
 
     public void SelectProduct(int index)
@@ -274,9 +412,26 @@ public class MapShopController : MonoBehaviour
             return;
 
         bool open = isOpen && CanOpen();
-        bool showShopWindow = open && shopMode && shopWindow != null;
-        bool showInventory = open && !shopMode && inventoryWindow != null;
-        bool showPanel = open && !showShopWindow && !showInventory;
+        bool wantShopWindow = open && shopMode && shopWindow != null;
+        bool wantInventory = open && !shopMode && inventoryWindow != null;
+        bool wantPanel = open && !wantShopWindow && !wantInventory;
+
+        if (open)
+            lastKind = wantShopWindow ? 1 : (wantInventory ? 2 : 3);
+
+        // Progreso de la animacion: sube al abrir y baja al cerrar. Mientras baja se sigue dibujando la
+        // ultima ventana abierta; al llegar a 0 se oculta todo.
+        float step = Time.unscaledDeltaTime / OpenAnimationSeconds;
+        openProgress = Mathf.MoveTowards(openProgress, open ? 1f : 0f, step);
+        windowProgress = Mathf.MoveTowards(windowProgress, open ? 1f : 0f, step);
+        bool visible = open || openProgress > 0f;
+        bool windowVisible = open || windowProgress > 0f;
+        float veilEased = openProgress * openProgress * (3f - 2f * openProgress);
+        float eased = windowProgress * windowProgress * (3f - 2f * windowProgress);
+
+        bool showShopWindow = windowVisible && lastKind == 1 && shopWindow != null;
+        bool showInventory = windowVisible && lastKind == 2 && inventoryWindow != null;
+        bool showPanel = windowVisible && lastKind == 3;
 
         if (panel.activeSelf != showPanel)
             panel.SetActive(showPanel);
@@ -287,11 +442,33 @@ public class MapShopController : MonoBehaviour
         if (inventoryWindow != null && inventoryWindow.activeSelf != showInventory)
             inventoryWindow.SetActive(showInventory);
 
-        if (veil != null && veil.activeSelf != open)
-            veil.SetActive(open);
+        if (veil != null && veil.activeSelf != visible)
+            veil.SetActive(visible);
+
+        if (veil != null)
+        {
+            CanvasGroup veilCg = GroupOf(veil, ref veilGroup);
+
+            if (veilCg != null)
+                veilCg.alpha = veilEased;
+        }
+
+        // Los atajos Inventario y Tienda del HUD quedan por encima del velo mientras la ventana esta visible.
+        SetShortcutsOnTop(visible);
+
+        // Los clics solo llegan a la ventana cuando esta abierta del todo (no mientras se cierra).
+        if (showShopWindow)
+            ApplyWindowAnimation(shopWindow, GroupOf(shopWindow, ref shopGroup), eased, open);
+
+        if (showInventory)
+            ApplyWindowAnimation(inventoryWindow, GroupOf(inventoryWindow, ref inventoryGroup), eased, open);
 
         if (!open)
             return;
+
+        // Desde aqui, solo la ventana que se quiere ver ahora (puede ser distinta de la que se cierra).
+        showShopWindow = wantShopWindow;
+        showInventory = wantInventory;
 
         if (showShopWindow)
         {
@@ -459,9 +636,9 @@ public class MapShopController : MonoBehaviour
             // seleccionada. Sin resplandor ni escala.
             if (productRowImages[i] != null)
             {
-                productRowImages[i].color = selected ? new Color(0.831f, 0.686f, 0.416f, 1f)
+                SetBorderColor(productRowImages[i], selected ? new Color(0.831f, 0.686f, 0.416f, 1f)
                     : hovered ? new Color(0.62f, 0.52f, 0.34f, 1f)
-                    : new Color(0.239f, 0.290f, 0.361f, 1f);
+                    : new Color(0.239f, 0.290f, 0.361f, 1f));
             }
 
             if (cardHoverFrame != null && i < cardHoverFrame.Length && cardHoverFrame[i] != null && cardHoverFrame[i].activeSelf != showHover)
@@ -990,7 +1167,8 @@ public class MapShopController : MonoBehaviour
         float leftX = -(WinW - 58f) * 0.5f + SideMargin + leftW * 0.5f;
         float rightX = leftX + leftW * 0.5f + PanelGap + rightW * 0.5f;
 
-        ShopImage(ShopRect("PanelCuadricula", window, new Vector2(leftX, panelCenterY), new Vector2(leftW, panelH)), windowSprite, 7f, Color.white, false);
+        // Panel de la cuadricula sin marco dorado (la imagen se crea desactivada; el rectangulo conserva su tamano).
+        ShopImage(ShopRect("PanelCuadricula", window, new Vector2(leftX, panelCenterY), new Vector2(leftW, panelH)), windowSprite, 7f, Color.white, false).enabled = false;
         ShopImage(ShopRect("PanelDetalle", window, new Vector2(rightX, panelCenterY), new Vector2(rightW, panelH)), windowSprite, 7f, Color.white, false);
 
         // Cuadricula 4 x 3: casillas cuadradas e iguales; marco dorado discreto y seleccion con "hovertienda".
@@ -1197,6 +1375,7 @@ public class MapShopController : MonoBehaviour
         invDetailQuantity = ShopText(qtyBox, "Cantidad", new Vector2(boxW * 0.5f - 20f - 45f, 0f), new Vector2(90f, 36f), "", 26f, ShopIvory, TextAlignmentOptions.Right, bold);
         invDetailQuantity.textWrappingMode = TextWrappingModes.NoWrap;
 
+        FlattenLayeredBorders(window);   // bordes sin capas superpuestas (evita el brillo amarillo al aparecer)
         UnityEditor.EditorUtility.SetDirty(this);
     }
 
@@ -1263,7 +1442,82 @@ public class MapShopController : MonoBehaviour
         Image divider = window.Find("Divisor").GetComponent<Image>();
         divider.color = line;
 
+        FlattenLayeredBorders(window);   // bordes sin capas superpuestas (evita el brillo amarillo al aparecer)
+
         UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    // Los recuadros con borde fino estaban hechos con dos imagenes superpuestas (el borde a tamano completo y el
+    // relleno encima). Con el fundido de apertura el borde asomaba por debajo del relleno y la ventana se veia
+    // "iluminada" de amarillo. Esto convierte cada recuadro: la imagen pasa a ser el relleno y el borde son cuatro
+    // franjas finas sin solapar el interior.
+    public void FlattenBordersInEditor()
+    {
+        int converted = 0;
+
+        if (shopWindow != null)
+            converted += FlattenLayeredBorders(shopWindow.transform);
+
+        if (inventoryWindow != null)
+            converted += FlattenLayeredBorders(inventoryWindow.transform);
+
+        Debug.Log("Bordes planos: " + converted + " recuadros convertidos.");
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    private static int FlattenLayeredBorders(Transform root)
+    {
+        int count = 0;
+
+        foreach (Image outer in root.GetComponentsInChildren<Image>(true))
+        {
+            // Los rellenos ya convertidos se destruyen durante el recorrido.
+            if (outer == null)
+                continue;
+
+            Transform fillTransform = outer.transform.Find("Relleno");
+
+            if (fillTransform == null)
+                continue;
+
+            Image fill = fillTransform.GetComponent<Image>();
+
+            if (fill == null)
+                continue;
+
+            RectTransform outerRect = outer.rectTransform;
+            RectTransform fillRect = fill.rectTransform;
+            float width = Mathf.Max(1f, (outerRect.rect.width - fillRect.rect.width) * 0.5f);
+            Color borderColor = outer.color;
+
+            outer.color = fill.color;
+            DestroyImmediate(fillTransform.gameObject);
+
+            string[] names = { "Borde_Sup", "Borde_Inf", "Borde_Izq", "Borde_Der" };
+
+            for (int i = 0; i < 4; i++)
+            {
+                Transform old = outer.transform.Find(names[i]);
+
+                if (old != null)
+                    DestroyImmediate(old.gameObject);
+
+                RectTransform strip = ShopRect(names[i], outer.transform, Vector2.zero, Vector2.zero);
+                bool horizontal = i < 2;
+                strip.anchorMin = horizontal ? new Vector2(0f, i == 0 ? 1f : 0f) : new Vector2(i == 2 ? 0f : 1f, 0f);
+                strip.anchorMax = horizontal ? new Vector2(1f, i == 0 ? 1f : 0f) : new Vector2(i == 2 ? 0f : 1f, 1f);
+                strip.pivot = horizontal ? new Vector2(0.5f, i == 0 ? 1f : 0f) : new Vector2(i == 2 ? 0f : 1f, 0.5f);
+                strip.anchoredPosition = Vector2.zero;
+                strip.sizeDelta = horizontal ? new Vector2(0f, width) : new Vector2(width, -2f * width);
+                Image stripImage = strip.gameObject.AddComponent<Image>();
+                stripImage.color = borderColor;
+                stripImage.raycastTarget = false;
+            }
+
+            count++;
+        }
+
+        return count;
     }
 #endif
 

@@ -331,11 +331,6 @@ public partial class WorldMapController
 
         BuildEventPanel(canvasGo.transform);
 
-        // Ambientacion animada opcional (Paso 63); solo usa los grupos vacios.
-        MapAmbientController ambient = GetComponent<MapAmbientController>();
-        if (ambient != null)
-            ambient.Build(area);
-
         EventSystem existing = null;
         foreach (EventSystem es in FindObjectsByType<EventSystem>())
             if (es.gameObject.scene == gameObject.scene) existing = es;
@@ -578,50 +573,24 @@ public partial class WorldMapController
         }
     }
 
-    // Capas del mundo ilustrado: base > capas (alfa) > atmosfera. Cada
-    // una es una Image a pantalla completa del lienzo 16:9, asi que
-    // sustituir un sprite no exige tocar nada mas.
-    // Franja de textura estirada entre dos esquinas (coordenadas de MapArea).
-    private static void EdgeStrip(string name, Transform parent, Texture2D tex, Rect uv, Vector2 min, Vector2 max, Color tint)
-    {
-        GameObject go = new GameObject(name, typeof(RectTransform), typeof(RawImage));
-        go.transform.SetParent(parent, false);
-        RectTransform rect = (RectTransform)go.transform;
-        rect.anchorMin = rect.anchorMax = Vector2.zero;
-        rect.pivot = Vector2.zero;
-        rect.anchoredPosition = min;
-        rect.sizeDelta = max - min;
-        RawImage raw = go.GetComponent<RawImage>();
-        raw.texture = tex;
-        raw.uvRect = uv;
-        raw.color = tint;
-        raw.raycastTarget = false;
-    }
-
+    // Capas del mundo ilustrado: base > capas (alfa) > atmosfera. Las capas
+    // extra son Images a pantalla completa del lienzo 16:9.
     // Jerarquia bajo MapArea (de atras hacia delante): FondoBase,
-    // NubesAnimadas, NieblaAmbiental, EfectosRegionales (estas tres vacias,
-    // reservadas para el Paso 63), NieblaBloqueo, MarcadoresInteractivos y
-    // PanelesUI (las dos ultimas las crean BuildFog / BuildLocations).
+    // NieblaBloqueo, MarcadoresInteractivos y PanelesUI (las dos ultimas las
+    // crean BuildFog / BuildLocations).
     private void BuildIllustratedWorld(RectTransform area)
     {
         Transform baseGroup = Group("FondoBase", area);
 
-        // La ilustracion es 16:9: llena el lienzo sin deformarse.
-        Box("MundoBase", Group("Mundo", baseGroup), Vector2.zero, Vector2.one, Color.white, art.worldBase);
-
-        // Pantallas mas anchas o altas que 16:9: copias espejadas y algo
-        // atenuadas alrededor, continuas con el borde y sin franjas vacias.
-        // Pantallas mas anchas o altas que 16:9: se prolonga el borde de la
-        // ilustracion (una franja fina estirada y atenuada), sin repetir
-        // carteles ni edificios y sin franjas vacias.
-        Transform edges = Group("MundoBordes", baseGroup);
-        Texture2D tex = art.worldBase.texture;
-        const float strip = 0.012f;
-        Color edgeTint = new Color(0.30f, 0.30f, 0.34f, 1f);
-        EdgeStrip("BordeIzquierdo", edges, tex, new Rect(0f, 0f, strip, 1f), new Vector2(-1400f, 0f), new Vector2(0f, 1080f), edgeTint);
-        EdgeStrip("BordeDerecho", edges, tex, new Rect(1f - strip, 0f, strip, 1f), new Vector2(1920f, 0f), new Vector2(3320f, 1080f), edgeTint);
-        EdgeStrip("BordeInferior", edges, tex, new Rect(0f, 0f, 1f, strip * 1.8f), new Vector2(0f, -540f), new Vector2(1920f, 0f), edgeTint);
-        EdgeStrip("BordeSuperior", edges, tex, new Rect(0f, 1f - strip * 1.8f, 1f, strip * 1.8f), new Vector2(0f, 1080f), new Vector2(1920f, 1620f), edgeTint);
+        // La ilustracion conserva su proporcion: se ajusta a la altura del lienzo
+        // (sin recortar ni estirar) y queda centrada; lo que sobra a los lados
+        // lo cubre el fondo oscuro general.
+        Rect spriteRect = art.worldBase.rect;
+        float mapWidth = 1080f * spriteRect.width / spriteRect.height;
+        RectTransform world = Box("MundoBase", Group("Mundo", baseGroup), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Color.white, art.worldBase);
+        world.sizeDelta = new Vector2(mapWidth, 1080f);
+        world.anchoredPosition = Vector2.zero;
+        world.GetComponent<Image>().preserveAspect = true;
 
         Transform layers = Group("MundoCapas", baseGroup);
         if (art.worldLayers != null)
@@ -634,10 +603,6 @@ public partial class WorldMapController
             for (int i = 0; i < art.atmosphereLayers.Length; i++)
                 if (art.atmosphereLayers[i] != null)
                     Box("Atmosfera_" + i + "_" + art.atmosphereLayers[i].name, atmosphere, Vector2.zero, Vector2.one, Color.white, art.atmosphereLayers[i]);
-
-        Group("NubesAnimadas", area);
-        Group("NieblaAmbiental", area);
-        Group("EfectosRegionales", area);
     }
 
     private void Tree(Transform g, Vector2 p, float s, Color crown)

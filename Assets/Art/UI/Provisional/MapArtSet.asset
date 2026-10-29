@@ -22,7 +22,7 @@ MonoBehaviour:
   frame: {fileID: 21300000, guid: fca3a57ea1d2d2b47a1cc56a3f145c1f, type: 3}
   gradient: {fileID: 21300000, guid: 3d28f01af59b44648a17e05f01bf67ea, type: 3}
   dash: {fileID: 21300000, guid: 4f15df3c4b570d84680a4a5e5bb8321e, type: 3}
-  worldBase: {fileID: 21300000, guid: d52b5c33966d9dd4d9484173c10372d9, type: 3}
+  worldBase: {fileID: 21300000, guid: 38df0597af1bd7b43a2cdcb87c1ba199, type: 3}
   worldLayers: []
   atmosphereLayers: []
   fogLockForest: {fileID: 0}

@@ -286,7 +286,7 @@ public partial class WorldMapController : MonoBehaviour
             return;
 
         confirmMenu = false;
-        shop.Open(asShop);
+        shop.Toggle(asShop);   // abre, cambia entre tienda e inventario o cierra si ya estaba esa vista
     }
 
     // Comprueba y deja listo el inicio del encuentro seleccionado

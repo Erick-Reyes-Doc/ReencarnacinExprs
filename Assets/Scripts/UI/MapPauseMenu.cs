@@ -63,15 +63,15 @@ public class MapPauseMenu : MonoBehaviour
 
     // Tamano de la ventana: compacta para la Pausa (4 botones) y la del menu principal para las
     // paginas con mas contenido. El titulo y la linea divisoria siguen al borde superior.
-    private static readonly Vector2 PauseWindowSize = new Vector2(902f, 720f);
+    private static readonly Vector2 PauseWindowSize = new Vector2(902f, 952f);   // las cuatro vistas comparten el mismo tamano
     private static readonly Vector2 FullWindowSize = new Vector2(902f, 952f);
     private static readonly Vector2 HelpWindowSize = new Vector2(902f, 952f);
     private const float HelpContentWidth = 700f; // ~60 px de margen entre el texto y el borde interior del marco
-    private const float HelpBlockSpacing = 24f;  // separacion vertical uniforme entre las cuatro filas
+    private const float HelpBlockSpacing = 12f;  // separacion vertical uniforme entre las cuatro filas (mas aire sobre VOLVER)
     private const float HelpIconSize = 64f;      // icono de cada apartado (caja 64 x 64, proporcion original)
     private const float HelpIconGap = 18f;       // hueco entre el icono y el texto
     private const float HelpCloseSize = 48f;     // boton X (UI_Cerrar), igual en todos los paneles
-    private const float PauseTitleLift = 35f;    // el titulo PAUSA y su divisor suben 35 px
+    private const float PauseTitleLift = 0f;     // el titulo y su divisor van en el mismo lugar en las cuatro vistas
 
     private PauseState state = PauseState.Closed;
     private Coroutine currentAnimation;
@@ -416,6 +416,8 @@ public class MapPauseMenu : MonoBehaviour
     private const float ButtonWidth = 464f;
     private const float ButtonHeight = 156f;
     private const float ButtonPitch = 97f;       // 71 de alto visible + 26 de hueco
+    private const float PausePitch = 127f;       // Pausa: 71 de alto visible + 56 de hueco
+    private const float PauseListY = -105f;     // bloque de botones centrado entre el divisor y el borde inferior
     private const float VeilOpacity = 0.85f;     // opacidad del fondo oscuro (#10151E); el menu principal usa 0.96
 
     private BuildSprites sp;
@@ -467,10 +469,10 @@ public class MapPauseMenu : MonoBehaviour
         RectTransform list = Rect("Botones", pause, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         // Bloque visible de 362 px (4 x 71 + 3 x 26): arriba en y ~105 (20 px mas alto que antes),
         // ~49 px bajo la linea divisoria (y 154) y ~72 px sobre el borde inferior visible (~y -329).
-        list.anchoredPosition = new Vector2(0f, -76f);
-        list.sizeDelta = new Vector2(ButtonWidth, 4f * ButtonHeight - 3f * (ButtonHeight - ButtonPitch));
+        list.anchoredPosition = new Vector2(0f, PauseListY);
+        list.sizeDelta = new Vector2(ButtonWidth, 4f * ButtonHeight - 3f * (ButtonHeight - PausePitch));
         VerticalLayoutGroup stack = list.gameObject.AddComponent<VerticalLayoutGroup>();
-        stack.spacing = ButtonPitch - ButtonHeight;
+        stack.spacing = PausePitch - ButtonHeight;
         stack.childAlignment = TextAnchor.MiddleCenter;
         stack.childControlWidth = stack.childControlHeight = true;
         stack.childForceExpandWidth = stack.childForceExpandHeight = false;
@@ -478,7 +480,7 @@ public class MapPauseMenu : MonoBehaviour
         Button resume = MenuButton("BotonRegresar", "REGRESAR AL JUEGO", list, true);
         Button help = MenuButton("BotonAyuda", "AYUDA", list, true);
         Button options = MenuButton("BotonOpciones", "OPCIONES", list, true);
-        Button toMenu = MenuButton("BotonVolverMenu", "VOLVER AL MENÚ PRINCIPAL", list, true);
+        Button toMenu = MenuButton("BotonVolverMenu", "MENÚ PRINCIPAL", list, true);
         Wire(resume, menu, nameof(Resume));
         Wire(help, menu, nameof(OpenHelp));
         Wire(options, menu, nameof(OpenOptions));

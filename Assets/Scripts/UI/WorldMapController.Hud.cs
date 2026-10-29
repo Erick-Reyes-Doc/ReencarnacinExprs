@@ -239,7 +239,8 @@ public partial class WorldMapController
         foreach (HudHero hero in hudHeroes)
         {
             RectTransform card = HudRect("Tarjeta_" + hero.displayName, row, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            HudImage(card, hudFrame, Color.white, true, 10f, false);
+            HudImage(card, hudFrame, Color.white, true, 10f, true);   // recibe el cursor para el hover
+            card.gameObject.AddComponent<HoverScale>().HoverFactor = 1.04f;
             LayoutElement size = card.gameObject.AddComponent<LayoutElement>();
             size.preferredWidth = 234f;           // 222 visibles
             size.preferredHeight = 118f;          // 80 visibles, la altura comun de la interfaz
@@ -413,6 +414,7 @@ public partial class WorldMapController
     private static Button HudButton(RectTransform rect, Image target, Sprite hover)
     {
         Button button = rect.gameObject.AddComponent<Button>();
+        rect.gameObject.AddComponent<HoverScale>();   // se agranda un poco al pasar el cursor
         button.targetGraphic = target;
         button.transition = Selectable.Transition.SpriteSwap;
         SpriteState state = new SpriteState

@@ -80,14 +80,15 @@ public partial class WorldMapController
     {
         return new List<MapLocationDef>
         {
-            // Centro de cada cartel del mapa ilustrado (mapa.png, 1672x941).
-            Loc("camp", "Campamento del Alba", MapProgression.Meadow, 0.0957f, 0.7513f, "P1", "P2"),
-            Loc("ruins", "Ruinas de Liria", MapProgression.Meadow, 0.2751f, 0.4251f, "P3", "P4"),
-            Loc("clearing", "Claro del Susurro", MapProgression.Forest, 0.3678f, 0.5866f, "B1"),
-            Loc("shrine", "Santuario Velado", MapProgression.Forest, 0.5096f, 0.4421f, GameSession.NoelleEventId),
-            Loc("trail", "Sendero Sombrío", MapProgression.Forest, 0.6776f, 0.4931f, "B2", "B3"),
-            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.8523f, 0.5494f, "C1", "C2"),
-            Loc("gate", "Trono Sellado", MapProgression.Corruption, 0.9150f, 0.2040f, BossId),
+            // Posicion sobre el mapa ilustrado (Map.png, 1672x941 = 16:9), que se
+            // muestra ajustado al lienzo 16:9. La x es el centro del contenedor (el distintivo va 112 px a la derecha).
+            Loc("camp", "Campamento del Alba", MapProgression.Meadow, 0.0927f, 0.6110f, "P1", "P2"),
+            Loc("ruins", "Ruinas de Liria", MapProgression.Meadow, 0.1135f, 0.8060f, "P3", "P4"),
+            Loc("clearing", "Claro del Susurro", MapProgression.Forest, 0.5615f, 0.8330f, "B1"),
+            Loc("shrine", "Santuario Velado", MapProgression.Forest, 0.8453f, 0.7180f, GameSession.NoelleEventId),
+            Loc("trail", "Sendero Sombrío", MapProgression.Forest, 0.6813f, 0.5690f, "B2", "B3"),
+            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.7438f, 0.5000f, "C1", "C2"),
+            Loc("gate", "Trono Sellado", MapProgression.Corruption, 0.8583f, 0.2220f, BossId),
         };
     }
 
@@ -318,16 +319,26 @@ public partial class WorldMapController
         RefreshPlacePanel();
     }
 
+    // Solo afecta al aspecto: el bloqueo de regiones lo decide MapProgression.
+    [Tooltip("Dibuja la niebla sobre las regiones bloqueadas. Apagado: el mapa se ve limpio y el bloqueo sigue funcionando igual.")]
+    [SerializeField] private bool showLockFog = false;
+
     private void UpdateFog()
     {
         FadeFog(fogForest, MapProgression.IsZoneUnlocked(MapProgression.Forest) ? 0f : 1f);
         FadeFog(fogCorruption, MapProgression.IsZoneUnlocked(MapProgression.Corruption) ? 0f : 1f);
     }
 
-    private static void FadeFog(CanvasGroup group, float target)
+    private void FadeFog(CanvasGroup group, float target)
     {
         if (group == null)
             return;
+
+        if (!showLockFog)
+        {
+            group.alpha = 0f;
+            return;
+        }
 
         group.alpha = Application.isPlaying
             ? Mathf.MoveTowards(group.alpha, target, Time.unscaledDeltaTime * 1.2f)
@@ -688,17 +699,17 @@ public partial class WorldMapController
         fogForest = FogGroup("Niebla_Bosque", parent, art != null ? art.fogLockForest : null,
             new Color(0.46f, 0.60f, 0.66f, 0.40f), new[]
             {
-                new[] { 760f, 270f, 760f, 460f, 1f }, new[] { 880f, 650f, 800f, 520f, 1f }, new[] { 980f, 900f, 760f, 420f, 0.9f },
-                new[] { 1040f, 430f, 860f, 560f, 1f }, new[] { 1150f, 720f, 800f, 500f, 1f }, new[] { 1230f, 300f, 700f, 460f, 0.9f },
-                new[] { 940f, 130f, 760f, 380f, 0.9f }, new[] { 1170f, 960f, 660f, 380f, 0.8f }
+                new[] { 1150f, 420f, 700f, 460f, 1f }, new[] { 1350f, 250f, 700f, 460f, 1f }, new[] { 1470f, 380f, 640f, 440f, 1f },
+                new[] { 1250f, 100f, 700f, 400f, 0.9f }, new[] { 1470f, 120f, 640f, 380f, 0.9f }, new[] { 1050f, 300f, 560f, 400f, 0.8f },
+                new[] { 1300f, 560f, 600f, 380f, 0.8f }, new[] { 1530f, 260f, 520f, 420f, 0.8f }
             });
 
         fogCorruption = FogGroup("Niebla_Corrupcion", parent, art != null ? art.fogLockCorruption : null,
             new Color(0.24f, 0.15f, 0.34f, 0.50f), new[]
             {
-                new[] { 1440f, 320f, 800f, 480f, 1f }, new[] { 1600f, 640f, 860f, 540f, 1f }, new[] { 1740f, 900f, 780f, 440f, 0.9f },
-                new[] { 1790f, 430f, 840f, 540f, 1f }, new[] { 1520f, 920f, 720f, 400f, 0.9f }, new[] { 1860f, 210f, 700f, 420f, 0.9f },
-                new[] { 1630f, 150f, 740f, 400f, 0.9f }, new[] { 1420f, 640f, 640f, 420f, 0.8f }
+                new[] { 1470f, 900f, 640f, 420f, 1f }, new[] { 1510f, 760f, 560f, 460f, 1f }, new[] { 1400f, 780f, 560f, 420f, 1f },
+                new[] { 1490f, 600f, 600f, 400f, 0.9f }, new[] { 1450f, 980f, 600f, 380f, 0.9f }, new[] { 1580f, 980f, 420f, 300f, 0.9f },
+                new[] { 1350f, 600f, 500f, 360f, 0.8f }, new[] { 1580f, 620f, 420f, 380f, 0.8f }
             });
     }
 }
