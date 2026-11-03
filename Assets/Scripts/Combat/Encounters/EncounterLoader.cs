@@ -16,6 +16,9 @@ public class EncounterLoader : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private PositionManager positionManager;
 
+    [Tooltip("SpriteRenderer del escenario (detras de las unidades). Recibe el fondo de cada encuentro.")]
+    [SerializeField] private SpriteRenderer backgroundRenderer;
+
     [Tooltip("Padre opcional de los enemigos instanciados.")]
     [SerializeField] private Transform spawnParent;
 
@@ -186,6 +189,7 @@ public class EncounterLoader : MonoBehaviour
         }
 
         Current = data;
+        ApplyBackground(data.background);
 
         Debug.Log(
             "Encuentro cargado: " + data.displayName + " (" +
@@ -194,6 +198,49 @@ public class EncounterLoader : MonoBehaviour
 
         turnManager.StartBattle();
         return true;
+    }
+
+    private float fittedAspect;
+
+    // Muestra el fondo del encuentro ajustado a la camara (cubre todo el encuadre sin deformarse).
+    // Si el encuentro no define fondo se conserva el actual.
+    private void ApplyBackground(Sprite sprite)
+    {
+        if (backgroundRenderer == null || sprite == null)
+            return;
+
+        backgroundRenderer.sprite = sprite;
+        FitBackground();
+    }
+
+    private void LateUpdate()
+    {
+        // Ventana redimensionada: se reajusta al nuevo encuadre.
+        Camera cam = Camera.main;
+
+        if (backgroundRenderer != null && backgroundRenderer.sprite != null &&
+            cam != null && !Mathf.Approximately(cam.aspect, fittedAspect))
+        {
+            FitBackground();
+        }
+    }
+
+    private void FitBackground()
+    {
+        Camera cam = Camera.main;
+
+        if (cam == null || !cam.orthographic)
+            return;
+
+        fittedAspect = cam.aspect;
+        Vector2 size = backgroundRenderer.sprite.bounds.size;
+        float viewH = cam.orthographicSize * 2f;
+        float viewW = viewH * cam.aspect;
+        float scale = Mathf.Max(viewW / size.x, viewH / size.y);
+
+        Transform t = backgroundRenderer.transform;
+        t.localScale = new Vector3(scale, scale, 1f);
+        t.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 5f);
     }
 
     // Quita los enemigos actuales: los instanciados por este cargador se

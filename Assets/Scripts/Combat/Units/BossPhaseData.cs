@@ -28,6 +28,9 @@ public class BossPhaseData : ScriptableObject
 
         [Tooltip("Puntos (normalmente negativos) a las habilidades solo defensivas sobre si mismo.")]
         public float selfSupportAdjust = 0f;
+
+        [Tooltip("Puntos extra al ataque de area inmediato (Ultima Orden) durante esta fase.")]
+        public float ultimateBias = 0f;
     }
 
     [Serializable]

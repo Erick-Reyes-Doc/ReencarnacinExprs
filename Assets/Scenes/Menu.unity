@@ -1165,7 +1165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 30023e663261a244cbb19701093754dc, type: 3}
+  m_Sprite: {fileID: -6695950386315148514, guid: bfa1d249898422c4985df86f41c23db2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1914,6 +1914,7 @@ GameObject:
   - component: {fileID: 1010838508}
   - component: {fileID: 1010838511}
   - component: {fileID: 1010838512}
+  - component: {fileID: 1010838513}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2074,6 +2075,20 @@ MonoBehaviour:
   m_LayoutPriority: 1
   m_MaxWidth: -1
   m_MaxHeight: -1
+--- !u!114 &1010838513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010838506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84cac4841d6f444488aa222d34adaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverScale
+  hoverScale: 1.08
+  speed: 14
 --- !u!1 &1061754655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2276,7 @@ GameObject:
   - component: {fileID: 1156193559}
   - component: {fileID: 1156193558}
   - component: {fileID: 1156193562}
+  - component: {fileID: 1156193563}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -2421,6 +2437,20 @@ MonoBehaviour:
   normalColor: {r: 0.9098039, g: 0.8627451, b: 0.7764706, a: 1}
   highlightedColor: {r: 0.83137256, g: 0.6862745, b: 0.41568628, a: 1}
   disabledColor: {r: 0.33333334, g: 0.34901962, b: 0.39607844, a: 1}
+--- !u!114 &1156193563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156193556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84cac4841d6f444488aa222d34adaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverScale
+  hoverScale: 1.08
+  speed: 14
 --- !u!1 &1192904233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,6 +2574,7 @@ GameObject:
   - component: {fileID: 1285547943}
   - component: {fileID: 1285547942}
   - component: {fileID: 1285547941}
+  - component: {fileID: 1285547944}
   m_Layer: 0
   m_Name: BotonCerrar
   m_TagString: Untagged
@@ -2664,6 +2695,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285547939}
   m_CullTransparentMesh: 1
+--- !u!114 &1285547944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285547939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84cac4841d6f444488aa222d34adaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverScale
+  hoverScale: 1.08
+  speed: 14
 --- !u!1 &1310442985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,6 +2798,7 @@ GameObject:
   - component: {fileID: 1462888835}
   - component: {fileID: 1462888834}
   - component: {fileID: 1462888838}
+  - component: {fileID: 1462888839}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -2913,6 +2959,20 @@ MonoBehaviour:
   normalColor: {r: 0.9098039, g: 0.8627451, b: 0.7764706, a: 1}
   highlightedColor: {r: 0.83137256, g: 0.6862745, b: 0.41568628, a: 1}
   disabledColor: {r: 0.33333334, g: 0.34901962, b: 0.39607844, a: 1}
+--- !u!114 &1462888839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462888832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84cac4841d6f444488aa222d34adaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverScale
+  hoverScale: 1.08
+  speed: 14
 --- !u!1 &1463740334
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,6 +3431,7 @@ GameObject:
   - component: {fileID: 1612807481}
   - component: {fileID: 1612807480}
   - component: {fileID: 1612807484}
+  - component: {fileID: 1612807485}
   m_Layer: 5
   m_Name: NewGameButton
   m_TagString: Untagged
@@ -3531,6 +3592,20 @@ MonoBehaviour:
   normalColor: {r: 0.9098039, g: 0.8627451, b: 0.7764706, a: 1}
   highlightedColor: {r: 0.83137256, g: 0.6862745, b: 0.41568628, a: 1}
   disabledColor: {r: 0.33333334, g: 0.34901962, b: 0.39607844, a: 1}
+--- !u!114 &1612807485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612807478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84cac4841d6f444488aa222d34adaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverScale
+  hoverScale: 1.08
+  speed: 14
 --- !u!1 &1619841474
 GameObject:
   m_ObjectHideFlags: 0

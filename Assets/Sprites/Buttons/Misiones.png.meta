@@ -1,0 +1,1094 @@
+fileFormatVersion: 2
+guid: 7ac96262df59e1c42af8600b0c695562
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 657912817655277366
+    second: Misiones_0
+  - first:
+      213: 5395439580503085261
+    second: Misiones_1
+  - first:
+      213: 8471077951199975711
+    second: Misiones_2
+  - first:
+      213: -1528199517234561181
+    second: Misiones_3
+  - first:
+      213: -540382116828666916
+    second: Misiones_4
+  - first:
+      213: -5530001130471826012
+    second: Misiones_5
+  - first:
+      213: -7278646831670399093
+    second: Misiones_6
+  - first:
+      213: -7571391930323463857
+    second: Misiones_7
+  - first:
+      213: -4682899697217694508
+    second: Misiones_8
+  - first:
+      213: 8253627171765606517
+    second: Misiones_9
+  - first:
+      213: -2617628264812044748
+    second: Misiones_10
+  - first:
+      213: -7504642705245550970
+    second: Misiones_11
+  - first:
+      213: 4655658025886339118
+    second: Misiones_12
+  - first:
+      213: -7547340841445773680
+    second: Misiones_13
+  - first:
+      213: -1386007013473870275
+    second: Misiones_14
+  - first:
+      213: 6403668666978349821
+    second: Misiones_15
+  - first:
+      213: -8172925030818760747
+    second: Misiones_16
+  - first:
+      213: -7397277448672751144
+    second: Misiones_17
+  - first:
+      213: -5540226448937449597
+    second: Misiones_18
+  - first:
+      213: -8177300864153803677
+    second: Misiones_19
+  - first:
+      213: 1768067000901771984
+    second: Misiones_20
+  - first:
+      213: 904887645927144398
+    second: Misiones_21
+  - first:
+      213: -8958502120114501657
+    second: Misiones_22
+  - first:
+      213: -261876447494737001
+    second: Misiones_23
+  - first:
+      213: 7130034699421056479
+    second: Misiones_24
+  - first:
+      213: -7061168836692214465
+    second: Misiones_25
+  - first:
+      213: 2546956455978431250
+    second: Misiones_26
+  - first:
+      213: 61792016424599718
+    second: Misiones_27
+  - first:
+      213: 3701649825367263048
+    second: Misiones_28
+  - first:
+      213: 3444944041290847472
+    second: Misiones_29
+  - first:
+      213: -2324491693379355120
+    second: Misiones_30
+  - first:
+      213: -756825739803419676
+    second: Misiones_31
+  - first:
+      213: -2359013867741753022
+    second: Misiones_32
+  - first:
+      213: 3976901207243508783
+    second: Misiones_33
+  - first:
+      213: -7245475311953349161
+    second: Misiones_34
+  - first:
+      213: 2299536195970548170
+    second: Misiones_35
+  - first:
+      213: 4460072367205627598
+    second: Misiones_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Misiones_0
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 578
+        width: 54
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 637e48dc830612900800000000000000
+      internalID: 657912817655277366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_1
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 610
+        width: 49
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc018f256b370ea40800000000000000
+      internalID: 5395439580503085261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_2
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 608
+        width: 45
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f191be1d3805f8570800000000000000
+      internalID: 8471077951199975711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_3
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 645
+        width: 15
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f7f45c2aebacae0800000000000000
+      internalID: -1528199517234561181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_4
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 650
+        width: 86
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd3247be35d2088f0800000000000000
+      internalID: -540382116828666916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_5
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 37
+        width: 2078
+        height: 599
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4add7b2654d7143b0800000000000000
+      internalID: -5530001130471826012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 630
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8f63c0454d0dfa90800000000000000
+      internalID: -7278646831670399093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_7
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 610
+        width: 10
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f419fc187230de690800000000000000
+      internalID: -7571391930323463857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_8
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 630
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d41e84598ff20fb0800000000000000
+      internalID: -4682899697217694508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_9
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 626
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 578d991ee26ca8270800000000000000
+      internalID: 8253627171765606517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_10
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 606
+        width: 74
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43e1bd146f05cabd0800000000000000
+      internalID: -2617628264812044748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_11
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 624
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686cc9b88372ad790800000000000000
+      internalID: -7504642705245550970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_12
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 612
+        width: 63
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e20d6acce483c9040800000000000000
+      internalID: 4655658025886339118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_13
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 624
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09ea3d20e75724790800000000000000
+      internalID: -7547340841445773680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_14
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 635
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3e90b1f6f9e3cce0800000000000000
+      internalID: -1386007013473870275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_15
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 602
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df23b8a79b66ed850800000000000000
+      internalID: 6403668666978349821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_16
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 621
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d7362a8cffe39e80800000000000000
+      internalID: -8172925030818760747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_17
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 626
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d15ad65a57975990800000000000000
+      internalID: -7397277448672751144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_18
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 616
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3870cd7e5692d13b0800000000000000
+      internalID: -5540226448937449597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_19
+      rect:
+        serializedVersion: 2
+        x: 1532
+        y: 602
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3642e927034648e80800000000000000
+      internalID: -8177300864153803677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_20
+      rect:
+        serializedVersion: 2
+        x: 1609
+        y: 618
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d227d7d19f698810800000000000000
+      internalID: 1768067000901771984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_21
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 620
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecb7029058ece8c00800000000000000
+      internalID: 904887645927144398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_22
+      rect:
+        serializedVersion: 2
+        x: 1715
+        y: 608
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e7cdf239c10da380800000000000000
+      internalID: -8958502120114501657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_23
+      rect:
+        serializedVersion: 2
+        x: 1923
+        y: 618
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 793f80c22c0ad5cf0800000000000000
+      internalID: -261876447494737001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_24
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 611
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdd733758c8f2f260800000000000000
+      internalID: 7130034699421056479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_25
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 612
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3df6edca50b10e90800000000000000
+      internalID: -7061168836692214465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_26
+      rect:
+        serializedVersion: 2
+        x: 1711
+        y: 614
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2137bf0076b985320800000000000000
+      internalID: 2546956455978431250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_27
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 594
+        width: 29
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a081f4f2878bd000800000000000000
+      internalID: 61792016424599718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_28
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 594
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84707eb67e6ee5330800000000000000
+      internalID: 3701649825367263048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_29
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 597
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f45d3c7a56eecf20800000000000000
+      internalID: 3444944041290847472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_30
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 596
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ef6ccde1fbdbfd0800000000000000
+      internalID: -2324491693379355120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_31
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 591
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eb152edff63f75f0800000000000000
+      internalID: -756825739803419676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_32
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 596
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2415809c269134fd0800000000000000
+      internalID: -2359013867741753022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_33
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 579
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c4294d39ac03730800000000000000
+      internalID: 3976901207243508783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_34
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 586
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d5782a8796e27b90800000000000000
+      internalID: -7245475311953349161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_35
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 146
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac14afc9cf799ef10800000000000000
+      internalID: 2299536195970548170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Misiones_36
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 138
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec6b3dfff2c55ed30800000000000000
+      internalID: 4460072367205627598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Misiones_0: 657912817655277366
+      Misiones_1: 5395439580503085261
+      Misiones_10: -2617628264812044748
+      Misiones_11: -7504642705245550970
+      Misiones_12: 4655658025886339118
+      Misiones_13: -7547340841445773680
+      Misiones_14: -1386007013473870275
+      Misiones_15: 6403668666978349821
+      Misiones_16: -8172925030818760747
+      Misiones_17: -7397277448672751144
+      Misiones_18: -5540226448937449597
+      Misiones_19: -8177300864153803677
+      Misiones_2: 8471077951199975711
+      Misiones_20: 1768067000901771984
+      Misiones_21: 904887645927144398
+      Misiones_22: -8958502120114501657
+      Misiones_23: -261876447494737001
+      Misiones_24: 7130034699421056479
+      Misiones_25: -7061168836692214465
+      Misiones_26: 2546956455978431250
+      Misiones_27: 61792016424599718
+      Misiones_28: 3701649825367263048
+      Misiones_29: 3444944041290847472
+      Misiones_3: -1528199517234561181
+      Misiones_30: -2324491693379355120
+      Misiones_31: -756825739803419676
+      Misiones_32: -2359013867741753022
+      Misiones_33: 3976901207243508783
+      Misiones_34: -7245475311953349161
+      Misiones_35: 2299536195970548170
+      Misiones_36: 4460072367205627598
+      Misiones_4: -540382116828666916
+      Misiones_5: -5530001130471826012
+      Misiones_6: -7278646831670399093
+      Misiones_7: -7571391930323463857
+      Misiones_8: -4682899697217694508
+      Misiones_9: 8253627171765606517
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

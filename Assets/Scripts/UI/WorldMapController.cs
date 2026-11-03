@@ -582,9 +582,14 @@ public partial class WorldMapController : MonoBehaviour
         }
 
         startButton.interactable = canStart && !loading;
-        startButton.targetGraphic.color = canStart ? ButtonColor : ButtonOff;
-        SetText(startButtonLabel,
-            MapProgression.IsEvent(selectedId) ? "Abrir evento" : "Iniciar combate");
+
+        // Con la ventana de misiones el boton lleva su propio estilo (sprite + velo de estado).
+        if (startButtonLabel != null)
+        {
+            startButton.targetGraphic.color = canStart ? ButtonColor : ButtonOff;
+            SetText(startButtonLabel,
+                MapProgression.IsEvent(selectedId) ? "Abrir evento" : "Iniciar combate");
+        }
 
         if (eventPanel != null)
         {
@@ -594,7 +599,9 @@ public partial class WorldMapController : MonoBehaviour
             SetText(eventTitleText, eventTitle);
             SetText(eventBodyText, eventNarrative);
         }
-        startButtonLabel.color = canStart ? TextColor : DimText;
+        if (startButtonLabel != null)
+            startButtonLabel.color = canStart ? TextColor : DimText;
+
         UpdateInfoAccent();
     }
 

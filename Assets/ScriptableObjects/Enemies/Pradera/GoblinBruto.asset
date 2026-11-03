@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoblinBruto
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Goblin Bruto
-  maxHealth: 65
-  attack: 11
+  maxHealth: 80
+  attack: 13
   defense: 4
   speed: 5
   isBoss: 0

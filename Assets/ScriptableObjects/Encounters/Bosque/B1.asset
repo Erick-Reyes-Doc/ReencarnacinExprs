@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: 'Bosque 1: Dos lobos'
   zone: 1
   mandatory: 1
+  background: {fileID: -8818737071433974374, guid: 201333f184e53414990f172909876141, type: 3}
   enemies:
   - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
     position: 1

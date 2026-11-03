@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Evanora
   maxHealth: 55
-  attack: 19
+  attack: 14
   defense: 2
   speed: 11
   isBoss: 0

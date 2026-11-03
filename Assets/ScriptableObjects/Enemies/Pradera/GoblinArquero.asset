@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoblinArquero
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Goblin Arquero
-  maxHealth: 35
-  attack: 10
+  maxHealth: 45
+  attack: 11
   defense: 1
   speed: 10
   isBoss: 0

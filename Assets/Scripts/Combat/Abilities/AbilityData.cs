@@ -11,7 +11,7 @@ public class AbilityStatusEffect
 {
     public StatusEffectType type = StatusEffectType.Bleeding;
 
-    [Tooltip("Valor base. Para Marca, Debilitamiento y Vulnerabilidad es un porcentaje (20 = 20%).")]
+    [Tooltip("Valor base. Para Debilitamiento y Vulnerabilidad es un porcentaje (20 = 20%). La Marca no usa la potencia (siempre x2 al siguiente ataque directo).")]
     [Min(0)] public int potency = 1;
 
     [Min(1)] public int duration = 1;
@@ -197,6 +197,28 @@ public class AbilityData : ScriptableObject
 
     [Tooltip("Si es true, los estados no se aplican cuando el golpe es esquivado.")]
     public bool statusesRequireHit = true;
+
+    [Header("Bonos condicionales de dano directo")]
+    [Tooltip("Puntos porcentuales extra de probabilidad critica, solo para esta habilidad.")]
+    [Range(0f, 100f)] public float criticalChanceBonus = 0f;
+
+    [Tooltip("Si el objetivo tiene este estado, el dano directo de esta habilidad se multiplica por (1 + bonus). Una sola vez por golpe; no afecta al dano periodico. None = sin bono.")]
+    public StatusEffectType bonusIfTargetHas = StatusEffectType.None;
+
+    [Tooltip("Porcentaje de dano directo extra cuando se cumple el estado anterior (20 = +20 %).")]
+    [Range(0f, 200f)] public float bonusDamagePercent = 0f;
+
+    // Multiplicador de dano directo de esta habilidad contra un objetivo (1 si no aplica).
+    public float DamageMultiplierAgainst(BattleUnit target)
+    {
+        if (bonusIfTargetHas == StatusEffectType.None || bonusDamagePercent <= 0f || target == null)
+            return 1f;
+
+        StatusEffectController effects = target.GetComponent<StatusEffectController>();
+        return effects != null && effects.HasEffect(bonusIfTargetHas)
+            ? 1f + bonusDamagePercent / 100f
+            : 1f;
+    }
 
     [Header("Movimiento del usuario")]
     [Tooltip("Mueve al usuario una posicion tras la accion (una sola accion).")]

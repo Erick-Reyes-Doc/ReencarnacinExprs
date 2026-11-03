@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ValerianProgression
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProgressionData
   healthPerLevel: 8
-  attackPerLevel: 2
+  attackPerLevel: 1
   defensePerLevel: 1
   speedIncrease: 1
   speedEveryLevels: 4

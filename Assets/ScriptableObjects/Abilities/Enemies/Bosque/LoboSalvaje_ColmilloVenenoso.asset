@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Puede envenenar.
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
   basePower: 1
   canCritical: 1
@@ -29,16 +30,20 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
   - type: 8
     potency: 3
     duration: 2
-    chance: 35
+    chance: 50
     potencyPerLevel: 0
     durationPerLevel: 0

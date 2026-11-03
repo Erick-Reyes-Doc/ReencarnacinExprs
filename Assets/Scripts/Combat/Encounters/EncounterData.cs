@@ -41,6 +41,10 @@ public class EncounterData : ScriptableObject
     [Tooltip("Encuentro obligatorio de la historia.")]
     public bool mandatory = true;
 
+    [Header("Escenario")]
+    [Tooltip("Fondo del combate. Todos los encuentros de una misma localizacion comparten el mismo sprite.")]
+    public Sprite background;
+
     [Header("Enemigos")]
     public List<EnemySlot> enemies = new List<EnemySlot>();
 

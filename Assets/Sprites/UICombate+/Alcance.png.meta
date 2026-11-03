@@ -1,0 +1,271 @@
+fileFormatVersion: 2
+guid: b39143675c1cd194d923f722f319d344
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2854748745956728624
+    second: Alcance_0
+  - first:
+      213: 4547897576501831977
+    second: Alcance_1
+  - first:
+      213: -3790931741133757415
+    second: Alcance_2
+  - first:
+      213: 4277463408117463376
+    second: Alcance_3
+  - first:
+      213: 7172612896068398322
+    second: Alcance_4
+  - first:
+      213: -4764780333727694196
+    second: Alcance_5
+  - first:
+      213: 2760319412102938488
+    second: Alcance_6
+  - first:
+      213: 1883251978456888149
+    second: Alcance_7
+  - first:
+      213: 4900199782510714683
+    second: Alcance_8
+  - first:
+      213: -1441168925469365367
+    second: Alcance_9
+  - first:
+      213: -3408773248506966577
+    second: Alcance_10
+  - first:
+      213: 7363826916818089553
+    second: Alcance_11
+  - first:
+      213: -5728620097844687311
+    second: Alcance_12
+  - first:
+      213: 6885990323167280943
+    second: Alcance_13
+  - first:
+      213: 8759716190804478461
+    second: Alcance_14
+  - first:
+      213: -9202421760197511479
+    second: Alcance_15
+  - first:
+      213: -5434345004380848839
+    second: Alcance_16
+  - first:
+      213: -1403411488776561957
+    second: Alcance_17
+  - first:
+      213: -3882851982335239997
+    second: Alcance_18
+  - first:
+      213: -3225094258940147004
+    second: Alcance_19
+  - first:
+      213: -7041183635985113386
+    second: Alcance_20
+  - first:
+      213: -5574329603845506563
+    second: Alcance_21
+  - first:
+      213: 1471543909032459321
+    second: Alcance_22
+  - first:
+      213: 3117601355765864685
+    second: Alcance_23
+  - first:
+      213: -3454289362751510772
+    second: Alcance_24
+  - first:
+      213: 2240502774232703737
+    second: Alcance_25
+  - first:
+      213: -3373987805350129378
+    second: Alcance_26
+  - first:
+      213: -3129803211685784809
+    second: Alcance_27
+  - first:
+      213: -476506435039470892
+    second: Alcance_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alcance
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 370
+        width: 576
+        height: 573
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17dbcfbbc216124f9c9f7da26532d2f
+      internalID: -597456778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 71156975213058744b5f6342acee9e6e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Alcance: -597456778
+      Alcance_0: -2854748745956728624
+      Alcance_1: 4547897576501831977
+      Alcance_10: -3408773248506966577
+      Alcance_11: 7363826916818089553
+      Alcance_12: -5728620097844687311
+      Alcance_13: 6885990323167280943
+      Alcance_14: 8759716190804478461
+      Alcance_15: -9202421760197511479
+      Alcance_16: -5434345004380848839
+      Alcance_17: -1403411488776561957
+      Alcance_18: -3882851982335239997
+      Alcance_19: -3225094258940147004
+      Alcance_2: -3790931741133757415
+      Alcance_20: -7041183635985113386
+      Alcance_21: -5574329603845506563
+      Alcance_22: 1471543909032459321
+      Alcance_23: 3117601355765864685
+      Alcance_24: -3454289362751510772
+      Alcance_25: 2240502774232703737
+      Alcance_26: -3373987805350129378
+      Alcance_27: -3129803211685784809
+      Alcance_28: -476506435039470892
+      Alcance_3: 4277463408117463376
+      Alcance_4: 7172612896068398322
+      Alcance_5: -4764780333727694196
+      Alcance_6: 2760319412102938488
+      Alcance_7: 1883251978456888149
+      Alcance_8: 4900199782510714683
+      Alcance_9: -1441168925469365367
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

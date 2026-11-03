@@ -41,6 +41,9 @@ public partial class WorldMapController
         public Image ring;
         public Text label;
         public MapHoverTarget hover;
+        public Image quest;           // simbolo de mision disponible (medallon)
+        public GameObject nameCard;   // tarjeta con el nombre, visible al pasar el cursor
+        public GameObject locationTag; // etiqueta geografica del lugar (se oculta mientras se ve nameCard)
     }
 
     [SerializeField] private List<LocationView> locationViews = new List<LocationView>();
@@ -81,14 +84,14 @@ public partial class WorldMapController
         return new List<MapLocationDef>
         {
             // Posicion sobre el mapa ilustrado (Map.png, 1672x941 = 16:9), que se
-            // muestra ajustado al lienzo 16:9. La x es el centro del contenedor (el distintivo va 112 px a la derecha).
-            Loc("camp", "Campamento del Alba", MapProgression.Meadow, 0.0927f, 0.6110f, "P1", "P2"),
-            Loc("ruins", "Ruinas de Liria", MapProgression.Meadow, 0.1135f, 0.8060f, "P3", "P4"),
-            Loc("clearing", "Claro del Susurro", MapProgression.Forest, 0.5615f, 0.8330f, "B1"),
-            Loc("shrine", "Santuario Velado", MapProgression.Forest, 0.8453f, 0.7180f, GameSession.NoelleEventId),
-            Loc("trail", "Sendero Sombrío", MapProgression.Forest, 0.6813f, 0.5690f, "B2", "B3"),
-            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.7438f, 0.5000f, "C1", "C2"),
-            Loc("gate", "Trono Sellado", MapProgression.Corruption, 0.8583f, 0.2220f, BossId),
+            // muestra ajustado al lienzo 16:9. Cada posicion es el centro del medallon.
+            Loc("camp", "Campamento del Alba", MapProgression.Meadow, 0.1563f, 0.6065f, "P1", "P2"),
+            Loc("ruins", "Ruinas de Liria", MapProgression.Meadow, 0.1719f, 0.8056f, "P3", "P4"),
+            Loc("clearing", "Claro del Susurro", MapProgression.Forest, 0.6198f, 0.8333f, "B1"),
+            Loc("shrine", "Santuario Velado", MapProgression.Forest, 0.9036f, 0.7176f, GameSession.NoelleEventId),
+            Loc("trail", "Sendero Sombrío", MapProgression.Forest, 0.7396f, 0.5667f, "B2", "B3"),
+            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.8229f, 0.4676f, "C1", "C2"),
+            Loc("gate", "Trono Sellado", MapProgression.Corruption, 0.9167f, 0.2222f, BossId),
         };
     }
 
@@ -189,6 +192,24 @@ public partial class WorldMapController
                 view.hover.entered = () => hoveredLocationId = id;
                 view.hover.exited = () => { if (hoveredLocationId == id) hoveredLocationId = null; };
             }
+
+            if (view.locationTag != null)
+            {
+                Button tagButton = view.locationTag.GetComponent<Button>();
+                MapHoverTarget tagHover = view.locationTag.GetComponent<MapHoverTarget>();
+
+                if (tagButton != null)
+                {
+                    tagButton.onClick.RemoveAllListeners();
+                    tagButton.onClick.AddListener(() => ToggleLocation(id));
+                }
+
+                if (tagHover != null)
+                {
+                    tagHover.entered = () => hoveredLocationId = id;
+                    tagHover.exited = () => { if (hoveredLocationId == id) hoveredLocationId = null; };
+                }
+            }
         }
 
         if (placeCloseButton != null)
@@ -253,6 +274,12 @@ public partial class WorldMapController
             PlaceState state = StateOfLocation(def, recommended);
             bool open = openLocationId == view.id;
             bool hover = hoveredLocationId == view.id;
+
+            if (view.badge != null && view.quest != null)
+            {
+                RefreshMedallion(view, state, evt, open, hover);
+                continue;
+            }
 
             Color body, frame;
             Sprite icon;
@@ -351,8 +378,9 @@ public partial class WorldMapController
 
     private string EncounterTitle(string id)
     {
-        if (id == BossId) return "Jefe";
         if (MapProgression.IsEvent(id)) return eventTitle;
+        string title = MapProgression.TitleOf(id);   // titulos narrativos compartidos con el combate
+        if (title != null) return title;
 
         EncounterData data = FindEncounter(id);
         return data != null ? data.displayName : id;
@@ -368,6 +396,14 @@ public partial class WorldMapController
         if (def == null)
         {
             if (placePanel.gameObject.activeSelf) placePanel.gameObject.SetActive(false);
+            if (missionTitle != null) { SetLocationTagsVisible(true); HideEnemyTooltip(); }
+            return;
+        }
+
+        // Ventana de misiones del mapa ilustrado.
+        if (missionTitle != null)
+        {
+            RefreshMissionWindow(def);
             return;
         }
 
@@ -435,7 +471,7 @@ public partial class WorldMapController
         Vector2 marker = LocationPx(def);
         float gap = (Illustrated ? 140f : 118f) + PlaceW * 0.5f;
         float minX = 20f + PlaceW * 0.5f, maxX = 1900f - PlaceW * 0.5f;
-        float minY = 20f + height * 0.5f, maxY = 1080f - 76f - height * 0.5f;
+        float minY = 130f + height * 0.5f, maxY = 1080f - 76f - height * 0.5f;
         float preferred = marker.x < 960f ? 1f : -1f;
 
         Vector2 best = Vector2.zero;
@@ -498,7 +534,7 @@ public partial class WorldMapController
 
         locationViews.Clear();
 
-        // Marcadores interactivos: capa de cierre + lugares.
+        // Marcadores interactivos: capa de cierre + etiquetas + lugares.
         RectTransform markers = Group("MarcadoresInteractivos", area);
 
         // Capa que cierra el panel al pulsar el paisaje.
@@ -508,7 +544,21 @@ public partial class WorldMapController
         closeLayerButton.targetGraphic = closeLayer.GetComponent<Image>();
         closeLayerButton.transition = Selectable.Transition.None;
 
-        Transform parent = Group("Lugares", markers);
+        // Etiquetas de las ubicaciones ilustradas: encima de la capa de cierre (para recibir el cursor) y debajo de los marcadores.
+        if (Illustrated)
+            BuildLocationLabels(markers);
+
+        BuildLocationMarkers(Group("Lugares", markers));
+        LinkLocationTags(area);
+
+        if (Illustrated)
+            BuildMissionWindow(Group("PanelesUI", area));
+        else
+            BuildPlacePanel(Group("PanelesUI", area));
+    }
+
+    private void BuildLocationMarkers(Transform parent)
+    {
         bool illustrated = Illustrated;
 
         foreach (MapLocationDef def in locations)
@@ -516,6 +566,13 @@ public partial class WorldMapController
             Vector2 p = LocationPx(def);
             bool evt = def.encounterIds.Contains(GameSession.NoelleEventId);
             bool boss = def.encounterIds.Contains(BossId);
+
+            if (illustrated)
+            {
+                locationViews.Add(BuildMedallion(parent, def, p));
+                continue;
+            }
+
             float frameSize = illustrated ? (evt || boss ? 34f : 30f) : (evt ? 58f : boss ? 62f : 50f);
             float bodySize = frameSize - (illustrated ? 6f : 10f);
             Sprite shape = evt ? SpDiamond : boss ? SpHex : SpCircle;
@@ -575,8 +632,6 @@ public partial class WorldMapController
                 ring = ring.GetComponent<Image>(), label = label, hover = hover
             });
         }
-
-        BuildPlacePanel(Group("PanelesUI", area));
     }
 
     private void BuildPlacePanel(RectTransform area)

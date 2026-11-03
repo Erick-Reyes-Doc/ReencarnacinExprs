@@ -333,20 +333,26 @@ public class BattleUnit : MonoBehaviour
             }
         }
 
-        int markPercent = GetStatusPercent(StatusEffectType.Mark);
+        // Marca: el siguiente ataque directo causa x2 sobre el daño ya
+        // calculado (defensa y critico) y la marca se consume al resolverlo.
+        StatusEffectController markStatuses =
+            GetComponent<StatusEffectController>();
 
-        if (markPercent > 0 && damage > 0)
+        if (markStatuses != null && markStatuses.HasEffect(StatusEffectType.Mark))
         {
-            int marked = Mathf.RoundToInt(
-                damage * (100 + markPercent) / 100f
-            );
+            if (damage > 0)
+            {
+                int marked = damage * 2;
 
-            Debug.Log(
-                unitData.unitName + " esta marcado: daño " +
-                damage + " -> " + marked
-            );
+                Debug.Log(
+                    unitData.unitName + " esta marcado: daño " +
+                    damage + " -> " + marked
+                );
 
-            damage = marked;
+                damage = marked;
+            }
+
+            markStatuses.RemoveEffect(StatusEffectType.Mark);
         }
 
         // Un aliado con Guard puede interceptar parte del daño.

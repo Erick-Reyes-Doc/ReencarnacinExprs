@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Ataque pesado.
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
   basePower: 5
   canCritical: 1
@@ -29,10 +30,14 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
   attackWeight: 1
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 6
+  bonusDamagePercent: 20
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects: []

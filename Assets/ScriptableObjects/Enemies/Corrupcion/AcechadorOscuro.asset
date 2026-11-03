@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AcechadorOscuro
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Acechador Oscuro
-  maxHealth: 100
+  maxHealth: 110
   attack: 23
   defense: 5
   speed: 15

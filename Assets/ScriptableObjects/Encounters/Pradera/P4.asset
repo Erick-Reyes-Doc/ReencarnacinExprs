@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: 'Pradera 4: Bruto, goblin y arquero'
   zone: 0
   mandatory: 1
+  background: {fileID: -5865207237392510168, guid: ed26a2918fd66a1488717905bd600d05, type: 3}
   enemies:
   - prefab: {fileID: 7199270583308564036, guid: f6c64e02a025f7943a02cbbe3e0ddc80, type: 3}
     position: 1

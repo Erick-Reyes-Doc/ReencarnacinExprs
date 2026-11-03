@@ -8,6 +8,10 @@ public class HudFrameStyle : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     public Color normalBorder = new Color(0.239f, 0.290f, 0.361f, 1f);
 
+    // Botones con sprites ilustrados (HUD nuevo): sprite normal y de resalte (seleccion o cursor encima).
+    public Sprite normalSprite;
+    public Sprite hoverSprite;
+
     public bool Hovered { get; private set; }
 
     public void OnPointerEnter(PointerEventData eventData)

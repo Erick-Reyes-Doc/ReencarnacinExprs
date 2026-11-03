@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Disparo mas potente.
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
   basePower: 3
   canCritical: 1
@@ -29,10 +30,14 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 10
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects: []

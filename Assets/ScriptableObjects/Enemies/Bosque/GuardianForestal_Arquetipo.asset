@@ -19,4 +19,5 @@ MonoBehaviour:
   specialAbilities:
   - {fileID: 11400000, guid: 4eee1f15c397acc48ab1c897947202ba, type: 2}
   aiStyle: 1
+  behaviors: 8
   actionDelay: 0.6

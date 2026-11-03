@@ -23,6 +23,7 @@ MonoBehaviour:
       markedTargetBonus: 0
       preparedAttackBias: 0
       selfSupportAdjust: 0
+      ultimateBias: 0
   - phaseName: "\xDAltima resistencia"
     hpThresholdPercent: 50
     announcement: "\xAB\xA1No ceder\xE9 este terreno!\xBB El Capit\xE1n entra en \xDAltima resistencia."
@@ -34,3 +35,4 @@ MonoBehaviour:
       markedTargetBonus: 2.5
       preparedAttackBias: 3
       selfSupportAdjust: -3
+      ultimateBias: 5

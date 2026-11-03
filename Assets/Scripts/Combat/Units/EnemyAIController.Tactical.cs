@@ -134,14 +134,15 @@ public partial class EnemyAIController
             DamageCalculator.GetEffectiveDefense(target, ability.defensePenetration)
         );
 
+        // Bono condicional de la habilidad (p. ej. Ataque Letal contra Debilitamiento).
+        damage = Mathf.RoundToInt(damage * ability.DamageMultiplierAgainst(target));
+
         StatusEffectController effects = target.GetComponent<StatusEffectController>();
 
         if (effects != null)
         {
-            int mark = effects.GetPotency(StatusEffectType.Mark);
-
-            if (mark > 0)
-                damage = Mathf.RoundToInt(damage * (100 + mark) / 100f);
+            if (effects.HasEffect(StatusEffectType.Mark))
+                damage *= 2;
         }
 
         int reduction = target.DamageReductionPercent;
@@ -247,7 +248,13 @@ public partial class EnemyAIController
                 ? Mathf.RoundToInt(target.MaxHealth * ability.healPercentMaxHealth / 100f)
                 : ability.basePower;
 
-            return Mathf.Min(amount, missing) + (1f - hp) * 8f + 6f;
+            float healScore = Mathf.Min(amount, missing) + (1f - hp) * 8f + 6f;
+
+            // Chaman: curar aliados con poca vida tiene prioridad.
+            if (HasBehavior(EnemyArchetypeData.AIBehavior.HealWoundedAllies) && hp <= 0.5f)
+                healScore += 8f;
+
+            return healScore;
         }
 
         // --- Apoyo sobre si mismo (p. ej. Corteza / Coraza) ---
@@ -273,6 +280,11 @@ public partial class EnemyAIController
             // Solo jefes con fases (0 para el resto).
             value = BossSupportValue(self, ability, value);
             value += BossSelfSupportAdjust(self);
+            value += BossLowHealthSupportBonus(self);
+
+            // Guardian Forestal: considera Corteza Endurecida con menos del 60 % de vida.
+            if (HasBehavior(EnemyArchetypeData.AIBehavior.SelfBuffWhenHurt) && HealthFraction(self) < 0.6f)
+                value += 8f;
 
             return value;
         }
@@ -322,10 +334,44 @@ public partial class EnemyAIController
                 return Invalid;
         }
 
+        score += ArchetypeAttackAdjust(ability, target);
+
         // Solo jefes (0 para el resto de enemigos).
         score += BossScoreAdjust(self, ability, target, maxAttack);
 
         return score;
+    }
+
+    // ------------------------------------------------------------
+    // Comportamientos por arquetipo (EnemyArchetypeData.behaviors)
+    // ------------------------------------------------------------
+
+    private bool HasBehavior(EnemyArchetypeData.AIBehavior behavior)
+    {
+        return archetype != null && (archetype.behaviors & behavior) != 0;
+    }
+
+    // Puntos extra para un ataque contra un objetivo concreto. Solo suma a la
+    // puntuacion de opciones que BuildOptions ya valido (posicion, alcance, cooldown).
+    private float ArchetypeAttackAdjust(AbilityData ability, BattleUnit target)
+    {
+        if (archetype == null || archetype.behaviors == EnemyArchetypeData.AIBehavior.None)
+            return 0f;
+
+        float bonus = 0f;
+        StatusEffectController effects = target.GetComponent<StatusEffectController>();
+
+        // Bandido: prioriza a los personajes debilitados.
+        if (HasBehavior(EnemyArchetypeData.AIBehavior.PunishWeakened) && ability.dealsDamage &&
+            effects != null && effects.HasEffect(StatusEffectType.Weaken))
+            bonus += 6f;
+
+        // Lobo: prefiere envenenar a quien aun no tiene Veneno.
+        if (HasBehavior(EnemyArchetypeData.AIBehavior.PoisonFresh) && HasStatus(ability, StatusEffectType.Poison) &&
+            (effects == null || !effects.HasEffect(StatusEffectType.Poison)))
+            bonus += 6f;
+
+        return bonus;
     }
 
     // ------------------------------------------------------------

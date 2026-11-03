@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EvanoraProgression
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProgressionData
   healthPerLevel: 4
-  attackPerLevel: 3
+  attackPerLevel: 2
   defensePerLevel: 1
   speedIncrease: 1
   speedEveryLevels: 4

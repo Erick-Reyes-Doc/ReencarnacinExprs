@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GuardianCorrupto
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Guardi\xE1n Corrupto"
-  maxHealth: 180
+  maxHealth: 200
   attack: 22
   defense: 11
   speed: 7

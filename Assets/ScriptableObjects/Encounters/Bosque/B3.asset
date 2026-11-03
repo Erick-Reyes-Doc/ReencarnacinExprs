@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: "Bosque 3: Guardi\xE1n, bandido y cham\xE1n"
   zone: 1
   mandatory: 1
+  background: {fileID: 278151914732041755, guid: c98ffead36dcc6d488092434dd1c65d2, type: 3}
   enemies:
   - prefab: {fileID: 126109078345942815, guid: 1982028764779e54e8017e8edd304c7a, type: 3}
     position: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CorruptoErrante
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Corrupto Errante
-  maxHealth: 130
+  maxHealth: 145
   attack: 20
   defense: 7
   speed: 10

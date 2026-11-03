@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: "Bosque 2: Bandido, lobo y cham\xE1n"
   zone: 1
   mandatory: 1
+  background: {fileID: 278151914732041755, guid: c98ffead36dcc6d488092434dd1c65d2, type: 3}
   enemies:
   - prefab: {fileID: 8290328465484678521, guid: d7ab0af0c8a92a549adba3cc425858e6, type: 3}
     position: 1

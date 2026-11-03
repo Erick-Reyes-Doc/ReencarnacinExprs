@@ -56,6 +56,24 @@ public static class DamageCalculator
         out bool isCritical
     )
     {
+        return CalculateDamage(
+            attacker, target, defensePenetration, power, allowCritical, 0f,
+            out isCritical
+        );
+    }
+
+    // Igual que la anterior con puntos porcentuales extra de critico
+    // (solo para la habilidad que lo pide).
+    public static int CalculateDamage(
+        BattleUnit attacker,
+        BattleUnit target,
+        float defensePenetration,
+        int power,
+        bool allowCritical,
+        float criticalChanceBonus,
+        out bool isCritical
+    )
+    {
         // Calcular el daño base.
         int damage = Mathf.Max(
             1,
@@ -65,7 +83,7 @@ public static class DamageCalculator
 
         // Calcular si el ataque es critico.
         isCritical = allowCritical &&
-            Random.Range(0f, 100f) < attacker.CriticalChance;
+            Random.Range(0f, 100f) < attacker.CriticalChance + criticalChanceBonus;
 
         // Aplicar multiplicador critico.
         if (isCritical)

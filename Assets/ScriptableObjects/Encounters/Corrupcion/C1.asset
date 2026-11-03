@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: "Corrupci\xF3n 1: Errante, acechador y hechicero"
   zone: 2
   mandatory: 1
+  background: {fileID: 3295682893416874519, guid: dcd5f6540aa43e44b9c9c79a9389c318, type: 3}
   enemies:
   - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
     position: 1

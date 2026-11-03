@@ -30,6 +30,9 @@ public class ButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     private const string OverlayName = "EstadoVelo";
 
+    // 1 = hover normal; menos de 1 lo atenua (p. ej. 0,5 = mitad de intensidad).
+    public float hoverStrength = 1f;
+
     private Button button;
     private Image target;
     private Image overlay;
@@ -150,7 +153,7 @@ public class ButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else if (inside && down)
             color = ButtonFeedbackStyle.Pressed;
         else if (inside)
-            color = ButtonFeedbackStyle.Hover;
+            color = new Color(ButtonFeedbackStyle.Hover.r, ButtonFeedbackStyle.Hover.g, ButtonFeedbackStyle.Hover.b, ButtonFeedbackStyle.Hover.a * hoverStrength);
         else
             color = ButtonFeedbackStyle.Clear;
 

@@ -24,6 +24,47 @@ public static class MapProgression
     public const string Forest = "Bosque";
     public const string Corruption = "Corrupcion";
 
+    // Titulos narrativos visibles de los encuentros (mapa y combate). Solo texto de interfaz: los ids no cambian.
+    private static readonly System.Collections.Generic.Dictionary<string, string> Titles =
+        new System.Collections.Generic.Dictionary<string, string>
+    {
+        { "P1", "Un mal día para cobrar" },
+        { "P2", "Flechas en el camino" },
+        { "P3", "Ecos de Liria" },
+        { "P4", "Secretos bajo las ruinas" },
+        { "B1", "Huellas en la espesura" },
+        { "B2", "Susurros en la oscuridad" },
+        { "B3", "La última vigilia" },
+        { "C1", "El aliento del Ocaso" },
+        { "C2", "Donde muere la luz" },
+        { BossId, "La última orden" },
+    };
+
+    // Titulo narrativo del encuentro, o null si no tiene.
+    public static string TitleOf(string encounterId)
+    {
+        return !string.IsNullOrEmpty(encounterId) && Titles.TryGetValue(encounterId, out string title) ? title : null;
+    }
+
+    // Region con su nombre visible (con tilde).
+    public static string ZoneDisplayName(string zone)
+    {
+        return zone == Corruption ? "Corrupción" : zone;
+    }
+
+    // Texto secundario del encuentro: "Pradera · Encuentro 1" ("Corrupción · Jefe final" para el jefe).
+    public static string SubtitleOf(string encounterId)
+    {
+        if (string.IsNullOrEmpty(encounterId))
+            return "";
+
+        string zone = ZoneDisplayName(ZoneOf(encounterId));
+        string detail = encounterId == BossId
+            ? "Jefe final"
+            : "Encuentro " + encounterId.Substring(1);
+        return zone + " · " + detail;
+    }
+
     // Nodos narrativos: no son combates y no dan XP ni Coronas.
     public static bool IsEvent(string id)
     {

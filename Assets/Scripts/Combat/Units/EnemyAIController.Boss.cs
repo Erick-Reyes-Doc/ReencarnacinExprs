@@ -28,6 +28,15 @@ public partial class EnemyAIController
             bonus += MarkBenefit(self, ability, target) + 2f * Threat(target, maxAttack);
         }
 
+        // Objetivo Prioritario prefiere protagonistas vulnerables (con Vulnerabilidad activa).
+        if (HasStatus(ability, StatusEffectType.PriorityTarget) && target.GetComponent<StatusEffectController>() is StatusEffectController targetFx &&
+            targetFx.HasEffect(StatusEffectType.Vulnerability))
+            bonus += 5f;
+
+        // Interrogatorio Implacable (Debilitamiento) prefiere protagonistas de alto ataque.
+        if (HasStatus(ability, StatusEffectType.Weaken) && maxAttack > 0)
+            bonus += 4f * ((float)target.Attack / maxAttack);
+
         // Un objetivo ya marcado por este jefe recibe +20 % de dano directo:
         // se refleja en el valor de los ataques con dano y se le da un pequeno
         // empuje para aprovechar la marca, sin obligar a atacar siempre al
@@ -189,6 +198,15 @@ public partial class EnemyAIController
         return value;
     }
 
+    // Disciplina de Hierro gana prioridad cuando el jefe baja del 60 % de vida.
+    private float BossLowHealthSupportBonus(BattleUnit self)
+    {
+        if (self.Data == null || !self.Data.isBoss)
+            return 0f;
+
+        return HealthFraction(self) < 0.6f ? 6f : 0f;
+    }
+
     // Ajuste de la fase a las habilidades de apoyo sobre si mismo
     // (p. ej. Disciplina de Hierro). 0 fuera de jefes o sin perfil.
     private float BossSelfSupportAdjust(BattleUnit self)
@@ -298,6 +316,8 @@ public partial class EnemyAIController
         {
             AbilityPositionArea area = fire.selectableAreas[i];
 
+            int covered = 0;
+
             foreach (BattleUnit foe in foes)
             {
                 if (!area.Contains(foe.Position))
@@ -306,6 +326,14 @@ public partial class EnemyAIController
                 float damage = BossExpectedDamage(self, foe, fire);
                 areaValues[i] += damage * 0.65f + (damage >= foe.CurrentHealth ? 4f : 0f);
             }
+
+            foreach (BattleUnit foe in foes)
+                if (area.Contains(foe.Position))
+                    covered++;
+
+            // Fuego de Supresion se prioriza cuando el area alcanza a varios protagonistas.
+            if (covered > 1)
+                areaValues[i] += 3f * (covered - 1);
 
             fireBest = Mathf.Max(fireBest, areaValues[i]);
         }
@@ -343,6 +371,10 @@ public partial class EnemyAIController
 
         // Eleccion ponderada entre seguir con las demas habilidades (valor =
         // mejor ataque individual), preparar Fuego y lanzar Ultima Orden.
+        // Ultima Orden gana prioridad en la fase que lo indique (segunda fase).
+        if (ultimateReady && phaseProfile != null)
+            ultimateValue += phaseProfile.ultimateBias;
+
         float reference = Mathf.Max(bestSingle, fireReady ? fireValue : 0f, ultimateReady ? ultimateValue : 0f);
         float wNormal = Mathf.Exp((bestSingle - reference) / 6f);
         float wFire = fireReady ? Mathf.Exp((fireValue - reference) / 6f) : 0f;

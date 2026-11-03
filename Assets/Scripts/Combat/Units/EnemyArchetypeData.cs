@@ -11,6 +11,16 @@ using UnityEngine;
 )]
 public class EnemyArchetypeData : ScriptableObject
 {
+    [System.Flags]
+    public enum AIBehavior
+    {
+        None = 0,
+        HealWoundedAllies = 1,   // Chaman: prioriza curar aliados con poca vida
+        PunishWeakened = 2,      // Bandido: prioriza atacar objetivos con Debilitamiento
+        PoisonFresh = 4,         // Lobo: prefiere envenenar a quien aun no tiene Veneno
+        SelfBuffWhenHurt = 8     // Guardian Forestal: considera su mejora propia bajo el 60 % de vida
+    }
+
     public enum Zone
     {
         Pradera,
@@ -36,6 +46,9 @@ public class EnemyArchetypeData : ScriptableObject
     [Header("IA")]
     public EnemyAIController.AIStyle aiStyle =
         EnemyAIController.AIStyle.Meadow;
+
+    [Tooltip("Comportamientos extra de la IA tactica (se suman a la puntuacion; nunca fuerzan una accion).")]
+    public AIBehavior behaviors = AIBehavior.None;
 
     [Min(0f)] public float actionDelay = 0.6f;
 }

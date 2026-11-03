@@ -20,4 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 795e4600abac4114aa503bb9129a9f36, type: 2}
   - {fileID: 11400000, guid: d78e87648bb631c4790e740981ee2d7e, type: 2}
   aiStyle: 1
+  behaviors: 1
   actionDelay: 0.6

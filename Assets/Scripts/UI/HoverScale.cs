@@ -19,6 +19,9 @@ public class HoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         set { hoverScale = value; }
     }
 
+    // Permite que otro elemento (p. ej. el marcador de un lugar) active el mismo crecimiento sin que el cursor este encima.
+    public bool ExternalHover { get; set; }
+
     private void OnEnable()
     {
         if (!ready)
@@ -28,12 +31,14 @@ public class HoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
 
         hovered = false;
+        ExternalHover = false;
         transform.localScale = baseScale;
     }
 
     private void OnDisable()
     {
         hovered = false;
+        ExternalHover = false;
 
         if (ready)
             transform.localScale = baseScale;
@@ -51,7 +56,7 @@ public class HoverScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void Update()
     {
-        Vector3 target = baseScale * (hovered ? hoverScale : 1f);
+        Vector3 target = baseScale * (hovered || ExternalHover ? hoverScale : 1f);
 
         if ((transform.localScale - target).sqrMagnitude < 0.000001f)
         {

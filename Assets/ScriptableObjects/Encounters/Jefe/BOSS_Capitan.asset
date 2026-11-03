@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: "Capit\xE1n de las Fuerzas Expedicionarias"
   zone: 3
   mandatory: 1
+  background: {fileID: 5444188873556868792, guid: 41b6000cf6bc30641bb247ba591b6c37, type: 3}
   enemies:
   - prefab: {fileID: 5314035158176758356, guid: 72a8eef793f2a95448df4ab33381cc29, type: 3}
     position: 1

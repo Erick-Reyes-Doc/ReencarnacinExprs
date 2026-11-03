@@ -354,6 +354,13 @@ public class AbilitySystem : MonoBehaviour
                 dodged = true;
                 hadEffect = true;
 
+                // Un ataque directo esquivado tambien consume la Marca.
+                StatusEffectController dodgedStatuses =
+                    target.GetComponent<StatusEffectController>();
+
+                if (dodgedStatuses != null)
+                    dodgedStatuses.RemoveEffect(StatusEffectType.Mark);
+
                 Debug.Log(
                     target.Data.unitName + " esquiva " +
                     ability.abilityName + "."
@@ -369,8 +376,19 @@ public class AbilitySystem : MonoBehaviour
                     ability.defensePenetration,
                     ability.basePower,
                     ability.canCritical,
+                    ability.criticalChanceBonus,
                     out bool isCritical
                 );
+
+                // Bono condicional de dano directo (una sola vez por golpe, tras
+                // defensa y critico; el dano periodico no pasa por aqui).
+                float conditional = ability.DamageMultiplierAgainst(target);
+
+                if (conditional > 1f)
+                {
+                    damage = Mathf.RoundToInt(damage * conditional);
+                }
+
 
                 Debug.Log(
                     ability.abilityName +

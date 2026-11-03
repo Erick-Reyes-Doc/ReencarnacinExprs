@@ -10,6 +10,10 @@ public class RegenerationEffect : MonoBehaviour
 
     public bool IsActive => remainingTurns > 0;
 
+    // Solo lectura (la interfaz muestra la curacion y los turnos restantes).
+    public int HealPerTurn => healPerTurn;
+    public int RemainingTurns => remainingTurns;
+
     private void Awake()
     {
         unit = GetComponent<BattleUnit>();

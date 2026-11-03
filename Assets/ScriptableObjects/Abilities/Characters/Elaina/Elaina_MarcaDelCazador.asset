@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elaina_MarcaDelCazador
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Marca del Cazador
-  description: "Marca a un enemigo para que reciba mas da\xF1o directo."
+  description: "Marca a un enemigo: su siguiente ataque directo recibido causa el doble de da\xF1o."
   abilityIcon: {fileID: 0}
   abilityType: 0
   targetType: 0

@@ -16,6 +16,7 @@ MonoBehaviour:
   description: "Da\xF1o con Quemadura."
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
   basePower: 7
   canCritical: 1
@@ -29,6 +30,7 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
   attackWeight: 0
@@ -37,7 +39,7 @@ MonoBehaviour:
   allyProtectionPercent: 0
   statusEffects:
   - type: 5
-    potency: 4
+    potency: 3
     duration: 3
     chance: 100
     potencyPerLevel: 0
