@@ -38,6 +38,10 @@ public class MapPauseMenu : MonoBehaviour
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
 
+    [Header("Uso fuera del mapa (combate)")]
+    [Tooltip("Si es false, la tecla Esc no se atiende aqui: la controla quien reutiliza el menu (el HUD de combate).")]
+    [SerializeField] private bool handleEscapeKey = true;
+
     [Header("Animacion (igual que Opciones del menu principal)")]
     [SerializeField] private float animationDuration = 0.3f;
 
@@ -77,6 +81,13 @@ public class MapPauseMenu : MonoBehaviour
     private Coroutine currentAnimation;
 
     public PauseState State => state;
+
+    // El menu se abre / se cierra (el combate se congela y se reanuda con estos avisos).
+    public event System.Action Opened;
+    public event System.Action Closed;
+
+    // Salida al menu principal alternativa (combate). Sin ella se usa la del mapa (map.ExitToMenu).
+    public System.Func<bool> ExitToMenuHandler { get; set; }
     public bool IsOpen => state != PauseState.Closed;
 
     private void Awake()
@@ -120,7 +131,7 @@ public class MapPauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (handleEscapeKey && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
             HandleEscape();
     }
 
@@ -180,7 +191,9 @@ public class MapPauseMenu : MonoBehaviour
     {
         if (state == PauseState.ConfirmMenu)
         {
-            if (map != null && map.ExitToMenu())
+            bool exited = ExitToMenuHandler != null ? ExitToMenuHandler() : (map != null && map.ExitToMenu());
+
+            if (exited)
                 Show(PauseState.Closed);
         }
         else if (state == PauseState.ConfirmQuit)
@@ -219,7 +232,10 @@ public class MapPauseMenu : MonoBehaviour
         if (next == PauseState.Closed)
         {
             if (wasOpen)
+            {
                 StartAnimation(false);
+                Closed?.Invoke();
+            }
 
             return;
         }
@@ -274,6 +290,7 @@ public class MapPauseMenu : MonoBehaviour
             }
 
             StartAnimation(true);
+            Opened?.Invoke();
         }
     }
 

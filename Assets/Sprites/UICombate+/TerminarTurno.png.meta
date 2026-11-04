@@ -29,6 +29,123 @@ TextureImporter:
   - first:
       213: 6640336929325358318
     second: TerminarTurno_8
+  - first:
+      213: 8641044257920533061
+    second: TerminarTurno_9
+  - first:
+      213: 4810505615205922385
+    second: TerminarTurno_10
+  - first:
+      213: -5888102066797610931
+    second: TerminarTurno_11
+  - first:
+      213: -4728534428189374882
+    second: TerminarTurno_12
+  - first:
+      213: 6735253304317098953
+    second: TerminarTurno_13
+  - first:
+      213: 616813710470370993
+    second: TerminarTurno_14
+  - first:
+      213: 5204872500270106060
+    second: TerminarTurno_15
+  - first:
+      213: 4796706591242891115
+    second: TerminarTurno_16
+  - first:
+      213: 1227547417713542338
+    second: TerminarTurno_17
+  - first:
+      213: -2396639714772493540
+    second: TerminarTurno_18
+  - first:
+      213: 5902234721527799123
+    second: TerminarTurno_19
+  - first:
+      213: 5061442140424054693
+    second: TerminarTurno_20
+  - first:
+      213: 8676792742693262740
+    second: TerminarTurno_21
+  - first:
+      213: 4152105183117592504
+    second: TerminarTurno_22
+  - first:
+      213: 7225594702687397082
+    second: TerminarTurno_23
+  - first:
+      213: -6782236138708608025
+    second: TerminarTurno_24
+  - first:
+      213: 4709179088948087683
+    second: TerminarTurno_25
+  - first:
+      213: 1236797479758184131
+    second: TerminarTurno_26
+  - first:
+      213: -4822739348718269089
+    second: TerminarTurno_27
+  - first:
+      213: -743341117969566458
+    second: TerminarTurno_28
+  - first:
+      213: 6244942032232023368
+    second: TerminarTurno_29
+  - first:
+      213: -8857402422150131005
+    second: TerminarTurno_30
+  - first:
+      213: 9014977512162852252
+    second: TerminarTurno_31
+  - first:
+      213: -1477267214915500578
+    second: TerminarTurno_32
+  - first:
+      213: 4611500404890214087
+    second: TerminarTurno_33
+  - first:
+      213: 2366861207151609512
+    second: TerminarTurno_34
+  - first:
+      213: 2465931371427639070
+    second: TerminarTurno_35
+  - first:
+      213: -6551483002777068666
+    second: TerminarTurno_36
+  - first:
+      213: 9048147436870105736
+    second: TerminarTurno_37
+  - first:
+      213: 1764208621154996865
+    second: TerminarTurno_38
+  - first:
+      213: 403620292086979369
+    second: TerminarTurno_39
+  - first:
+      213: -5216358274289940536
+    second: TerminarTurno_40
+  - first:
+      213: -3645962678512907998
+    second: TerminarTurno_41
+  - first:
+      213: 3754622622946294598
+    second: TerminarTurno_42
+  - first:
+      213: -4776657080629990006
+    second: TerminarTurno_43
+  - first:
+      213: 613295881885906617
+    second: TerminarTurno_44
+  - first:
+      213: 2479526693045316596
+    second: TerminarTurno_45
+  - first:
+      213: -2471711565441726420
+    second: TerminarTurno_46
+  - first:
+      213: -1854112113962102910
+    second: TerminarTurno_47
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -143,9 +260,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 179
-        y: 121
-        width: 1815
-        height: 513
+        y: 176
+        width: 1649
+        height: 442
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 925e9e8e7543a69449e35dba85881a76
-      internalID: 816899758
+      spriteID: 877e02231166be947a662e63b6a0c095
+      internalID: 22508353
       vertices: []
       indices: 
       edges: []
@@ -164,7 +281,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3f156475b3231454ca33559561e79f66
+    spriteID: 85b70ca45ed5a694b906a20dd061d8ca
     internalID: 0
     vertices: []
     indices: 
@@ -174,16 +291,55 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TerminarTurno: 816899758
+      TerminarTurno: 22508353
       TerminarTurno_0: 3139233823776389914
       TerminarTurno_1: 8529450563555049358
+      TerminarTurno_10: 4810505615205922385
+      TerminarTurno_11: -5888102066797610931
+      TerminarTurno_12: -4728534428189374882
+      TerminarTurno_13: 6735253304317098953
+      TerminarTurno_14: 616813710470370993
+      TerminarTurno_15: 5204872500270106060
+      TerminarTurno_16: 4796706591242891115
+      TerminarTurno_17: 1227547417713542338
+      TerminarTurno_18: -2396639714772493540
+      TerminarTurno_19: 5902234721527799123
       TerminarTurno_2: 279713784039998987
+      TerminarTurno_20: 5061442140424054693
+      TerminarTurno_21: 8676792742693262740
+      TerminarTurno_22: 4152105183117592504
+      TerminarTurno_23: 7225594702687397082
+      TerminarTurno_24: -6782236138708608025
+      TerminarTurno_25: 4709179088948087683
+      TerminarTurno_26: 1236797479758184131
+      TerminarTurno_27: -4822739348718269089
+      TerminarTurno_28: -743341117969566458
+      TerminarTurno_29: 6244942032232023368
       TerminarTurno_3: 754456628263467331
+      TerminarTurno_30: -8857402422150131005
+      TerminarTurno_31: 9014977512162852252
+      TerminarTurno_32: -1477267214915500578
+      TerminarTurno_33: 4611500404890214087
+      TerminarTurno_34: 2366861207151609512
+      TerminarTurno_35: 2465931371427639070
+      TerminarTurno_36: -6551483002777068666
+      TerminarTurno_37: 9048147436870105736
+      TerminarTurno_38: 1764208621154996865
+      TerminarTurno_39: 403620292086979369
       TerminarTurno_4: 6197726539680087666
+      TerminarTurno_40: -5216358274289940536
+      TerminarTurno_41: -3645962678512907998
+      TerminarTurno_42: 3754622622946294598
+      TerminarTurno_43: -4776657080629990006
+      TerminarTurno_44: 613295881885906617
+      TerminarTurno_45: 2479526693045316596
+      TerminarTurno_46: -2471711565441726420
+      TerminarTurno_47: -1854112113962102910
       TerminarTurno_5: 7668900163269370192
       TerminarTurno_6: 7736872519255598481
       TerminarTurno_7: 8875656040794169695
       TerminarTurno_8: 6640336929325358318
+      TerminarTurno_9: 8641044257920533061
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

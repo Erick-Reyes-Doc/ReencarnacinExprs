@@ -60,6 +60,18 @@ public class CombatHudController : MonoBehaviour
 
     private bool leavingScene;
 
+    // Pausa del combate: reutiliza el menu de pausa del mapa (MapPauseMenu, prefab MenuPausa) con Continuar y
+    // Menu principal. El escudo del encabezado es el boton que lo abre.
+    [SerializeField] private MapPauseMenu pauseMenu;
+    [SerializeField] private HudFrameStyle shieldHover;
+    [SerializeField] private Button shieldButton;
+    [SerializeField] private Outline shieldGlow;
+    private bool combatFrozen;
+    private float timeScaleBeforePause = 1f;
+
+    private bool paused => pauseMenu != null && pauseMenu.IsOpen;
+    public bool IsPaused => paused;
+
     [SerializeField] private Button[] tileButtons = new Button[SlotCount];
     [SerializeField] private Image[] tileImages = new Image[SlotCount];
     [SerializeField] private Text[] tileTexts = new Text[SlotCount];
@@ -125,6 +137,7 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Sprite consumablesFrameSprite;
     [SerializeField] private Sprite abilitiesFrameSprite;
     [SerializeField] private Sprite infoFrameSprite;
+    [SerializeField] private Text cooldownText;
     [SerializeField] private Sprite abilityNormalSprite;
     [SerializeField] private Sprite abilityHoverSprite;
     [SerializeField] private Sprite moveSprite;
@@ -162,6 +175,11 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private RectTransform statusTip;
     [SerializeField] private Text statusTipText;
     private int statusTipSlot = -1;
+
+    [SerializeField] private Sprite allyFrameSprite;
+    [SerializeField] private RectTransform[] allyFrames = new RectTransform[4];
+    private readonly List<BattleUnit> allyBenefitTargets = new List<BattleUnit>();
+    private bool allyBenefitGroup;   // true: habilidad grupal (un solo tramo continuo); false: un indicador por objetivo
 
     [SerializeField] private Sprite targetFrameSprite;
     [SerializeField] private Sprite skullSprite;
@@ -419,6 +437,7 @@ public class CombatHudController : MonoBehaviour
         ApplyFont();
         CacheUnits();
         WireButtons();
+        ConnectPauseMenu();
     }
 
     private void OnEnable()
@@ -433,6 +452,7 @@ public class CombatHudController : MonoBehaviour
         Application.logMessageReceived -= OnLogMessage;
         EnemyAIController.ActionPerformed -= OnEnemyAction;
         BossPhaseController.PhaseChanged -= OnBossPhaseChanged;
+        DisconnectPauseMenu();
     }
 
     // Cambio de fase de un jefe (solo presentacion).
@@ -464,7 +484,7 @@ public class CombatHudController : MonoBehaviour
         }
 
         phaseNotice.text = next.bannerText;
-        phaseNoticeUntil = Time.unscaledTime + PhaseNoticeSeconds;
+        phaseNoticeUntil = Time.time + PhaseNoticeSeconds;
     }
 
     private static string PhaseTag(BattleUnit unit)
@@ -514,7 +534,7 @@ public class CombatHudController : MonoBehaviour
             followUpText = ability.abilityName + (names.Count > 0
                 ? ": " + string.Join(", ", names) + " sobre " + affected + (affected == 1 ? " protagonista." : " protagonistas.")
                 : ".");
-            followUpAt = Time.unscaledTime + 1.8f;
+            followUpAt = Time.time + 1.8f;
             return;
         }
 
@@ -549,8 +569,23 @@ public class CombatHudController : MonoBehaviour
         // movimiento) sin consumir el turno.
         UnityEngine.InputSystem.Keyboard keyboard = UnityEngine.InputSystem.Keyboard.current;
 
-        if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame && HasPendingSelection())
-            OnCancelClicked();
+        if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame && !CombatIntroTransition.IsPlaying)
+        {
+            // Pausa: Esc abre o cierra el menu (Esc dentro del menu vuelve atras / reanuda). Sin pausa, cancela
+            // primero una seleccion pendiente (comportamiento de siempre) y, si no hay ninguna, abre la pausa.
+            if (paused)
+                pauseMenu.HandleEscape();
+            else if (HasPendingSelection())
+                OnCancelClicked();
+            else
+                OpenPause();
+        }
+
+        UpdateShieldGlow();
+
+        // En pausa el combate y su interfaz no avanzan (el menu se encarga de sus propios botones).
+        if (paused)
+            return;
 
         Refresh();
         AnimateSelection();
@@ -560,11 +595,13 @@ public class CombatHudController : MonoBehaviour
     private void AnimateSelection()
     {
         // El marco rojo de objetivos validos es estatico (sin animacion).
+        float wave = 0.5f - 0.5f * Mathf.Cos(Time.time * 2f * Mathf.PI / Mathf.Max(0.05f, selectionPeriod));
+        float scaleX = Mathf.Lerp(selectionMinScale, selectionMaxScale, wave);
+
+        // El indicador verde de aliados tampoco se anima (sin pulso).
+
         if (selectionSprite == null)
             return;
-
-        float wave = 0.5f - 0.5f * Mathf.Cos(Time.unscaledTime * 2f * Mathf.PI / Mathf.Max(0.05f, selectionPeriod));
-        float scaleX = Mathf.Lerp(selectionMinScale, selectionMaxScale, wave);
 
         for (int slot = 0; slot < SlotCount; slot++)
         {
@@ -687,6 +724,85 @@ public class CombatHudController : MonoBehaviour
             continueButton.onClick.RemoveAllListeners();
             continueButton.onClick.AddListener(() => ContinueToMap());
         }
+
+        // El escudo del encabezado abre el menu de pausa.
+        if (shieldButton != null)
+        {
+            shieldButton.onClick.RemoveAllListeners();
+            shieldButton.onClick.AddListener(() => OpenPause());
+        }
+    }
+
+    // ------------------------------------------------------------
+    // Pausa
+    // ------------------------------------------------------------
+
+    // Enlaza el menu de pausa de la escena (prefab MenuPausa, el mismo del mapa).
+    private void ConnectPauseMenu()
+    {
+        if (pauseMenu == null)
+            pauseMenu = FindAnyObjectByType<MapPauseMenu>(FindObjectsInactive.Include);
+
+        if (pauseMenu == null)
+            return;
+
+        pauseMenu.Opened -= FreezeCombat;
+        pauseMenu.Closed -= UnfreezeCombat;
+        pauseMenu.Opened += FreezeCombat;
+        pauseMenu.Closed += UnfreezeCombat;
+        pauseMenu.ExitToMenuHandler = ReturnToMenu;   // descarta la sesion y carga el menu (flujo de siempre)
+    }
+
+    private void DisconnectPauseMenu()
+    {
+        if (pauseMenu != null)
+        {
+            pauseMenu.Opened -= FreezeCombat;
+            pauseMenu.Closed -= UnfreezeCombat;
+        }
+
+        UnfreezeCombat();   // nunca dejar el juego congelado
+    }
+
+    // Abre la pausa (boton del escudo o Esc). No se abre con el combate terminado.
+    public bool OpenPause()
+    {
+        if (pauseMenu == null || paused || leavingScene || CombatIntroTransition.IsPlaying || turnManager == null || turnManager.BattleFinished)
+            return false;
+
+        return pauseMenu.Open();
+    }
+
+    private void FreezeCombat()
+    {
+        if (combatFrozen)
+            return;
+
+        combatFrozen = true;
+        timeScaleBeforePause = Time.timeScale > 0f ? Time.timeScale : 1f;
+        Time.timeScale = 0f;
+    }
+
+    private void UnfreezeCombat()
+    {
+        if (!combatFrozen)
+            return;
+
+        combatFrozen = false;
+        Time.timeScale = timeScaleBeforePause;
+    }
+
+    // Destello dorado suave del marco y las espadas al pasar el cursor sobre el escudo (sin elementos nuevos).
+    private void UpdateShieldGlow()
+    {
+        if (shieldGlow == null)
+            return;
+
+        bool lit = shieldHover != null && shieldHover.Hovered && !paused;
+        Color wanted = lit ? new Color(GoldBright.r, GoldBright.g, GoldBright.b, 0.55f) : new Color(GoldBright.r, GoldBright.g, GoldBright.b, 0f);
+
+        if (shieldGlow.effectColor != wanted)
+            shieldGlow.effectColor = wanted;
     }
 
     // Tras una victoria: vuelve al mapa conservando la sesion.
@@ -793,7 +909,7 @@ public class CombatHudController : MonoBehaviour
     {
         feedback = text;
         feedbackIsError = error;
-        feedbackTime = Time.unscaledTime;
+        feedbackTime = Time.time;
     }
 
     // ------------------------------------------------------------
@@ -1622,6 +1738,31 @@ public class CombatHudController : MonoBehaviour
             }
         }
 
+        // Aliados beneficiados: objetivos validos de la habilidad beneficiosa elegida, o todo el equipo al consultar
+        // (cursor sobre) una habilidad que lo afecta automaticamente. Nada al ejecutar, cancelar o cambiar de habilidad.
+        allyBenefitTargets.Clear();
+        allyBenefitGroup = false;
+
+        if (NewHud && playerTurn && active != null)
+        {
+            if (selectedAbility != null)
+            {
+                if (selectedAbility.abilityType != AbilityType.Attack && selectedAbility.targetType != AbilityTargetType.Self)
+                    allyBenefitTargets.AddRange(validTargets);
+            }
+            else if (detail != null && detail.abilityType != AbilityType.Attack && detail.targetType == AbilityTargetType.AllAllies)
+            {
+                allyBenefitGroup = true;
+                for (int slot = 0; slot < 4; slot++)
+                {
+                    BattleUnit ally = TileUnit(slot);
+
+                    if (ally != null && ally.IsAlive)
+                        allyBenefitTargets.Add(ally);
+                }
+            }
+        }
+
         // Consumible elegido (o consultado sin existencias).
         int infoItem = itemSelected >= 0 ? itemSelected : previewItem;
 
@@ -1716,7 +1857,7 @@ public class CombatHudController : MonoBehaviour
         }
 
         // Segundo mensaje de una habilidad con frase de uso.
-        if (followUpText != "" && Time.unscaledTime >= followUpAt)
+        if (followUpText != "" && Time.time >= followUpAt)
         {
             Say(followUpText);
             followUpText = "";
@@ -1724,7 +1865,7 @@ public class CombatHudController : MonoBehaviour
 
         if (phaseNotice != null)
         {
-            bool showNotice = Time.unscaledTime < phaseNoticeUntil && !finished;
+            bool showNotice = Time.time < phaseNoticeUntil && !finished;
 
             if (phaseNotice.gameObject.activeSelf != showNotice)
                 phaseNotice.gameObject.SetActive(showNotice);
@@ -1732,7 +1873,7 @@ public class CombatHudController : MonoBehaviour
 
         // Mensajes.
         // Los mensajes caducan (los antiguos no se quedan en pantalla).
-        bool showToast = feedback != "" && Time.unscaledTime - feedbackTime < (feedbackIsError ? 5f : 4f);
+        bool showToast = feedback != "" && Time.time - feedbackTime < (feedbackIsError ? 5f : 4f);
         SetText(messageText, feedback);
         // Error en ambar claro (legible sobre fondo oscuro), informacion en crema.
         messageText.color = feedbackIsError
@@ -1868,12 +2009,11 @@ public class CombatHudController : MonoBehaviour
 
                 bool abilityTarget = picking && isTarget && unit.IsAlive;
 
-                if (targetFrames[slot] != null && targetFrames[slot].gameObject.activeSelf != abilityTarget)
-                    targetFrames[slot].gameObject.SetActive(abilityTarget);
+                // Rojo = enemigos (habilidades ofensivas). Las beneficiosas usan el indicador verde de aliados.
+                bool redFrame = abilityTarget && selectedAbility.abilityType == AbilityType.Attack;
 
-                if (targetFrames[slot] != null && abilityTarget)
-                    targetFrames[slot].GetComponent<Image>().color =
-                        selectedAbility.abilityType == AbilityType.Attack ? Color.white : new Color(0.6f, 1f, 0.7f, 1f);
+                if (targetFrames[slot] != null && targetFrames[slot].gameObject.activeSelf != redFrame)
+                    targetFrames[slot].gameObject.SetActive(redFrame);
 
                 RectTransform zone = targetZones[slot];
 
@@ -1931,7 +2071,60 @@ public class CombatHudController : MonoBehaviour
             PlaceUnitCard(slot, unit, isActive, isTarget);
         }
 
+        UpdateAllyFrames();
         UpdateSkull();
+    }
+
+    // Indicador verde bajo los aliados beneficiados por la habilidad elegida (o, en habilidades de todo el equipo,
+    // bajo la que se esta consultando). Los tramos de posiciones contiguas comparten un solo indicador estirado;
+    // posicion y anchura salen de las casillas reales, no de valores fijos.
+    private void UpdateAllyFrames()
+    {
+        if (allyFrameSprite == null)
+            return;
+
+        bool[] mark = new bool[4];
+
+        foreach (BattleUnit unit in allyBenefitTargets)
+        {
+            for (int slot = 0; slot < 4; slot++)
+                if (unit != null && unit.IsAlive && TileUnit(slot) == unit)
+                    mark[slot] = true;
+        }
+
+        float height = targetFrameWidth * allyFrameSprite.rect.height / allyFrameSprite.rect.width;
+        int used = 0;
+
+        for (int s = 0; s < 4; )
+        {
+            if (!mark[s]) { s++; continue; }
+
+            int e = s;
+
+            // Habilidad grupal: un tramo continuo; individual: un indicador por aliado valido.
+            while (allyBenefitGroup && e + 1 < 4 && mark[e + 1])
+                e++;
+
+            if (used < allyFrames.Length && allyFrames[used] != null)
+            {
+                Vector2 first = tileImages[s].rectTransform.anchoredPosition;
+                Vector2 last = tileImages[e].rectTransform.anchoredPosition;
+                RectTransform frame = allyFrames[used];
+                frame.sizeDelta = new Vector2(Mathf.Abs(last.x - first.x) + targetFrameWidth, height);
+                frame.anchoredPosition = new Vector2((first.x + last.x) * 0.5f, first.y + targetFrameOffsetY);
+
+                if (!frame.gameObject.activeSelf)
+                    frame.gameObject.SetActive(true);
+
+                used++;
+            }
+
+            s = e + 1;
+        }
+
+        for (int i = used; i < allyFrames.Length; i++)
+            if (allyFrames[i] != null && allyFrames[i].gameObject.activeSelf)
+                allyFrames[i].gameObject.SetActive(false);
     }
 
     // Calavera dorada bajo el objetivo señalado: se desliza en horizontal (skullSpeed px/s) hasta el nuevo objetivo.
@@ -1962,7 +2155,7 @@ public class CombatHudController : MonoBehaviour
         }
         else
         {
-            float x = Mathf.MoveTowards(skull.anchoredPosition.x, goal.x, skullSpeed * Time.unscaledDeltaTime);
+            float x = Mathf.MoveTowards(skull.anchoredPosition.x, goal.x, skullSpeed * Time.deltaTime);
             skull.anchoredPosition = new Vector2(x, goal.y);
         }
     }
@@ -2624,7 +2817,10 @@ public class CombatHudController : MonoBehaviour
         {
             string type = ability.abilityType == AbilityType.Attack ? "Ofensiva"
                 : (ability.abilityType == AbilityType.Heal ? "Curación" : "Apoyo");
-            lines[0] = "Tipo: " + type + (ability.cooldown > 0 ? "  ·  Recarga " + ability.cooldown : "");
+            lines[0] = "Tipo: " + type;
+
+            if (cooldownText != null)
+                SetText(cooldownText, ability.cooldown > 0 ? "Recarga: " + ability.cooldown : "Sin recarga");
 
             switch (ability.targetType)
             {
@@ -2913,6 +3109,7 @@ public class CombatHudController : MonoBehaviour
         }
 
         targetFrameSprite = Load("SeleccionEnem");
+        allyFrameSprite = Load("SeleccionAli");
         skullSprite = Load("indicador");
         encounterSprite = Load("UI Encuentro");
         turnPlateSprite = Load("Turno");
@@ -2963,6 +3160,24 @@ public class CombatHudController : MonoBehaviour
         return button;
     }
 
+    // Panel con el marco comun (el de Habilidades) a 9 cortes: las esquinas y el borde dorado conservan su tamano
+    // en los tres paneles inferiores, sea cual sea su anchura o altura.
+    private const float PanelCornerPx = 39.6f;
+
+    private RectTransform SlicedPanel(string name, Transform parent, float x, float y, float w, float h, float pw, float ph)
+    {
+        RectTransform rect = SpriteBox(name, parent, abilitiesFrameSprite, x, y, w, h, pw, ph);
+        Image image = rect.GetComponent<Image>();
+
+        if (abilitiesFrameSprite != null && abilitiesFrameSprite.border.x > 0f)
+        {
+            image.type = Image.Type.Sliced;
+            image.pixelsPerUnitMultiplier = abilitiesFrameSprite.border.x / PanelCornerPx;
+        }
+
+        return rect;
+    }
+
     // Boton cuyo sprite ya incluye texto e icono: sin etiqueta, tinte al deshabilitar y hover muy discreto (1.02).
     private Button PictureButton(string name, Transform parent, Sprite sprite, float x, float y, float w, float h, out Image image)
     {
@@ -2976,7 +3191,7 @@ public class CombatHudController : MonoBehaviour
         button.transition = Selectable.Transition.ColorTint;
         ColorBlock colors = button.colors;
         colors.normalColor = Color.white;
-        colors.highlightedColor = Color.white;
+        colors.highlightedColor = new Color(1f, 0.94f, 0.76f, 1f);   // iluminacion dorada suave al pasar el cursor
         colors.pressedColor = new Color(0.88f, 0.88f, 0.88f, 1f);
         colors.selectedColor = Color.white;
         colors.disabledColor = new Color(0.52f, 0.52f, 0.56f, 1f);
@@ -3070,6 +3285,23 @@ public class CombatHudController : MonoBehaviour
         // Encuentro: nombre narrativo de la mision y, debajo, region y numero de encuentro.
         // El sprite UI Encuentro ya trae el escudo con espadas y el borde: solo se colocan los textos, a la derecha del escudo.
         RectTransform encounter = SpriteBox("Encuentro", top, encounterSprite, 16f, 11f, 660f, 133f, pw, BarH);
+
+        // El escudo de las espadas es el boton de pausa: una zona transparente sobre el escudo del propio sprite
+        // (no hay iconos ni botones nuevos). Al pasar el cursor, el marco se ilumina en dorado (Outline).
+        if (encounterSprite != null)
+        {
+            shieldGlow = encounter.gameObject.AddComponent<Outline>();
+            shieldGlow.effectDistance = new Vector2(2f, -2f);
+            shieldGlow.effectColor = new Color(GoldBright.r, GoldBright.g, GoldBright.b, 0f);
+            shieldGlow.useGraphicAlpha = false;
+
+            RectTransform shield = Box("Escudo", encounter, new Vector2(0f, 0f), new Vector2(0.155f, 1f), new Color(0, 0, 0, 0));
+            shield.GetComponent<Image>().canvasRenderer.cullTransparentMesh = false;
+            shieldHover = shield.gameObject.AddComponent<HudFrameStyle>();
+            shieldButton = shield.gameObject.AddComponent<Button>();
+            shieldButton.targetGraphic = shield.GetComponent<Image>();
+            shieldButton.transition = Selectable.Transition.None;
+        }
         regionText = Label("Region", encounter, Vector2.zero, Vector2.one, 34, TextAnchor.MiddleLeft, TextColor);
         Anchor(regionText.rectTransform, 660f * 0.225f, 133f * 0.20f, 660f * 0.625f, 133f * 0.70f, 660f, 133f);
         regionText.fontStyle = FontStyle.Bold;
@@ -3171,6 +3403,22 @@ public class CombatHudController : MonoBehaviour
 
         for (int slot = 0; slot < SlotCount; slot++)
         {
+            if (slot == 0 && NewHud && allyFrameSprite != null)
+            {
+                // Indicadores verdes de aliados beneficiados (hasta 4 tramos). Van detras de las casillas para que la
+                // barra y el indicador dorado queden encima. Sprite de 9 cortes: los extremos conservan su forma al estirarse.
+                for (int i = 0; i < allyFrames.Length; i++)
+                {
+                    RectTransform frame = Box("AliadoBeneficiado_" + i, units, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Color.white, allyFrameSprite);
+                    Image frameImage = frame.GetComponent<Image>();
+                    frameImage.type = Image.Type.Sliced;
+                    frameImage.pixelsPerUnitMultiplier = allyFrameSprite.rect.width / targetFrameWidth;
+                    frameImage.raycastTarget = false;
+                    allyFrames[i] = frame;
+                    frame.gameObject.SetActive(false);
+                }
+            }
+
             bool ally = slot < 4;
             // HUD nuevo: la casilla es solo una barra de vida pequena (nombre, HP y posicion van en el panel inferior).
             RectTransform tile = Box("Casilla_" + slot, units, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
@@ -3344,7 +3592,7 @@ public class CombatHudController : MonoBehaviour
         bannerText.fontStyle = FontStyle.Bold;
 
         // ---------------- Panel inferior izquierdo: consumibles ----------------
-        RectTransform items = SpriteBox("PanelConsumibles", root, consumablesFrameSprite, 18f, 18f, 437f, 317f, pw, ph);
+        RectTransform items = SlicedPanel("PanelConsumibles", root, 18f, 18f, 437f, 317f, pw, ph);
         Text itemsTitle = Label("Titulo", items, new Vector2(0.12f, 0.79f), new Vector2(0.92f, 0.95f), 30, TextAnchor.MiddleLeft, GoldBright);
         itemsTitle.fontStyle = FontStyle.Bold;
         itemsTitle.text = "Consumibles";
@@ -3376,7 +3624,7 @@ public class CombatHudController : MonoBehaviour
         }
 
         // ---------------- Panel inferior central: personaje y habilidades ----------------
-        RectTransform bottom = SpriteBox("PanelPersonaje", root, abilitiesFrameSprite, 467f, 18f, 870f, 318f, pw, ph);
+        RectTransform bottom = SlicedPanel("PanelPersonaje", root, 467f, 18f, 870f, 318f, pw, ph);
         infoText = Label("Info", bottom, new Vector2(0.04f, 0.80f), new Vector2(0.56f, 0.96f), 30, TextAnchor.MiddleLeft, GoldBright);
         infoText.fontStyle = FontStyle.Bold;
         infoText.horizontalOverflow = HorizontalWrapMode.Overflow;
@@ -3421,8 +3669,9 @@ public class CombatHudController : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            // Tres cuadros: Avanzar, Retroceder y Volver (mas estrecho).
-            float x0 = i == 0 ? 0.01f : 0.375f;
+            // Tres cuadros: Retroceder (izquierda), Avanzar (derecha) y Volver (mas estrecho).
+            // Los indices no cambian (0 = Avanzar, 1 = Retroceder); solo su posicion en pantalla.
+            float x0 = i == 0 ? 0.375f : 0.01f;
             Text dirLabel; Image dirImage;
             moveDirButtons[i] = SkinButton(i == 0 ? "Avanzar" : "Retroceder", moveBox, new Vector2(x0, 0.02f), new Vector2(x0 + 0.35f, 0.98f),
                 ButtonColor, out dirLabel, out dirImage, 26, goldDim, 0.35f, abilityFrameSprite);
@@ -3452,14 +3701,14 @@ public class CombatHudController : MonoBehaviour
         moveContainer.SetActive(false);
 
         // ---------------- Panel inferior derecho: informacion y acciones ----------------
-        RectTransform info = SpriteBox("PanelInformacion", root, infoFrameSprite, 1367f, 90f, 530f, 246f, pw, ph);
+        RectTransform info = SlicedPanel("PanelInformacion", root, 1367f, 90f, 530f, 246f, pw, ph);
         abilityTitleText = Label("TituloHabilidad", info, new Vector2(0.07f, 0.78f), new Vector2(0.93f, 0.95f), 30, TextAnchor.MiddleLeft, GoldBright);
         abilityTitleText.fontStyle = FontStyle.Bold;
         Fit(abilityTitleText, 18, 30);
         infoIcon = null;
 
-        detailText = Label("Detalle", info, new Vector2(0.07f, 0.50f), new Vector2(0.93f, 0.78f), 20, TextAnchor.UpperLeft, TextColor);
-        Fit(detailText, 12, 20);
+        detailText = Label("Detalle", info, new Vector2(0.07f, 0.50f), new Vector2(0.93f, 0.78f), 23, TextAnchor.UpperLeft, TextColor);
+        Fit(detailText, 13, 23);
 
         // La ayuda contextual sigue en los mensajes; el texto se conserva oculto.
         hintText = Label("Ayuda", info, new Vector2(0.07f, 0.02f), new Vector2(0.93f, 0.10f), 16, TextAnchor.MiddleLeft, TextColor);
@@ -3478,17 +3727,26 @@ public class CombatHudController : MonoBehaviour
             statIcon.GetComponent<Image>().raycastTarget = false;
             statTexts[i] = Label("Texto", row, new Vector2(0.10f, 0f), new Vector2(1f, 1f), 21, TextAnchor.MiddleLeft, TextColor);
             Fit(statTexts[i], 13, 21);
+
+            if (i == 0)
+            {
+                // Tipo a la izquierda y Recarga a la derecha de la misma fila.
+                statTexts[0].rectTransform.anchorMax = new Vector2(0.60f, 1f);
+                cooldownText = Label("Recarga", row, new Vector2(0.62f, 0f), new Vector2(1f, 1f), 21, TextAnchor.MiddleRight, GoldBright);
+                Fit(cooldownText, 13, 21);
+            }
             statRows[i] = row.gameObject;
             row.gameObject.SetActive(false);
         }
 
         // Mover y Terminar turno: los sprites ya incluyen texto e icono (sin etiquetas duplicadas).
         Image moveImg, endImg;
-        moveButton = PictureButton("Mover", root, moveSprite, 1367f, 18f, 240f, 66f, out moveImg);
+        // Los sprites nuevos ya incluyen icono y texto. Misma altura (64) y anchura (237) en ambos, sin deformar (preserveAspect).
+        moveButton = PictureButton("Mover", root, moveSprite, 1383f, 13f, 237f, 64f, out moveImg);
         moveButtonImage = moveImg;
         moveButton.gameObject.AddComponent<MapHoverTarget>();
 
-        endTurnButton = PictureButton("TerminarTurno", root, endTurnSprite, 1663f, 18f, 234f, 66f, out endImg);
+        endTurnButton = PictureButton("TerminarTurno", root, endTurnSprite, 1644f, 13f, 237f, 64f, out endImg);
 
         // ---------------- Derrota y victoria ----------------
         RectTransform defeat = Panel("PanelDerrota", root, new Vector2(0.38f, 0.50f), new Vector2(0.62f, 0.59f), PanelColor, headerSprite, 0.40f);
