@@ -12,33 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
   m_Name: Valerian_GolpeBajo
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: Golpe Bajo
-  description: Golpe que debilita el ataque del enemigo.
+  abilityName: Embate de Escudo
+  description: "Golpe de escudo (90 % del da\xF1o) que puede aturdir 1 turno y avanza una posici\xF3n si es posible."
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
-  basePower: 2
+  basePower: 0
+  damagePercent: 90
   canCritical: 1
   usablePositions: 01010000y
   targetPositions: 01010000y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
-  cooldown: 3
+  cooldown: 2
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
-  userMovement: 0
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 1
+  userMovement: 1
   allyProtectionPercent: 0
   statusEffects:
-  - type: 6
-    potency: 20
-    duration: 2
-    chance: 100
+  - type: 4
+    potency: 1
+    duration: 1
+    chance: 30
+    applyToUser: 0
     potencyPerLevel: 0
     durationPerLevel: 0

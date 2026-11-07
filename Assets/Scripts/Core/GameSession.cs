@@ -74,10 +74,25 @@ public static class GameSession
         return type == Consumable.Potion ? Potions : Antidotes;
     }
 
-    // Existencias que le quedan a la tienda de este producto en la partida actual.
+    // Marca de existencias ilimitadas (las pociones de curacion siempre estan a la venta).
+    public const int UnlimitedStock = int.MaxValue;
+
+    // Existencias que le quedan a la tienda de este producto en la partida actual. Las pociones son ilimitadas: solo las
+    // frena el limite de inventario (MaxPerItem) y las Coronas.
     public static int GetShopStock(Consumable type)
     {
-        return type == Consumable.Potion ? PotionShopStock : AntidoteShopStock;
+        return type == Consumable.Potion ? UnlimitedStock : AntidoteShopStock;
+    }
+
+    // Texto de existencias para la tienda: "Disponibles: Ilimitadas" (pociones), "Disponibles: N" o "Agotado".
+    public static string ShopStockLabel(Consumable type)
+    {
+        int stock = GetShopStock(type);
+
+        if (stock == UnlimitedStock)
+            return "Disponibles: Ilimitadas";
+
+        return stock > 0 ? "Disponibles: " + stock : "Agotado";
     }
 
     // ------------------------------------------------------------
@@ -91,6 +106,16 @@ public static class GameSession
             return false;
 
         Coins += amount;
+        return true;
+    }
+
+    // Gasta Coronas (con sesion y fondos suficientes). Lo usan las compras que no son de consumibles.
+    public static bool TrySpendCoins(int amount)
+    {
+        if (!IsActive || amount < 0 || Coins < amount)
+            return false;
+
+        Coins -= amount;
         return true;
     }
 
@@ -119,8 +144,7 @@ public static class GameSession
 
         if (type == Consumable.Potion)
         {
-            Potions++;
-            PotionShopStock--;
+            Potions++;   // las pociones no gastan existencias de la tienda
         }
         else
         {
@@ -156,6 +180,25 @@ public static class GameSession
 
             PartyMemberState state = party[i];
             state.health = Mathf.Clamp(health, 1, state.maxHealth);
+            party[i] = state;
+            return true;
+        }
+
+        return false;
+    }
+
+    // Cambia la vida maxima de un protagonista en la foto (p. ej. al equipar una reliquia en el mapa). La vida actual
+    // no sube sola; solo se recorta si supera el nuevo maximo.
+    public static bool TryUpdateMemberMaxHealth(string id, int maxHealth)
+    {
+        for (int i = 0; i < party.Count; i++)
+        {
+            if (party[i].id != id)
+                continue;
+
+            PartyMemberState state = party[i];
+            state.maxHealth = Mathf.Max(1, maxHealth);
+            state.health = Mathf.Clamp(state.health, 1, state.maxHealth);
             party[i] = state;
             return true;
         }
@@ -208,7 +251,6 @@ public static class GameSession
     public static int Potions { get; private set; }
     public static int Antidotes { get; private set; }
 
-    private static int PotionShopStock { get; set; }
     private static int AntidoteShopStock { get; set; }
 
     // Encuentros superados en esta partida.
@@ -245,8 +287,9 @@ public static class GameSession
         Coins = StartingCoins;
         Potions = StartingPotions;
         Antidotes = StartingAntidotes;
-        PotionShopStock = StartingShopStock;
         AntidoteShopStock = StartingShopStock;
+
+        RelicInventory.StartNewGame();   // reliquias de prueba, sin equipar
 
         Debug.Log("Nueva partida: sesion iniciada desde cero.");
     }
@@ -261,12 +304,12 @@ public static class GameSession
         Coins = 0;
         Potions = 0;
         Antidotes = 0;
-        PotionShopStock = 0;
         AntidoteShopStock = 0;
 
         completedEncounters.Clear();
         unlockedZones.Clear();
         party.Clear();
+        RelicInventory.Clear();
     }
 
     public static void MarkDefeated()

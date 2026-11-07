@@ -8,12 +8,13 @@ using UnityEngine;
 public class CharacterProgressionData : ScriptableObject
 {
     [Header("Crecimiento por nivel")]
-    [Min(0)] public int healthPerLevel = 5;
-    [Min(0)] public int attackPerLevel = 1;
-    [Min(0)] public int defensePerLevel = 1;
+    [Min(0)] public int healthPerLevel = 1;
+
+    [Tooltip("Niveles en los que el daño minimo y maximo suben 1 punto.")]
+    public int[] damageBonusLevels = { 4, 7, 10 };
 
     [Header("Crecimiento de velocidad")]
-    [Min(0)] public int speedIncrease = 1;
+    [Min(0)] public int speedIncrease = 0;
     [Min(1)] public int speedEveryLevels = 4;
 
     [Header("Experiencia")]
@@ -36,14 +37,17 @@ public class CharacterProgressionData : ScriptableObject
         return Mathf.Max(0, level - 1) * healthPerLevel;
     }
 
-    public int GetAttackBonus(int level)
+    // +1 al daño minimo y maximo por cada nivel de la lista alcanzado.
+    public int GetDamageBonus(int level)
     {
-        return Mathf.Max(0, level - 1) * attackPerLevel;
-    }
+        int bonus = 0;
 
-    public int GetDefenseBonus(int level)
-    {
-        return Mathf.Max(0, level - 1) * defensePerLevel;
+        if (damageBonusLevels != null)
+            foreach (int threshold in damageBonusLevels)
+                if (level >= threshold)
+                    bonus++;
+
+        return bonus;
     }
 
     public int GetSpeedBonus(int level)

@@ -128,10 +128,8 @@ public partial class EnemyAIController
     // Dano esperado sin critico ni evasion (lectura, no ejecuta nada).
     public static int ExpectedDamage(BattleUnit attacker, BattleUnit target, AbilityData ability)
     {
-        int damage = Mathf.Max(
-            1,
-            attacker.Attack + ability.basePower -
-            DamageCalculator.GetEffectiveDefense(target, ability.defensePenetration)
+        int damage = DamageCalculator.ExpectedDamage(
+            attacker, target, ability.basePower, ability.damagePercent, ability.defensePenetration
         );
 
         // Bono condicional de la habilidad (p. ej. Ataque Letal contra Debilitamiento).
@@ -244,9 +242,7 @@ public partial class EnemyAIController
                 return Invalid;
 
             int missing = target.MaxHealth - target.CurrentHealth;
-            int amount = ability.healPercentMaxHealth > 0f
-                ? Mathf.RoundToInt(target.MaxHealth * ability.healPercentMaxHealth / 100f)
-                : ability.basePower;
+            int amount = ability.AverageHeal(target);
 
             float healScore = Mathf.Min(amount, missing) + (1f - hp) * 8f + 6f;
 

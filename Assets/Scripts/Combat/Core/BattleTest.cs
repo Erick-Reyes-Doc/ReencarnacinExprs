@@ -40,22 +40,9 @@ public class BattleTest : MonoBehaviour
             return;
 
         // Daño base considerando la defensa.
-        int damage = Mathf.Max(
-            1,
-            attacker.Attack - target.Defense
-        );
+        int damage = DamageCalculator.CalculateDamage(attacker, target, out bool _);
 
-        // Determinar si ocurre un golpe crítico.
-        bool isCritical =
-            Random.Range(0f, 100f) <
-            attacker.CriticalChance;
-
-        if (isCritical)
-        {
-            damage = Mathf.RoundToInt(
-                damage * attacker.CriticalDamage
-            );
-        }
+        bool isCritical = false;
 
         Debug.Log(
             attacker.Data.unitName +

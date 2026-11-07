@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: LoboSalvaje
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Lobo Salvaje
-  maxHealth: 85
-  attack: 15
-  defense: 4
-  speed: 13
+  maxHealth: 18
+  damageMin: 4
+  damageMax: 6
+  protectionPercent: 0
+  evasionPercent: 12
+  speed: 8
   isBoss: 0
   criticalChance: 5
   criticalDamage: 1.5

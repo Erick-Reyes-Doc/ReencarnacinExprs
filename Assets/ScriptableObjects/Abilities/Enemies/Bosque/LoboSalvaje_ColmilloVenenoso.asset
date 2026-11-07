@@ -18,7 +18,7 @@ MonoBehaviour:
   abilityType: 0
   useAnnouncement: 
   targetType: 0
-  basePower: 1
+  basePower: 0
   canCritical: 1
   usablePositions: 01010000y
   targetPositions: 01010000y
@@ -42,8 +42,8 @@ MonoBehaviour:
   allyProtectionPercent: 0
   statusEffects:
   - type: 8
-    potency: 3
-    duration: 2
+    potency: 1
+    duration: 3
     chance: 50
     potencyPerLevel: 0
     durationPerLevel: 0

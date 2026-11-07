@@ -26,6 +26,10 @@ public class AbilitySystem : MonoBehaviour
         if (ability.userMovement == UserMovement.None)
             return true;
 
+        // Movimiento opcional: si no es posible, la habilidad se usa igualmente sin moverse.
+        if (ability.movementOptional)
+            return true;
+
         if (positionManager == null ||
             !positionManager.CanMoveUnit(
                 user, GetMoveDirection(ability.userMovement)))
@@ -44,6 +48,10 @@ public class AbilitySystem : MonoBehaviour
     {
         if (ability.userMovement == UserMovement.None ||
             positionManager == null || !user.IsAlive)
+            return;
+
+        if (ability.movementOptional &&
+            !positionManager.CanMoveUnit(user, GetMoveDirection(ability.userMovement)))
             return;
 
         positionManager.MoveUnit(
@@ -221,15 +229,19 @@ public class AbilitySystem : MonoBehaviour
     private int ApplyStatusEffects(
         BattleUnit user,
         BattleUnit target,
-        AbilityData ability
+        AbilityData ability,
+        bool selfPass = false
     )
     {
         if (ability.statusEffects == null ||
             ability.statusEffects.Count == 0)
             return 0;
 
+        // selfPass = estados con applyToUser (se aplican al usuario); el resto va al objetivo.
+        BattleUnit recipient = selfPass ? user : target;
+
         StatusEffectController controller =
-            target.GetComponent<StatusEffectController>();
+            recipient.GetComponent<StatusEffectController>();
 
         CharacterProgression progression =
             user.GetComponent<CharacterProgression>();
@@ -240,6 +252,9 @@ public class AbilitySystem : MonoBehaviour
         foreach (AbilityStatusEffect effect in ability.statusEffects)
         {
             if (effect == null)
+                continue;
+
+            if (effect.applyToUser != selfPass)
                 continue;
 
             // La regeneracion usa RegenerationEffect, no este sistema.
@@ -294,7 +309,7 @@ public class AbilitySystem : MonoBehaviour
             if (controller == null)
             {
                 Debug.LogWarning(
-                    target.Data.unitName +
+                    recipient.Data.unitName +
                     " no tiene StatusEffectController."
                 );
                 continue;
@@ -306,7 +321,7 @@ public class AbilitySystem : MonoBehaviour
                 validAttempts++;
 
                 Debug.Log(
-                    target.Data.unitName + " recibe " + effect.type +
+                    recipient.Data.unitName + " recibe " + effect.type +
                     " (potencia " + potency + ", " +
                     duration + " turnos)."
                 );
@@ -330,6 +345,48 @@ public class AbilitySystem : MonoBehaviour
         return cooldowns;
     }
 
+    // Entrega un golpe directo (ya con tirada, Poder, critico y bonos, pero SIN proteccion del objetivo).
+    // Sin protector: el objetivo aplica su PROT. Con Guardia de Trinchera activa sobre el objetivo: el golpe se reparte
+    // (InterceptPercent al protector, el resto al objetivo) y CADA UNO aplica su propia PROT (con sus topes) a la parte que
+    // recibe, asi ninguna parte se reduce dos veces. La Marca y Objetivo Prioritario actuan sobre la parte del objetivo.
+    // Devuelve el daño total causado (objetivo + protector).
+    public int DeliverDirectDamage(BattleUnit attacker, BattleUnit target, int preProtectionDamage, float defensePenetration, out int damageToTarget)
+    {
+        StatusEffectController protectorFx = StatusEffectController.FindProtectorOf(target);
+        StatusEffectInstance guard = protectorFx != null ? protectorFx.GetEffect(StatusEffectType.Guard) : null;
+        int interceptPercent = guard != null ? guard.InterceptPercent : 0;
+        int toProtector = interceptPercent > 0 ? Mathf.RoundToInt(preProtectionDamage * interceptPercent / 100f) : 0;
+        int toTarget = preProtectionDamage - toProtector;
+
+        damageToTarget = toTarget > 0
+            ? DamageCalculator.ApplyProtection(toTarget, DamageCalculator.GetEffectiveProtection(target, defensePenetration))
+            : 0;
+
+        int protectorDamage = 0;
+
+        if (toProtector > 0)
+        {
+            BattleUnit protector = protectorFx.GetComponent<BattleUnit>();
+            protectorDamage = DamageCalculator.ApplyProtection(toProtector, DamageCalculator.GetEffectiveProtection(protector, defensePenetration));
+
+            Debug.Log(
+                protector.Data.unitName + " intercepta " + toProtector + " del golpe (" + protectorDamage +
+                " tras su proteccion) dirigido a " + target.Data.unitName + " (" + damageToTarget + " tras la suya)."
+            );
+
+            if (damageToTarget > 0)
+                target.TakeDirectDamage(damageToTarget, attacker);
+
+            protector.TakeReducedDamage(protectorDamage);
+        }
+        else
+        {
+            target.TakeDirectDamage(damageToTarget, attacker);
+        }
+
+        return damageToTarget + protectorDamage;
+    }
+
     // Resuelve una habilidad ofensiva sobre un objetivo: evasion,
     // daño directo (con penetracion, criticos y Marca) y estados.
     // Devuelve true si hubo algun efecto: daño, esquiva o estados.
@@ -344,12 +401,8 @@ public class AbilitySystem : MonoBehaviour
 
         if (ability.dealsDamage)
         {
-            // La evasion se tira antes del daño directo.
-            EvasionController evasion =
-                target.GetComponent<EvasionController>();
-
-            if (evasion != null &&
-                evasion.TryEvade(ability.attackWeight))
+            // La evasion se tira una sola vez por objetivo, antes del daño directo (todas las unidades esquivan).
+            if (EvasionController.TryEvade(target, ability.attackWeight, -1f, ability.evasionPenetration))
             {
                 dodged = true;
                 hadEffect = true;
@@ -368,13 +421,12 @@ public class AbilitySystem : MonoBehaviour
             }
             else
             {
-                // max(1, ATQ + Poder - DEF tras penetracion), critico
-                // si procede. La Marca y Guard se aplican al recibirlo.
-                int damage = DamageCalculator.CalculateDamage(
+                // Tirada min-max + Poder, critico (solo si impacto) y proteccion %.
+                // La Marca y Guard se aplican al recibirlo.
+                int damage = DamageCalculator.CalculatePreProtection(
                     user,
-                    target,
-                    ability.defensePenetration,
                     ability.basePower,
+                    ability.damagePercent,
                     ability.canCritical,
                     ability.criticalChanceBonus,
                     out bool isCritical
@@ -387,17 +439,27 @@ public class AbilitySystem : MonoBehaviour
                 if (conditional > 1f)
                 {
                     damage = Mathf.RoundToInt(damage * conditional);
+
+                    // Consumir el estado que dio el bono (p. ej. Ruptura Ignea consume la Quemadura).
+                    if (ability.consumeBonusStatus)
+                    {
+                        StatusEffectController bonusStatuses = target.GetComponent<StatusEffectController>();
+
+                        if (bonusStatuses != null)
+                            bonusStatuses.RemoveEffect(ability.bonusIfTargetHas);
+                    }
                 }
 
 
+                // Reparto entre el objetivo y su protector (Guardia de Trinchera); cada uno aplica su propia PROT.
+                int dealt = DeliverDirectDamage(user, target, damage, ability.defensePenetration, out int dealtToTarget);
+
                 Debug.Log(
                     ability.abilityName +
-                    " causa " + damage + " de daño a " +
+                    " causa " + dealt + " de daño a " +
                     target.Data.unitName + "." +
                     (isCritical ? " ¡CRITICO!" : "")
                 );
-
-                target.TakeDirectDamage(damage, user);
                 hadEffect = true;
             }
         }
@@ -462,10 +524,12 @@ public class AbilitySystem : MonoBehaviour
             }
 
             // Curacion fija (Poder) o porcentaje de la vida maxima.
-            int healAmount = ability.healPercentMaxHealth > 0f
-                ? Mathf.Max(1, Mathf.RoundToInt(
-                    target.MaxHealth * ability.healPercentMaxHealth / 100f))
-                : Mathf.Max(0, ability.basePower);
+            int healAmount = ability.healMax > 0
+                ? Random.Range(ability.healMin, ability.healMax + 1)
+                : ability.healPercentMaxHealth > 0f
+                    ? Mathf.Max(1, Mathf.RoundToInt(
+                        target.MaxHealth * ability.healPercentMaxHealth / 100f))
+                    : Mathf.Max(0, ability.basePower);
 
             if (healAmount <= 0)
             {
@@ -532,6 +596,10 @@ public class AbilitySystem : MonoBehaviour
         {
             statusAttempts = ApplyStatusEffects(user, target, ability);
         }
+
+        // Estados que la habilidad se aplica a si misma (applyToUser), tanto si el golpe impacto como si no.
+        if (user.IsAlive)
+            statusAttempts += ApplyStatusEffects(user, user, ability, true);
 
         // Una habilidad sin otro efecto cuyos estados fueron todos
         // rechazados no cuenta como accion: no inicia cooldown.

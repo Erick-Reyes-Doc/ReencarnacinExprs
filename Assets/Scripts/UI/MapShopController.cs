@@ -13,7 +13,7 @@ using UnityEngine.UI;
 // Se abre desde la franja superior del mapa (WorldMapController) como
 // Tienda o como Inventario, y se cierra con su boton. No se puede usar
 // mientras haya un combate cargado.
-public class MapShopController : MonoBehaviour
+public partial class MapShopController : MonoBehaviour
 {
     private const int MemberRows = 4;
 
@@ -231,6 +231,8 @@ public class MapShopController : MonoBehaviour
         isOpen = true;
         shopMode = asShop;
         message = "";
+        relicMessage = "";
+        relicDirty = true;
         invSelected = -1;   // al abrir el inventario se selecciona el primer objeto disponible
     }
 
@@ -282,6 +284,12 @@ public class MapShopController : MonoBehaviour
     // Boton COMPRAR de la ventana de tienda: compra una unidad del producto seleccionado.
     public void BuySelected()
     {
+        if (relicUiBuilt)
+        {
+            BuySelectedRelic();
+            return;
+        }
+
         Buy((GameSession.Consumable)selectedProduct);
     }
 
@@ -294,6 +302,7 @@ public class MapShopController : MonoBehaviour
         GameSession.EnsureSession();
 
         WireButtons();
+        BuildRelicShopUI();   // pestanas Consumibles / Reliquias
     }
 
     private void Update()
@@ -454,7 +463,7 @@ public class MapShopController : MonoBehaviour
         }
 
         // Los atajos Inventario y Tienda del HUD quedan por encima del velo mientras la ventana esta visible.
-        SetShortcutsOnTop(visible);
+        SetShortcutsOnTop(visible || CharacterPanelController.AnyVisible);
 
         // Los clics solo llegan a la ventana cuando esta abierta del todo (no mientras se cierra).
         if (showShopWindow)
@@ -619,6 +628,13 @@ public class MapShopController : MonoBehaviour
     // inventario del jugador y existencias reales de la tienda).
     private void RefreshShopWindow()
     {
+        if (relicUiBuilt)
+        {
+            ApplyShopTab();
+            RefreshRelicShop();
+            return;
+        }
+
         SetText(shopCoinsText, GameSession.Coins.ToString());
         SetText(shopMessageText, message);
 
@@ -677,7 +693,7 @@ public class MapShopController : MonoBehaviour
 
         SetText(detailName, ConsumableService.Name(current));
         SetText(detailDescription, ProductDescription(current));
-        SetText(detailAvailable, stock > 0 ? "Disponibles: " + stock : "Agotado");
+        SetText(detailAvailable, "");
         SetText(detailOwned, "En inventario: " + GameSession.GetCount(current) +
                              "/" + GameSession.MaxPerItem);
 
@@ -1038,11 +1054,11 @@ public class MapShopController : MonoBehaviour
         const float RightX = 240f, RightW = 200f;
         detailAvailable = ShopText(window, "Disponibles", new Vector2(RightX, innerTop - 25f), new Vector2(RightW, 30f), "", 23f, ShopGold, TextAlignmentOptions.Center, bold);
         detailAvailable.textWrappingMode = TextWrappingModes.NoWrap;
-        detailOwned = ShopText(window, "EnInventario", new Vector2(RightX, innerTop - 65f), new Vector2(RightW, 30f), "", 21f, ShopIvory, TextAlignmentOptions.Center, regular);
+        detailOwned = ShopText(window, "EnInventario", new Vector2(RightX, innerTop - 50f), new Vector2(RightW, 30f), "", 21f, ShopIvory, TextAlignmentOptions.Center, regular);
         detailOwned.textWrappingMode = TextWrappingModes.NoWrap;
 
         // Boton COMPRAR con el sprite "compra" (proporcion original: 246 x 102 a escala 1/7,9).
-        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(RightX, innerTop - 120f), new Vector2(224f, 93f));
+        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(RightX, innerTop - 110f), new Vector2(224f, 93f));
         Image buyImage = ShopImage(buy, buySprite, 0f, Color.white, true);
         buyImage.preserveAspect = false;
         buyImage.raycastPadding = new Vector4(11f, 16f, 11f, 15f);

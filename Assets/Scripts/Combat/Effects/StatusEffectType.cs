@@ -22,5 +22,9 @@ public enum StatusEffectType
 
     // Marca tactica del Capitan: el objetivo recibe mas daño directo,
     // pero solo del atacante que la aplico (StatusEffectInstance.Source).
-    PriorityTarget
+    PriorityTarget,
+
+    // Evasion extra en puntos porcentuales (potencia = puntos) hasta el siguiente turno del portador
+    // (p. ej. Tiro Evasivo). Respeta el tope de evasion.
+    EvasionBoost
 }

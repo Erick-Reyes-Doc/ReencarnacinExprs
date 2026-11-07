@@ -13,32 +13,44 @@ MonoBehaviour:
   m_Name: Evanora_GolpeDeMeteorito
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Golpe de Meteorito
-  description: 'PENDIENTE: requiere preparacion diferida (se ejecuta en el siguiente turno propio).'
+  description: Se prepara durante un turno; en el siguiente impacta a todos los enemigos (100 % a cada uno) y puede aplicar Quemadura.
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 2
-  basePower: -7
+  basePower: 0
+  damagePercent: 100
   canCritical: 1
   usablePositions: 01010101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
-  cooldown: 4
+  cooldown: 3
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 1
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
   - type: 5
-    potency: 3
+    potency: 2
     duration: 2
     chance: 50
+    applyToUser: 0
     potencyPerLevel: 0
     durationPerLevel: 0

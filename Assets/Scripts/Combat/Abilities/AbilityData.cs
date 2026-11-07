@@ -18,6 +18,9 @@ public class AbilityStatusEffect
 
     [Range(0f, 100f)] public float chance = 100f;
 
+    [Tooltip("Si es true, el estado se aplica al USUARIO en lugar del objetivo (p. ej. la evasion extra de Tiro Evasivo). No depende de que el golpe impacte.")]
+    public bool applyToUser = false;
+
     [Header("Escalado por nivel del usuario (nivel 1 = sin bono)")]
     public float potencyPerLevel = 0f;
     public float durationPerLevel = 0f;
@@ -139,6 +142,9 @@ public class AbilityData : ScriptableObject
     [Tooltip("Se suma al ataque antes de restar la defensa. Puede ser negativo.")]
     public int basePower = 0;
 
+    [Tooltip("Porcentaje del daño base (la tirada min-max del atacante) que usa la habilidad: 100 = completo, 70 = el 70 %, 150 = el 150 %. Se aplica antes del Poder, del critico y de la proteccion.")]
+    [Range(0, 300)] public int damagePercent = 100;
+
     public bool canCritical = true;
 
     [Header("Posiciones desde donde puede usarse")]
@@ -178,6 +184,22 @@ public class AbilityData : ScriptableObject
     [Tooltip("Si es mayor que 0, la curacion es este % de la vida maxima del objetivo (redondeado) en lugar del Poder fijo.")]
     [Range(0f, 100f)] public float healPercentMaxHealth = 0f;
 
+    [Tooltip("Curacion fija en rango (PV). Si Maximo es mayor que 0 se usa un valor al azar entre Minimo y Maximo (tiene prioridad sobre el % y el Poder).")]
+    [Min(0)] public int healMin = 0;
+    [Min(0)] public int healMax = 0;
+
+    // Curacion media sobre un objetivo (lectura para IA y pruebas).
+    public int AverageHeal(BattleUnit target)
+    {
+        if (healMax > 0)
+            return Mathf.RoundToInt((healMin + healMax) * 0.5f);
+
+        if (healPercentMaxHealth > 0f && target != null)
+            return Mathf.Max(1, Mathf.RoundToInt(target.MaxHealth * healPercentMaxHealth / 100f));
+
+        return Mathf.Max(0, basePower);
+    }
+
     [Header("Preparacion diferida")]
     [Tooltip("Ataques de area que se anuncian al lanzarlos y impactan en el siguiente turno propio del usuario (PreparedAbilityController). El cooldown empieza al preparar.")]
     public bool requiresPreparation = false;
@@ -191,6 +213,9 @@ public class AbilityData : ScriptableObject
 
     [Tooltip("Porcentaje de la defensa efectiva del objetivo que se ignora.")]
     [Range(0f, 100f)] public float defensePenetration = 0f;
+
+    [Tooltip("Porcentaje de la evasion del objetivo que se ignora durante este ataque (50 = la mitad).")]
+    [Range(0f, 100f)] public float evasionPenetration = 0f;
 
     [Tooltip("Clasificacion para la evasion del objetivo.")]
     public AttackWeight attackWeight = AttackWeight.Light;
@@ -207,6 +232,12 @@ public class AbilityData : ScriptableObject
 
     [Tooltip("Porcentaje de dano directo extra cuando se cumple el estado anterior (20 = +20 %).")]
     [Range(0f, 200f)] public float bonusDamagePercent = 0f;
+
+    [Tooltip("Si es true y el bono anterior se cumple en un golpe, el estado se consume (se retira del objetivo).")]
+    public bool consumeBonusStatus = false;
+
+    [Tooltip("Si es true, el movimiento del usuario es opcional: si no es posible, la habilidad se usa igualmente sin moverse.")]
+    public bool movementOptional = false;
 
     // Multiplicador de dano directo de esta habilidad contra un objetivo (1 si no aplica).
     public float DamageMultiplierAgainst(BattleUnit target)

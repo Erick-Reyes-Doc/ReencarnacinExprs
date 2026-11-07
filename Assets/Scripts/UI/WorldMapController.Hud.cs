@@ -25,6 +25,10 @@ public partial class WorldMapController
         public UnitData data;
         [HideInInspector] public TMP_Text nameText;
         [HideInInspector] public RectTransform hpFill;
+        [HideInInspector] public TMP_Text levelText;
+        [HideInInspector] public HeroCardView view;
+        [HideInInspector] public Image portrait;
+        [HideInInspector] public Button button;
     }
 
     [Header("HUD del mapa (Paso 89)")]
@@ -34,6 +38,7 @@ public partial class WorldMapController
     [SerializeField] private Sprite hudMenuIcon;
     [SerializeField] private Sprite hudMenuIconHover;
     [SerializeField] private Sprite hudBanner;
+    [SerializeField] private Sprite hudCircle;   // circulo del indicador de nivel de las tarjetas
     [SerializeField] private Sprite hudCoinsIcon;
     [SerializeField] private Sprite hudInventoryIcon;
     [SerializeField] private Sprite hudShopIcon;
@@ -70,6 +75,10 @@ public partial class WorldMapController
             SetTmp(hudZoneTexts[i], ZoneName(HudZones[i]) + " " + done + "/" + total);
         }
 
+        // La tarjeta seleccionada es la de la ficha abierta; al cerrarla conserva la ultima elegida.
+        if (characters != null && characters.IsOpen && !string.IsNullOrEmpty(characters.CurrentHeroId))
+            selectedHeroId = characters.CurrentHeroId;
+
         foreach (HudHero hero in hudHeroes)
         {
             if (hero.hpFill == null)
@@ -77,17 +86,43 @@ public partial class WorldMapController
 
             int health;
             int max;
+            int level = 1;
+            HeroProfile profile = characters != null ? characters.Profile(hero.unitId) : null;
 
-            if (GameSession.TryGetMember(hero.unitId, out GameSession.PartyMemberState state))
+            if (profile != null && profile.unit != null)
+            {
+                // Misma formula que el combate: base + nivel + reliquias equipadas.
+                HeroStats stats = CharacterStats.Current(profile);
+                health = stats.health;
+                max = stats.maxHealth;
+                level = stats.level;
+            }
+            else if (GameSession.TryGetMember(hero.unitId, out GameSession.PartyMemberState state))
             {
                 health = state.health;
                 max = state.maxHealth;
+                level = state.level;
             }
             else
             {
                 // Sin combates todavia: vida completa de nivel 1.
                 max = hero.data != null ? hero.data.maxHealth : 1;
                 health = max;
+            }
+
+            SetTmp(hero.levelText, level.ToString(CultureInfo.InvariantCulture));
+
+            if (hero.view != null)
+            {
+                hero.view.SetData(hero.displayName, level, health, max);
+                hero.view.SetSelected(hero.unitId == selectedHeroId);
+            }
+
+            if (hero.portrait != null && profile != null && hero.portrait.sprite == null)
+            {
+                hero.portrait.sprite = characters.PortraitOf(profile);
+                hero.portrait.color = profile.tint;
+                hero.portrait.enabled = hero.portrait.sprite != null;
             }
 
             float ratio = max > 0 ? Mathf.Clamp01((float)health / max) : 0f;
@@ -160,7 +195,6 @@ public partial class WorldMapController
         root.offsetMin = root.offsetMax = Vector2.zero;
 
         BuildHudTopLeft(root);
-        BuildHudHeroes(root);
         BuildHudBottomBar(root);
         return root;
     }
@@ -169,7 +203,7 @@ public partial class WorldMapController
     {
         RectTransform menu = HudRect("BotonMenu", root, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f));
         // Mismo tamano visual que Inventario y Tienda (87 x 80) y mismo margen al borde (24).
-        menu.anchoredPosition = new Vector2(24f, -24f);
+        menu.anchoredPosition = new Vector2(24f, -50f);   // centrado en la franja azul del estandarte (y ~90)
         menu.sizeDelta = new Vector2(ButtonVisualWidth, ButtonVisualHeight);
         Image menuImage = HudImage(menu, hudMenuIcon, Color.white, false, 1f, true);
         menuImage.preserveAspect = true;
@@ -216,67 +250,6 @@ public partial class WorldMapController
     private const float ButtonVisualHeight = 80f;
     private const float ShortcutWidth = 102f;    // 87 visibles + margen del sprite
 
-    private void BuildHudHeroes(RectTransform root)
-    {
-        // Una sola fila de cuatro tarjetas en la parte alta del lateral derecho. Visible: de
-        // x 966 a 1896 y de y 24 a 104 (pantalla de 1080), asi que queda a la derecha del
-        // estandarte (que termina en x ~930) y muy por encima de Trono Sellado (y 184+).
-        // Los rectangulos incluyen el margen transparente del marco (izq 6.5, der 5.4, arriba
-        // 18.5, abajo 19.8 con multiplicador 10).
-        RectTransform row = HudRect("FilaHeroes", root, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f));
-        row.anchoredPosition = new Vector2(-18.6f, -32.5f);   // centrada en la franja azul del estandarte (y ~91)
-        HorizontalLayoutGroup cards = row.gameObject.AddComponent<HorizontalLayoutGroup>();
-        cards.spacing = 2f;                       // ~14 visibles entre tarjetas (el margen del marco suma ~12)
-        cards.childAlignment = TextAnchor.UpperRight;
-        cards.childControlWidth = cards.childControlHeight = true;
-        cards.childForceExpandWidth = cards.childForceExpandHeight = false;
-        ContentSizeFitter fitter = row.gameObject.AddComponent<ContentSizeFitter>();
-        fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-        hudHeroes.RemoveAll(h => h == null);
-
-        foreach (HudHero hero in hudHeroes)
-        {
-            RectTransform card = HudRect("Tarjeta_" + hero.displayName, row, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            HudImage(card, hudFrame, Color.white, true, 10f, true);   // recibe el cursor para el hover
-            card.gameObject.AddComponent<HoverScale>().HoverFactor = 1.04f;
-            LayoutElement size = card.gameObject.AddComponent<LayoutElement>();
-            size.preferredWidth = 234f;           // 222 visibles
-            size.preferredHeight = 118f;          // 80 visibles, la altura comun de la interfaz
-
-            // Hueco cuadrado del retrato: marco vacio, sin imagen.
-            RectTransform slot = HudRect("Retrato", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            slot.anchoredPosition = new Vector2(-73f, 0f);
-            slot.sizeDelta = new Vector2(52f, 52f);
-            HudImage(slot, null, HudGold, false, 1f, false);
-            RectTransform slotInner = HudRect("Fondo", slot, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            slotInner.offsetMin = new Vector2(2f, 2f);
-            slotInner.offsetMax = new Vector2(-2f, -2f);
-            HudImage(slotInner, null, HudDark, false, 1f, false);
-
-            RectTransform name = HudRect("Nombre", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
-            name.anchoredPosition = new Vector2(-37f, 13f);
-            name.sizeDelta = new Vector2(140f, 30f);
-            hero.nameText = HudText(name, hero.displayName, 24f, HudIvory, TextAlignmentOptions.MidlineLeft);
-
-            RectTransform track = HudRect("BarraVida", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
-            track.anchoredPosition = new Vector2(-37f, -14f);
-            track.sizeDelta = new Vector2(140f, 16f);
-            HudImage(track, null, HudGold, false, 1f, false);
-
-            RectTransform inner = HudRect("Fondo", track, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            inner.offsetMin = new Vector2(2f, 2f);
-            inner.offsetMax = new Vector2(-2f, -2f);
-            HudImage(inner, null, HudPanel, false, 1f, false);
-
-            RectTransform fill = HudRect("Relleno", inner, Vector2.zero, Vector2.one, new Vector2(0f, 0.5f));
-            fill.offsetMin = fill.offsetMax = Vector2.zero;
-            HudImage(fill, null, HudHealth, false, 1f, false);
-            hero.hpFill = fill;
-        }
-    }
-
     // Barra inferior: un contenedor a todo el ancho con tres grupos en la misma franja
     // (Coronas a la izquierda, progreso centrado, atajos a la derecha). Cada grupo es un
     // HorizontalLayoutGroup que se ajusta a su contenido.
@@ -286,8 +259,9 @@ public partial class WorldMapController
         bar.offsetMin = new Vector2(BarMargin, 0f);
         bar.offsetMax = new Vector2(-BarMargin - 1f, BarHeight);
 
-        // Izquierda: Coronas.
-        RectTransform left = HudGroup("GrupoCoronas", bar, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f));
+        // Coronas: esquina superior derecha (ya no van en la barra inferior).
+        RectTransform left = HudGroup("GrupoCoronas", root, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f));
+        left.anchoredPosition = new Vector2(-17f, -26f);   // margen visible ~24 al borde, como el boton de menu
         RectTransform coins = HudBarFrame("PanelCoronas", left, CoinsWidth, false);
         HorizontalLayoutGroup coinsRow = coins.gameObject.AddComponent<HorizontalLayoutGroup>();
         coinsRow.padding = new RectOffset(36, 22, 0, 0);
@@ -311,23 +285,80 @@ public partial class WorldMapController
         amountSize.flexibleWidth = 1f;
         amountSize.preferredHeight = 60f;
 
-        // Centro: progreso por region (tres recuadros identicos).
-        RectTransform center = HudGroup("GrupoProgreso", bar, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-
-        for (int i = 0; i < HudZones.Length; i++)
-        {
-            RectTransform box = HudBarFrame("Progreso_" + HudZones[i], center, ProgressWidth, false);
-            RectTransform label = HudRect("Texto", box, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            label.offsetMin = new Vector2(30f, 0f);
-            label.offsetMax = new Vector2(-30f, 0f);
-            hudZoneTexts[i] = HudText(label, ZoneName(HudZones[i]), 29f, HudIvory, TextAlignmentOptions.Midline);
-            hudZoneTexts[i].characterSpacing = 2f;
-        }
+        // Centro: una tarjeta por personaje (retrato, nombre, nivel y vida). El progreso por region sigue en
+        // MapProgression.ZoneProgress; solo se retiro de esta barra.
+        RectTransform center = HudGroup("GrupoPersonajes", bar, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        BuildHeroCards(center);
 
         // Derecha: Inventario y Tienda (cuadrados del mismo tamano, solo icono).
         RectTransform right = HudGroup("GrupoAtajos", bar, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f));
         inventoryButton = HudShortcut(right, "BotonInventario", hudInventoryIcon);
         shopButton = HudShortcut(right, "BotonTienda", hudShopIcon);
+    }
+
+    // Tarjetas de la barra inferior (diseno limpio): retrato, nombre, nivel en un circulo pequeno y una barra de vida
+    // roja y delgada sin numeros (los valores salen en un tooltip al pasar el cursor). Al pasar el cursor la
+    // tarjeta se agranda un poco (HoverScale) y HeroCardView muestra el tooltip; el clic abre la ficha del personaje.
+    private const float HeroCardWidth = 312f;
+    private static readonly Color HudHealthDark = new Color32(0xA8, 0x32, 0x32, 0xFF);
+    private static readonly Color HudHealthTrack = new Color32(0x0B, 0x0F, 0x16, 0xE6);
+
+    private void BuildHeroCards(RectTransform group)
+    {
+        hudHeroes.RemoveAll(h => h == null);
+
+        foreach (HudHero hero in hudHeroes)
+        {
+            RectTransform card = HudBarFrame("Tarjeta_" + hero.displayName, group, HeroCardWidth, true);
+            Image cardImage = card.GetComponent<Image>();
+
+            // Retrato sin marco ni fondo.
+            RectTransform face = HudRect("Retrato", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+            face.anchoredPosition = new Vector2(-118f, -2f);
+            face.sizeDelta = new Vector2(64f, 64f);
+            hero.portrait = HudImage(face, null, Color.white, false, 1f, false);
+            hero.portrait.preserveAspect = true;
+            hero.portrait.enabled = false;
+
+            // Nivel: numero pequeno dentro de un circulo, en la esquina del retrato.
+            RectTransform ring = HudRect("Nivel", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+            ring.anchoredPosition = new Vector2(-92f, 22f);
+            ring.sizeDelta = new Vector2(28f, 28f);
+            HudImage(ring, hudCircle, HudGold, false, 1f, false);
+            RectTransform disc = HudRect("Fondo", ring, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
+            disc.offsetMin = new Vector2(2f, 2f);
+            disc.offsetMax = new Vector2(-2f, -2f);
+            HudImage(disc, hudCircle, HudDark, false, 1f, false);
+            RectTransform number = HudRect("Numero", ring, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
+            number.offsetMin = number.offsetMax = Vector2.zero;
+            hero.levelText = HudText(number, "1", 17f, HudGoldBright, TextAlignmentOptions.Midline);
+
+            RectTransform name = HudRect("Nombre", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
+            name.anchoredPosition = new Vector2(-74f, 10f);
+            name.sizeDelta = new Vector2(196f, 30f);
+            hero.nameText = HudText(name, hero.displayName, 26f, HudIvory, TextAlignmentOptions.MidlineLeft);
+
+            // Barra de vida delgada: fondo oscuro y relleno rojo oscuro, sin borde ni cifras.
+            RectTransform track = HudRect("BarraVida", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
+            track.anchoredPosition = new Vector2(-74f, -14f);
+            track.sizeDelta = new Vector2(190f, 7f);
+            HudImage(track, null, HudHealthTrack, false, 1f, false);
+
+            RectTransform fill = HudRect("Relleno", track, Vector2.zero, Vector2.one, new Vector2(0f, 0.5f));
+            fill.offsetMin = fill.offsetMax = Vector2.zero;
+            HudImage(fill, null, HudHealthDark, false, 1f, false);
+            hero.hpFill = fill;
+
+            hero.button = HudButton(card, cardImage, hudFrameHover);
+            hero.button.transition = Selectable.Transition.None;   // solo se agranda (HoverScale)
+            HoverScale hover = card.GetComponent<HoverScale>();
+
+            if (hover != null)
+                hover.HoverFactor = 1.02f;
+
+            hero.view = card.gameObject.AddComponent<HeroCardView>();
+            hero.view.Configure(null, hudFont);
+        }
     }
 
     private static RectTransform HudGroup(string name, RectTransform parent, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot)

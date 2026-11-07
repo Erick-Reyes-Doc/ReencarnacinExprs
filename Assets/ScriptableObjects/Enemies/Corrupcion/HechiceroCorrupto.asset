@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: HechiceroCorrupto
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Hechicero Corrupto
-  maxHealth: 100
-  attack: 25
-  defense: 4
-  speed: 12
+  maxHealth: 22
+  damageMin: 5
+  damageMax: 7
+  protectionPercent: 0
+  evasionPercent: 4
+  speed: 7
   isBoss: 0
   criticalChance: 5
   criticalDamage: 1.5

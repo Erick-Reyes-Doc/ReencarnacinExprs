@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: GoblinComun
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Goblin Com\xFAn"
-  maxHealth: 55
-  attack: 10
-  defense: 2
-  speed: 7
+  maxHealth: 14
+  damageMin: 3
+  damageMax: 5
+  protectionPercent: 0
+  evasionPercent: 3
+  speed: 5
   isBoss: 0
-  criticalChance: 5
+  criticalChance: 2
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

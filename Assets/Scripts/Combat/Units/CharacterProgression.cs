@@ -125,25 +125,14 @@ public class CharacterProgression : MonoBehaviour
         }
     }
 
-    public int AttackBonus
+    public int DamageBonus
     {
         get
         {
             if (progressionData == null)
                 return 0;
 
-            return progressionData.GetAttackBonus(level);
-        }
-    }
-
-    public int DefenseBonus
-    {
-        get
-        {
-            if (progressionData == null)
-                return 0;
-
-            return progressionData.GetDefenseBonus(level);
+            return progressionData.GetDamageBonus(level);
         }
     }
 

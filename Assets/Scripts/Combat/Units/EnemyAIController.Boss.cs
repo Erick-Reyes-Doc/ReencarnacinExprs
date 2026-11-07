@@ -6,6 +6,11 @@ using UnityEngine;
 // enemigos comunes devuelve siempre 0, asi su comportamiento no cambia.
 public partial class EnemyAIController
 {
+    // EXPERIMENTAL (desactivado por defecto): hace que el jefe prefiera golpear al heroe que marco con Objetivo Prioritario.
+    // Solo para pruebas de balance; el comportamiento normal de la IA v0.2 no cambia mientras este en false.
+    public static bool MarkFocusExperiment = false;
+    public static float MarkFocusBonus = 10f;
+
     // Ajuste de puntuacion solo para jefes. Se suma al valor ya calculado
     // por ScorePair; nunca obliga a elegir una opcion concreta.
     private float BossScoreAdjust(
@@ -48,6 +53,10 @@ public partial class EnemyAIController
 
             bonus += ExpectedDamage(self, target, ability) * mark.Potency / 100f + 3f;
         }
+
+        // Experimento: cobrar la marca. Un aliado protegido por Guardia reparte el golpe, asi que vale menos.
+        if (MarkFocusExperiment && ability.dealsDamage && IsMarkedBy(target, self))
+            bonus += StatusEffectController.FindProtectorOf(target) != null ? MarkFocusBonus * 0.5f : MarkFocusBonus;
 
         // Perfil de la fase actual (BossPhaseData): mas valor a los ataques con
         // dano y a los objetivos marcados. Solo suma puntos; no fuerza nada.
@@ -164,18 +173,19 @@ public partial class EnemyAIController
         if (foes.Count == 0)
             return fallback;
 
-        float defense = self.Defense;
-        float boosted = Mathf.Round(defense * (100 + boost.potency) / 100f);
+        // Con proteccion porcentual: la mejora suma puntos de proteccion (hasta el tope).
+        float protection = self.ProtectionPercent;
+        float boostedProtection = Mathf.Min(BattleUnit.MaxProtectionPercent, protection + boost.potency);
         float perRound = 0f;
         float perRoundBoosted = 0f;
         float bestAction = 0f;
 
         foreach (BattleUnit foe in foes)
         {
-            // Poder medio de las habilidades de los protagonistas: +3.
-            float attack = foe.Attack + 3f;
-            perRound += Mathf.Max(1f, attack - defense);
-            perRoundBoosted += Mathf.Max(1f, attack - boosted);
+            // Daño medio de los protagonistas con el poder medio de sus habilidades (+1).
+            float attack = foe.AverageDamage + 1f;
+            perRound += Mathf.Max(1f, attack * (1f - protection / 100f));
+            perRoundBoosted += Mathf.Max(1f, attack * (1f - boostedProtection / 100f));
 
             if (basicAttack != null)
                 bestAction = Mathf.Max(bestAction, BossExpectedDamage(self, foe, basicAttack));

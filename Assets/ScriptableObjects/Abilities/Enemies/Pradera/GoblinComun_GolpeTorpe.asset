@@ -18,7 +18,7 @@ MonoBehaviour:
   abilityType: 0
   useAnnouncement: 
   targetType: 0
-  basePower: 2
+  basePower: 1
   canCritical: 1
   usablePositions: 01010000y
   targetPositions: 01010000y

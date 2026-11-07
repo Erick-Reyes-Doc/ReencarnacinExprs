@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: AcechadorOscuro
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Acechador Oscuro
-  maxHealth: 110
-  attack: 23
-  defense: 5
-  speed: 15
+  maxHealth: 24
+  damageMin: 6
+  damageMax: 8
+  protectionPercent: 0
+  evasionPercent: 12
+  speed: 8
   isBoss: 0
-  criticalChance: 5
+  criticalChance: 6
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

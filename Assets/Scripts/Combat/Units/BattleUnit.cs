@@ -26,8 +26,10 @@ public class BattleUnit : MonoBehaviour
 
     // Estadisticas efectivas durante el combate.
     private int maxHealth;
-    private int attack;
-    private int defense;
+    private int damageMin;
+    private int damageMax;
+    private int protection;      // % base (datos + reliquias)
+    private float evasion;       // % base (datos + reliquias)
     private int speed;
     private float criticalChance;
     private float criticalDamage;
@@ -42,37 +44,40 @@ public class BattleUnit : MonoBehaviour
 
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
-    // Ataque y defensa efectivos: base + nivel, ajustados por
-    // Debilitamiento y Vulnerabilidad. No modifican UnitData ni
-    // los valores calculados por nivel.
-    public int Attack => ApplyReduction(
-        attack, StatusEffectType.Weaken
-    );
+    // Daño base efectivo: el rango se reduce con Debilitamiento (en %). Cada ataque tira un valor entre
+    // minimo y maximo; el Poder de la habilidad se suma despues (ver DamageCalculator).
+    public int DamageMin => Mathf.Max(1, ApplyReduction(damageMin, StatusEffectType.Weaken));
+    public int DamageMax => Mathf.Max(DamageMin, ApplyReduction(damageMax, StatusEffectType.Weaken));
 
-    // Defensa efectiva: mejora (DefenseBoost) y luego Vulnerabilidad.
-    // La penetracion de defensa se aplica despues, en DamageCalculator.
-    public int Defense
+    // Daño medio, para comparaciones y estimaciones de la IA ("ataque" relativo).
+    public float AverageDamage => (DamageMin + DamageMax) * 0.5f;
+    public int Attack => Mathf.RoundToInt(AverageDamage);
+
+    // Limites de la protección porcentual.
+    public const int MaxProtectionPercent = 50;
+    public const int MinProtectionPercent = -50;
+    public const int MaxEvasionPercent = 40;
+
+    // Protección efectiva en %: base + mejora (DefenseBoost, en puntos) - Vulnerabilidad (en puntos).
+    // Con valor negativo el objetivo recibe daño extra. La penetracion se aplica despues (DamageCalculator).
+    public int ProtectionPercent
     {
         get
         {
-            int boost = GetStatusPercent(StatusEffectType.DefenseBoost);
-            int vulnerability =
-                GetStatusPercent(StatusEffectType.Vulnerability);
+            int value = protection
+                + GetStatusPercent(StatusEffectType.DefenseBoost)
+                - GetStatusPercent(StatusEffectType.Vulnerability);
 
-            if (boost <= 0 && vulnerability <= 0)
-                return defense;
-
-            float value = defense;
-
-            if (boost > 0)
-                value = value * (100 + boost) / 100f;
-
-            if (vulnerability > 0)
-                value = value * (100 - vulnerability) / 100f;
-
-            return Mathf.Max(0, Mathf.RoundToInt(value));
+            return Mathf.Clamp(value, MinProtectionPercent, MaxProtectionPercent);
         }
     }
+
+    // Probabilidad de esquivar ataques directos (%).
+    public float EvasionPercent => Mathf.Clamp(
+        evasion + GetStatusPercent(StatusEffectType.EvasionBoost),
+        0f,
+        MaxEvasionPercent
+    );
 
     // Maximo de reduccion de daño directo acumulable.
     public const int MaxDamageReductionPercent = 50;
@@ -87,7 +92,25 @@ public class BattleUnit : MonoBehaviour
     public float CriticalChance => criticalChance;
     public float CriticalDamage => criticalDamage;
 
-    public bool IsAlive => currentHealth > 0;
+    // Un enemigo que HUYE del campo (p. ej. los secuaces cuando cae el jefe) deja de participar: no cuenta como vivo, no
+    // actua y no se contabiliza como derrota ni da recompensas.
+    private bool hasFled;
+
+    public bool HasFled => hasFled;
+
+    public bool IsAlive => currentHealth > 0 && !hasFled;
+
+    // Se dispara una sola vez cuando la unidad huye (PositionManager la retira de la formacion).
+    public event Action<BattleUnit> OnFled;
+
+    public void Flee()
+    {
+        if (hasFled || currentHealth <= 0)
+            return;
+
+        hasFled = true;
+        OnFled?.Invoke(this);
+    }
 
     // Se dispara una vez cuando la vida pasa de positiva a 0.
     public event Action<BattleUnit> OnDefeated;
@@ -96,47 +119,37 @@ public class BattleUnit : MonoBehaviour
     // (recuperacion poscombate). PositionManager la reincorpora.
     public event Action<BattleUnit> OnRevived;
 
-    // Recuperacion poscombate: suma 'percent'% de la vida maxima efectiva
-    // (redondeo al mas cercano, sin pasar del maximo). Una unidad
-    // derrotada revive con exactamente ese porcentaje (minimo 1 HP).
+    // Recuperacion poscombate (solo tras una victoria). Los supervivientes
+    // conservan EXACTAMENTE la vida con la que terminaron: no reciben
+    // curacion. Una unidad derrotada revive con 'percent'% de su vida maxima
+    // efectiva (nivel + reliquias), redondeado hacia arriba y minimo 1 HP.
     // Devuelve true si la unidad estaba derrotada y revivio.
-    public bool RecoverAfterBattle(int percent)
+    public bool ReviveAfterBattle(int percent)
     {
         if (unitData == null)
             return false;
 
-        // Estadisticas efectivas actualizadas (nivel actual).
+        // Estadisticas efectivas actualizadas (nivel actual y reliquias).
+        // No toca la vida actual.
         UpdateStats();
 
-        int amount =
-            (maxHealth * Mathf.Clamp(percent, 0, 100) + 50) / 100;
-
-        bool wasDefeated = currentHealth <= 0;
-
-        if (wasDefeated)
+        if (currentHealth > 0)
         {
-            currentHealth = Mathf.Clamp(amount, 1, maxHealth);
-
-            Debug.Log(
-                unitData.unitName + " revive con " + currentHealth +
-                "/" + maxHealth + " HP."
-            );
-
-            OnRevived?.Invoke(this);
-        }
-        else
-        {
-            int before = currentHealth;
-            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
-
-            Debug.Log(
-                unitData.unitName + " recupera " +
-                (currentHealth - before) + " HP (" +
-                currentHealth + "/" + maxHealth + ")."
-            );
+            currentHealth = Mathf.Min(currentHealth, maxHealth);
+            return false;
         }
 
-        return wasDefeated;
+        // Redondeo hacia arriba.
+        int amount = (maxHealth * Mathf.Clamp(percent, 0, 100) + 99) / 100;
+        currentHealth = Mathf.Clamp(amount, 1, maxHealth);
+
+        Debug.Log(
+            unitData.unitName + " revive con " + currentHealth +
+            "/" + maxHealth + " HP."
+        );
+
+        OnRevived?.Invoke(this);
+        return true;
     }
 
     private void Awake()
@@ -193,15 +206,13 @@ public class BattleUnit : MonoBehaviour
     private void UpdateStats()
     {
         int healthBonus = 0;
-        int attackBonus = 0;
-        int defenseBonus = 0;
+        int damageBonus = 0;
         int speedBonus = 0;
 
         if (progression != null)
         {
             healthBonus = progression.HealthBonus;
-            attackBonus = progression.AttackBonus;
-            defenseBonus = progression.DefenseBonus;
+            damageBonus = progression.DamageBonus;
             speedBonus = progression.SpeedBonus;
         }
 
@@ -210,25 +221,32 @@ public class BattleUnit : MonoBehaviour
             unitData.maxHealth + healthBonus
         );
 
-        attack = Mathf.Max(
-            0,
-            unitData.attack + attackBonus
-        );
-
-        defense = Mathf.Max(
-            0,
-            unitData.defense + defenseBonus
-        );
+        damageMin = Mathf.Max(1, unitData.damageMin + damageBonus);
+        damageMax = Mathf.Max(damageMin, unitData.damageMax + damageBonus);
+        protection = Mathf.Clamp(unitData.protectionPercent, MinProtectionPercent, MaxProtectionPercent);
+        evasion = Mathf.Clamp(unitData.evasionPercent, 0f, MaxEvasionPercent);
 
         speed = Mathf.Max(
             0,
             unitData.speed + speedBonus
         );
 
-        // Por ahora los criticos mantienen
-        // sus valores base.
+        // Los criticos parten de sus valores base.
         criticalChance = unitData.criticalChance;
         criticalDamage = unitData.criticalDamage;
+
+        // Reliquias equipadas (solo protagonistas): se calculan siempre desde el equipamiento actual, sin acumular.
+        if (teamSide == TeamSide.Player && GameSession.IsActive)
+        {
+            StatMods relics = RelicInventory.GetMods(gameObject.name);
+            maxHealth = Mathf.Max(1, maxHealth + relics.health);
+            damageMin = Mathf.Max(1, damageMin + relics.damage);
+            damageMax = Mathf.Max(damageMin, damageMax + relics.damage);
+            protection = Mathf.Clamp(protection + relics.protection, MinProtectionPercent, MaxProtectionPercent);
+            evasion = Mathf.Clamp(evasion + relics.evasion, 0f, MaxEvasionPercent);
+            speed = Mathf.Max(0, speed + relics.speed);
+            criticalChance = Mathf.Clamp(criticalChance + relics.crit, 0f, 100f);
+        }
     }
 
     // Se ejecuta al subir de nivel.
@@ -249,8 +267,9 @@ public class BattleUnit : MonoBehaviour
             " ahora es nivel " + newLevel +
             ". Estadisticas actualizadas: " +
             "HP " + currentHealth + "/" + maxHealth +
-            ", ATQ " + attack +
-            ", DEF " + defense +
+            ", daño " + damageMin + "-" + damageMax +
+            ", prot " + protection + "%" +
+            ", evasion " + evasion + "%" +
             ", VEL " + speed
         );
     }
@@ -330,6 +349,9 @@ public class BattleUnit : MonoBehaviour
                 );
 
                 damage = boosted;
+
+                // La marca del Capitan se consume con ese ataque directo.
+                statuses.RemoveEffect(StatusEffectType.PriorityTarget);
             }
         }
 
@@ -355,40 +377,8 @@ public class BattleUnit : MonoBehaviour
             markStatuses.RemoveEffect(StatusEffectType.Mark);
         }
 
-        // Un aliado con Guard puede interceptar parte del daño.
-        // El protector lo recibe con su propia reduccion, sin volver
-        // a redirigirlo (evita recursividad).
-        if (damage > 0)
-        {
-            StatusEffectController protector =
-                StatusEffectController.FindProtectorOf(this);
-
-            if (protector != null)
-            {
-                StatusEffectInstance guard =
-                    protector.GetEffect(StatusEffectType.Guard);
-
-                int intercepted = Mathf.RoundToInt(
-                    damage * guard.InterceptPercent / 100f
-                );
-
-                if (intercepted > 0)
-                {
-                    BattleUnit protectorUnit =
-                        protector.GetComponent<BattleUnit>();
-
-                    Debug.Log(
-                        protectorUnit.Data.unitName + " intercepta " +
-                        intercepted + " de daño dirigido a " +
-                        unitData.unitName + "."
-                    );
-
-                    damage -= intercepted;
-                    protectorUnit.TakeReducedDamage(intercepted);
-                }
-            }
-        }
-
+        // La intercepcion de Guardia de Trinchera (reparto entre protector y objetivo, cada uno con su PROT) se resuelve
+        // ANTES, en AbilitySystem.DeliverDirectDamage: aqui el daño ya es la parte que recibe esta unidad.
         TakeReducedDamage(damage);
     }
 

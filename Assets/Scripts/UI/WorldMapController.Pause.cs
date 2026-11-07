@@ -16,7 +16,8 @@ public partial class WorldMapController
     // La pausa solo se abre si no hay otro modal (tienda, inventario, evento) ni una carga en curso.
     public bool CanOpenPause()
     {
-        return !loading && !eventOpen && (shop == null || (!shop.IsOpen && !shop.ClosedThisFrame));
+        return !loading && !eventOpen && (shop == null || (!shop.IsOpen && !shop.ClosedThisFrame)) &&
+               (characters == null || (!characters.IsOpen && !characters.ClosedThisFrame));
     }
 
     // Boton de menu de la esquina superior izquierda.

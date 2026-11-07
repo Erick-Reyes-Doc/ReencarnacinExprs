@@ -179,6 +179,7 @@ public class EncounterLoader : MonoBehaviour
         }
 
         turnManager.SetEncounterExperience(data.experienceReward);
+        turnManager.SetBossFallsRule(data.minionsFleeWhenBossFalls, data.bossFallsMessage);
         positionManager.UpdateVisualPositions();
 
         // El HUD vuelve a leer las unidades de la escena.

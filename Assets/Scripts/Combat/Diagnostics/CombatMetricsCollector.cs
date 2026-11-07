@@ -149,7 +149,7 @@ public class CombatMetricsCollector : MonoBehaviour
             member.defeated = true;
     }
 
-    // Antes de la XP y de la recuperacion del 40%.
+    // Antes de la XP y de la revivida poscombate (20 %).
     private void HandleEnding(bool victory)
     {
         if (current == null || finished)

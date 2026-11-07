@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: EvanoraData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Evanora
-  maxHealth: 55
-  attack: 14
-  defense: 2
-  speed: 11
+  maxHealth: 22
+  damageMin: 3
+  damageMax: 6
+  protectionPercent: 0
+  evasionPercent: 5
+  speed: 6
   isBoss: 0
-  criticalChance: 12
+  criticalChance: 8
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

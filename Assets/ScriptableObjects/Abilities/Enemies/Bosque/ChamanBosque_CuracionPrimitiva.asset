@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: ChamanBosque_CuracionPrimitiva
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: "Curaci\xF3n Primitiva"
-  description: Cura 12 HP a un aliado.
+  description: Cura 5 HP a un aliado.
   abilityIcon: {fileID: 0}
   abilityType: 1
+  useAnnouncement: 
   targetType: 0
-  basePower: 12
+  basePower: 5
   canCritical: 1
   usablePositions: 00010101y
   targetPositions: 01010101y
@@ -29,10 +30,14 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects: []

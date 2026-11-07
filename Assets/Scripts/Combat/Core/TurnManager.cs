@@ -20,12 +20,23 @@ public class TurnManager : MonoBehaviour
     private bool battleFinished;
     private bool experienceAwarded;
 
-    [Header("Recuperacion poscombate")]
-    [Tooltip("% de la vida maxima efectiva que recuperan (o con el que reviven) los protagonistas al ganar.")]
-    [SerializeField, Range(0, 100)]
-    private int postBattleRecoveryPercent = 40;
+    // Recuperacion poscombate (regla ajustada del GDD): al ganar, los
+    // derrotados reviven con este % de su vida maxima efectiva; los
+    // supervivientes conservan exactamente su vida (sin curacion).
+    public const int ReviveHealthPercent = 20;
 
     private bool recoveryApplied;
+
+    // Regla de encuentro (solo la activa el encuentro del Capitan): si el jefe cae, los enemigos que sigan vivos HUYEN, se
+    // cancela su accion pendiente y el combate termina en victoria (sin muertes adicionales ni recompensas extra).
+    private bool minionsFleeWhenBossFalls;
+    private string bossFallsMessage = "";
+
+    public void SetBossFallsRule(bool enabled, string message)
+    {
+        minionsFleeWhenBossFalls = enabled;
+        bossFallsMessage = message ?? "";
+    }
     private bool partyDefeated;
 
     [Header("Recompensa del encuentro")]
@@ -88,6 +99,25 @@ public class TurnManager : MonoBehaviour
             return false;
 
         units.Add(unit);
+        return true;
+    }
+
+    // Anade una unidad a un combate EN CURSO (refuerzos experimentales de jefe). Se suscribe a la derrota y empieza sin
+    // cooldowns; entra en el orden de turnos en la ronda siguiente (el orden de la ronda actual no se toca).
+    public bool AddReinforcement(BattleUnit unit)
+    {
+        if (unit == null || !BattleActive || battleFinished || units.Contains(unit))
+            return false;
+
+        units.Add(unit);
+        unit.OnDefeated -= HandleUnitDefeated;
+        unit.OnDefeated += HandleUnitDefeated;
+
+        AbilityCooldownController cooldowns = unit.GetComponent<AbilityCooldownController>();
+
+        if (cooldowns != null)
+            cooldowns.ResetAll();
+
         return true;
     }
 
@@ -470,9 +500,9 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    // Recuperacion poscombate: una sola vez por victoria. Los
-    // protagonistas vivos recuperan el porcentaje configurado de su vida
-    // maxima efectiva y los derrotados reviven con ese mismo porcentaje.
+    // Recuperacion poscombate: una sola vez por victoria. Solo revive a los
+    // derrotados (ReviveHealthPercent de su vida maxima efectiva); los vivos
+    // no reciben curacion.
     private void ApplyPostBattleRecovery()
     {
         if (recoveryApplied)
@@ -485,12 +515,39 @@ public class TurnManager : MonoBehaviour
             if (unit == null || unit.Side != TeamSide.Player)
                 continue;
 
-            unit.RecoverAfterBattle(postBattleRecoveryPercent);
+            unit.ReviveAfterBattle(ReviveHealthPercent);
         }
+    }
+
+    // Cuando cae el jefe con la regla activa, los demas enemigos vivos huyen. Se llama al principio de CheckBattleEnd, asi
+    // la victoria sigue el camino normal (XP y Coronas una sola vez, recuperacion de siempre).
+    private void TryMinionsFlee()
+    {
+        if (!minionsFleeWhenBossFalls || battleFinished)
+            return;
+
+        bool bossFell = units.Any(u => u != null && u.Side == TeamSide.Enemy && u.Data != null && u.Data.isBoss && !u.IsAlive && !u.HasFled);
+
+        if (!bossFell)
+            return;
+
+        List<BattleUnit> fleeing = units.Where(u => u != null && u.Side == TeamSide.Enemy && u.IsAlive).ToList();
+
+        if (fleeing.Count == 0)
+            return;
+
+        // Cancela cualquier accion enemiga pendiente.
+        enemyActionToken++;
+        Debug.Log(string.IsNullOrEmpty(bossFallsMessage) ? "¡El jefe ha caído! El enemigo restante huye del campo de batalla." : bossFallsMessage);
+
+        foreach (BattleUnit unit in fleeing)
+            unit.Flee();
     }
 
     private bool CheckBattleEnd()
     {
+        TryMinionsFlee();
+
         bool playersAlive = units.Any(unit =>
             unit != null &&
             unit.Side == TeamSide.Player &&

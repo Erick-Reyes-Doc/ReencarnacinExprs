@@ -217,6 +217,7 @@ public partial class WorldMapController : MonoBehaviour
         // Desde el Paso 90 el boton de menu abre la pausa; OnMenuClicked queda como acceso directo antiguo.
         menuButton.onClick.AddListener(() => OpenPause());
 
+        WireHeroCards();
         WireLocationButtons();
     }
 
@@ -226,7 +227,7 @@ public partial class WorldMapController : MonoBehaviour
 
     public void Select(string id)
     {
-        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return;
 
         if (IsKnownId(id))
@@ -242,7 +243,7 @@ public partial class WorldMapController : MonoBehaviour
     // El evento esta disponible (B1 completado) y aun sin completar.
     public bool CanOpenEvent()
     {
-        return !loading && !eventOpen && !PauseOpen && (shop == null || !shop.IsOpen) &&
+        return !loading && !eventOpen && !PauseOpen && !CharactersOpen && (shop == null || !shop.IsOpen) &&
                MapProgression.CanStart(GameSession.NoelleEventId);
     }
 
@@ -285,6 +286,39 @@ public partial class WorldMapController : MonoBehaviour
         if (loading || eventOpen || PauseOpen || shop == null)
             return;
 
+        // Con una ficha de personaje abierta, los botones Inventario y Tienda del HUD no hacen nada (el inventario se abre
+        // desde las casillas de reliquias de la ficha). Solo cierran el inventario suelto abierto desde el mapa.
+        if (CharactersOpen)
+        {
+            if (characters.InventoryOnly)
+            {
+                if (!asShop)
+                {
+                    characters.ToggleInventory();   // Inventario sobre Inventario: cierra
+                }
+                else
+                {
+                    characters.Close();             // Tienda desde el inventario: cierra este y abre la tienda
+                    confirmMenu = false;
+                    shop.Toggle(true);
+                }
+            }
+
+            return;
+        }
+
+        // Sin ficha abierta, el boton Inventario abre el inventario nuevo (reliquias y consumibles), centrado.
+        if (!asShop && characters != null)
+        {
+            confirmMenu = false;
+
+            if (shop.IsOpen)
+                shop.Close();
+
+            if (characters.OpenInventory())
+                return;
+        }
+
         confirmMenu = false;
         shop.Toggle(asShop);   // abre, cambia entre tienda e inventario o cierra si ya estaba esa vista
     }
@@ -293,7 +327,7 @@ public partial class WorldMapController : MonoBehaviour
     // (guarda el encuentro pendiente). No carga la escena.
     public bool PrepareStart()
     {
-        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return false;
 
         // Los eventos no son combates: no hay encuentro que cargar.

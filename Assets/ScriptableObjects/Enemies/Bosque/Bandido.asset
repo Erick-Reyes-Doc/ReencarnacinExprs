@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Bandido
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Bandido
-  maxHealth: 105
-  attack: 16
-  defense: 6
-  speed: 10
+  maxHealth: 22
+  damageMin: 5
+  damageMax: 7
+  protectionPercent: 5
+  evasionPercent: 6
+  speed: 6
   isBoss: 0
-  criticalChance: 5
+  criticalChance: 4
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

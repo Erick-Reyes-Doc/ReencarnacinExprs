@@ -53,8 +53,7 @@ public class ExperienceTest : MonoBehaviour
             Debug.Log(
                 "Bonos acumulados: " +
                 "HP +" + character.HealthBonus +
-                ", ATQ +" + character.AttackBonus +
-                ", DEF +" + character.DefenseBonus +
+                ", daño +" + character.DamageBonus +
                 ", VEL +" + character.SpeedBonus
             );
         }

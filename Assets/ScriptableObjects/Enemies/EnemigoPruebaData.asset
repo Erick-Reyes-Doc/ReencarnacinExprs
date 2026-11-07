@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: EnemigoPruebaData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Goblin
-  maxHealth: 60
-  attack: 10
-  defense: 3
-  speed: 8
+  maxHealth: 14
+  damageMin: 3
+  damageMax: 5
+  protectionPercent: 0
+  evasionPercent: 3
+  speed: 5
   isBoss: 0
-  criticalChance: 6
+  criticalChance: 2
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

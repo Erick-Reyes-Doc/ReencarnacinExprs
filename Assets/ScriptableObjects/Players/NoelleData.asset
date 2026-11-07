@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: NoelleData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Noelle
-  maxHealth: 90
-  attack: 9
-  defense: 6
-  speed: 8
+  maxHealth: 28
+  damageMin: 4
+  damageMax: 7
+  protectionPercent: 10
+  evasionPercent: 5
+  speed: 5
   isBoss: 0
   criticalChance: 5
   criticalDamage: 1.5

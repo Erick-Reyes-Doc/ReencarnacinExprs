@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Aumenta su propia defensa.
   abilityIcon: {fileID: 0}
   abilityType: 2
+  useAnnouncement: 
   targetType: 3
   basePower: 0
   canCritical: 1
@@ -29,15 +30,19 @@ MonoBehaviour:
   regenerationDuration: 0
   healPercentMaxHealth: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 0
   defensePenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
   - type: 9
-    potency: 25
+    potency: 10
     duration: 2
     chance: 100
     potencyPerLevel: 0

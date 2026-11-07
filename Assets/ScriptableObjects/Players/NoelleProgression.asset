@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79fb6ad2a90ac14a89011122c09173c, type: 3}
   m_Name: NoelleProgression
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProgressionData
-  healthPerLevel: 7
-  attackPerLevel: 1
-  defensePerLevel: 1
-  speedIncrease: 1
+  healthPerLevel: 2
+  damageBonusLevels: 04000000070000000a000000i
+  speedIncrease: 0
   speedEveryLevels: 5
   baseExperience: 100
   experienceIncrease: 50

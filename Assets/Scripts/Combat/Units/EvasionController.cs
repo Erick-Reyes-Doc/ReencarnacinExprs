@@ -8,50 +8,39 @@ public enum AttackWeight
     Unavoidable
 }
 
-// Evasion opcional de una unidad: solo la tienen los personajes que
-// lleven este componente. No modifica velocidad ni estadisticas.
-//
-// Ligero:      min(maxChance, baseChance + speedFactor * velocidad)
-// Pesado:      la mitad del ligero (heavyMultiplier)
-// Inevitable:  0%
+// Evasion porcentual. TODAS las unidades esquivan con BattleUnit.EvasionPercent (datos + reliquias, tope 40 %):
+//   Ligero:      EvasionPercent
+//   Pesado:      la mitad (heavyMultiplier)
+//   Inevitable:  0 %
+// AbilitySystem tira la evasion una sola vez por objetivo (ver ResolveOffensiveHit). Este componente es opcional y
+// solo expone la misma consulta para pruebas; ya no guarda valores propios.
 public class EvasionController : MonoBehaviour
 {
-    [Header("Evasion contra ataques ligeros (%)")]
-    [SerializeField, Min(0f)] private float baseChance = 8f;
-    [SerializeField, Min(0f)] private float speedFactor = 0.5f;
-    [SerializeField, Min(0f)] private float maxChance = 25f;
-
-    [Header("Ataques pesados")]
-    [SerializeField, Range(0f, 1f)] private float heavyMultiplier = 0.5f;
+    public const float HeavyMultiplier = 0.5f;
 
     private BattleUnit unit;
 
-    public float GetChance(AttackWeight weight)
+    // 'penetration' = % de la evasion del objetivo que el ataque ignora (50 = la mitad).
+    public static float ChanceFor(BattleUnit target, AttackWeight weight, float penetration = 0f)
     {
-        if (weight == AttackWeight.Unavoidable)
+        if (target == null || weight == AttackWeight.Unavoidable)
             return 0f;
 
-        if (unit == null)
-            unit = GetComponent<BattleUnit>();
-
-        int speed = unit != null ? unit.Speed : 0;
-
-        float chance = Mathf.Min(
-            maxChance,
-            baseChance + speedFactor * speed
-        );
+        float chance = target.EvasionPercent;
 
         if (weight == AttackWeight.Heavy)
-            chance *= heavyMultiplier;
+            chance *= HeavyMultiplier;
+
+        if (penetration > 0f)
+            chance *= 1f - Mathf.Clamp(penetration, 0f, 100f) / 100f;
 
         return Mathf.Clamp(chance, 0f, 100f);
     }
 
-    // Tira la evasion. 'roll' (0-100) permite fijar el resultado en
-    // pruebas; si es negativo se usa un valor aleatorio.
-    public bool TryEvade(AttackWeight weight, float roll = -1f)
+    // Tira la evasion. 'roll' (0-100) permite fijar el resultado en pruebas; si es negativo se usa un valor al azar.
+    public static bool TryEvade(BattleUnit target, AttackWeight weight, float roll = -1f, float penetration = 0f)
     {
-        float chance = GetChance(weight);
+        float chance = ChanceFor(target, weight, penetration);
 
         if (chance <= 0f)
             return false;
@@ -60,5 +49,21 @@ public class EvasionController : MonoBehaviour
             roll = Random.Range(0f, 100f);
 
         return roll < chance;
+    }
+
+    public float GetChance(AttackWeight weight)
+    {
+        if (unit == null)
+            unit = GetComponent<BattleUnit>();
+
+        return ChanceFor(unit, weight);
+    }
+
+    public bool TryEvade(AttackWeight weight, float roll = -1f)
+    {
+        if (unit == null)
+            unit = GetComponent<BattleUnit>();
+
+        return TryEvade(unit, weight, roll);
     }
 }

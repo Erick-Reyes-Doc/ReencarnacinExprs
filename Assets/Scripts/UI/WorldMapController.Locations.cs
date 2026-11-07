@@ -38,6 +38,7 @@ public partial class WorldMapController
         public Image frame;
         public Image icon;
         public Image glow;
+        public Image hint;            // pista discreta del siguiente lugar (aun bloqueado)
         public Image ring;
         public Text label;
         public MapHoverTarget hover;
@@ -131,7 +132,7 @@ public partial class WorldMapController
     // el recomendado, si no el primero disponible, si no el primero.
     public bool SelectLocation(string id)
     {
-        if (loading || eventOpen || PauseOpen || (shop != null && shop.IsOpen))
+        if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return false;
 
         MapLocationDef def = FindLocation(id);
@@ -262,6 +263,13 @@ public partial class WorldMapController
         if (!useLocationMarkers || locationViews.Count == 0)
             return;
 
+        // Encuentro que sigue al recomendado: su lugar (aun bloqueado) deja una pista muy discreta.
+        string nextAfterRecommended = null;
+        int recommendedIndex = recommended != null ? MapProgression.IndexOf(recommended) : -1;
+
+        if (recommendedIndex >= 0 && recommendedIndex + 1 < MapProgression.Order.Length)
+            nextAfterRecommended = MapProgression.Order[recommendedIndex + 1];
+
         foreach (LocationView view in locationViews)
         {
             MapLocationDef def = FindLocation(view.id);
@@ -274,10 +282,11 @@ public partial class WorldMapController
             PlaceState state = StateOfLocation(def, recommended);
             bool open = openLocationId == view.id;
             bool hover = hoveredLocationId == view.id;
+            bool hint = state == PlaceState.Locked && nextAfterRecommended != null && def.encounterIds.Contains(nextAfterRecommended);
 
             if (view.badge != null && view.quest != null)
             {
-                RefreshMedallion(view, state, evt, open, hover);
+                RefreshMedallion(view, state, evt, open, hover, hint);
                 continue;
             }
 

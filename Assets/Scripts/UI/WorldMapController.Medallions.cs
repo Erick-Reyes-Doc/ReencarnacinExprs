@@ -14,7 +14,11 @@ public partial class WorldMapController
     [Tooltip("Simbolo de las misiones disponibles (espadas cruzadas). Si falta se usa la estrella.")]
     [SerializeField] private Sprite questIcon;
 
-    private const float MedallionSize = 64f;
+    private const float MedallionSize = 50f;
+
+    // El medallon flota sobre el edificio (no encima) para dejar ver la ilustracion; su etiqueta sigue bajo el lugar.
+    // La gruta, cuya etiqueta va arriba, conserva su posicion.
+    private const float MedallionLift = 40f;
 
     // Paleta del mapa: #10151E, #171F2B, #D4AF6A, #B7955B, #E8DCC6.
     private static readonly Color MapNavy = new Color(0.063f, 0.082f, 0.118f, 1f);
@@ -90,7 +94,8 @@ public partial class WorldMapController
 
         Vector2 p = LocationPx(def);   // origen abajo-izquierda
         bool above = key == "clearing";
-        return new Vector2(p.x, p.y + (above ? TagOffset : -TagOffset));
+        float extra = key == "shrine" ? 14f : 0f;   // la placa del santuario baja un poco para no tapar la base de la capilla
+        return new Vector2(p.x, p.y + (above ? TagOffset : -(TagOffset + extra)));
     }
 
     private RectTransform BuildLocationLabels(RectTransform area)
@@ -99,7 +104,8 @@ public partial class WorldMapController
 
         foreach ((string key, string text, float x, float y, bool primary) tag in LocationTags)
         {
-            RectTransform card = InfoCard("Etiqueta_" + tag.key, group, tag.text, 19f);
+            RectTransform card = InfoCard("Etiqueta_" + tag.key, group, tag.text, 17f);
+            card.sizeDelta = new Vector2(card.sizeDelta.x, 30f);
             card.anchorMin = card.anchorMax = Vector2.zero;
             card.anchoredPosition = TagPosition(tag.key, tag.x, 1080f - tag.y);
             card.gameObject.SetActive(tag.primary || showSecondaryLabels);
@@ -140,6 +146,52 @@ public partial class WorldMapController
 
             if (tag.GetComponent<MapHoverTarget>() == null)
                 tag.gameObject.AddComponent<MapHoverTarget>();
+
+            if (tag.GetComponent<CanvasGroup>() == null)
+                tag.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = true;
+
+            if (tag.GetComponent<MapTagHoverFade>() == null)
+                tag.gameObject.AddComponent<MapTagHoverFade>();
+
+            // El medallon se acopla al borde izquierdo de la placa de su nombre: la ilustracion queda libre y
+            // marcador y nombre se leen como una sola pieza.
+            RectTransform tagRect = (RectTransform)tag;
+            view.rect.anchoredPosition = tagRect.anchoredPosition + new Vector2(-(tagRect.sizeDelta.x * 0.5f + 31f), 0f);
+        }
+
+        // Las placas de lugares sin mision (ciudad, pabellon, catedral, nido) son informativas: se atenuan.
+        for (int i = 0; i < group.childCount; i++)
+        {
+            Transform tag = group.GetChild(i);
+            bool linked = false;
+
+            foreach (LocationView view in locationViews)
+                if (view.locationTag != null && view.locationTag.transform == tag)
+                    linked = true;
+
+            if (linked)
+                continue;
+
+            CanvasGroup cg = tag.GetComponent<CanvasGroup>();
+
+            if (cg == null)
+                cg = tag.gameObject.AddComponent<CanvasGroup>();
+
+            cg.alpha = 0.72f;
+            cg.blocksRaycasts = true;
+
+            // Informativas: sin clic, pero al pasar el cursor se leen con claridad.
+            Image infoBackground = tag.GetComponent<Image>();
+
+            if (infoBackground != null)
+                infoBackground.raycastTarget = true;
+
+            MapTagHoverFade infoFade = tag.GetComponent<MapTagHoverFade>();
+
+            if (infoFade == null)
+                infoFade = tag.gameObject.AddComponent<MapTagHoverFade>();
+
+            infoFade.restAlpha = 0.72f;
         }
     }
 
@@ -148,15 +200,20 @@ public partial class WorldMapController
     private LocationView BuildMedallion(Transform parent, MapLocationDef def, Vector2 center)
     {
         float size = MedallionSize;
-        RectTransform container = Place("Lugar_" + def.id, parent, center, new Vector2(size + 16f, size + 16f), Clear0, null);
+        float lift = 0f;   // el medallon se acopla despues a la placa de su nombre (LinkLocationTags)
+        RectTransform container = Place("Lugar_" + def.id, parent, center + new Vector2(0f, lift), new Vector2(size + 16f, size + 16f), Clear0, null);
         RectTransform badge = Local("Indicador", container, Vector2.zero, new Vector2(size, size), Clear0, null);
 
         Local("Sombra", badge, new Vector2(0f, -5f), new Vector2(size + 8f, size * 0.55f), new Color(0f, 0f, 0f, 0.35f), SpSoft);
         // Halo dorado detras del marcador: solo se enciende (con un pulso suave) en el lugar recomendado.
-        RectTransform glow = Local("Brillo", container, Vector2.zero, new Vector2(size * 2.3f, size * 2.3f), Clear0, SpSoft);
+        RectTransform glow = Local("Brillo", container, Vector2.zero, new Vector2(size * 1.9f, size * 1.9f), Clear0, SpSoft);
         glow.SetAsFirstSibling();
-        RectTransform ring = Local("Anillo", badge, Vector2.zero, new Vector2(size + 24f, size + 24f), Color.white, SpRing);
+        RectTransform ring = Local("Anillo", badge, Vector2.zero, new Vector2(size + 16f, size + 16f), Color.white, SpRing);
         ring.gameObject.SetActive(false);
+
+        // Pista del lugar que sigue al recomendado (aun bloqueado): un anillo fino y tenue que respira, sin icono.
+        RectTransform hintRing = Local("Pista", container, Vector2.zero, new Vector2(size * 0.95f, size * 0.95f), new Color(MapGold.r, MapGold.g, MapGold.b, 0f), SpRing);
+        hintRing.gameObject.SetActive(false);
 
         RectTransform frame = Local("Marco", badge, Vector2.zero, new Vector2(size, size), MapGold, SpCircle);
         RectTransform body = Local("Cuerpo", badge, Vector2.zero, new Vector2(size - 8f, size - 8f), MapNavy, SpCircle);
@@ -192,13 +249,13 @@ public partial class WorldMapController
             body = body.GetComponent<Image>(), frame = frame.GetComponent<Image>(),
             icon = icon.GetComponent<Image>(), glow = glow.GetComponent<Image>(),
             ring = ring.GetComponent<Image>(), label = label, hover = hover,
-            quest = quest.GetComponent<Image>()
+            quest = quest.GetComponent<Image>(), hint = hintRing.GetComponent<Image>()
         };
     }
 
     // Tres estados: disponible (borde dorado + espadas), bloqueado (azul grisaceo + candado)
     // y completado (mas discreto + verificacion). Sin brillos ni animaciones.
-    private void RefreshMedallion(LocationView view, PlaceState state, bool evt, bool open, bool hover)
+    private void RefreshMedallion(LocationView view, PlaceState state, bool evt, bool open, bool hover, bool hint)
     {
         Color frame = MapGold, body = MapNavy, iconColor = MapIvory;
         Sprite icon = null;
@@ -242,18 +299,50 @@ public partial class WorldMapController
         }
 
         bool recommendedHere = state == PlaceState.Recommended;
-        if (view.ring.gameObject.activeSelf != recommendedHere) view.ring.gameObject.SetActive(recommendedHere);
+        bool showRing = recommendedHere || ((hover || open) && state != PlaceState.Locked);
+        if (view.ring.gameObject.activeSelf != showRing) view.ring.gameObject.SetActive(showRing);
 
         // Guia visual: el lugar que toca jugar respira con un halo dorado suave (sin movimiento ni particulas).
         // Lo que todavia no se ha descubierto no dibuja marcador ni candado. El nombre del lugar se mantiene visible, pero
         // sin interaccion (ni hover ni clic) hasta que el lugar este disponible.
         bool revealed = state != PlaceState.Locked;
-        if (view.rect.gameObject.activeSelf != revealed) view.rect.gameObject.SetActive(revealed);
+        bool visible = revealed || hint;
+        if (view.rect.gameObject.activeSelf != visible) view.rect.gameObject.SetActive(visible);
+
+        // Con solo la pista visible: sin medallon ni clic; unicamente el anillo tenue que respira.
+        bool showHint = hint && !revealed && view.hint != null;
+        if (view.badge.gameObject.activeSelf != revealed) view.badge.gameObject.SetActive(revealed);
+        if (view.button != null && view.button.targetGraphic != null && view.button.targetGraphic.raycastTarget != revealed)
+            view.button.targetGraphic.raycastTarget = revealed;
+
+        if (view.hint != null)
+        {
+            if (view.hint.gameObject.activeSelf != showHint) view.hint.gameObject.SetActive(showHint);
+
+            if (showHint)
+            {
+                float breathe = Application.isPlaying ? 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 1.6f) : 0.5f;
+                float s = 1f + 0.12f * breathe;
+                view.hint.rectTransform.localScale = new Vector3(s, s, 1f);
+                view.hint.color = new Color(MapGold.r, MapGold.g, MapGold.b, 0.38f + 0.37f * breathe);
+            }
+        }
 
         if (view.locationTag != null)
         {
+            // La placa siempre recibe el cursor (para poder leer el nombre con claridad), pero solo abre el lugar,
+            // crece y marca el hover del lugar cuando este esta disponible.
             Image tagBackground = view.locationTag.GetComponent<Image>();
-            if (tagBackground.raycastTarget != revealed) tagBackground.raycastTarget = revealed;
+            if (!tagBackground.raycastTarget) tagBackground.raycastTarget = true;
+
+            Button tagButton = view.locationTag.GetComponent<Button>();
+            if (tagButton != null && tagButton.interactable != revealed) tagButton.interactable = revealed;
+
+            HoverScale tagGrow = view.locationTag.GetComponent<HoverScale>();
+            if (tagGrow != null && tagGrow.enabled != revealed) tagGrow.enabled = revealed;
+
+            MapHoverTarget tagHoverTarget = view.locationTag.GetComponent<MapHoverTarget>();
+            if (tagHoverTarget != null && tagHoverTarget.enabled != revealed) tagHoverTarget.enabled = revealed;
         }
 
         float glowAlpha = 0f;
@@ -261,10 +350,30 @@ public partial class WorldMapController
 
         if (recommendedHere)
         {
-            glowAlpha = 0.70f + 0.30f * pulse;
-            Color ringColor = new Color(1f, 0.86f, 0.40f, 0.55f + 0.45f * pulse);
+            glowAlpha = 0.50f + 0.25f * pulse;
+        }
+
+        // Anillo: en el lugar recomendado se expande y se desvanece como una onda lenta (2,4 s); al pasar el cursor
+        // por cualquier lugar disponible o completado queda fijo y mas marcado.
+        if (showRing)
+        {
+            float phase = Application.isPlaying ? Mathf.Repeat(Time.unscaledTime / 2.4f, 1f) : 0f;
+            float scale = 1f;
+            float alpha = 0.85f;
+
+            if (recommendedHere && !(hover || open))
+            {
+                scale = 1f + 0.45f * phase;
+                alpha = 0.85f * (1f - phase) * (1f - phase) + 0.1f;
+            }
+
+            view.ring.rectTransform.localScale = new Vector3(scale, scale, 1f);
+            Color ringColor = new Color(1f, 0.86f, 0.40f, alpha);
             if (view.ring.color != ringColor) view.ring.color = ringColor;
         }
+
+        if ((hover || open) && state != PlaceState.Locked && !recommendedHere)
+            glowAlpha = 0.35f;
 
         Color glowColor = new Color(1f, 0.80f, 0.28f, glowAlpha);
         if (view.glow.color != glowColor) view.glow.color = glowColor;
@@ -277,6 +386,22 @@ public partial class WorldMapController
         {
             HoverScale tagScale = view.locationTag.GetComponent<HoverScale>();
             if (tagScale != null) tagScale.ExternalHover = hover || open;
+
+            // Al pasar el cursor el nombre se ilumina: texto dorado y fondo un punto mas claro.
+            bool lit = (hover || open || recommendedHere) && revealed;
+
+            // Jerarquia: solo el lugar activo y los disponibles tienen la placa completa; los bloqueados se atenuan.
+            // Al pasar el cursor, MapTagHoverFade la muestra completa.
+            MapTagHoverFade tagFade = view.locationTag.GetComponent<MapTagHoverFade>();
+            float tagAlpha = revealed ? 1f : 0.72f;
+            if (tagFade != null) tagFade.restAlpha = tagAlpha;
+            Image tagBackground = view.locationTag.GetComponent<Image>();
+            Color tagFill = lit ? new Color(0.098f, 0.129f, 0.188f, 0.97f) : MapNavyCard;
+            if (tagBackground.color != tagFill) tagBackground.color = tagFill;
+
+            TMP_Text tagText = view.locationTag.GetComponentInChildren<TMP_Text>();
+            Color tagTextColor = lit ? MapGold : MapIvory;
+            if (tagText != null && tagText.color != tagTextColor) tagText.color = tagTextColor;
         }
     }
 

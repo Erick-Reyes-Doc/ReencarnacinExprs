@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: CaballeroData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Caballero
-  maxHealth: 110
-  attack: 10
-  defense: 7
-  speed: 9
+  maxHealth: 35
+  damageMin: 4
+  damageMax: 6
+  protectionPercent: 15
+  evasionPercent: 3
+  speed: 4
   isBoss: 0
-  criticalChance: 10
+  criticalChance: 4
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

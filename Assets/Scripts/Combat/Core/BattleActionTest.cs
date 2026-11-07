@@ -91,11 +91,8 @@ public class BattleActionTest : MonoBehaviour
             return;
         }
 
-        // Evasion opcional del objetivo (solo si tiene el componente).
-        EvasionController evasion =
-            target.GetComponent<EvasionController>();
-
-        if (evasion != null && evasion.TryEvade(AttackWeight.Light))
+        // Evasion del objetivo (todas las unidades tienen).
+        if (EvasionController.TryEvade(target, AttackWeight.Light))
         {
             Debug.Log(
                 target.Data.unitName + " esquiva el ataque de " +

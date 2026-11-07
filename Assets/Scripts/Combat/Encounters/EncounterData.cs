@@ -48,6 +48,13 @@ public class EncounterData : ScriptableObject
     [Header("Enemigos")]
     public List<EnemySlot> enemies = new List<EnemySlot>();
 
+    [Header("Reglas especiales")]
+    [Tooltip("Si es true y el jefe cae, los demas enemigos vivos huyen y el combate termina en victoria (sin recompensas extra). Solo para el encuentro del Capitan.")]
+    public bool minionsFleeWhenBossFalls = false;
+
+    [Tooltip("Mensaje del registro de combate cuando huyen los secuaces.")]
+    public string bossFallsMessage = "";
+
     [Header("Recompensa")]
     [Tooltip("XP total del encuentro, entregada una sola vez al ganar.")]
     [Min(0)] public int experienceReward = 50;

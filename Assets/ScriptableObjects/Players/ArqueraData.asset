@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: ArqueraData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Arquera
-  maxHealth: 75
-  attack: 11
-  defense: 3
-  speed: 13
+  maxHealth: 26
+  damageMin: 4
+  damageMax: 7
+  protectionPercent: 0
+  evasionPercent: 10
+  speed: 7
   isBoss: 0
-  criticalChance: 2
+  criticalChance: 8
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

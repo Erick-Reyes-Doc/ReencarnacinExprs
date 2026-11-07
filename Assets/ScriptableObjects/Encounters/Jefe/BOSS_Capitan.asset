@@ -20,5 +20,9 @@ MonoBehaviour:
   enemies:
   - prefab: {fileID: 5314035158176758356, guid: 72a8eef793f2a95448df4ab33381cc29, type: 3}
     position: 1
+  - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
+    position: 2
+  minionsFleeWhenBossFalls: 1
+  bossFallsMessage: "\xA1El Capit\xE1n ha ca\xEDdo! El enemigo restante huye del campo de batalla"
   experienceReward: 200
   coinReward: 100

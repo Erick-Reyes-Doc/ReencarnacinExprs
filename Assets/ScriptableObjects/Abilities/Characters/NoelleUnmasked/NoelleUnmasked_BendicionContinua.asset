@@ -12,27 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
   m_Name: NoelleUnmasked_BendicionContinua
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: Bendicion Continua
-  description: Regenera 4 HP por turno a todos los aliados.
+  abilityName: "Bendici\xF3n Continua"
+  description: Regenera 2 PV al inicio del turno de cada aliado durante 2 turnos (4 PV en total).
   abilityIcon: {fileID: 0}
   abilityType: 2
+  useAnnouncement: 
   targetType: 1
   basePower: 0
+  damagePercent: 100
   canCritical: 1
   usablePositions: 01010101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
-  cooldown: 4
-  regenerationPerTurn: 4
-  regenerationDuration: 3
+  cooldown: 3
+  regenerationPerTurn: 2
+  regenerationDuration: 2
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 0
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects: []

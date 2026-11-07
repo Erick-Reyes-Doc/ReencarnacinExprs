@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: GoblinArquero
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Goblin Arquero
-  maxHealth: 45
-  attack: 11
-  defense: 1
-  speed: 10
+  maxHealth: 12
+  damageMin: 3
+  damageMax: 5
+  protectionPercent: 0
+  evasionPercent: 7
+  speed: 7
   isBoss: 0
-  criticalChance: 5
+  criticalChance: 4
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

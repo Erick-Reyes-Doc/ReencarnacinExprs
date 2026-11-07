@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Capitan_ObjetivoPrioritario
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Objetivo Prioritario
-  description: "Ataque f\xEDsico que designa a un protagonista: recibe un 20% m\xE1s de da\xF1o directo del Capit\xE1n durante 2 turnos."
+  description: "Golpea (70 % del da\xF1o) y marca a un protagonista durante 2 turnos: el siguiente ataque directo del Capit\xE1n contra \xE9l causa +35 % de da\xF1o y consume la marca."
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
-  basePower: -8
+  basePower: 0
+  damagePercent: 70
   canCritical: 1
   usablePositions: 01010101y
   targetPositions: 01010101y
@@ -28,17 +30,27 @@ MonoBehaviour:
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
   - type: 11
-    potency: 20
+    potency: 35
     duration: 2
     chance: 100
+    applyToUser: 0
     potencyPerLevel: 0
     durationPerLevel: 0

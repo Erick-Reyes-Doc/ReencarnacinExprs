@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a45b48d96a9db418dbddc29cb20709, type: 3}
+  m_Name: RelicCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::RelicCatalog
+  relics:
+  - {fileID: 11400000, guid: 778c4df6dff12c94d8275d6bc602ac3b, type: 2}
+  - {fileID: 11400000, guid: 23da6b6922da4aa409a097309e7e0935, type: 2}
+  - {fileID: 11400000, guid: 8843e737325d22c4ca53a4bb73c97af8, type: 2}
+  - {fileID: 11400000, guid: 4cbf977baa738654da6d0560c3b9d164, type: 2}
+  - {fileID: 11400000, guid: 9477505d4634800459ea2863965b90dd, type: 2}
+  - {fileID: 11400000, guid: 8e4284d2b545a0f4484accb4737b6e9e, type: 2}
+  - {fileID: 11400000, guid: 7d953842883bdfe42bf18c148ef2b0eb, type: 2}
+  - {fileID: 11400000, guid: 3dacb628d66b0fb4aa8491099f31fc48, type: 2}
+  - {fileID: 11400000, guid: 96b565e9071d8f8449a9fb592a28727f, type: 2}
+  startWithTestSet: 0

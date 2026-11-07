@@ -868,7 +868,7 @@ public class CombatHudController : MonoBehaviour
         "VICTORIA", "DERROTA", "esquiva", "recibe", "sufre", "aturdid",
         "cancela", "intercepta", "transforma", "Experiencia",
         "adopta", "obtiene", "subio", "recupera", "inmune", "pasa su turno",
-        "revive"
+        "revive", "ha caído", "huye"
     };
 
     // Registro basico: ultimas lineas relevantes de combate.
@@ -2594,10 +2594,10 @@ public class CombatHudController : MonoBehaviour
             case StatusEffectType.Poison: return "<b>Veneno</b>\n" + p + " de daño por turno" + turns;
             case StatusEffectType.Burn: return "<b>Quemadura</b>\n" + p + " de daño por turno" + turns;
             case StatusEffectType.Weaken: return "<b>Debilitamiento</b>\n-" + p + "% de ataque" + turns;
-            case StatusEffectType.Vulnerability: return "<b>Vulnerabilidad</b>\n-" + p + "% de defensa" + turns;
+            case StatusEffectType.Vulnerability: return "<b>Vulnerabilidad</b>\n-" + p + "% de protección" + turns;
             case StatusEffectType.Mark: return "<b>Marca</b>\nEl siguiente ataque directo causa x2 de daño" + turns;
             case StatusEffectType.PriorityTarget: return "<b>Objetivo prioritario</b>\n+" + p + "% de daño directo recibido" + turns;
-            case StatusEffectType.DefenseBoost: return "<b>Defensa elevada</b>\n+" + p + "% de defensa" + turns;
+            case StatusEffectType.DefenseBoost: return "<b>Defensa elevada</b>\n+" + p + "% de protección" + turns;
             case StatusEffectType.Guard: return "<b>Protección</b>\n-" + p + "% de daño directo" + turns;
             case StatusEffectType.Stun: return "<b>Aturdimiento</b>\nPierde su turno" + turns;
             default: return "<b>" + effect.Type + "</b>" + turns;

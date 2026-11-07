@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: NoelleUnmasked_ImpactoConsagrado
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Impacto Consagrado
-  description: Ataque sagrado que puede debilitar.
+  description: "Ataque sagrado (90 % del da\xF1o) que puede debilitar: \u221215 % de da\xF1o durante 1 turno."
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
   targetType: 0
-  basePower: 2
+  basePower: 0
+  damagePercent: 90
   canCritical: 1
   usablePositions: 01010100y
   targetPositions: 01010000y
@@ -28,11 +30,20 @@ MonoBehaviour:
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
@@ -40,5 +51,6 @@ MonoBehaviour:
     potency: 15
     duration: 1
     chance: 50
+    applyToUser: 0
     potencyPerLevel: 0
     durationPerLevel: 0

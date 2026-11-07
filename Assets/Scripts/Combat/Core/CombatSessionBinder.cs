@@ -209,6 +209,9 @@ public class CombatSessionBinder : MonoBehaviour
                 loadout.SetTransformed(state.transformed);
 
             unit.InitializeUnit();
+
+            // La vida actual se conserva tal cual (solo se recorta si supera el maximo actual, p. ej. al
+            // desequipar una reliquia de vida).
             unit.RestoreHealth(state.health);
 
             if (initialPositions.TryGetValue(unit, out int position))

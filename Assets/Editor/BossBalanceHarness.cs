@@ -46,7 +46,8 @@ public static class BossBalanceHarness
     {
         public string name;
         public int hp = 450;
-        public int atk = 28;
+        public int atk = 5;      // daño minimo del jefe
+        public int atkMax = 8;   // daño maximo del jefe
         public int ult = -4;
         public int potions = 3;
         public int antidotes = 2;
@@ -97,7 +98,7 @@ public static class BossBalanceHarness
     static UnitData bossData;
     static AbilityData ultAbility;
     static bool originalsCaptured;
-    static int origHp, origAtk, origUlt;
+    static int origHp, origAtk, origAtkMax, origUlt;
 
     // ------------------------------------------------------------
     // Estado de llegada
@@ -281,7 +282,8 @@ public static class BossBalanceHarness
         bossData = AssetDatabase.LoadAssetAtPath<UnitData>("Assets/ScriptableObjects/Enemies/Jefe/CapitanExpedicionario.asset");
         ultAbility = AssetDatabase.LoadAssetAtPath<AbilityData>("Assets/ScriptableObjects/Abilities/Enemies/Jefe/Capitan_UltimaOrden.asset");
         origHp = bossData.maxHealth;
-        origAtk = bossData.attack;
+        origAtk = bossData.damageMin;
+        origAtkMax = bossData.damageMax;
         origUlt = ultAbility.basePower;
         originalsCaptured = true;
     }
@@ -290,7 +292,8 @@ public static class BossBalanceHarness
     {
         CaptureOriginals();
         bossData.maxHealth = v.hp;
-        bossData.attack = v.atk;
+        bossData.damageMin = v.atk;
+        bossData.damageMax = v.atkMax;
         ultAbility.basePower = v.ult;
     }
 
@@ -300,15 +303,16 @@ public static class BossBalanceHarness
             return "sin cambios";
 
         bossData.maxHealth = origHp;
-        bossData.attack = origAtk;
+        bossData.damageMin = origAtk;
+        bossData.damageMax = origAtkMax;
         ultAbility.basePower = origUlt;
-        return "restaurado: HP " + bossData.maxHealth + ", ATK " + bossData.attack + ", poder Ultima Orden " + ultAbility.basePower;
+        return "restaurado: HP " + bossData.maxHealth + ", daño " + bossData.damageMin + "-" + bossData.damageMax + ", poder Ultima Orden " + ultAbility.basePower;
     }
 
     public static string CurrentBossValues()
     {
         CaptureOriginals();
-        return "HP " + bossData.maxHealth + ", ATK " + bossData.attack + ", DEF " + bossData.defense + ", SPD " + bossData.speed + ", crit " + bossData.criticalChance + ", Ultima Orden " + ultAbility.basePower;
+        return "HP " + bossData.maxHealth + ", daño " + bossData.damageMin + "-" + bossData.damageMax + ", prot " + bossData.protectionPercent + "%" + ", SPD " + bossData.speed + ", crit " + bossData.criticalChance + ", Ultima Orden " + ultAbility.basePower;
     }
 
     // ------------------------------------------------------------
@@ -321,7 +325,7 @@ public static class BossBalanceHarness
     public static void Enqueue(Variant v, int repeats)
     {
         for (int i = 0; i < repeats; i++)
-            queue.Enqueue(new Variant { name = v.name, hp = v.hp, atk = v.atk, ult = v.ult, potions = v.potions, antidotes = v.antidotes, profile = v.profile, seed = v.seed + i });
+            queue.Enqueue(new Variant { name = v.name, hp = v.hp, atk = v.atk, atkMax = v.atkMax, ult = v.ult, potions = v.potions, antidotes = v.antidotes, profile = v.profile, seed = v.seed + i });
     }
 
     public static int Pending => queue.Count + (loadedVariant != null ? 1 : 0);
@@ -422,7 +426,7 @@ public static class BossBalanceHarness
         {
             StatusEffectController fx = boss.GetComponent<StatusEffectController>();
 
-            if (fx != null && fx.HasEffect(StatusEffectType.DefenseBoost)) { bossHitsBoost++; bossBoostSaved += boss.Defense - boss.Data.defense; }
+            if (fx != null && fx.HasEffect(StatusEffectType.DefenseBoost)) { bossHitsBoost++; bossBoostSaved += boss.ProtectionPercent - boss.Data.protectionPercent; }
             else { bossHitsNormal++; bossHitDamageNormal += amount; }
 
             return;
@@ -468,7 +472,7 @@ public static class BossBalanceHarness
 
             CharacterProgression p = u.GetComponent<CharacterProgression>();
             sb.AppendLine(u.Data.unitName + " P" + u.Position + ": Nv" + p.Level + " XP " + p.CurrentExperience + "/" + p.ExperienceRequired +
-                " | HP " + u.CurrentHealth + "/" + u.MaxHealth + " ATK " + u.Attack + " DEF " + u.Defense + " SPD " + u.Speed + " crit " + u.CriticalChance + "%");
+                " | HP " + u.CurrentHealth + "/" + u.MaxHealth + " dmg " + u.DamageMin + "-" + u.DamageMax + " prot " + u.ProtectionPercent + "% eva " + u.EvasionPercent + "%" + " SPD " + u.Speed + " crit " + u.CriticalChance + "%");
         }
 
         return sb.ToString();
@@ -704,7 +708,7 @@ public static class BossBalanceHarness
         r.victory = !boss.IsAlive;
         r.rounds = tm.CurrentRound;
         r.dead = dead.Count;
-        foreach (BattleUnit h in dead) if (h.IsAlive) r.revived++;   // la victoria revive con el 40 %
+        foreach (BattleUnit h in dead) if (h.IsAlive) r.revived++;   // la victoria revive con el 20 %
         r.phase2Round = phaseRound;
         r.potionsUsed = potions0 - GameSession.Potions;
         r.antidotesUsed = antidotes0 - GameSession.Antidotes;

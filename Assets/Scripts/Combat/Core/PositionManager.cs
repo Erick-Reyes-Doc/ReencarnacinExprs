@@ -38,6 +38,7 @@ public class PositionManager : MonoBehaviour
             if (unit == null)
                 continue;
 
+            unit.OnFled -= HandleFledUnit;
             unit.OnDefeated -= HandleDefeatedUnit;
             unit.OnRevived -= HandleRevivedUnit;
 
@@ -45,6 +46,7 @@ public class PositionManager : MonoBehaviour
             {
                 unit.OnDefeated += HandleDefeatedUnit;
                 unit.OnRevived += HandleRevivedUnit;
+                unit.OnFled += HandleFledUnit;
             }
         }
     }
@@ -325,6 +327,20 @@ public void HandleDefeatedUnit(BattleUnit unit)
 }
 
 
+    // Un enemigo que huye desaparece del campo y de la formacion, sin mensaje de derrota (no es una baja).
+    private void HandleFledUnit(BattleUnit unit)
+    {
+        if (unit == null)
+            return;
+
+        SpriteRenderer sprite = unit.GetComponent<SpriteRenderer>();
+
+        if (sprite != null)
+            sprite.enabled = false;
+
+        ReorganizeTeam(unit.Side);
+    }
+
     // Actualiza las posiciones visuales de ambos equipos.
     public void UpdateVisualPositions()
     {
@@ -401,6 +417,8 @@ public void HandleDefeatedUnit(BattleUnit unit)
 
         unit.OnDefeated -= HandleDefeatedUnit;
         unit.OnDefeated += HandleDefeatedUnit;
+        unit.OnFled -= HandleFledUnit;
+        unit.OnFled += HandleFledUnit;
         unit.OnRevived -= HandleRevivedUnit;
         unit.OnRevived += HandleRevivedUnit;
 
@@ -421,6 +439,7 @@ public void HandleDefeatedUnit(BattleUnit unit)
         {
             if (unit != null)
             {
+                unit.OnFled -= HandleFledUnit;
                 unit.OnDefeated -= HandleDefeatedUnit;
                 unit.OnRevived -= HandleRevivedUnit;
             }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: ojo_cazador
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: ojo_cazador
+  displayName: Ojo del Cazador
+  description: "Perteneci\xF3 a una arquera sin rival. Solo Elaina sabe usarlo."
+  icon: {fileID: 1958056259, guid: 5b19320f6207e8c458dea6d3997e1373, type: 3}
+  rarity: 2
+  bonuses:
+  - stat: 4
+    amount: 5
+  - stat: 1
+    amount: 1
+  penalties: []
+  exclusiveHeroId: PlayerArquera
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1

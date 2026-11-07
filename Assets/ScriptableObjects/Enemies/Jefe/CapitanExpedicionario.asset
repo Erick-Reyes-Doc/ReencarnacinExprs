@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: CapitanExpedicionario
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Capit\xE1n de las Fuerzas Expedicionarias"
-  maxHealth: 400
-  attack: 28
-  defense: 9
-  speed: 13
+  maxHealth: 120
+  damageMin: 5
+  damageMax: 8
+  protectionPercent: 10
+  evasionPercent: 5
+  speed: 6
   isBoss: 1
   criticalChance: 8
   criticalDamage: 1.5

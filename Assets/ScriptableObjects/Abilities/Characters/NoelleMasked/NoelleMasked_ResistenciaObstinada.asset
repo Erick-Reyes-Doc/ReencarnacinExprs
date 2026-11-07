@@ -13,32 +13,44 @@ MonoBehaviour:
   m_Name: NoelleMasked_ResistenciaObstinada
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Resistencia Obstinada
-  description: Aumenta la defensa propia.
+  description: "Gana +20 % de protecci\xF3n durante 2 turnos."
   abilityIcon: {fileID: 0}
   abilityType: 2
+  useAnnouncement: 
   targetType: 3
   basePower: 0
+  damagePercent: 100
   canCritical: 1
   usablePositions: 01010101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
-  cooldown: 3
+  cooldown: 2
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 0
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
   - type: 9
-    potency: 30
+    potency: 20
     duration: 2
     chance: 100
+    applyToUser: 0
     potencyPerLevel: 0
     durationPerLevel: 0
