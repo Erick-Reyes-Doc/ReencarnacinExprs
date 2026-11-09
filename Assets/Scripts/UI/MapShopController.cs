@@ -220,6 +220,10 @@ public partial class MapShopController : MonoBehaviour
 
     // La tienda se cerro en este mismo fotograma (p. ej. con Escape): el menu de pausa no debe
     // abrirse con esa misma pulsacion.
+    // Lienzo y velo de la tienda: otras ventanas (misiones) se montan en el mismo para verse y animarse igual.
+    public Transform WindowParent => veil != null ? veil.transform.parent : null;
+    public Color VeilColor => veil != null && veil.GetComponent<Image>() != null ? veil.GetComponent<Image>().color : new Color(0.063f, 0.082f, 0.118f, 0.8f);
+
     public bool ClosedThisFrame => closedFrame == Time.frameCount;
 
     // Abre el panel: tienda (compra y uso) o inventario (solo uso).
@@ -845,8 +849,8 @@ public partial class MapShopController : MonoBehaviour
         Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");   // sustituye a "vida" (que se conserva en el proyecto)
         Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
         Sprite crowns = ShopSubSprite("Assets/Sprites/Iconos/coronas.png", "coronas");
-        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
-        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
+        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherBold_SDF.asset");
+        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherRegular_SDF.asset");
 
         productIcons = new[] { potion, antidote };
         Color navyFill = new Color(0.090f, 0.122f, 0.169f, 1f);   // #171F2B
@@ -1052,13 +1056,14 @@ public partial class MapShopController : MonoBehaviour
 
         // Columna derecha: tres elementos con 10 px de separacion, todos centrados en RightX.
         const float RightX = 240f, RightW = 200f;
-        detailAvailable = ShopText(window, "Disponibles", new Vector2(RightX, innerTop - 25f), new Vector2(RightW, 30f), "", 23f, ShopGold, TextAlignmentOptions.Center, bold);
+        detailAvailable = ShopText(window, "Disponibles", new Vector2(RightX, innerTop - 28f), new Vector2(RightW, 30f), "", 23f, ShopGold, TextAlignmentOptions.Center, bold);
         detailAvailable.textWrappingMode = TextWrappingModes.NoWrap;
         detailOwned = ShopText(window, "EnInventario", new Vector2(RightX, innerTop - 50f), new Vector2(RightW, 30f), "", 21f, ShopIvory, TextAlignmentOptions.Center, regular);
         detailOwned.textWrappingMode = TextWrappingModes.NoWrap;
+        detailOwned.gameObject.SetActive(false);   // "En inventario" ya no se muestra: el boton COMPRAR queda centrado bajo las existencias
 
         // Boton COMPRAR con el sprite "compra" (proporcion original: 246 x 102 a escala 1/7,9).
-        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(RightX, innerTop - 110f), new Vector2(224f, 93f));
+        RectTransform buy = ShopRect("BotonComprar", window, new Vector2(RightX, innerTop - 80f), new Vector2(224f, 93f));
         Image buyImage = ShopImage(buy, buySprite, 0f, Color.white, true);
         buyImage.preserveAspect = false;
         buyImage.raycastPadding = new Vector4(11f, 16f, 11f, 15f);
@@ -1126,8 +1131,8 @@ public partial class MapShopController : MonoBehaviour
         Sprite ribbonSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/titulos.png");
         Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");
         Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
-        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
-        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
+        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherBold_SDF.asset");
+        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherRegular_SDF.asset");
         Sprite[] icons = { potion, antidote };
         productIcons = icons;
         Color navyFill = new Color(0.063f, 0.082f, 0.118f, 1f);   // #10151E (fondo oscuro de las casillas)
@@ -1318,8 +1323,8 @@ public partial class MapShopController : MonoBehaviour
 
         Sprite potion = ShopSubSprite("Assets/Sprites/Iconos/curacion.png", "curacion_0");
         Sprite antidote = ShopSubSprite("Assets/Sprites/Iconos/antidoto.png", "antidoto_1");
-        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
-        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
+        TMP_FontAsset bold = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherBold_SDF.asset");
+        TMP_FontAsset regular = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherRegular_SDF.asset");
         Sprite[] icons = { potion, antidote };
 
         Color mainFill = new Color(0.063f, 0.082f, 0.118f, 1f);       // #10151E
@@ -1629,7 +1634,7 @@ public partial class MapShopController : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--)
             DestroyImmediate(transform.GetChild(i).gameObject);
 
-        font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        font = GameFonts.Regular;
 
         GameObject canvasGo = new GameObject("Canvas",
             typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));

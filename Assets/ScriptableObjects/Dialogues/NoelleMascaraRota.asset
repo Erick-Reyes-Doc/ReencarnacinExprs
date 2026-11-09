@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca15da714383484aa74c8473611c58c, type: 3}
+  m_Name: NoelleMascaraRota
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 
+    text: "El camino termina frente a un santuario olvidado, cubierto por siglos de vegetaci\xF3n."
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "Este lugar\u2026 \xBFpor qu\xE9 siento que ya estuve aqu\xED?"
+    light: 0
+    action: 0
+  - speaker: Evanora
+    text: "\xBFEst\xE1s recordando algo?"
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "No lo s\xE9\u2026 Es como si algo en este lugar me reconociera."
+    light: 0
+    action: 0
+  - speaker: 
+    text: 'Un recuerdo atraviesa su mente: una calle mojada, una mano extendida y alguien pronunciando su nombre.'
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "\xA1Esperen! Una calle\u2026 lluvia\u2026 Alguien estaba llam\xE1ndome."
+    light: 0
+    action: 0
+  - speaker: Elaina
+    text: Noelle, tranquila. Estamos contigo.
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "Ni siquiera s\xE9 qu\xE9 ocurri\xF3 aquella noche\u2026 \xBFC\xF3mo voy a protegerlos si no puedo confiar en m\xED misma?"
+    light: 0
+    action: 0
+  - speaker: Valerian
+    text: "No s\xE9 nada de milagros. Pero nos has mantenido vivos hasta aqu\xED. Eso cuenta."
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: Siempre tengo miedo de fallarles.
+    light: 0
+    action: 0
+  - speaker: Valerian
+    text: "Todos tenemos miedo. Lo importante es qu\xE9 hacemos a pesar de eso."
+    light: 0
+    action: 0
+  - speaker: 
+    text: "Una grieta comienza a extenderse por la m\xE1scara de Noelle."
+    light: 0
+    action: 1
+  - speaker: Noelle
+    text: "Llevo demasiado tiempo escondi\xE9ndome\u2026"
+    light: 0
+    action: 0
+  - speaker: Evanora
+    text: No tienes que hacerlo sola.
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "Entonces\u2026 confiar\xE9 en ustedes."
+    light: 0
+    action: 0
+  - speaker: 
+    text: "Una tenue luz sagrada comienza a rodearla. Por primera vez, su poder responde sin vacilaci\xF3n."
+    light: 1
+    action: 2
+  - speaker: Noelle
+    text: "No puedo cambiar lo que ocurri\xF3 antes de llegar aqu\xED. Pero s\xED puedo proteger lo que tengo ahora."
+    light: 0
+    action: 0
+  - speaker: Valerian
+    text: Supongo que eso significa que tendremos menos problemas.
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "No te emociones, viejo tonto. Todav\xEDa tendr\xE1s que procurar que no te maten."
+    light: 0
+    action: 0

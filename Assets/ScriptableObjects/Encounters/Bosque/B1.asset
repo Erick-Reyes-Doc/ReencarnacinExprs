@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: B1
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
   encounterId: B1
-  displayName: 'Bosque 1: Dos lobos'
+  displayName: "Bosque 1: Tres lobos y cham\xE1n"
   zone: 1
   mandatory: 1
   background: {fileID: -8818737071433974374, guid: 201333f184e53414990f172909876141, type: 3}
@@ -22,5 +22,11 @@ MonoBehaviour:
     position: 1
   - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
     position: 2
+  - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
+    position: 3
+  - prefab: {fileID: 42092059375376226, guid: 71e3503e088baa84d8abb3927f5ab4ef, type: 3}
+    position: 4
+  minionsFleeWhenBossFalls: 0
+  bossFallsMessage: 
   experienceReward: 100
   coinReward: 40

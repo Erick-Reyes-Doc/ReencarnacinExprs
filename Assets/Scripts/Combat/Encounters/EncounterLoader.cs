@@ -178,6 +178,15 @@ public class EncounterLoader : MonoBehaviour
             }
         }
 
+        // Algunos enemigos portan una reliquia aleatoria (nunca en jefes, prologo ni B1).
+        List<BattleUnit> loadedUnits = new List<BattleUnit>();
+
+        foreach (GameObject spawnedObject in spawned)
+            if (spawnedObject != null)
+                loadedUnits.Add(spawnedObject.GetComponent<BattleUnit>());
+
+        EnemyRelics.AssignForEncounter(data, loadedUnits);
+
         turnManager.SetEncounterExperience(data.experienceReward);
         turnManager.SetBossFallsRule(data.minionsFleeWhenBossFalls, data.bossFallsMessage);
         positionManager.UpdateVisualPositions();

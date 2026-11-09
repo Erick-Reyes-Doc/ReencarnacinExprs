@@ -13,16 +13,20 @@ MonoBehaviour:
   m_Name: C1
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
   encounterId: C1
-  displayName: "Corrupci\xF3n 1: Errante, acechador y hechicero"
+  displayName: "Corrupci\xF3n 1: Errantes, acechador y hechicero"
   zone: 2
   mandatory: 1
   background: {fileID: 3295682893416874519, guid: dcd5f6540aa43e44b9c9c79a9389c318, type: 3}
   enemies:
   - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
     position: 1
-  - prefab: {fileID: 834953994027991344, guid: 3d767a1ce76556346a31f6a57ebc22fa, type: 3}
+  - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
     position: 2
-  - prefab: {fileID: 9112187240780045373, guid: 404650015d0992c469df4e35fc9e2214, type: 3}
+  - prefab: {fileID: 834953994027991344, guid: 3d767a1ce76556346a31f6a57ebc22fa, type: 3}
     position: 3
+  - prefab: {fileID: 9112187240780045373, guid: 404650015d0992c469df4e35fc9e2214, type: 3}
+    position: 4
+  minionsFleeWhenBossFalls: 0
+  bossFallsMessage: 
   experienceReward: 150
   coinReward: 60

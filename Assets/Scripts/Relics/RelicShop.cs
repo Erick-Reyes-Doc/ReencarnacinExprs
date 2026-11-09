@@ -14,26 +14,15 @@ public static class RelicShop
         NotForSale,
         AlreadyOwned,
         InsufficientFunds,
-        CannotReceive
+        CannotReceive,
+        SoldOut
     }
 
-    // Reliquias del catalogo marcadas como disponibles en la tienda, de la mas barata a la mas cara.
+    // Reliquias a la venta ahora: los cuatro espacios del inventario actual (RelicShopStock), en orden e incluidas las
+    // agotadas (la tienda las muestra como agotadas hasta la siguiente renovacion).
     public static List<RelicData> Products()
     {
-        List<RelicData> list = new List<RelicData>();
-        RelicCatalog catalog = RelicCatalog.Instance;
-
-        if (catalog == null)
-            return list;
-
-        foreach (RelicData relic in catalog.Relics)
-            if (relic != null && relic.availableInShop)
-                list.Add(relic);
-
-        list.Sort((a, b) => a.shopPrice != b.shopPrice
-            ? a.shopPrice.CompareTo(b.shopPrice)
-            : string.CompareOrdinal(a.displayName, b.displayName));
-        return list;
+        return RelicShopStock.Current();
     }
 
     public static int Price(RelicData data)
@@ -44,8 +33,11 @@ public static class RelicShop
     // Comprobacion sin cambiar nada.
     public static Result Check(RelicData data)
     {
-        if (data == null || !data.availableInShop)
+        if (data == null || !data.availableInShop || data.IsExclusive || data.eventOnly || !RelicShopStock.Contains(data.typeId))
             return Result.NotForSale;
+
+        if (RelicShopStock.IsSold(data.typeId))
+            return Result.SoldOut;
 
         if (!GameSession.IsActive)
             return Result.NoSession;
@@ -88,6 +80,7 @@ public static class RelicShop
             return Result.CannotReceive;
         }
 
+        RelicShopStock.MarkSold(data.typeId);   // un solo ejemplar por espacio hasta la siguiente renovacion
         return Result.Success;
     }
 
@@ -100,6 +93,7 @@ public static class RelicShop
             case Result.Success: return "Compraste: " + name + " (-" + Price(data) + " CR).";
             case Result.InsufficientFunds: return "Monedas insuficientes";
             case Result.AlreadyOwned: return "Ya poseída";
+            case Result.SoldOut: return "Agotada hasta la próxima renovación";
             case Result.InCombat: return "La tienda no esta disponible durante el combate.";
             case Result.NoSession: return "No hay una partida en curso.";
             case Result.NotForSale: return "Esta reliquia no está a la venta.";

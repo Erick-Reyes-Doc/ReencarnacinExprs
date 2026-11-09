@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GuardianForestal
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Guardi\xE1n Forestal"
-  maxHealth: 30
+  maxHealth: 36
   damageMin: 4
   damageMax: 6
   protectionPercent: 15

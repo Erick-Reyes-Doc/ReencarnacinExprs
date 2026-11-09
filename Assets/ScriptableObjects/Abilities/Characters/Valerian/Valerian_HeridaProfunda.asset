@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Valerian_HeridaProfunda
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Herida Profunda
-  description: "Ataque (85 % del da\xF1o) que provoca Sangrado: 2 PV por turno durante 2 turnos."
+  description: "Ataque (85 % del da\xF1o) que provoca Sangrado."
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
@@ -32,6 +32,7 @@ MonoBehaviour:
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1
@@ -52,5 +53,6 @@ MonoBehaviour:
     duration: 2
     chance: 100
     applyToUser: 0
+    damageScalePercent: 50
     potencyPerLevel: 0
     durationPerLevel: 0

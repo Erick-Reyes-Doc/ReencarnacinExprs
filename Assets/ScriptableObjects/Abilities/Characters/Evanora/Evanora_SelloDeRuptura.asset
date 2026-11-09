@@ -21,8 +21,8 @@ MonoBehaviour:
   basePower: 0
   damagePercent: 100
   canCritical: 1
-  usablePositions: 01010101y
-  targetPositions: 01010101y
+  usablePositions: 00000101
+  targetPositions: 00000101
   movementEffect: 0
   movementDistance: 0
   movementChance: 100

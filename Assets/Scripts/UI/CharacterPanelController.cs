@@ -144,7 +144,7 @@ public class CharacterPanelController : MonoBehaviour
 
     public Sprite PortraitOf(HeroProfile hero)
     {
-        return hero != null ? HeroPortraits.Get(hero.bodySprite) : null;
+        return hero != null ? hero.Icon : null;
     }
 
     // ------------------------------------------------------------
@@ -423,8 +423,8 @@ public class CharacterPanelController : MonoBehaviour
         HeroStats stats = CharacterStats.Current(hero);
 
         // Cabecera y retrato.
-        headPortrait.sprite = HeroPortraits.Get(hero.bodySprite);
-        headPortrait.color = hero.tint;
+        headPortrait.sprite = hero.Icon;
+        headPortrait.color = hero.IconTint;
         bigPortrait.sprite = hero.bodySprite;
         bigPortrait.color = hero.tint;
         bigPortrait.enabled = hero.bodySprite != null;
@@ -529,6 +529,14 @@ public class CharacterPanelController : MonoBehaviour
             ? hero.transformedAbilities
             : hero.abilities;
 
+        // Numeros reales de la habilidad: estadisticas actuales del personaje y vida maxima de los aliados (curaciones por %).
+        HeroStats heroStats = CharacterStats.Current(hero);
+        List<int> allyMaxHealths = new List<int>();
+
+        foreach (HeroProfile ally in heroes)
+            if (ally != null && ally.unit != null)
+                allyMaxHealths.Add(CharacterStats.Current(ally).maxHealth);
+
         for (int i = 0; i < abilityIcons.Length; i++)
         {
             AbilityData ability = set != null && i < set.Length ? set[i] : null;
@@ -543,13 +551,7 @@ public class CharacterPanelController : MonoBehaviour
             abilityIcons[i].enabled = icon != null;
             abilityNames[i].text = ability.abilityName;
 
-            string body = string.IsNullOrEmpty(ability.description) ? "" : ability.description;
-
-            if (ability.basePower > 0)
-                body += (body != "" ? "\n" : "") + "<color=#D4AF6A>Poder base:</color> " + ability.basePower;
-
-            if (ability.cooldown > 0)
-                body += (body != "" ? "\n" : "") + "<color=#D4AF6A>Enfriamiento:</color> " + ability.cooldown + " turnos";
+            string body = AbilityInfo.Body(ability, hero, heroStats, allyMaxHealths);
 
             abilityTips[i].title = ability.abilityName;
             abilityTips[i].body = body;
@@ -1022,8 +1024,10 @@ public class CharacterPanelController : MonoBehaviour
         RectTransform headBox = FramedBox("RetratoCabecera", charWindow, 3f, Gold, Dark);
         Place(headBox, 70f, -48f, 124f, 124f, 62f, -50f, 96f, 96f);
         RectTransform headFace = Rect("Imagen", headBox, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-        headFace.offsetMin = new Vector2(6f, 6f);
-        headFace.offsetMax = new Vector2(-6f, -6f);
+        // El retrato llena el interior del marco (borde de 3): el busto del icono llega al borde inferior de su imagen,
+        // asi su base queda pegada al marco en lugar de flotar sobre un hueco oscuro.
+        headFace.offsetMin = new Vector2(3f, 3f);
+        headFace.offsetMax = new Vector2(-3f, -3f);
         headPortrait = Img(headFace, null, Color.white, false, 1f, false);
         headPortrait.preserveAspect = true;
 
@@ -1062,9 +1066,9 @@ public class CharacterPanelController : MonoBehaviour
             tabInner.offsetMax = new Vector2(-3f, -3f);
             Img(tabInner, null, Dark, false, 1f, false);
             RectTransform tabPortrait = Rect("Retrato", tabInner, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            tabPortrait.offsetMin = new Vector2(2f, 2f);
-            tabPortrait.offsetMax = new Vector2(-2f, -2f);
-            Image face = Img(tabPortrait, heroes[i] != null ? HeroPortraits.Get(heroes[i].bodySprite) : null, heroes[i] != null ? heroes[i].tint : Color.white, false, 1f, false);
+            tabPortrait.offsetMin = Vector2.zero;   // llena el interior del marco: la base del busto queda pegada al borde
+            tabPortrait.offsetMax = Vector2.zero;
+            Image face = Img(tabPortrait, heroes[i] != null ? heroes[i].Icon : null, heroes[i] != null ? heroes[i].IconTint : Color.white, false, 1f, false);
             face.preserveAspect = true;
             tab.gameObject.AddComponent<TipZone>().Setup(this, heroes[i] != null ? heroes[i].displayName : "", "");
 

@@ -21,9 +21,26 @@ public class AbilityStatusEffect
     [Tooltip("Si es true, el estado se aplica al USUARIO en lugar del objetivo (p. ej. la evasion extra de Tiro Evasivo). No depende de que el golpe impacte.")]
     public bool applyToUser = false;
 
+    [Header("Daño por turno como % del daño (solo Sangrado, Quemadura y Veneno)")]
+    [Tooltip("Mayor que 0 = el daño por turno es este % del daño de la habilidad (el golpe, con critico y bonos, antes de la " +
+             "proteccion del objetivo), en lugar de la Potencia fija. Si la habilidad no hace daño directo (Daño directo " +
+             "desactivado) se usa una tirada del usuario con el % de daño y el Poder de la habilidad. 0 = Potencia fija.")]
+    [Range(0f, 300f)] public float damageScalePercent = 0f;
+
     [Header("Escalado por nivel del usuario (nivel 1 = sin bono)")]
     public float potencyPerLevel = 0f;
     public float durationPerLevel = 0f;
+
+    // true si este estado hace daño por turno proporcional al daño de la habilidad.
+    public bool ScalesWithDamage =>
+        damageScalePercent > 0f &&
+        (type == StatusEffectType.Bleeding || type == StatusEffectType.Burn || type == StatusEffectType.Poison);
+
+    // Daño por turno a partir del daño de referencia (minimo 1).
+    public int PeriodicDamageFrom(int referenceDamage)
+    {
+        return Mathf.Max(1, Mathf.RoundToInt(referenceDamage * damageScalePercent / 100f));
+    }
 
     public int GetPotency(int userLevel)
     {
@@ -173,6 +190,9 @@ public class AbilityData : ScriptableObject
     [Min(0)]
     public int cooldown = 0;
 
+    [Tooltip("Primer turno propio del combate en que la habilidad ya puede usarse (1 = desde el inicio, 3 = desde el tercer turno propio / ronda 3).")]
+    [Min(1)] public int availableFromTurn = 1;
+
     [Header("Regeneracion")]
     [Min(0)]
     public int regenerationPerTurn = 0;
@@ -180,13 +200,36 @@ public class AbilityData : ScriptableObject
     [Min(0)]
     public int regenerationDuration = 0;
 
+    [Tooltip("Si es mayor que 0, la regeneracion cura este % de la vida maxima de CADA aliado por turno (redondeado, minimo 1) " +
+             "en lugar de los PV fijos de 'Regeneration Per Turn'.")]
+    [Range(0f, 100f)]
+    public float regenerationPercentMaxHealth = 0f;
+
+    // Hay regeneracion configurada (PV fijos o % de vida maxima) y dura al menos un turno.
+    public bool HasRegeneration =>
+        regenerationDuration > 0 &&
+        (regenerationPerTurn > 0 || regenerationPercentMaxHealth > 0f);
+
+    // PV que regenera por turno el objetivo indicado.
+    public int RegenerationFor(BattleUnit target)
+    {
+        if (regenerationPercentMaxHealth > 0f && target != null)
+            return Mathf.Max(1, Mathf.RoundToInt(target.MaxHealth * regenerationPercentMaxHealth / 100f));
+
+        return regenerationPerTurn;
+    }
+
     [Header("Curacion")]
-    [Tooltip("Si es mayor que 0, la curacion es este % de la vida maxima del objetivo (redondeado) en lugar del Poder fijo.")]
+    [Tooltip("Si es mayor que 0, la curacion es este % de la vida maxima del objetivo (redondeado) en lugar del Poder fijo. " +
+             "Con 'Puede ser critica' puede salir critica: el % se multiplica por el daño critico de quien cura.")]
     [Range(0f, 100f)] public float healPercentMaxHealth = 0f;
 
     [Tooltip("Curacion fija en rango (PV). Si Maximo es mayor que 0 se usa un valor al azar entre Minimo y Maximo (tiene prioridad sobre el % y el Poder).")]
     [Min(0)] public int healMin = 0;
     [Min(0)] public int healMax = 0;
+
+    [Tooltip("Solo curacion por %: multiplicador del % cuando la curacion es critica. 0 = usar el daño critico de quien cura (x1,5 por defecto).")]
+    [Min(0f)] public float healCriticalMultiplier = 0f;
 
     // Curacion media sobre un objetivo (lectura para IA y pruebas).
     public int AverageHeal(BattleUnit target)

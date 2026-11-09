@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuardianCorrupto
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Guardi\xE1n Corrupto"
-  maxHealth: 36
-  damageMin: 5
-  damageMax: 7
+  maxHealth: 40
+  damageMin: 6
+  damageMax: 8
   protectionPercent: 20
   evasionPercent: 0
   speed: 3
   isBoss: 0
-  criticalChance: 4
+  criticalChance: 6
   criticalDamage: 1.5
   characterSprite: {fileID: 0}

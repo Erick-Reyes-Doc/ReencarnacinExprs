@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChamanBosque
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Cham\xE1n del Bosque"
-  maxHealth: 18
+  maxHealth: 20
   damageMin: 3
   damageMax: 5
   protectionPercent: 0

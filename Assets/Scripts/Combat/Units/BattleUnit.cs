@@ -87,7 +87,8 @@ public class BattleUnit : MonoBehaviour
         MaxDamageReductionPercent,
         GetStatusPercent(StatusEffectType.Guard)
     );
-    public int Speed => speed;
+    // Velocidad efectiva: base + reliquias + bonos temporales de reliquia (Botas del Mensajero).
+    public int Speed => speed + RelicEffects.TempSpeed(this);
 
     public float CriticalChance => criticalChance;
     public float CriticalDamage => criticalDamage;
@@ -239,6 +240,18 @@ public class BattleUnit : MonoBehaviour
         if (teamSide == TeamSide.Player && GameSession.IsActive)
         {
             StatMods relics = RelicInventory.GetMods(gameObject.name);
+            maxHealth = Mathf.Max(1, maxHealth + relics.health);
+            damageMin = Mathf.Max(1, damageMin + relics.damage);
+            damageMax = Mathf.Max(damageMin, damageMax + relics.damage);
+            protection = Mathf.Clamp(protection + relics.protection, MinProtectionPercent, MaxProtectionPercent);
+            evasion = Mathf.Clamp(evasion + relics.evasion, 0f, MaxEvasionPercent);
+            speed = Mathf.Max(0, speed + relics.speed);
+            criticalChance = Mathf.Clamp(criticalChance + relics.crit, 0f, 100f);
+        }
+        else if (teamSide == TeamSide.Enemy)
+        {
+            // Reliquia sorteada del enemigo (EnemyRelics): mismos modificadores que en un heroe.
+            StatMods relics = EnemyRelics.GetMods(this);
             maxHealth = Mathf.Max(1, maxHealth + relics.health);
             damageMin = Mathf.Max(1, damageMin + relics.damage);
             damageMax = Mathf.Max(damageMin, damageMax + relics.damage);
@@ -413,6 +426,10 @@ public class BattleUnit : MonoBehaviour
 
         damage = Mathf.Max(0, damage);
 
+        // Reliquias: el daño directo puede modificarse antes de aplicarse (Idolo del Ultimo Aliento).
+        if (!periodic && damage > 0)
+            damage = RelicEffects.ModifyIncomingDirect(this, damage);
+
         int healthBefore = currentHealth;
 
         currentHealth = Mathf.Max(
@@ -435,11 +452,22 @@ public class BattleUnit : MonoBehaviour
                 unitData.unitName + " ha sido derrotado."
             );
 
+            // Reliquias: una unidad con Marca que cae por daño periodico la transfiere (Ojo del Acechador).
+            RelicEffects.OnUnitDefeated(this);
+
             // Solo se llega aqui al pasar de vida positiva a 0,
             // porque TakeDamage ignora a las unidades derrotadas.
             OnDefeated?.Invoke(this);
         }
+        else if (!periodic)
+        {
+            // Reliquias que reaccionan a un golpe directo recibido (Amuleto de Corteza, Espejo del Dolor).
+            RelicEffects.OnDirectDamageTaken(this, healthBefore - currentHealth);
+        }
     }
+
+    // Curacion realmente aplicada a una unidad (solo presentacion: marcadores flotantes).
+    public static event Action<BattleUnit, int> HealApplied;
 
     // Recupera puntos de vida.
     public void Heal(int amount)
@@ -448,10 +476,15 @@ public class BattleUnit : MonoBehaviour
 
         amount = Mathf.Max(0, amount);
 
+        int before = currentHealth;
+
         currentHealth = Mathf.Min(
             maxHealth,
             currentHealth + amount
         );
+
+        if (currentHealth > before)
+            HealApplied?.Invoke(this, currentHealth - before);
 
         Debug.Log(
             unitData.unitName +

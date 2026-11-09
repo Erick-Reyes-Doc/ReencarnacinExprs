@@ -19,6 +19,7 @@ MonoBehaviour:
   useAnnouncement: 
   targetType: 0
   basePower: 1
+  damagePercent: 100
   canCritical: 1
   usablePositions: 01010000y
   targetPositions: 01010000y
@@ -26,18 +27,26 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 2
+  availableFromTurn: 1
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
   criticalChanceBonus: 0
   bonusIfTargetHas: 0
   bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects:
@@ -45,5 +54,7 @@ MonoBehaviour:
     potency: 1
     duration: 3
     chance: 100
+    applyToUser: 0
+    damageScalePercent: 30
     potencyPerLevel: 0
     durationPerLevel: 0

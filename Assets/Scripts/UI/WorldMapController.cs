@@ -145,6 +145,7 @@ public partial class WorldMapController : MonoBehaviour
             selectedId = MapProgression.NextRecommended();
 
         Refresh();
+        StartBossRevealIfPending();
     }
 
     [Header("Depuracion TEMPORAL")]
@@ -227,6 +228,9 @@ public partial class WorldMapController : MonoBehaviour
 
     public void Select(string id)
     {
+        if (InputLocked)
+            return;
+
         if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return;
 
@@ -327,7 +331,7 @@ public partial class WorldMapController : MonoBehaviour
     // (guarda el encuentro pendiente). No carga la escena.
     public bool PrepareStart()
     {
-        if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
+        if (InputLocked || loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return false;
 
         // Los eventos no son combates: no hay encuentro que cargar.
@@ -358,9 +362,47 @@ public partial class WorldMapController : MonoBehaviour
         return GameSession.SetPendingEncounter(selectedId);
     }
 
+    private const string ValdoriaSceneName = "ValdoriaDialogo";
+    private const string NoelleSceneName = "NoelleDialogo";
+
+    // Evento narrativo con escena propia: disponible segun la cadena de MapProgression y solo una vez. Funde a negro con el
+    // fundido del mapa y carga la escena.
+    private bool StartDialogueEvent(string eventId, string sceneName)
+    {
+        if (InputLocked || loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
+            return false;
+
+        if (!MapProgression.CanStart(eventId))
+            return false;
+
+        if (!GameSession.IsSceneInBuild(sceneName))
+        {
+            Debug.LogError("Evento " + eventId + ": la escena '" + sceneName + "' no esta en Build Settings.");
+            return false;
+        }
+
+        confirmMenu = false;
+        loading = true;
+        SceneFadeIn fade = FindAnyObjectByType<SceneFadeIn>(FindObjectsInactive.Include);
+
+        if (fade != null)
+            fade.FadeOutAndLoad(sceneName, 1f);
+        else
+            SceneManager.LoadScene(sceneName);
+
+        return true;
+    }
+
     // Una sola carga aunque se haga doble clic.
     public bool StartSelected()
     {
+        // Eventos con escena de dialogo propia (fundido a negro y carga): Valdoria y La mascara rota.
+        if (selectedId == GameSession.ValdoriaEventId)
+            return StartDialogueEvent(GameSession.ValdoriaEventId, ValdoriaSceneName);
+
+        if (selectedId == GameSession.NoelleEventId)
+            return StartDialogueEvent(GameSession.NoelleEventId, NoelleSceneName);
+
         // En un nodo de evento el boton abre la escena narrativa.
         if (MapProgression.IsEvent(selectedId))
             return OpenEvent();
@@ -571,7 +613,7 @@ public partial class WorldMapController : MonoBehaviour
         else if (MapProgression.IsEvent(selectedId))
         {
             MapProgression.NodeState state = MapProgression.GetState(selectedId);
-            canStart = state == MapProgression.NodeState.Available;
+            canStart = MapProgression.CanStart(selectedId);
 
             SetText(infoTitle, eventTitle);
             SetText(infoSubtitle, "Zona: Bosque     Estado: " + StateText(selectedId));
@@ -588,7 +630,7 @@ public partial class WorldMapController : MonoBehaviour
         {
             EncounterData data = FindEncounter(selectedId);
             MapProgression.NodeState state = MapProgression.GetState(selectedId);
-            canStart = state == MapProgression.NodeState.Available && data != null;
+            canStart = MapProgression.CanStart(selectedId) && data != null;
 
             SetText(infoTitle, data != null ? data.displayName : selectedId);
             SetText(infoSubtitle, "Zona: " + ZoneName(MapProgression.ZoneOf(selectedId)) +

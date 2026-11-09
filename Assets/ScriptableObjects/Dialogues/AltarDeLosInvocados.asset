@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca15da714383484aa74c8473611c58c, type: 3}
+  m_Name: AltarDeLosInvocados
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: Elaina
+    text: "\xBFEstamos\u2026 en otro mundo? No puede ser. \xA1Miren mis orejas!"
+  - speaker: Evanora
+    text: "Esto es incre\xEDble\u2026 Puedo sentir la magia a nuestro alrededor. Es como si siempre hubiera estado aqu\xED."
+  - speaker: Noelle
+    text: "\u2026"
+  - speaker: Elaina
+    text: "\xBFNoelle? \xBFEst\xE1s bien? Desde que despertamos no has dicho una palabra."
+  - speaker: Noelle
+    text: "Estoy bien. Solo\u2026 necesito entender qu\xE9 est\xE1 pasando."
+  - speaker: Valerian
+    text: "Genial. Mor\xED despu\xE9s de treinta y cuatro horas de trabajo y ahora estoy en un bosque. \xBFAqu\xED tambi\xE9n se trabaja los domingos?"
+  - speaker: Dios
+    text: "Bienvenidos a Aethel, h\xE9roes. Este lugar es conocido como el Altar de los Invocados."
+  - speaker: Elaina
+    text: "\xA1Esa voz! T\xFA eres quien nos habl\xF3 antes de llegar aqu\xED, \xBFverdad?"
+  - speaker: Dios
+    text: "As\xED es. Los guiar\xE9 durante su viaje. A trav\xE9s de nuestro v\xEDnculo, podr\xE9 orientar sus acciones y ayudarlos en sus combates."
+  - speaker: Valerian
+    text: "\xBFCombates? Espera un momento. \xBFNo existe una opci\xF3n en la que simplemente podamos descansar?"
+  - speaker: Evanora
+    text: "Valerian, acabamos de llegar. Al menos deber\xEDamos escuchar qu\xE9 necesita este mundo."
+  - speaker: Dios
+    text: "En el Campamento del Alba, un cobrador ha desaparecido mientras recorr\xEDa los caminos de la pradera. Su destino podr\xEDa estar relacionado con los ataques recientes."
+  - speaker: Elaina
+    text: "Entonces debemos encontrarlo. Quiz\xE1 todav\xEDa podamos ayudarlo."
+  - speaker: Valerian
+    text: "Supongo que no tengo escapatoria\u2026 Est\xE1 bien. Pero despu\xE9s de esto quiero una cama."
+  - speaker: Dios
+    text: "Dir\xEDjanse al Campamento del Alba. All\xED comenzar\xE1 su primera misi\xF3n: \u201CUn mal d\xEDa para cobrar\u201D."
+  - speaker: 
+    text: "Presiona ESPACIO para completar el texto o avanzar en la conversaci\xF3n."
+  - speaker: 
+    text: "Tu primera misi\xF3n comienza ahora: \u201CUn mal d\xEDa para cobrar\u201D. Te mostrar\xE9 c\xF3mo se combate."

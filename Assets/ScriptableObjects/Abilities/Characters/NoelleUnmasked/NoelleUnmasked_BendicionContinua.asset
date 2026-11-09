@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NoelleUnmasked_BendicionContinua
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: "Bendici\xF3n Continua"
-  description: Regenera 2 PV al inicio del turno de cada aliado durante 2 turnos (4 PV en total).
+  description: "Regenera el 15 % de la vida m\xE1xima de cada aliado al inicio de su turno durante 2 turnos (30 % en total)."
   abilityIcon: {fileID: 0}
   abilityType: 2
   useAnnouncement: 
@@ -27,11 +27,14 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 3
+  availableFromTurn: 1
   regenerationPerTurn: 2
   regenerationDuration: 2
+  regenerationPercentMaxHealth: 15
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 0

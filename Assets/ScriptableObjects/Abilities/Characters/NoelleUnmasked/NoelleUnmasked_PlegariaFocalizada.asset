@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NoelleUnmasked_PlegariaFocalizada
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Plegaria Focalizada
-  description: Cura entre 7 y 9 PV a un aliado.
+  description: "Cura el 40 % de la vida m\xE1xima de un aliado. Un cr\xEDtico cura el 60 %."
   abilityIcon: {fileID: 0}
   abilityType: 1
   useAnnouncement: 
@@ -29,9 +29,10 @@ MonoBehaviour:
   cooldown: 2
   regenerationPerTurn: 0
   regenerationDuration: 0
-  healPercentMaxHealth: 0
-  healMin: 7
-  healMax: 9
+  healPercentMaxHealth: 40
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1

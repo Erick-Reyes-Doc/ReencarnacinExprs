@@ -12,9 +12,17 @@ public class HeroProfile
     public UnitData unit;
     public CharacterProgressionData progression;
 
+    [Header("Icono oficial (Assets/Sprites/Personajes/Iconos)")]
+    [Tooltip("Retrato oficial del personaje. Si esta asignado sustituye al retrato provisional en la barra del mapa y en la ficha.")]
+    public Sprite icon;
+
     [Header("Retrato provisional (recorte de la cabeza del sprite de combate, con su tinte)")]
     public Sprite bodySprite;
     public Color tint = Color.white;
+
+    // Retrato que se muestra en iconos: el oficial (sin tinte) o, si falta, el recorte provisional con su tinte.
+    public Sprite Icon => icon != null ? icon : HeroPortraits.Get(bodySprite);
+    public Color IconTint => icon != null ? Color.white : tint;
 
     [Header("Habilidades (las del conjunto inicial y, si existe, el transformado)")]
     public AbilityData[] abilities = new AbilityData[0];

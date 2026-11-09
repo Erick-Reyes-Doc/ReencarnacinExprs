@@ -43,6 +43,9 @@ public partial class WorldMapController
         public Text label;
         public MapHoverTarget hover;
         public Image quest;           // simbolo de mision disponible (medallon)
+        public Image insignia;        // icono propio del lugar (MenuUi): bloqueado y completado
+        public Image visto;           // marca de lugar completado
+        public bool boss;             // el Trono Sellado usa el icono morado del jefe
         public GameObject nameCard;   // tarjeta con el nombre, visible al pasar el cursor
         public GameObject locationTag; // etiqueta geografica del lugar (se oculta mientras se ve nameCard)
     }
@@ -88,10 +91,11 @@ public partial class WorldMapController
             // muestra ajustado al lienzo 16:9. Cada posicion es el centro del medallon.
             Loc("camp", "Campamento del Alba", MapProgression.Meadow, 0.1563f, 0.6065f, "P1", "P2"),
             Loc("ruins", "Ruinas de Liria", MapProgression.Meadow, 0.1719f, 0.8056f, "P3", "P4"),
+            Loc("city", "Ciudad de Valdoria", MapProgression.Forest, 0.4542f, 0.5130f, GameSession.ValdoriaEventId),   // evento narrativo tras B3
             Loc("clearing", "Claro del Susurro", MapProgression.Forest, 0.6198f, 0.8333f, "B1"),
             Loc("shrine", "Santuario Velado", MapProgression.Forest, 0.9036f, 0.7176f, GameSession.NoelleEventId),
             Loc("trail", "Sendero Sombrío", MapProgression.Forest, 0.7396f, 0.5667f, "B2", "B3"),
-            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.8229f, 0.4676f, "C1", "C2"),
+            Loc("wastes", "Tierras Marchitas", MapProgression.Corruption, 0.7135f, 0.2454f, "C1", "C2"),   // sobre el Nido de Wyverns
             Loc("gate", "Trono Sellado", MapProgression.Corruption, 0.9167f, 0.2222f, BossId),
         };
     }
@@ -132,7 +136,7 @@ public partial class WorldMapController
     // el recomendado, si no el primero disponible, si no el primero.
     public bool SelectLocation(string id)
     {
-        if (loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
+        if (InputLocked || loading || eventOpen || PauseOpen || CharactersOpen || (shop != null && shop.IsOpen))
             return false;
 
         MapLocationDef def = FindLocation(id);
@@ -213,6 +217,24 @@ public partial class WorldMapController
             }
         }
 
+        // Tarjetas de la ventana de misiones: los listeners no se guardan en la escena, se conectan al iniciar.
+        for (int i = 0; i < missionCards.Count; i++)
+        {
+            if (missionCards[i] == null || missionCards[i].button == null)
+                continue;
+
+            int row = i;
+            missionCards[i].button.onClick.RemoveAllListeners();
+            missionCards[i].button.onClick.AddListener(() => SelectRow(row));
+        }
+
+        if (missionVeil != null)
+        {
+            Button veilButton = missionVeil.GetComponent<Button>();
+            veilButton.onClick.RemoveAllListeners();
+            veilButton.onClick.AddListener(CloseLocation);
+        }
+
         if (placeCloseButton != null)
         {
             placeCloseButton.onClick.RemoveAllListeners();
@@ -239,6 +261,15 @@ public partial class WorldMapController
     // ------------------------------------------------------------
     // Estado visual de los lugares
     // ------------------------------------------------------------
+
+    // El lugar contiene algun evento narrativo (La mascara rota, El informe del ultimo vigia).
+    private static bool HasEvent(MapLocationDef def)
+    {
+        foreach (string eid in def.encounterIds)
+            if (MapProgression.IsEvent(eid)) return true;
+
+        return false;
+    }
 
     private PlaceState StateOfLocation(MapLocationDef def, string recommended)
     {
@@ -277,7 +308,7 @@ public partial class WorldMapController
             if (def == null)
                 continue;
 
-            bool evt = def.encounterIds.Contains(GameSession.NoelleEventId);
+            bool evt = HasEvent(def);
             bool boss = def.encounterIds.Contains(BossId);
             PlaceState state = StateOfLocation(def, recommended);
             bool open = openLocationId == view.id;
@@ -387,7 +418,7 @@ public partial class WorldMapController
 
     private string EncounterTitle(string id)
     {
-        if (MapProgression.IsEvent(id)) return eventTitle;
+        if (id == GameSession.NoelleEventId) return eventTitle;
         string title = MapProgression.TitleOf(id);   // titulos narrativos compartidos con el combate
         if (title != null) return title;
 
@@ -404,8 +435,14 @@ public partial class WorldMapController
 
         if (def == null)
         {
-            if (placePanel.gameObject.activeSelf) placePanel.gameObject.SetActive(false);
-            if (missionTitle != null) { SetLocationTagsVisible(true); HideEnemyTooltip(); }
+            if (missionTitle != null)
+            {
+                if (placePanel.gameObject.activeSelf) { SetLocationTagsVisible(true); HideEnemyTooltip(); }
+                AnimateMissionWindow(false);
+            }
+            else if (placePanel.gameObject.activeSelf)
+                placePanel.gameObject.SetActive(false);
+
             return;
         }
 
@@ -573,7 +610,7 @@ public partial class WorldMapController
         foreach (MapLocationDef def in locations)
         {
             Vector2 p = LocationPx(def);
-            bool evt = def.encounterIds.Contains(GameSession.NoelleEventId);
+            bool evt = HasEvent(def);
             bool boss = def.encounterIds.Contains(BossId);
 
             if (illustrated)

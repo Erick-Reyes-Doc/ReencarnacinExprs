@@ -1,0 +1,860 @@
+fileFormatVersion: 2
+guid: c4440e376d888304ba96fbb80f9c7813
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4003257429351548325
+    second: SeparadorDorado_0
+  - first:
+      213: 8223117981473539274
+    second: SeparadorDorado_1
+  - first:
+      213: 7874080990731601535
+    second: SeparadorDorado_2
+  - first:
+      213: 959508085884558221
+    second: SeparadorDorado_3
+  - first:
+      213: -7258797832855797392
+    second: SeparadorDorado_4
+  - first:
+      213: -985255611495587700
+    second: SeparadorDorado_5
+  - first:
+      213: -9114776913053779811
+    second: SeparadorDorado_6
+  - first:
+      213: -4146746046898881628
+    second: SeparadorDorado_7
+  - first:
+      213: 1554639499234670457
+    second: SeparadorDorado_8
+  - first:
+      213: -485680414280358826
+    second: SeparadorDorado_9
+  - first:
+      213: 5854772507562053818
+    second: SeparadorDorado_10
+  - first:
+      213: -8933953432974038058
+    second: SeparadorDorado_11
+  - first:
+      213: -1430696674555843387
+    second: SeparadorDorado_12
+  - first:
+      213: 593434227722472094
+    second: SeparadorDorado_13
+  - first:
+      213: -9018386762129512623
+    second: SeparadorDorado_14
+  - first:
+      213: 5575123708525615576
+    second: SeparadorDorado_15
+  - first:
+      213: -4009427320751948229
+    second: SeparadorDorado_16
+  - first:
+      213: -6107911220184234338
+    second: SeparadorDorado_17
+  - first:
+      213: 2578703506782250008
+    second: SeparadorDorado_18
+  - first:
+      213: 8106109346729285966
+    second: SeparadorDorado_19
+  - first:
+      213: -8081913839516408841
+    second: SeparadorDorado_20
+  - first:
+      213: -8882461206863414945
+    second: SeparadorDorado_21
+  - first:
+      213: -7834856635742166289
+    second: SeparadorDorado_22
+  - first:
+      213: -2287855409292085629
+    second: SeparadorDorado_23
+  - first:
+      213: -7904700802921157529
+    second: SeparadorDorado_24
+  - first:
+      213: -629385179575349096
+    second: SeparadorDorado_25
+  - first:
+      213: -3039346442844032596
+    second: SeparadorDorado_26
+  - first:
+      213: 2469698225428034227
+    second: SeparadorDorado_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SeparadorDorado_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 1423
+        width: 317
+        height: 717
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5abe0304929178c0800000000000000
+      internalID: -4003257429351548325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_1
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 23
+        width: 388
+        height: 1819
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac48bd77c326e1270800000000000000
+      internalID: 8223117981473539274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_2
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 1616
+        width: 35
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76863141fa564d60800000000000000
+      internalID: 7874080990731601535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_3
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1808
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8b934a358bd05d00800000000000000
+      internalID: 959508085884558221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_4
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1577
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071414c64d1934b90800000000000000
+      internalID: -7258797832855797392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_5
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 1824
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8068dfcd3ba352f0800000000000000
+      internalID: -985255611495587700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_6
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 1831
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d987f7290bec18180800000000000000
+      internalID: -9114776913053779811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_7
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1923
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ab36d4d07cc376c0800000000000000
+      internalID: -4146746046898881628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_8
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 1946
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9777ca14360339510800000000000000
+      internalID: 1554639499234670457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_9
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 610
+        width: 315
+        height: 1524
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65464788c348249f0800000000000000
+      internalID: -485680414280358826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_10
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 1918
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab095f16394504150800000000000000
+      internalID: 5854772507562053818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_11
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 1622
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6db63b3dfa8340480800000000000000
+      internalID: -8933953432974038058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_12
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 1690
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc24c364f4252ce0800000000000000
+      internalID: -1430696674555843387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_13
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 1021
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9ac4f4394d4c3800800000000000000
+      internalID: 593434227722472094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_14
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 1002
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1576f24750148d280800000000000000
+      internalID: -9018386762129512623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_15
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 931
+        width: 9
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d917818971de5d40800000000000000
+      internalID: 5575123708525615576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_16
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 946
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e75d93817ab58c0800000000000000
+      internalID: -4009427320751948229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_17
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 888
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96cb493b175c3ba0800000000000000
+      internalID: -6107911220184234338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_18
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 807
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8146fc64d2569c320800000000000000
+      internalID: 2578703506782250008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_19
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 746
+        width: 17
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e49d54ab08fae7070800000000000000
+      internalID: 8106109346729285966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_20
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 709
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f3af4ace2647df80800000000000000
+      internalID: -8081913839516408841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_21
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 85
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f59f7b9f7982bb480800000000000000
+      internalID: -8882461206863414945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_22
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 407
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe2e970966ff44390800000000000000
+      internalID: -7834856635742166289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_23
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 401
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38670b770a7ef30e0800000000000000
+      internalID: -2287855409292085629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_24
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 202
+        width: 21
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ca32a208cdc4290800000000000000
+      internalID: -7904700802921157529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_25
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 226
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89014888389f347f0800000000000000
+      internalID: -629385179575349096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_26
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 223
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca13fec638212d5d0800000000000000
+      internalID: -3039346442844032596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeparadorDorado_27
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 55
+        width: 204
+        height: 508
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b2fc057371264220800000000000000
+      internalID: 2469698225428034227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SeparadorDorado_0: -4003257429351548325
+      SeparadorDorado_1: 8223117981473539274
+      SeparadorDorado_10: 5854772507562053818
+      SeparadorDorado_11: -8933953432974038058
+      SeparadorDorado_12: -1430696674555843387
+      SeparadorDorado_13: 593434227722472094
+      SeparadorDorado_14: -9018386762129512623
+      SeparadorDorado_15: 5575123708525615576
+      SeparadorDorado_16: -4009427320751948229
+      SeparadorDorado_17: -6107911220184234338
+      SeparadorDorado_18: 2578703506782250008
+      SeparadorDorado_19: 8106109346729285966
+      SeparadorDorado_2: 7874080990731601535
+      SeparadorDorado_20: -8081913839516408841
+      SeparadorDorado_21: -8882461206863414945
+      SeparadorDorado_22: -7834856635742166289
+      SeparadorDorado_23: -2287855409292085629
+      SeparadorDorado_24: -7904700802921157529
+      SeparadorDorado_25: -629385179575349096
+      SeparadorDorado_26: -3039346442844032596
+      SeparadorDorado_27: 2469698225428034227
+      SeparadorDorado_3: 959508085884558221
+      SeparadorDorado_4: -7258797832855797392
+      SeparadorDorado_5: -985255611495587700
+      SeparadorDorado_6: -9114776913053779811
+      SeparadorDorado_7: -4146746046898881628
+      SeparadorDorado_8: 1554639499234670457
+      SeparadorDorado_9: -485680414280358826
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

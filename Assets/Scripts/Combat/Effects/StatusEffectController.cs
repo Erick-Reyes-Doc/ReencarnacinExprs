@@ -101,6 +101,7 @@ public class StatusEffectController : MonoBehaviour
                 current.ExtendDuration(duration);
             }
 
+            ShowStatusMarker(type);
             return true;
         }
 
@@ -109,8 +110,18 @@ public class StatusEffectController : MonoBehaviour
 
         activeEffects.Add(type, effect);
         OnEffectApplied?.Invoke(effect);
+        ShowStatusMarker(type);
 
         return true;
+    }
+
+    // Marcador flotante con el nombre del estado (mejora o estado negativo). Solo presentacion.
+    private void ShowStatusMarker(StatusEffectType type)
+    {
+        string label = CombatFeedback.StatusText(type, out bool isBuff);
+
+        if (label != "" && Unit != null)
+            CombatFeedback.Show(Unit, label, isBuff ? FeedbackKind.Buff : FeedbackKind.Debuff);
     }
 
     public bool RemoveEffect(StatusEffectType type)

@@ -451,6 +451,10 @@ public partial class MapShopController
             if (data.uniqueOwnership)
                 body += "  ·  Única";
 
+            // Que hace la reliquia (efecto especial), igual que en la ficha del personaje.
+            if (!string.IsNullOrEmpty(data.description))
+                body += "\n" + data.description;
+
             foreach (RelicModifier m in data.bonuses)
                 body += "\n<color=#7FD08F>+" + m.amount + RelicData.Suffix(m.stat) + " " + RelicData.StatName(m.stat) + "</color>";
 
@@ -464,7 +468,9 @@ public partial class MapShopController
             body = ConsumableService.Description(type);
         }
 
-        const float width = 330f, pad = 14f;
+        // Las reliquias llevan descripcion: tarjeta algo mas ancha para que se lea sin ocupar demasiado alto.
+        float width = entry.IsRelic ? 420f : 330f;
+        const float pad = 14f;
         relicTipTitle.text = title;
         relicTipBody.text = body;
         float titleH = relicTipTitle.GetPreferredValues(title, width - 2f * pad, 0f).y;
@@ -646,8 +652,9 @@ public partial class MapShopController
 
             if (entry.IsRelic)
             {
-                blocked = RelicShop.Check(entry.relic) == RelicShop.Result.AlreadyOwned;
-                blockedText = "YA POSEÍDA";
+                RelicShop.Result state = RelicShop.Check(entry.relic);
+                blocked = state == RelicShop.Result.AlreadyOwned || state == RelicShop.Result.SoldOut;
+                blockedText = state == RelicShop.Result.SoldOut ? "AGOTADA" : "YA POSEÍDA";
                 idle = Color.Lerp(RelicBorderIdle, RelicData.RarityColor(entry.relic.rarity), 0.45f);
             }
             else
@@ -728,7 +735,7 @@ public partial class MapShopController
             SetText(detailAvailable, "");
             SetText(detailOwned, "En inventario: " + RelicInventory.CountOwned(relic.typeId));
 
-            if (result == RelicShop.Result.InsufficientFunds || result == RelicShop.Result.AlreadyOwned)
+            if (result == RelicShop.Result.InsufficientFunds || result == RelicShop.Result.AlreadyOwned || result == RelicShop.Result.SoldOut)
                 status = RelicShop.Describe(result, relic);
         }
         else

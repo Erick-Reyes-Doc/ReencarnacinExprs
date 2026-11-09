@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Evanora_GolpeDeMeteorito
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Golpe de Meteorito
-  description: Se prepara durante un turno; en el siguiente impacta a todos los enemigos (100 % a cada uno) y puede aplicar Quemadura.
+  description: Golpe de fuego que impacta a todos los enemigos (100 % a cada uno) y puede aplicar Quemadura. Solo puede usarse desde la ronda 3.
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
@@ -21,18 +21,20 @@ MonoBehaviour:
   basePower: 0
   damagePercent: 100
   canCritical: 1
-  usablePositions: 01010101y
+  usablePositions: 00000101
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 3
+  availableFromTurn: 3
   regenerationPerTurn: 0
   regenerationDuration: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
-  requiresPreparation: 1
+  healCriticalMultiplier: 0
+  requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
@@ -52,5 +54,6 @@ MonoBehaviour:
     duration: 2
     chance: 50
     applyToUser: 0
+    damageScalePercent: 50
     potencyPerLevel: 0
     durationPerLevel: 0

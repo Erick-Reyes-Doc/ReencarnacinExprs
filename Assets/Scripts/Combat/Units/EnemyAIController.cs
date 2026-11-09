@@ -112,6 +112,24 @@ public partial class EnemyAIController : MonoBehaviour
     public float ActionDelay => actionDelay;
     public AIStyle Style => style;
 
+    // Habilidades que el jugador puede consultar en la ficha del enemigo (ataque basico + especiales).
+    public List<AbilityData> KnownAbilities
+    {
+        get
+        {
+            List<AbilityData> list = new List<AbilityData>();
+
+            if (basicAttack != null)
+                list.Add(basicAttack);
+
+            foreach (AbilityData special in specialAbilities)
+                if (special != null && special != basicAttack)
+                    list.Add(special);
+
+            return list;
+        }
+    }
+
     // Arquetipo con el que se configuro (null si se configuro a mano).
     public EnemyArchetypeData Archetype => archetype;
 

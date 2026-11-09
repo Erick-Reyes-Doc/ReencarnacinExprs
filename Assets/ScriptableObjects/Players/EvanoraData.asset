@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EvanoraData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Evanora
-  maxHealth: 22
-  damageMin: 3
-  damageMax: 6
+  maxHealth: 18
+  damageMin: 5
+  damageMax: 8
   protectionPercent: 0
   evasionPercent: 5
   speed: 6

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -58,6 +59,14 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private Button continueButton;
 
+    [Tooltip("Escena de resultados que se carga tras ganar (fundido a negro). Si no esta en Build Settings se usa el panel Continuar.")]
+    [SerializeField] private string victorySceneName = "Victory";
+
+    [Tooltip("Escena de derrota (oscura, con sombras de los heroes caidos y boton al menu). Si no esta en Build Settings se usa el panel de siempre.")]
+    [SerializeField] private string defeatSceneName = "Defeat";
+
+    private bool victoryTransitionStarted;
+    private Image victoryFade;
     private bool leavingScene;
 
     // Pausa del combate: reutiliza el menu de pausa del mapa (MapPauseMenu, prefab MenuPausa) con Continuar y
@@ -164,14 +173,14 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private float selectionOffsetY = -20f;
     [Header("Iconos de estados (fila sobre la barra de vida)")]
     [Tooltip("Tamano en pixeles de cada icono.")]
-    [SerializeField] private float statusIconSize = 26f;
+    [SerializeField] private float statusIconSize = 34f;
     [Tooltip("Separacion en pixeles entre iconos.")]
     [SerializeField] private float statusIconSpacing = 2f;
     [Tooltip("Distancia en pixeles entre el borde superior de la barra y la fila de iconos.")]
     [SerializeField] private float statusIconGap = 10f;
-    // Orden: Sangrado, Veneno, Quemadura, Debilitamiento, Vulnerabilidad, Proteccion, Regeneracion, Aturdimiento, Marca, Defensa elevada, Preparacion.
+    // Orden: Sangrado, Veneno, Quemadura, Debilitamiento, Vulnerabilidad, Guardia, Regeneracion, Aturdimiento, Marca, Defensa elevada, Preparacion, Marca tactica, Evasion.
     [SerializeField] private Sprite[] statusIcons = new Sprite[StatusIconCount];
-    private const int StatusIconCount = 11;
+    private const int StatusIconCount = 13;
     [SerializeField] private RectTransform statusTip;
     [SerializeField] private Text statusTipText;
     private int statusTipSlot = -1;
@@ -208,6 +217,83 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Text[] statTexts = new Text[3];
 
     private bool NewHud => playerInfoSprite != null && abilityNormalSprite != null;
+
+    // ---------------- Apoyo para el tutorial de combate (solo lectura y avisos) ----------------
+
+    // Se elige una habilidad que necesita objetivo.
+    public event Action<AbilityData> TargetSelectionStarted;
+
+    // Se uso una habilidad con exito (la accion del turno ya se consumio).
+    public event Action AbilityUsed;
+
+    public BattleUnit ActivePlayerForTutorial => ActivePlayerUnit();
+    public AbilityData SelectedAbilityForTutorial => selectedAbility;
+
+    // Zona de pantalla (en pixeles) de una parte del HUD, para iluminarla en el tutorial.
+    public bool TutorialBounds(string key, out Rect screen)
+    {
+        screen = Rect.zero;
+        var rects = new List<RectTransform>();
+
+        switch (key)
+        {
+            case "orden":
+                AddNamed(rects, "TituloOrden");
+                foreach (Image chip in turnChips)
+                    if (chip != null && chip.gameObject.activeInHierarchy) rects.Add(chip.rectTransform);
+                break;
+            case "ejercitos":
+                AddTiles(rects, 0, SlotCount);
+                break;
+            case "aliados":
+                AddTiles(rects, 0, 4);
+                break;
+            case "enemigos":
+                AddTiles(rects, 4, 4);
+                break;
+            case "habilidades": AddNamed(rects, "PanelPersonaje"); break;
+            case "info": AddNamed(rects, "PanelInformacion"); break;
+            case "consumibles": AddNamed(rects, "PanelConsumibles"); break;
+            case "mover": AddNamed(rects, "Mover"); break;
+            case "terminar": AddNamed(rects, "TerminarTurno"); break;
+            default: return false;
+        }
+
+        bool any = false;
+        Vector3[] corners = new Vector3[4];
+        Camera cam = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+
+        foreach (RectTransform r in rects)
+        {
+            if (r == null)
+                continue;
+
+            r.GetWorldCorners(corners);
+            Vector2 a = RectTransformUtility.WorldToScreenPoint(cam, corners[0]);
+            Vector2 b = RectTransformUtility.WorldToScreenPoint(cam, corners[2]);
+            Rect rect = Rect.MinMaxRect(Mathf.Min(a.x, b.x), Mathf.Min(a.y, b.y), Mathf.Max(a.x, b.x), Mathf.Max(a.y, b.y));
+            screen = any ? Rect.MinMaxRect(Mathf.Min(screen.xMin, rect.xMin), Mathf.Min(screen.yMin, rect.yMin), Mathf.Max(screen.xMax, rect.xMax), Mathf.Max(screen.yMax, rect.yMax)) : rect;
+            any = true;
+        }
+
+        return any;
+    }
+
+    private void AddNamed(List<RectTransform> rects, string name)
+    {
+        if (canvas == null)
+            return;
+
+        foreach (RectTransform r in canvas.GetComponentsInChildren<RectTransform>(true))
+            if (r.name == name) { rects.Add(r); return; }
+    }
+
+    private void AddTiles(List<RectTransform> rects, int from, int count)
+    {
+        for (int i = from; i < from + count && i < tileImages.Length; i++)
+            if (tileImages[i] != null && tileImages[i].gameObject.activeInHierarchy && TileUnit(i) != null)
+                rects.Add(tileImages[i].rectTransform);
+    }
 
     // Retratos provisionales del orden de turnos: para usar uno definitivo, anadir aqui el nombre de la unidad
     // (UnitData.unitName) y su sprite.
@@ -435,6 +521,11 @@ public class CombatHudController : MonoBehaviour
             BuildUI();
 
         ApplyFont();
+
+        // Marcadores flotantes de daño, curacion, esquivas y estados (lienzo propio; solo presentacion).
+        if (GetComponent<FloatingCombatText>() == null)
+            gameObject.AddComponent<FloatingCombatText>();
+
         CacheUnits();
         WireButtons();
         ConnectPauseMenu();
@@ -803,6 +894,47 @@ public class CombatHudController : MonoBehaviour
 
         if (shieldGlow.effectColor != wanted)
             shieldGlow.effectColor = wanted;
+    }
+
+    // Tras ganar: la interfaz de combate espera un instante (se ve el banner VICTORIA), funde a negro y carga la escena Victory,
+    // que muestra los resultados guardados en VictorySummary (la reliquia, la XP y las Coronas ya se entregaron antes).
+    private IEnumerator VictoryTransition()
+    {
+        yield return SceneFadeTransition(victorySceneName, 1.4f, 0.8f);
+    }
+
+    // Igual para la derrota: espera mas (se ve el banner DERROTA) y el fundido a negro es mas lento.
+    private IEnumerator DefeatTransition()
+    {
+        yield return SceneFadeTransition(defeatSceneName, 1.8f, 1.2f);
+    }
+
+    private IEnumerator SceneFadeTransition(string sceneName, float wait, float seconds)
+    {
+        yield return new WaitForSecondsRealtime(wait);
+
+        Transform parent = (victoryPanel != null ? victoryPanel : defeatPanel) != null ? (victoryPanel != null ? victoryPanel : defeatPanel).transform.parent : null;
+
+        if (parent != null && victoryFade == null)
+        {
+            GameObject go = new GameObject("FundidoVictoria", typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            RectTransform rect = (RectTransform)go.transform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = rect.offsetMax = Vector2.zero;
+            victoryFade = go.GetComponent<Image>();
+            victoryFade.color = new Color(0f, 0f, 0f, 0f);
+            go.transform.SetAsLastSibling();
+        }
+
+        for (float t = 0f; t < seconds && victoryFade != null; t += Mathf.Min(Time.unscaledDeltaTime, 0.1f))
+        {
+            victoryFade.color = new Color(0f, 0f, 0f, Mathf.SmoothStep(0f, 1f, t / seconds));
+            yield return null;
+        }
+
+        SceneManager.LoadScene(sceneName);
     }
 
     // Tras una victoria: vuelve al mapa conservando la sesion.
@@ -1400,6 +1532,7 @@ public class CombatHudController : MonoBehaviour
         validTargets.AddRange(candidates);
         Say("Elige un objetivo para " + ability.abilityName +
             " (o cancela).");
+        TargetSelectionStarted?.Invoke(ability);
     }
 
     private void OnTileClicked(int slot)
@@ -1425,7 +1558,7 @@ public class CombatHudController : MonoBehaviour
             }
 
             if (ConsumableService.TryUse(
-                    ItemType(itemSelected), unit, out string message))
+                    ItemType(itemSelected), unit, out string message, ActivePlayerUnit()))
             {
                 CancelSelection();
                 Say(message);
@@ -1487,6 +1620,7 @@ public class CombatHudController : MonoBehaviour
               ": impactara en su siguiente turno."
             : DisplayName(user) + " uso " + ability.abilityName + ".");
 
+        AbilityUsed?.Invoke();
         turnManager.EndTurn();
     }
 
@@ -1662,6 +1796,17 @@ public class CombatHudController : MonoBehaviour
         {
             bool showDefeat = finished && banner == "DERROTA";
 
+            // Con la escena Defeat disponible, la derrota lleva a ella (fundido); si no, queda el panel de siempre.
+            bool useDefeatScene = showDefeat && !string.IsNullOrEmpty(defeatSceneName) && GameSession.IsSceneInBuild(defeatSceneName);
+
+            if (useDefeatScene && !victoryTransitionStarted && !leavingScene)
+            {
+                victoryTransitionStarted = true;
+                StartCoroutine(DefeatTransition());
+            }
+
+            showDefeat &= !useDefeatScene;
+
             if (defeatPanel.activeSelf != showDefeat)
                 defeatPanel.SetActive(showDefeat);
         }
@@ -1671,8 +1816,19 @@ public class CombatHudController : MonoBehaviour
             bool showVictory = finished && banner == "VICTORIA" &&
                                GameSession.IsActive;
 
-            if (victoryPanel.activeSelf != showVictory)
-                victoryPanel.SetActive(showVictory);
+            // Con la escena Victory disponible, ganar lleva a ella (fundido); si no, queda el panel Continuar de siempre.
+            bool useVictoryScene = showVictory && !string.IsNullOrEmpty(victorySceneName) && GameSession.IsSceneInBuild(victorySceneName) && VictorySummary.Current != null;
+
+            if (useVictoryScene && !victoryTransitionStarted && !leavingScene)
+            {
+                victoryTransitionStarted = true;
+                StartCoroutine(VictoryTransition());
+            }
+
+            bool showPanel = showVictory && !useVictoryScene;
+
+            if (victoryPanel.activeSelf != showPanel)
+                victoryPanel.SetActive(showPanel);
         }
 
         // Botones de habilidad del loadout activo.
@@ -1793,6 +1949,20 @@ public class CombatHudController : MonoBehaviour
                         ? "\nConsume 1 objeto y la acción del turno."
                         : "\nNo se puede usar ahora (sin objetivo válido o fuera de turno).")));
         }
+        else if (hoveredBadgeRelic != null)
+        {
+            // Cursor sobre el icono de reliquia de un enemigo: su descripcion completa.
+            SetText(abilityTitleText, hoveredBadgeRelic.displayName);
+            SetText(detailText, RelicSheet(hoveredBadgeRelic));
+            SetInfoExpanded(true);
+        }
+        else if (HoveredUnit() is BattleUnit hoveredUnit)   // tambien con una habilidad elegida: el cursor sobre una unidad muestra su ficha
+        {
+            // Ficha de la unidad bajo el cursor (enemigo o aliado): estadisticas, habilidades y estados.
+            SetText(abilityTitleText, DisplayName(hoveredUnit));
+            SetText(detailText, UnitSheet(hoveredUnit));
+            SetInfoExpanded(true);
+        }
         else
         {
             SetText(abilityTitleText, detail == null ? "Información" : detail.abilityName);
@@ -1801,7 +1971,12 @@ public class CombatHudController : MonoBehaviour
                 : AbilityDescription(detail));
         }
 
-        RefreshStatRows(showMoveInfo || infoItem >= 0 ? null : detail);
+        bool showingSheet = !showMoveInfo && infoItem < 0 && HoveredUnit() != null;
+
+        if (!showingSheet)
+            SetInfoExpanded(false);
+
+        RefreshStatRows(showMoveInfo || infoItem >= 0 || showingSheet ? null : detail, active);
 
         // Icono de la opcion consultada (habilidad real o icono provisional del consumible).
         if (infoIcon != null)
@@ -1927,6 +2102,7 @@ public class CombatHudController : MonoBehaviour
         // Seleccion de objetivo de una habilidad: el objetivo señalado es el primero valido hasta que el cursor
         // pase sobre otro valido (el cursor sobre uno fuera de alcance no cambia nada).
         bool picking = NewHud && selectedAbility != null && validTargets.Count > 0;
+        hoveredBadgeRelic = null;
 
         if (!picking)
             focusTarget = null;
@@ -2006,11 +2182,13 @@ public class CombatHudController : MonoBehaviour
                 // Objetivo valido de una habilidad: marco rojo (tinte verdoso si es de apoyo); el cursor sobre el sprite
                 // o la barra lo convierte en el objetivo señalado. Los objetos usan el borde dorado de siempre.
                 UpdateStatusIcons(slot, unit);
+                UpdateRelicBadge(slot, unit);
 
-                bool abilityTarget = picking && isTarget && unit.IsAlive;
+                // Habilidades y objetos (pocion, antidoto): el sprite del aliado valido tambien es clicable, no solo la barra.
+                bool abilityTarget = (picking || itemSelected >= 0) && isTarget && unit.IsAlive;
 
                 // Rojo = enemigos (habilidades ofensivas). Las beneficiosas usan el indicador verde de aliados.
-                bool redFrame = abilityTarget && selectedAbility.abilityType == AbilityType.Attack;
+                bool redFrame = picking && abilityTarget && selectedAbility.abilityType == AbilityType.Attack;
 
                 if (targetFrames[slot] != null && targetFrames[slot].gameObject.activeSelf != redFrame)
                     targetFrames[slot].gameObject.SetActive(redFrame);
@@ -2206,6 +2384,19 @@ public class CombatHudController : MonoBehaviour
         return 22;
     }
 
+    // Hay un retrato definitivo (icono propio) asignado a esta unidad en 'portraitOverrides'.
+    private bool HasPortraitOverride(BattleUnit unit)
+    {
+        if (unit == null || unit.Data == null || portraitOverrides == null)
+            return false;
+
+        foreach (PortraitOverride entry in portraitOverrides)
+            if (entry != null && entry.portrait != null && entry.unitName == unit.Data.unitName)
+                return true;
+
+        return false;
+    }
+
     // Retrato provisional: recorte de la cabeza del sprite de combate (no se modifica el sprite original).
     // Para usar retratos definitivos basta rellenar 'portraitOverrides' con el nombre de la unidad.
     private Sprite PortraitFor(BattleUnit unit)
@@ -2338,7 +2529,8 @@ public class CombatHudController : MonoBehaviour
                 turnPortraits[shown].enabled = portrait != null;
                 // Mismo tinte que el sprite en escena (los protagonistas comparten sprite y se distinguen por color).
                 SpriteRenderer unitRenderer = unit.GetComponentInChildren<SpriteRenderer>();
-                Color tint = unitRenderer != null ? unitRenderer.color : Color.white;
+                // Los iconos definitivos ya traen sus colores: sin tinte.
+                Color tint = unitRenderer != null && !HasPortraitOverride(unit) ? unitRenderer.color : Color.white;
                 float shade = acted && !isActive ? 0.75f : 1f;
                 turnPortraits[shown].color = new Color(tint.r * shade, tint.g * shade, tint.b * shade, 1f);
             }
@@ -2466,8 +2658,9 @@ public class CombatHudController : MonoBehaviour
             case StatusEffectType.Poison: return 1;
             case StatusEffectType.Burn: return 2;
             case StatusEffectType.Weaken: return 3;
-            case StatusEffectType.Vulnerability:
-            case StatusEffectType.PriorityTarget: return 4;
+            case StatusEffectType.Vulnerability: return 4;
+            case StatusEffectType.PriorityTarget: return 11;
+            case StatusEffectType.EvasionBoost: return 12;
             case StatusEffectType.Guard: return 5;
             case StatusEffectType.Mark: return 8;
             case StatusEffectType.DefenseBoost: return 9;
@@ -2479,6 +2672,91 @@ public class CombatHudController : MonoBehaviour
 
     // Fila de iconos sobre la barra: solo los estados activos de la unidad (lee los mismos datos que StatusTags;
     // no modifica ningun efecto). Se recalcula cada fotograma, asi que al caducar un estado su icono desaparece.
+    // Pequeño icono de la reliquia que porta un enemigo, a la izquierda de su barra de vida.
+    // Reliquia de enemigo bajo el cursor (se actualiza al recorrer las tarjetas; la usa el panel de informacion).
+    private RelicData hoveredBadgeRelic;
+
+    private static string RelicSheet(RelicData relic)
+    {
+        string hex = ColorUtility.ToHtmlStringRGB(RelicData.RarityColor(relic.rarity));
+        string s = "<color=#" + hex + ">" + (relic.IsExclusive ? "Exclusiva" : RelicData.RarityName(relic.rarity)) + "</color>";
+
+        if (!string.IsNullOrEmpty(relic.description))
+            s += "\n" + relic.description;
+
+        foreach (RelicModifier m in relic.bonuses)
+            s += "\n<color=#7FD08F>+" + m.amount + RelicData.Suffix(m.stat) + " " + RelicData.StatName(m.stat) + "</color>";
+
+        foreach (RelicModifier m in relic.penalties)
+            s += "\n<color=#E56B5E>−" + m.amount + RelicData.Suffix(m.stat) + " " + RelicData.StatName(m.stat) + "</color>";
+
+        return s;
+    }
+
+    private void UpdateRelicBadge(int slot, BattleUnit unit)
+    {
+        Transform tile = tileImages[slot].transform;
+        Transform badge = tile.Find("ReliquiaEnemigo");
+        RelicData relic = unit.Side == TeamSide.Enemy ? EnemyRelics.Of(unit) : null;
+        bool show = relic != null && relic.icon != null;
+
+        if (badge == null)
+        {
+            if (!show)
+                return;
+
+            GameObject frame = new GameObject("ReliquiaEnemigo", typeof(RectTransform), typeof(Image));
+            frame.transform.SetParent(tile, false);
+            RectTransform fr = (RectTransform)frame.transform;
+            fr.anchorMin = fr.anchorMax = new Vector2(0f, 0.5f);
+            fr.pivot = new Vector2(1f, 0.5f);
+            fr.sizeDelta = new Vector2(34f, 34f);
+            fr.anchoredPosition = new Vector2(-4f, 0f);
+            Image border = frame.GetComponent<Image>();
+            border.color = new Color(0.83f, 0.69f, 0.42f, 1f);
+            border.raycastTarget = true;   // el cursor encima muestra la descripcion de la reliquia en el panel de informacion
+            frame.AddComponent<HudFrameStyle>();
+
+            GameObject back = new GameObject("Fondo", typeof(RectTransform), typeof(Image));
+            back.transform.SetParent(fr, false);
+            RectTransform br = (RectTransform)back.transform;
+            br.anchorMin = Vector2.zero;
+            br.anchorMax = Vector2.one;
+            br.offsetMin = new Vector2(2f, 2f);
+            br.offsetMax = new Vector2(-2f, -2f);
+            back.GetComponent<Image>().color = new Color(0.05f, 0.08f, 0.14f, 1f);
+            back.GetComponent<Image>().raycastTarget = false;
+
+            GameObject icon = new GameObject("Icono", typeof(RectTransform), typeof(Image));
+            icon.transform.SetParent(br, false);
+            RectTransform ir = (RectTransform)icon.transform;
+            ir.anchorMin = Vector2.zero;
+            ir.anchorMax = Vector2.one;
+            ir.offsetMin = new Vector2(1f, 1f);
+            ir.offsetMax = new Vector2(-1f, -1f);
+            Image iconImage = icon.GetComponent<Image>();
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            badge = fr;
+        }
+
+        if (badge.gameObject.activeSelf != show)
+            badge.gameObject.SetActive(show);
+
+        HudFrameStyle badgeHover = badge.GetComponent<HudFrameStyle>();
+
+        if (show && badgeHover != null && badgeHover.Hovered)
+            hoveredBadgeRelic = relic;
+
+        if (show)
+        {
+            Image iconImage = badge.Find("Fondo/Icono").GetComponent<Image>();
+
+            if (iconImage.sprite != relic.icon)
+                iconImage.sprite = relic.icon;
+        }
+    }
+
     private void UpdateStatusIcons(int slot, BattleUnit unit)
     {
         Transform row = tileImages[slot].transform.Find("Estados");
@@ -2545,6 +2823,12 @@ public class CombatHudController : MonoBehaviour
 
             RectTransform rect = (RectTransform)icon;
             rect.sizeDelta = new Vector2(statusIconSize, statusIconSize);
+
+            // El sprite se asigna siempre desde el arreglo actual: nunca queda un cuadro blanco sin imagen.
+            Image iconImage = icon.GetComponent<Image>();
+
+            if (iconImage != null && iconImage.sprite != statusIcons[i])
+                iconImage.sprite = statusIcons[i];
             rect.anchoredPosition = new Vector2((shown - (count - 1) * 0.5f) * pitch, 0f);
             shown++;
 
@@ -2600,6 +2884,7 @@ public class CombatHudController : MonoBehaviour
             case StatusEffectType.DefenseBoost: return "<b>Defensa elevada</b>\n+" + p + "% de protección" + turns;
             case StatusEffectType.Guard: return "<b>Protección</b>\n-" + p + "% de daño directo" + turns;
             case StatusEffectType.Stun: return "<b>Aturdimiento</b>\nPierde su turno" + turns;
+            case StatusEffectType.EvasionBoost: return "<b>Evasión</b>\n+" + p + " puntos de evasión" + turns;
             default: return "<b>" + effect.Type + "</b>" + turns;
         }
     }
@@ -2762,6 +3047,142 @@ public class CombatHudController : MonoBehaviour
     }
 
     // Descripcion de la habilidad para el panel de informacion nuevo (tipo, alcance y movimiento van en filas con icono).
+    // ------------------------------------------------------------
+    // Ficha de unidad al pasar el cursor (estilo Darkest Dungeon)
+    // ------------------------------------------------------------
+
+    private bool infoExpanded;
+
+    // El texto de detalle ocupa mas alto mientras se muestra la ficha (las filas de tipo/alcance estan ocultas).
+    private void SetInfoExpanded(bool expanded)
+    {
+        if (infoExpanded == expanded || detailText == null)
+            return;
+
+        infoExpanded = expanded;
+        detailText.rectTransform.anchorMin = new Vector2(0.07f, expanded ? 0.05f : 0.50f);
+    }
+
+    // Unidad bajo el cursor: su barra/tarjeta o su sprite en el campo (si el cursor no esta sobre otra parte de la interfaz).
+    private BattleUnit HoveredUnit()
+    {
+        if (paused || UnityEngine.InputSystem.Mouse.current == null || positionManager == null)
+            return null;
+
+        for (int slot = 0; slot < SlotCount; slot++)
+        {
+            HudFrameStyle card = tileImages[slot] != null ? tileImages[slot].GetComponent<HudFrameStyle>() : null;
+
+            if (card != null && card.Hovered && tileImages[slot].gameObject.activeSelf)
+            {
+                BattleUnit u = TileUnit(slot);
+
+                if (u != null)
+                    return u;
+            }
+        }
+
+        // Con una habilidad elegida el sprite lo cubre una zona clicable invisible: tambien cuenta como cursor sobre la unidad.
+        for (int slot = 0; slot < SlotCount; slot++)
+        {
+            HudFrameStyle zone = targetZones[slot] != null ? targetZones[slot].GetComponent<HudFrameStyle>() : null;
+
+            if (zone != null && zone.Hovered && targetZones[slot].gameObject.activeSelf)
+            {
+                BattleUnit u = TileUnit(slot);
+
+                if (u != null)
+                    return u;
+            }
+        }
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return null;
+
+        Camera cam = canvas != null && canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
+
+        if (cam == null)
+            return null;
+
+        Vector2 screen = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+        Vector3 world = cam.ScreenToWorldPoint(new Vector3(screen.x, screen.y, 0f));
+
+        for (int slot = 0; slot < SlotCount; slot++)
+        {
+            BattleUnit u = TileUnit(slot);
+            SpriteRenderer sr = u != null ? u.GetComponentInChildren<SpriteRenderer>() : null;
+
+            if (sr == null)
+                continue;
+
+            Bounds b = sr.bounds;
+            float halfW = b.extents.x * 0.7f;   // el sprite tiene margen transparente a los lados
+
+            if (world.x >= b.center.x - halfW && world.x <= b.center.x + halfW && world.y >= b.min.y && world.y <= b.max.y)
+                return u;
+        }
+
+        return null;
+    }
+
+    private static string Snippet(string text, int max)
+    {
+        if (string.IsNullOrEmpty(text))
+            return "";
+
+        text = text.Replace("\n", " ").Trim();
+        int dot = text.IndexOf(". ", StringComparison.Ordinal);
+
+        if (dot > 8)
+            text = text.Substring(0, dot);
+
+        return text.Length > max ? text.Substring(0, max - 1).TrimEnd() + "…" : text;
+    }
+
+    private string UnitSheet(BattleUnit unit)
+    {
+        string s = "HP " + unit.CurrentHealth + "/" + unit.MaxHealth + "   Vel " + unit.Speed + "\n";
+        s += "Daño " + unit.DamageMin + "–" + unit.DamageMax + "   Prot " + unit.ProtectionPercent + "%   Evas " + Mathf.RoundToInt(unit.EvasionPercent) + "%";
+
+        RelicData carried = EnemyRelics.Of(unit);
+
+        if (carried != null)
+        {
+            string hex = ColorUtility.ToHtmlStringRGB(RelicData.RarityColor(carried.rarity));
+            s += "\nReliquia: <b><color=#" + hex + ">" + carried.displayName + "</color></b>";
+        }
+
+        string status = StatusTags(unit).Trim();
+
+        if (status != "")
+            s += "\nEstados: " + status;
+
+        List<AbilityData> abilities = new List<AbilityData>();
+        EnemyAIController ai = unit.GetComponent<EnemyAIController>();
+        CharacterAbilityLoadout loadout = unit.GetComponent<CharacterAbilityLoadout>();
+
+        if (ai != null)
+            abilities.AddRange(ai.KnownAbilities);
+        else if (loadout != null)
+            abilities.AddRange(loadout.Abilities);
+
+        if (abilities.Count > 0)
+            s += "\n<b>Habilidades</b>";
+
+        foreach (AbilityData a in abilities)
+        {
+            if (a == null)
+                continue;
+
+            int cooldown = AbilityCooldownController.EffectiveCooldown(unit, a);
+            string cd = cooldown > 0 ? " (recarga " + cooldown + ")" : "";
+            string d = Snippet(a.description, 46);
+            s += "\n• <b>" + a.abilityName + "</b>" + cd + (d != "" ? ": " + d : "");
+        }
+
+        return s;
+    }
+
     private string AbilityDescription(AbilityData ability)
     {
         if (!NewHud)
@@ -2797,8 +3218,10 @@ public class CombatHudController : MonoBehaviour
         return PositionList(flags);
     }
 
-    // Filas Tipo / Alcance / Movimiento de la habilidad mostrada (null = se ocultan).
-    private void RefreshStatRows(AbilityData ability)
+    // Filas de la habilidad mostrada (null = se ocultan): 1) daño o curacion real de la unidad que actua, con su critico
+    // (si no daña ni cura, el tipo); 2) desde que posiciones se usa y a cuales alcanza; 3) movimiento. 'user' es la
+    // unidad que va a usarla: con ella se calculan las cifras reales (daño actual, critico, vida del equipo).
+    private void RefreshStatRows(AbilityData ability, BattleUnit user)
     {
         if (statRows == null || statRows[0] == null)
             return;
@@ -2817,18 +3240,20 @@ public class CombatHudController : MonoBehaviour
         {
             string type = ability.abilityType == AbilityType.Attack ? "Ofensiva"
                 : (ability.abilityType == AbilityType.Heal ? "Curación" : "Apoyo");
-            lines[0] = "Tipo: " + type;
+            // Vida maxima de los aliados de quien actua (las curaciones por % dependen de ella).
+            List<int> allyMaxHealths = new List<int>();
+
+            if (user != null)
+                foreach (BattleUnit unit in allUnits)
+                    if (unit != null && unit.Side == user.Side)
+                        allyMaxHealths.Add(unit.MaxHealth);
+
+            lines[0] = AbilityInfo.CombatNumbers(ability, user, allyMaxHealths) ?? "Tipo: " + type;
 
             if (cooldownText != null)
                 SetText(cooldownText, ability.cooldown > 0 ? "Recarga: " + ability.cooldown : "Sin recarga");
 
-            switch (ability.targetType)
-            {
-                case AbilityTargetType.Self: lines[1] = "Alcance: Propio"; break;
-                case AbilityTargetType.AllAllies: lines[1] = "Alcance: Todo el equipo"; break;
-                case AbilityTargetType.AllEnemies: lines[1] = "Alcance: Todos los enemigos"; break;
-                default: lines[1] = "Alcance: " + RangeText(ability.targetPositions); break;
-            }
+            lines[1] = AbilityInfo.CombatPositions(ability);
 
             if (ability.userMovement != UserMovement.None)
                 lines[2] = "Movimiento: " + (ability.userMovement == UserMovement.Backward ? "Retrocede 1" : "Avanza 1");
@@ -3047,10 +3472,7 @@ public class CombatHudController : MonoBehaviour
     // existe, se queda la fuente integrada.
     private Font ResolveFont()
     {
-        if (serifFont == null)
-            serifFont = Font.CreateDynamicFontFromOSFont(new[] { "Georgia", "Palatino Linotype", "Times New Roman" }, 24);
-
-        return serifFont != null ? serifFont : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        return GameFonts.Regular;   // Merriweather
     }
 
     // Las fuentes del SO no se serializan en la escena: se reasignan al iniciar.
@@ -3059,7 +3481,7 @@ public class CombatHudController : MonoBehaviour
         font = ResolveFont();
 
         foreach (Text text in GetComponentsInChildren<Text>(true))
-            text.font = font;
+            GameFonts.Apply(text);
     }
 
     // Iconos de los consumibles: sprites del proyecto "curacion" y "antidoto" (se asignan al construir en el editor).
@@ -3098,7 +3520,7 @@ public class CombatHudController : MonoBehaviour
 
         selectionSprite = Load("seleccion 1");
 
-        string[] iconFiles = { "Sangrado", "veneno", "Quemadura", "Debilitamiento", "Vulnerabilidad", "Protección", "Regeneración", "Aturdimiento", "Marca", "Defensa elevada", "Preparación" };
+        string[] iconFiles = { "Sangrado", "veneno", "Quemadura", "Debilitamiento", "Vulnerabilidad", "Protección", "Regeneración", "Aturdimiento", "Marca", "Defensa elevada", "Preparación", "MarcaTactica", "Evasion" };
         statusIcons = new Sprite[StatusIconCount];
 
         for (int i = 0; i < StatusIconCount; i++)
@@ -3618,8 +4040,12 @@ public class CombatHudController : MonoBehaviour
 
             // Solo icono, nombre y cantidad (los detalles van en el panel derecho).
             itemTexts[i] = Label("Nombre", itemButtons[i].transform, new Vector2(0.27f, 0.08f), new Vector2(0.78f, 0.92f), 22, TextAnchor.MiddleLeft, TextColor);
-            itemTexts[i].horizontalOverflow = HorizontalWrapMode.Overflow;
-            itemCounts[i] = Label("Cantidad", itemButtons[i].transform, new Vector2(0.78f, 0.08f), new Vector2(0.92f, 0.92f), 22, TextAnchor.MiddleRight, TextColor);
+            // Merriweather es mas ancha que Georgia: el nombre se reduce solo si no cabe junto a la cantidad.
+            itemTexts[i].horizontalOverflow = HorizontalWrapMode.Wrap;
+            itemTexts[i].resizeTextForBestFit = true;
+            itemTexts[i].resizeTextMinSize = 14;
+            itemTexts[i].resizeTextMaxSize = 22;
+            itemCounts[i] = Label("Cantidad", itemButtons[i].transform, new Vector2(0.80f, 0.08f), new Vector2(0.94f, 0.92f), 22, TextAnchor.MiddleRight, TextColor);
             itemCounts[i].horizontalOverflow = HorizontalWrapMode.Overflow;
         }
 
@@ -3731,8 +4157,9 @@ public class CombatHudController : MonoBehaviour
             if (i == 0)
             {
                 // Tipo a la izquierda y Recarga a la derecha de la misma fila.
-                statTexts[0].rectTransform.anchorMax = new Vector2(0.60f, 1f);
-                cooldownText = Label("Recarga", row, new Vector2(0.62f, 0f), new Vector2(1f, 1f), 21, TextAnchor.MiddleRight, GoldBright);
+                // La cifra de daño o curacion necesita mas ancho que el antiguo "Tipo".
+                statTexts[0].rectTransform.anchorMax = new Vector2(0.70f, 1f);
+                cooldownText = Label("Recarga", row, new Vector2(0.72f, 0f), new Vector2(1f, 1f), 21, TextAnchor.MiddleRight, GoldBright);
                 Fit(cooldownText, 13, 21);
             }
             statRows[i] = row.gameObject;
@@ -3765,7 +4192,7 @@ public class CombatHudController : MonoBehaviour
 
         // Fuente con serifa en todo el HUD.
         foreach (Text text in canvasGo.GetComponentsInChildren<Text>(true))
-            text.font = font;
+            GameFonts.Apply(text);
 
         // EventSystem compatible con el nuevo Input System.
         EventSystem existing = null;

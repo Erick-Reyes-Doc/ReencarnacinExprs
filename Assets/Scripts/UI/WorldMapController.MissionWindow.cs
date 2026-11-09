@@ -24,6 +24,7 @@ public partial class WorldMapController
         public Image chip;
         public Image[] chipBorder;
         public TMP_Text state;
+        public Image stripe;
     }
 
     [Serializable]
@@ -35,6 +36,7 @@ public partial class WorldMapController
         public TMP_Text count;
         public MapHoverTarget hover;
         public string enemyName;
+        public string enemyStats;
     }
 
     [Header("Ventana de misiones")]
@@ -48,6 +50,18 @@ public partial class WorldMapController
     [SerializeField] private TMP_Text missionState;
     [SerializeField] private TMP_Text missionXp;
     [SerializeField] private TMP_Text missionCoins;
+    [SerializeField] private TMP_FontAsset missionFontRegular;   // Merriweather Regular
+    [SerializeField] private TMP_FontAsset missionFontBold;      // Merriweather Bold
+    [SerializeField] private RectTransform missionContent;
+    [SerializeField] private GameObject missionVeil;
+    [SerializeField] private Sprite missionWindowSprite;   // Assets/Sprites/Buttons/opciones 1 (el de la tienda)
+    [SerializeField] private TMP_Text missionDescription;
+    [SerializeField] private TMP_Text missionProgress;
+    [SerializeField] private TMP_Text missionCounter;
+    [SerializeField] private Image missionXpIcon;
+    [SerializeField] private Image missionCoinIcon;
+    [SerializeField] private Sprite missionXpSprite;      // Assets/Sprites/Iconos/XP
+    [SerializeField] private Sprite missionCoinSprite;    // Assets/Sprites/Iconos/coronas
     [SerializeField] private TMP_Text missionEnemiesHint;
     [SerializeField] private RectTransform missionListContent;
     [SerializeField] private RectTransform missionTooltip;
@@ -158,18 +172,52 @@ public partial class WorldMapController
 
     public void BuildMissionWindow(Transform parent)
     {
-        RectTransform window = Place("PanelLugar", parent, new Vector2(960f, 1080f - 560f), new Vector2(MissionWindowW, MissionWindowH), MwFill, null);
-        window.GetComponent<Image>().raycastTarget = true;   // no deja pasar el clic a la capa que cierra
-        ThinBorder(window, MapGoldDim, 2f);
-        placePanel = window;
+        // Mismo lienzo, velo, marco ("opciones 1"), transparencia y animacion de apertura que la tienda y el inventario.
+        Transform host = shop != null && shop.WindowParent != null ? shop.WindowParent : parent;
 
-        // Cabecera.
+        GameObject veilGo = new GameObject("VeloMisiones", typeof(RectTransform), typeof(Image), typeof(Button), typeof(CanvasGroup));
+        veilGo.transform.SetParent(host, false);
+        RectTransform veilRect = (RectTransform)veilGo.transform;
+        veilRect.anchorMin = Vector2.zero;
+        veilRect.anchorMax = Vector2.one;
+        veilRect.offsetMin = veilRect.offsetMax = Vector2.zero;
+        Image veilImage = veilGo.GetComponent<Image>();
+        veilImage.color = shop != null ? shop.VeilColor : new Color(0.063f, 0.082f, 0.118f, 0.8f);
+        veilImage.raycastTarget = true;
+        Button veilButton = veilGo.GetComponent<Button>();
+        veilButton.transition = Selectable.Transition.None;   // clic fuera de la ventana = cerrar (se conecta al iniciar)
+        missionVeil = veilGo;
+        veilGo.SetActive(false);
+
+        // Rectangulo del marco: incluye los margenes transparentes del sprite (~29 px a los lados, 24 arriba y 31 abajo);
+        // el contenido (1180 x 820) ocupa justo el marco visible. Centrado como la tienda (-3,5 px).
+        GameObject rootGo = new GameObject("PanelLugar", typeof(RectTransform), typeof(Image), typeof(CanvasGroup));
+        rootGo.transform.SetParent(host, false);
+        RectTransform rootRect = (RectTransform)rootGo.transform;
+        rootRect.anchorMin = rootRect.anchorMax = rootRect.pivot = new Vector2(0.5f, 0.5f);
+        rootRect.sizeDelta = new Vector2(MissionWindowW + 58f, MissionWindowH + 55f);
+        rootRect.anchoredPosition = new Vector2(0f, -3.5f);
+        Image frame = rootGo.GetComponent<Image>();
+        frame.sprite = missionWindowSprite;
+        frame.type = Image.Type.Sliced;
+        frame.pixelsPerUnitMultiplier = 4.4f;
+        frame.raycastTarget = true;   // no deja pasar el clic al velo
+        placePanel = rootRect;
+
+        RectTransform window = HudRect("Contenido", rootRect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f));
+        window.sizeDelta = new Vector2(MissionWindowW, MissionWindowH);
+        window.anchoredPosition = new Vector2(29f, -24f);
+        missionContent = window;
+
+        Color softLine = new Color(MwLine.r, MwLine.g, MwLine.b, 0.45f);
+
+        // A. Encabezado: lugar, region, X y una linea discreta.
         missionTitle = TopText("Titulo", window, 40f, 18f, 900f, 54f, "", 40f, MwTitle, TextAlignmentOptions.MidlineLeft);
         missionRegion = TopText("Region", window, 42f, 72f, 700f, 32f, "", 24f, MwDim, TextAlignmentOptions.MidlineLeft);
-        TopBox("Separador", window, 28f, 114f, MissionWindowW - 56f, 2f, new Color(MapGoldDim.r, MapGoldDim.g, MapGoldDim.b, 0.6f));
+        TopBox("Separador", window, 28f, 114f, MissionWindowW - 56f, 1f, softLine);
 
-        // Boton X (UI_Cerrar), el mismo de PAUSA, tienda e inventario.
-        RectTransform close = TopBox("BotonCerrar", window, MissionWindowW - 34f, -14f, 48f, 48f, Color.white);   // 48 x 48, sobresale ~14 px de la esquina, como en PAUSA y tienda
+        // Boton X (UI_Cerrar), el mismo de PAUSA, tienda e inventario. Sin efecto de agrandado.
+        RectTransform close = TopBox("BotonCerrar", window, MissionWindowW - 34f, -14f, 48f, 48f, Color.white);
         Image closeImage = close.GetComponent<Image>();
         closeImage.sprite = missionCloseSprite;
         closeImage.preserveAspect = true;
@@ -178,15 +226,15 @@ public partial class WorldMapController
         placeCloseButton = close.gameObject.AddComponent<Button>();
         placeCloseButton.targetGraphic = closeImage;
         placeCloseButton.transition = Selectable.Transition.None;
-        close.gameObject.AddComponent<HoverScale>().HoverFactor = 1.08f;
 
-        // Panel izquierdo: lista de misiones.
-        RectTransform left = TopBox("PanelMisiones", window, 28f, 132f, 440f, 566f, MwPanel);
-        ThinBorder(left, MwLine, 2f);
-        TopText("Titulo", left, 22f, 12f, 300f, 38f, "Misiones", 26f, MwTitle, TextAlignmentOptions.MidlineLeft);
-        TopBox("Separador", left, 18f, 58f, 404f, 2f, new Color(MapGoldDim.r, MapGoldDim.g, MapGoldDim.b, 0.5f));
+        // B. Panel izquierdo: titulo, contador y lista (sin caja ni marco).
+        RectTransform left = TopBox("PanelMisiones", window, 28f, 132f, 440f, 566f, Clear0);
+        left.GetComponent<Image>().raycastTarget = false;
+        TopText("Titulo", left, 14f, 6f, 260f, 40f, "Misiones", 28f, MwTitle, TextAlignmentOptions.MidlineLeft);
+        missionCounter = TopText("Contador", left, 250f, 6f, 176f, 40f, "", 24f, MwDim, TextAlignmentOptions.MidlineRight);
+        TopBox("Separador", left, 14f, 52f, 412f, 1f, softLine);
 
-        RectTransform viewport = TopBox("Lista", left, 12f, 70f, 416f, 484f, Clear0);
+        RectTransform viewport = TopBox("Lista", left, 4f, 64f, 432f, 500f, Clear0);
         viewport.GetComponent<Image>().raycastTarget = true;
         viewport.gameObject.AddComponent<RectMask2D>();
         RectTransform content = HudRect("Contenido", viewport, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0f, 1f));
@@ -205,99 +253,146 @@ public partial class WorldMapController
         for (int i = 0; i < 4; i++)
             AddMissionCard(i);
 
-        // Panel derecho: detalle del encuentro.
-        RectTransform right = TopBox("PanelDetalle", window, 484f, 132f, 668f, 566f, MwPanel);
-        ThinBorder(right, MwLine, 2f);
+        TopBox("DivisorVertical", window, 480f, 132f, 1f, 566f, softLine);
 
-        RectTransform previewFrame = TopBox("VistaPrevia", right, 16f, 14f, 636f, 150f, MapNavy);
+        // C. Panel derecho: imagen, nombre, descripcion, zona/progreso, recompensas y enemigos.
+        RectTransform right = TopBox("PanelDetalle", window, 500f, 132f, 652f, 566f, Clear0);
+        right.GetComponent<Image>().raycastTarget = false;
+
+        RectTransform previewFrame = TopBox("VistaPrevia", right, 0f, 0f, 652f, 150f, MapNavy);
         GameObject rawGo = new GameObject("Imagen", typeof(RectTransform), typeof(RawImage));
         rawGo.transform.SetParent(previewFrame, false);
         RectTransform rawRect = (RectTransform)rawGo.transform;
         Stretch(rawRect);
-        rawRect.offsetMin = new Vector2(2f, 2f);
-        rawRect.offsetMax = new Vector2(-2f, -2f);
         missionPreview = rawGo.GetComponent<RawImage>();
         missionPreview.raycastTarget = false;
-        ThinBorder(previewFrame, MapGoldDim, 2f);
 
-        missionName = TopText("Nombre", right, 16f, 176f, 636f, 44f, "", 30f, MwTitle, TextAlignmentOptions.Center);
+        missionName = TopText("Nombre", right, 0f, 160f, 652f, 46f, "", 34f, MwTitle, TextAlignmentOptions.MidlineLeft);
         missionName.enableAutoSizing = true;
-        missionName.fontSizeMin = 20f;
-        missionName.fontSizeMax = 30f;
-        TopBox("Separador", right, 60f, 224f, 548f, 2f, new Color(MapGoldDim.r, MapGoldDim.g, MapGoldDim.b, 0.5f));
+        missionName.fontSizeMin = 22f;
+        missionName.fontSizeMax = 34f;
 
-        InfoRow(right, "Zona", 238f, "Zona:", out missionZone);
-        InfoRow(right, "Estado", 286f, "Estado:", out missionState);
-        InfoRow(right, "XP", 334f, "XP:", out missionXp);
-        InfoRow(right, "Coronas", 382f, "Coronas:", out missionCoins);
+        missionDescription = TopText("Descripcion", right, 0f, 208f, 652f, 64f, "", 20f, MwDim, TextAlignmentOptions.TopLeft);
+        missionDescription.textWrappingMode = TextWrappingModes.Normal;
+        missionDescription.enableAutoSizing = true;
+        missionDescription.fontSizeMin = 15f;
+        missionDescription.fontSizeMax = 20f;
 
-        RectTransform enemies = TopBox("Enemigos", right, 16f, 436f, 636f, 116f, MwPanel);
-        ThinBorder(enemies, MwLine, 2f);
-        TopText("Etiqueta", enemies, 18f, 6f, 200f, 30f, "Enemigos:", 20f, MwDim, TextAlignmentOptions.MidlineLeft);
-        missionEnemiesHint = TopText("Aviso", enemies, 18f, 40f, 600f, 60f, "", 20f, MapIvory, TextAlignmentOptions.MidlineLeft);
+        TopText("EtiquetaZona", right, 0f, 280f, 80f, 36f, "Zona:", 20f, MwDim, TextAlignmentOptions.MidlineLeft);
+        missionZone = TopText("Zona", right, 72f, 280f, 240f, 36f, "", 22f, MapIvory, TextAlignmentOptions.MidlineLeft);
+        TopBox("Divisor", right, 326f, 282f, 1f, 32f, softLine);
+        TopText("EtiquetaProgreso", right, 346f, 280f, 120f, 36f, "Progreso:", 20f, MwDim, TextAlignmentOptions.MidlineLeft);
+        missionProgress = TopText("Progreso", right, 464f, 280f, 188f, 36f, "", 22f, MapIvory, TextAlignmentOptions.MidlineLeft);
+        TopBox("Separador", right, 0f, 326f, 652f, 1f, softLine);
+
+        // Recompensas: icono + cantidad, sin recuadros.
+        TopText("EtiquetaRecompensas", right, 0f, 340f, 300f, 34f, "Recompensas", 22f, MapIvory, TextAlignmentOptions.MidlineLeft).fontStyle = FontStyles.Bold;
+
+        RectTransform xpIconRect = TopBox("IconoXP", right, 0f, 382f, 58f, 58f, Color.white);
+        missionXpIcon = xpIconRect.GetComponent<Image>();
+        missionXpIcon.sprite = missionXpSprite;
+        missionXpIcon.preserveAspect = true;
+        missionXpIcon.raycastTarget = false;
+        missionXp = TopText("XP", right, 62f, 388f, 100f, 46f, "", 24f, MapIvory, TextAlignmentOptions.MidlineLeft);
+
+        RectTransform coinIconRect = TopBox("IconoCoronas", right, 160f, 388f, 56f, 46f, Color.white);
+        missionCoinIcon = coinIconRect.GetComponent<Image>();
+        missionCoinIcon.sprite = missionCoinSprite;
+        missionCoinIcon.preserveAspect = true;
+        missionCoinIcon.raycastTarget = false;
+        missionCoins = TopText("Coronas", right, 222f, 388f, 150f, 46f, "", 24f, MapIvory, TextAlignmentOptions.MidlineLeft);
+
+        TopBox("Divisor", right, 386f, 340f, 1f, 108f, softLine);
+
+        // Enemigos: sus sprites, ordenados, sin marco.
+        TopText("EtiquetaEnemigos", right, 406f, 340f, 200f, 34f, "Enemigos", 22f, MapIvory, TextAlignmentOptions.MidlineLeft).fontStyle = FontStyles.Bold;
+        missionEnemiesHint = TopText("Aviso", right, 406f, 384f, 246f, 56f, "", 18f, MapIvory, TextAlignmentOptions.MidlineLeft);
+        missionEnemiesHint.textWrappingMode = TextWrappingModes.Normal;
 
         enemyTiles.Clear();
         for (int i = 0; i < 4; i++)
         {
-            RectTransform tile = TopBox("Enemigo_" + i, enemies, 18f + i * 88f, 36f, 72f, 72f, MapNavy);
+            RectTransform tile = TopBox("Enemigo_" + i, right, 406f + i * 62f, 378f, 60f, 60f, Clear0);
             Image tileBg = tile.GetComponent<Image>();
             tileBg.raycastTarget = true;
-            Image[] tileBorder = ThinBorder(tile, MapGoldDim, 2f);
 
             RectTransform spriteRect = NewRect("Sprite", tile, out Image spriteImage);
             Stretch(spriteRect);
-            spriteRect.offsetMin = new Vector2(6f, 6f);
-            spriteRect.offsetMax = new Vector2(-6f, -6f);
             spriteImage.preserveAspect = true;
+            spriteImage.raycastTarget = false;
 
-            TMP_Text count = TopText("Cantidad", tile, 0f, 0f, 66f, 68f, "", 24f, MapIvory, TextAlignmentOptions.BottomRight);
+            TMP_Text count = TopText("Cantidad", tile, 0f, 0f, 58f, 58f, "", 20f, MapIvory, TextAlignmentOptions.BottomRight);
             count.fontStyle = FontStyles.Bold;
             count.outlineWidth = 0.25f;
             count.outlineColor = new Color32(10, 14, 22, 255);
+            count.raycastTarget = false;
 
             MapHoverTarget hover = tile.gameObject.AddComponent<MapHoverTarget>();
-            enemyTiles.Add(new EnemyTile { root = tile, border = tileBorder[0], sprite = spriteImage, count = count, hover = hover });
+            enemyTiles.Add(new EnemyTile { root = tile, border = null, sprite = spriteImage, count = count, hover = hover });
             tile.gameObject.SetActive(false);
         }
 
-        // Boton Iniciar con el sprite "Misiones" (2172 x 724, con margen transparente). Se dibuja como imagen simple a
-        // escala uniforme (sin deformar las esquinas): 420 x 140 de lienzo = marco visible de ~398 x 69.
-        const float StartW = 420f, StartH = 140f, StartTop = 34f, StartVisH = 69f;
-        RectTransform start = TopBox("BotonIniciar", window, (MissionWindowW - StartW) * 0.5f, 684f, StartW, StartH, Color.white);
+        TopBox("SeparadorInferior", right, 0f, 470f, 652f, 1f, softLine);
+
+        // D. Boton Iniciar abajo a la derecha (sprite "Misiones" 2172 x 724 con margen transparente, escala uniforme).
+        const float StartW = 380f, StartH = 127f, StartTop = 31f, StartVisH = 63f;
+        RectTransform start = TopBox("BotonIniciar", window, MissionWindowW - 28f - StartW + 10f, 684f, StartW, StartH, Color.white);
         Image startImage = start.GetComponent<Image>();
         startImage.sprite = missionButtonSprite;
         startImage.type = Image.Type.Simple;
         startImage.preserveAspect = true;
         startImage.raycastTarget = true;
-        startImage.raycastPadding = new Vector4(12f, 38f, 12f, 34f);   // el area de clic es solo el marco visible
+        startImage.raycastPadding = new Vector4(11f, 34f, 11f, 31f);   // el area de clic es solo el marco visible
         startButton = start.gameObject.AddComponent<Button>();
         startButton.targetGraphic = startImage;
         startButton.transition = Selectable.Transition.ColorTint;      // ButtonFeedback le pone el velo de hover/deshabilitado
-        // Hover como el de los botones de tienda e inventario, a la mitad: escala 1,04 (en vez de 1,08) y velo al 50 %.
-        start.gameObject.AddComponent<HoverScale>().HoverFactor = 1.04f;
+        // El pivote va al centro del boton (sin mover su posicion): al pasar el cursor crece parejo hacia el frente,
+        // en lugar de desplazarse hacia un lado desde la esquina superior izquierda.
+        start.pivot = new Vector2(0.5f, 0.5f);
+        start.anchoredPosition += new Vector2(StartW * 0.5f, -StartH * 0.5f);
+        start.gameObject.AddComponent<HoverScale>().HoverFactor = 1.03f;
         start.gameObject.AddComponent<ButtonFeedback>().hoverStrength = 0.5f;
         TMP_Text startLabel = TopText("Texto", start, 0f, StartTop, StartW, StartVisH, "Iniciar", 30f, MapIvory, TextAlignmentOptions.Center);
         startLabel.fontStyle = FontStyles.Bold;
         startButtonLabel = null;
 
-        // Tarjeta con el nombre del enemigo (solo al pasar el cursor por su icono).
+        // Tarjeta con nombre, estadisticas y ataques del enemigo (solo al pasar el cursor por su icono).
         missionTooltip = InfoCard("NombreEnemigo", window, "Enemigo", 20f);
         missionTooltipText = missionTooltip.GetComponentInChildren<TMP_Text>();
         missionTooltip.gameObject.SetActive(false);
 
-        window.gameObject.SetActive(false);
+        ApplyMissionFonts(rootRect);
+        rootGo.SetActive(false);
+    }
+
+    // Tipografia de la ventana de misiones: Merriweather. Negrita en titulos, nombres, etiquetas de seccion,
+    // valores de zona/progreso y el boton; el resto en regular.
+    private void ApplyMissionFonts(RectTransform root)
+    {
+        if (missionFontRegular == null || missionFontBold == null)
+            return;
+
+        foreach (TMP_Text label in root.GetComponentsInChildren<TMP_Text>(true))
+        {
+            string n = label.name;
+            bool bold = n == "Titulo" || n == "Nombre" || n == "Zona" || n == "Progreso" ||
+                        n == "EtiquetaRecompensas" || n == "EtiquetaEnemigos" ||
+                        (n == "Texto" && label.transform.parent != null && label.transform.parent.name == "BotonIniciar");
+
+            label.font = bold ? missionFontBold : missionFontRegular;
+            label.fontStyle = FontStyles.Normal;
+        }
     }
 
     private MissionCard AddMissionCard(int index)
     {
-        RectTransform root = TopBox("Mision_" + index, missionListContent, 0f, index * (MissionCardH + MissionCardGap), 416f, MissionCardH, MapNavy);
+        RectTransform root = TopBox("Mision_" + index, missionListContent, 0f, index * (MissionCardH + MissionCardGap), 432f, MissionCardH, MapNavy);
         root.anchorMin = new Vector2(0f, 1f);
         root.anchorMax = new Vector2(1f, 1f);
         root.offsetMin = new Vector2(0f, root.offsetMin.y);
         root.offsetMax = new Vector2(0f, root.offsetMax.y);
         Image background = root.GetComponent<Image>();
         background.raycastTarget = true;
-        Image[] border = ThinBorder(root, MwLine, 2f);
 
         Button button = root.gameObject.AddComponent<Button>();
         button.targetGraphic = background;
@@ -305,34 +400,90 @@ public partial class WorldMapController
         int captured = index;
         button.onClick.AddListener(() => SelectRow(captured));
 
+        // Franja dorada a la izquierda (solo la mision seleccionada).
+        RectTransform stripeRect = TopBox("Franja", root, 0f, 0f, 5f, MissionCardH, Clear0);
+        Image stripe = stripeRect.GetComponent<Image>();
+        stripe.raycastTarget = false;
+
         RectTransform iconRect = NewRect("Icono", root, out Image icon);
         iconRect.anchorMin = iconRect.anchorMax = new Vector2(0f, 0.5f);
         iconRect.pivot = new Vector2(0f, 0.5f);
-        iconRect.sizeDelta = new Vector2(34f, 34f);
-        iconRect.anchoredPosition = new Vector2(16f, 0f);
+        iconRect.sizeDelta = new Vector2(30f, 30f);
+        iconRect.anchoredPosition = new Vector2(22f, 0f);
         icon.preserveAspect = true;
+        icon.raycastTarget = false;
 
-        TMP_Text name = TopText("Nombre", root, 64f, 8f, 336f, 50f, "", 21f, MapIvory, TextAlignmentOptions.MidlineLeft);
+        TMP_Text name = TopText("Nombre", root, 64f, 10f, 350f, 46f, "", 23f, MapIvory, TextAlignmentOptions.MidlineLeft);
         name.textWrappingMode = TextWrappingModes.Normal;
         name.enableAutoSizing = true;
-        name.fontSizeMin = 15f;
-        name.fontSizeMax = 21f;
+        name.fontSizeMin = 16f;
+        name.fontSizeMax = 23f;
+        name.raycastTarget = false;
 
-        RectTransform chipRect = TopBox("Estado", root, 64f, 62f, 230f, 26f, MwFill);
+        // Estado: texto plano, o con una pequena etiqueta cuando es la recomendada.
+        RectTransform chipRect = TopBox("Estado", root, 64f, 58f, 150f, 26f, Clear0);
         Image chip = chipRect.GetComponent<Image>();
+        chip.raycastTarget = false;
         Image[] chipBorder = ThinBorder(chipRect, MapGoldDim, 2f);
-        TMP_Text state = TopText("Texto", chipRect, 0f, 0f, 230f, 26f, "", 16f, MapIvory, TextAlignmentOptions.Center);
+        TMP_Text state = TopText("Texto", chipRect, 0f, 0f, 150f, 26f, "", 16f, MwDim, TextAlignmentOptions.Center);
+        state.raycastTarget = false;
 
         MissionCard card = new MissionCard
         {
-            root = root, button = button, background = background, border = border, icon = icon,
-            name = name, chip = chip, chipBorder = chipBorder, state = state
+            root = root, button = button, background = background, border = null, icon = icon,
+            name = name, chip = chip, chipBorder = chipBorder, state = state, stripe = stripe
         };
         missionCards.Add(card);
         return card;
     }
 
     // ---------------- Actualizacion ----------------
+
+    // Apertura y cierre como la tienda: fundido + escala de 0,95 a 1 con smoothstep en 0,3 s (tiempo no escalado), y velo.
+    private const float MissionOpenSeconds = 0.3f;
+    private float missionOpenProgress;
+
+    private void AnimateMissionWindow(bool open)
+    {
+        if (placePanel == null)
+            return;
+
+        float step = Application.isPlaying ? Time.unscaledDeltaTime / MissionOpenSeconds : 1f;
+        missionOpenProgress = Mathf.MoveTowards(missionOpenProgress, open ? 1f : 0f, step);
+        float eased = missionOpenProgress * missionOpenProgress * (3f - 2f * missionOpenProgress);
+        bool visible = open || missionOpenProgress > 0f;
+
+        if (placePanel.gameObject.activeSelf != visible)
+            placePanel.gameObject.SetActive(visible);
+
+        if (missionVeil != null && missionVeil.activeSelf != visible)
+            missionVeil.SetActive(visible);
+
+        if (!visible)
+            return;
+
+        CanvasGroup group = placePanel.GetComponent<CanvasGroup>();
+
+        if (group != null)
+        {
+            group.alpha = eased;
+            group.interactable = open;
+            group.blocksRaycasts = open;
+        }
+
+        placePanel.localScale = Vector3.one * Mathf.Lerp(0.95f, 1f, eased);
+
+        if (missionVeil != null)
+        {
+            CanvasGroup veilGroup = missionVeil.GetComponent<CanvasGroup>();
+
+            if (veilGroup != null)
+            {
+                veilGroup.alpha = eased;
+                veilGroup.blocksRaycasts = open;
+            }
+        }
+    }
 
     // Las etiquetas del mapa se ocultan mientras la ventana esta abierta (el borde las cortaria).
     private void SetLocationTagsVisible(bool visible)
@@ -359,8 +510,7 @@ public partial class WorldMapController
         if (hoveredEnemy >= 0 && (hoveredEnemy >= enemyTiles.Count || !enemyTiles[hoveredEnemy].root.gameObject.activeSelf))
             HideEnemyTooltip();
 
-        if (!placePanel.gameObject.activeSelf)
-            placePanel.gameObject.SetActive(true);
+        AnimateMissionWindow(true);
 
         // El encuentro seleccionado siempre pertenece al lugar abierto.
         if (!def.encounterIds.Contains(selectedId))
@@ -369,11 +519,22 @@ public partial class WorldMapController
         SetMissionText(missionTitle, VisibleLocationName(def));
         SetMissionText(missionRegion, "Región: " + ZoneName(def.zone));
 
+        // Contador de la ubicacion: misiones completadas / total.
+        int placeDone = 0;
+        foreach (string placeId in def.encounterIds)
+            if (MapProgression.GetState(placeId) == MapProgression.NodeState.Completed) placeDone++;
+        SetMissionText(missionCounter, placeDone + "/" + def.encounterIds.Count);
+
         // Lista de misiones (todas las del lugar, con scroll si no caben).
         while (missionCards.Count < def.encounterIds.Count)
             AddMissionCard(missionCards.Count);
 
         string recommended = MapProgression.NextRecommended();
+
+        Color gold = MapGold;
+        Color lockedFill = new Color(0.075f, 0.095f, 0.13f, 1f);
+        Color idleFill = new Color(0.098f, 0.128f, 0.175f, 1f);
+        Color selectedFill = new Color(0.20f, 0.20f, 0.19f, 1f);   // fondo ligeramente destacado, calido
 
         for (int i = 0; i < missionCards.Count; i++)
         {
@@ -389,57 +550,75 @@ public partial class WorldMapController
             string eid = def.encounterIds[i];
             MapProgression.NodeState s = MapProgression.GetState(eid);
             bool selected = eid == selectedId;
-            bool boss = eid == BossId;
             bool evt = MapProgression.IsEvent(eid);
+            bool isRecommended = eid == recommended;
 
-            Sprite icon;
+            Sprite icon = null;
             Color iconColor = Color.white;
-            Color borderColor, fill, textColor, chipColor;
+            Color fill, textColor, stateColor;
+            string stateLabel;
 
             if (s == MapProgression.NodeState.Locked)
             {
-                icon = IcLock; iconColor = new Color(0.62f, 0.68f, 0.78f, 1f);
-                fill = new Color(0.11f, 0.14f, 0.19f, 1f);
-                borderColor = new Color(0.30f, 0.36f, 0.45f, 1f);
-                textColor = new Color(0.58f, 0.62f, 0.70f, 1f);
-                chipColor = borderColor;
+                icon = IcLock; iconColor = new Color(0.55f, 0.60f, 0.70f, 1f);
+                fill = lockedFill;
+                textColor = new Color(0.52f, 0.56f, 0.64f, 1f);
+                stateColor = new Color(0.45f, 0.49f, 0.58f, 1f);
+                stateLabel = "Bloqueada";
             }
             else if (s == MapProgression.NodeState.Completed)
             {
                 icon = IcCheck; iconColor = new Color(0.80f, 0.76f, 0.62f, 1f);
-                fill = new Color(0.075f, 0.10f, 0.14f, 1f);
-                borderColor = new Color(0.55f, 0.46f, 0.30f, 1f);
+                fill = idleFill;
                 textColor = new Color(0.80f, 0.78f, 0.72f, 1f);
-                chipColor = borderColor;
+                stateColor = new Color(0.62f, 0.66f, 0.74f, 1f);
+                stateLabel = "Completada";
             }
             else
             {
-                icon = evt ? IcMask : (eid == recommended ? IcStar : SpCircle);
-                iconColor = evt ? MapIvory : (eid == recommended ? MapGold : new Color(0.55f, 0.72f, 1f, 1f));
-                fill = MapNavy;
-                borderColor = MapGoldDim;
+                icon = evt ? IcMask : null;
+                iconColor = MapIvory;
+                fill = idleFill;
                 textColor = MapIvory;
-                chipColor = MapGoldDim;
+                stateColor = isRecommended ? MapIvory : MwDim;
+                stateLabel = isRecommended ? "Recomendada" : (evt ? "Evento narrativo" : "Disponible");
             }
 
             if (selected)
-            {
-                fill = Color.Lerp(fill, new Color(0.17f, 0.22f, 0.32f, 1f), 0.65f);
-                borderColor = MapGold;
-            }
+                fill = s == MapProgression.NodeState.Locked ? new Color(0.115f, 0.14f, 0.19f, 1f) : selectedFill;
 
             card.background.color = fill;
-            SetBorderColor(card.border, borderColor);
 
-            if (card.icon.sprite != icon) card.icon.sprite = icon;
-            card.icon.color = iconColor;
-            card.icon.rectTransform.sizeDelta = icon == SpCircle ? new Vector2(14f, 14f) : new Vector2(34f, 34f);
+            // Franja dorada: solo la mision seleccionada (mas apagada si esta bloqueada).
+            card.stripe.color = selected
+                ? (s == MapProgression.NodeState.Locked ? MapGoldDim : gold)
+                : Color.clear;
+
+            bool hasIcon = icon != null;
+            card.icon.enabled = hasIcon;
+
+            if (hasIcon)
+            {
+                if (card.icon.sprite != icon) card.icon.sprite = icon;
+                card.icon.color = iconColor;
+            }
+
+            float textX = hasIcon ? 66f : 26f;
+            card.name.rectTransform.anchoredPosition = new Vector2(textX, card.name.rectTransform.anchoredPosition.y);
+            card.chip.rectTransform.anchoredPosition = new Vector2(textX, card.chip.rectTransform.anchoredPosition.y);
+
+            // "Recomendada" va en una etiqueta; el resto de estados, como texto plano.
+            bool tag = s == MapProgression.NodeState.Available && isRecommended && !evt;
+            card.chip.rectTransform.sizeDelta = new Vector2(tag ? 150f : 300f, 26f);
+            card.state.rectTransform.sizeDelta = card.chip.rectTransform.sizeDelta;
+            card.state.alignment = tag ? TextAlignmentOptions.Center : TextAlignmentOptions.MidlineLeft;
+            card.chip.color = tag ? MwFill : Color.clear;
+            SetBorderColor(card.chipBorder, tag ? MapGoldDim : Color.clear);
 
             SetMissionText(card.name, EncounterTitle(eid));
             card.name.color = textColor;
-            SetMissionText(card.state, StateText(eid));
-            card.state.color = textColor;
-            SetBorderColor(card.chipBorder, chipColor);
+            SetMissionText(card.state, stateLabel);
+            card.state.color = stateColor;
         }
 
         float contentHeight = Mathf.Max(MissionCardH, def.encounterIds.Count * (MissionCardH + MissionCardGap) - MissionCardGap);
@@ -447,7 +626,6 @@ public partial class WorldMapController
             missionListContent.sizeDelta = new Vector2(0f, contentHeight);
 
         RefreshMissionDetail(def);
-
     }
 
     private void RefreshMissionDetail(MapLocationDef def)
@@ -456,24 +634,74 @@ public partial class WorldMapController
         bool evt = MapProgression.IsEvent(id);
         EncounterData data = evt ? null : FindEncounter(id);
         MapProgression.NodeState state = MapProgression.GetState(id);
+        bool done = state == MapProgression.NodeState.Completed;
 
         // Mismo titulo que la tarjeta de la lista.
         SetMissionText(missionName, EncounterTitle(id));
-        string zoneId = MapProgression.ZoneOf(id);
-        SetMissionText(missionZone, ZoneName(string.IsNullOrEmpty(zoneId) ? def.zone : zoneId));
-        SetMissionText(missionState, StateText(id));
-        missionState.color = state == MapProgression.NodeState.Locked ? MwDim : (state == MapProgression.NodeState.Completed ? new Color(0.80f, 0.76f, 0.62f, 1f) : MwTitle);
 
-        if (evt)
+        // Descripcion narrativa si existe; si no, el subtitulo del encuentro. Si esta bloqueada, que falta.
+        string description = MapProgression.DescriptionOf(id);
+
+        if (string.IsNullOrEmpty(description))
+            description = evt ? "Evento narrativo obligatorio." : MapProgression.SubtitleOf(id);
+
+        int orderIndex = MapProgression.IndexOf(id);
+
+        if (state == MapProgression.NodeState.Locked && orderIndex > 0)
+            description += "\n<color=#8F96A6>Bloqueada: completa «" + EncounterTitle(MapProgression.Order[orderIndex - 1]) + "» para desbloquearla.</color>";
+        else if (done)
+            description += "\n<color=#8F96A6>Completada: las recompensas ya fueron obtenidas.</color>";
+
+        SetMissionText(missionDescription, description);
+
+        // Zona y progreso de la region.
+        string zoneId = MapProgression.ZoneOf(id);
+        string zoneKey = string.IsNullOrEmpty(zoneId) ? def.zone : zoneId;
+        SetMissionText(missionZone, ZoneName(zoneKey));
+        MapProgression.ZoneProgress(zoneKey, out int zoneDone, out int zoneTotal);
+        SetMissionText(missionProgress, zoneDone + "/" + zoneTotal);
+
+        // Recompensas reales del encuentro (icono + cantidad).
+        Color rewardColor = done ? MwDim : MapIvory;
+        missionXp.color = rewardColor;
+        missionCoins.color = rewardColor;
+
+        // La mascara rota: sin XP ni Coronas, pero entrega el Fragmento de la Mascara (icono y nombre en Recompensas).
+        RelicData eventRelic = null;
+
+        if (evt && RelicCatalog.Instance != null)
         {
-            SetMissionText(missionXp, "Sin XP");
-            SetMissionText(missionCoins, "Sin Coronas");
+            if (id == GameSession.NoelleEventId)
+                eventRelic = RelicCatalog.Instance.Find(RelicRewards.FragmentTypeId);
+            else if (id == GameSession.ValdoriaEventId)
+                eventRelic = RelicCatalog.Instance.Find(RelicRewards.ValdoriaRewardTypeId);
+        }
+
+        ApplyRewardLayout(eventRelic != null);
+
+        if (eventRelic != null)
+        {
+            if (eventRelic.icon != null && missionXpIcon.sprite != eventRelic.icon)
+                missionXpIcon.sprite = eventRelic.icon;
+
+            SetMissionText(missionXp, eventRelic.displayName);
+            SetMissionText(missionCoins, "");   // sin leyenda "Sin XP · Sin Coronas"
+        }
+        else if (evt)
+        {
+            SetMissionText(missionXp, "");
+            SetMissionText(missionCoins, "");
+
+            if (missionXpIcon.gameObject.activeSelf)
+                missionXpIcon.gameObject.SetActive(false);
+
+            if (missionCoinIcon.gameObject.activeSelf)
+                missionCoinIcon.gameObject.SetActive(false);
         }
         else if (data != null)
         {
-            bool done = state == MapProgression.NodeState.Completed;
-            SetMissionText(missionXp, data.experienceReward.ToString() + (done ? "  (ya obtenida)" : ""));
-            SetMissionText(missionCoins, data.coinReward.ToString() + (done ? "  (ya obtenidas)" : ""));
+            SetMissionText(missionXp, data.experienceReward + " XP");
+            SetMissionText(missionCoins, data.coinReward + " Coronas");
         }
         else
         {
@@ -485,6 +713,46 @@ public partial class WorldMapController
         RefreshMissionEnemies(evt, data);
     }
 
+    // Recompensas: disposicion normal (XP y Coronas en una fila) o la del evento con reliquia (icono + nombre y, debajo,
+    // "Sin XP · Sin Coronas"). Se fija en cada refresco, asi no queda cambiada al elegir otra mision.
+    private void ApplyRewardLayout(bool relic)
+    {
+        RectTransform xp = (RectTransform)missionXp.transform;
+        RectTransform coins = (RectTransform)missionCoins.transform;
+
+        if (relic)
+        {
+            xp.sizeDelta = new Vector2(300f, 46f);
+            missionXp.fontSize = 22f;
+            coins.anchoredPosition = new Vector2(0f, -440f);
+            coins.sizeDelta = new Vector2(360f, 30f);
+            missionCoins.fontSize = 18f;
+
+            if (missionCoinIcon.gameObject.activeSelf)
+                missionCoinIcon.gameObject.SetActive(false);
+
+            if (!missionXpIcon.gameObject.activeSelf)
+                missionXpIcon.gameObject.SetActive(true);
+        }
+        else
+        {
+            xp.sizeDelta = new Vector2(100f, 46f);
+            missionXp.fontSize = 24f;
+            coins.anchoredPosition = new Vector2(222f, -388f);
+            coins.sizeDelta = new Vector2(150f, 46f);
+            missionCoins.fontSize = 24f;
+
+            if (!missionCoinIcon.gameObject.activeSelf)
+                missionCoinIcon.gameObject.SetActive(true);
+
+            if (!missionXpIcon.gameObject.activeSelf)
+                missionXpIcon.gameObject.SetActive(true);
+
+            if (missionXpSprite != null && missionXpIcon.sprite != missionXpSprite)
+                missionXpIcon.sprite = missionXpSprite;
+        }
+    }
+
     // Vista previa: recorte del propio mapa (sprite del proyecto) centrado en el lugar; no es una imagen nueva.
     private void RefreshMissionPreview(MapLocationDef def)
     {
@@ -494,7 +762,7 @@ public partial class WorldMapController
         Texture texture = art.worldBase.texture;
         Rect spriteRect = art.worldBase.textureRect;
         Vector2 p = LocationPx(def);                       // origen abajo-izquierda en el lienzo 1920x1080
-        const float cropW = 520f, cropH = cropW * 150f / 636f;
+        const float cropW = 520f, cropH = cropW * 150f / 652f;
         float x = Mathf.Clamp(p.x - cropW * 0.5f, 0f, 1920f - cropW);
         float y = Mathf.Clamp(p.y - cropH * 0.5f, 0f, 1080f - cropH);
 
@@ -530,6 +798,7 @@ public partial class WorldMapController
                     sprites.Add(EnemySprite(slot));
                     counts.Add(1);
                     enemyNameCache[key] = EnemyName(slot);
+                    enemyStatsCache[key] = EnemyStats(slot);
                 }
                 else
                 {
@@ -552,6 +821,7 @@ public partial class WorldMapController
                 continue;
 
             tile.enemyName = enemyNameCache[names[i]];
+            tile.enemyStats = enemyStatsCache.TryGetValue(names[i], out string stats) ? stats : "";
             tile.sprite.sprite = sprites[i];
             tile.sprite.enabled = sprites[i] != null;
             SetMissionText(tile.count, counts[i].ToString());
@@ -563,6 +833,71 @@ public partial class WorldMapController
     }
 
     private readonly Dictionary<string, string> enemyNameCache = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> enemyStatsCache = new Dictionary<string, string>();
+
+    // "Vida 12 · Daño 2–4 · Prot. 10 %" leido del UnitData del prefab (solo informativo).
+    private static string EnemyStats(EncounterData.EnemySlot slot)
+    {
+        BattleUnit unit = slot != null && slot.prefab != null ? slot.prefab.GetComponent<BattleUnit>() : null;
+        UnitData data = unit != null ? unit.Data : null;
+
+        if (data == null)
+            return "";
+
+        string text = "Vida " + data.maxHealth + "  ·  Velocidad " + data.speed + "\n" +
+                      "Daño " + data.damageMin + "–" + data.damageMax + "  ·  Protección " + data.protectionPercent + " %\n" +
+                      "Evasión " + Mathf.RoundToInt(data.evasionPercent) + " %  ·  Crítico " + Mathf.RoundToInt(data.criticalChance) +
+                      " % (x" + data.criticalDamage.ToString("0.#") + ")";
+
+        EnemyArchetypeData archetype = slot.Archetype;
+
+        if (archetype != null)
+        {
+            string abilities = "";
+
+            if (archetype.basicAttack != null)
+                abilities += "\n• " + EnemyAbilityLine(archetype.basicAttack, data);
+
+            if (archetype.specialAbilities != null)
+                foreach (AbilityData special in archetype.specialAbilities)
+                    if (special != null)
+                        abilities += "\n• " + EnemyAbilityLine(special, data);
+
+            if (abilities.Length > 0)
+                text += "\n<color=#F1C879>Ataques</color>" + abilities;
+        }
+
+        return text;
+    }
+
+    // "Garrotazo: 3–5 de daño" / "Rugido (recarga 3)".
+    private static string EnemyAbilityLine(AbilityData ability, UnitData data)
+    {
+        string line = ability.abilityName;
+
+        if (ability.dealsDamage && ability.abilityType == AbilityType.Attack)
+        {
+            int min = Mathf.Max(1, Mathf.RoundToInt((data.damageMin * ability.damagePercent / 100f) + ability.basePower));
+            int max = Mathf.Max(min, Mathf.RoundToInt((data.damageMax * ability.damagePercent / 100f) + ability.basePower));
+            line += ": " + min + "–" + max + " de daño";
+
+            if (ability.targetType == AbilityTargetType.AllEnemies)
+                line += " a todos";
+        }
+        else if (ability.abilityType == AbilityType.Heal)
+        {
+            line += ": cura";
+        }
+        else
+        {
+            line += ": apoyo";
+        }
+
+        if (ability.cooldown > 0)
+            line += " (recarga " + ability.cooldown + ")";
+
+        return line;
+    }
 
     private void ShowEnemyTooltip(int index)
     {
@@ -571,14 +906,51 @@ public partial class WorldMapController
 
         hoveredEnemy = index;
         EnemyTile tile = enemyTiles[index];
-        missionTooltipText.text = tile.enemyName;
-        missionTooltip.sizeDelta = new Vector2(Mathf.Ceil(missionTooltipText.GetPreferredValues(tile.enemyName).x) + 30f, 34f);
+        float ts = tile.root.rect.width;
+        bool hasStats = !string.IsNullOrEmpty(tile.enemyStats);
+        string content = hasStats
+            ? "<size=125%><b>" + tile.enemyName + "</b></size>\n<size=85%><color=#D9CBA0>" + tile.enemyStats + "</color></size>"
+            : tile.enemyName;
 
-        // Debajo del icono, en el espacio de la ventana (la posicion del icono no cambia ni se tapa otra fila).
-        Vector3 local = placePanel.InverseTransformPoint(tile.root.position);
-        local.x += 36f;                 // el icono tiene el pivote arriba-izquierda: se centra la tarjeta en el
-        local.y -= 72f + 34f * 0.5f + 4f;   // icono y se coloca justo debajo
-        missionTooltip.position = placePanel.TransformPoint(local);
+        // Texto alineado a la izquierda con margen; la tarjeta no debe bloquear el cursor sobre los otros iconos.
+        missionTooltipText.alignment = hasStats ? TextAlignmentOptions.MidlineLeft : TextAlignmentOptions.Center;
+        missionTooltipText.textWrappingMode = TextWrappingModes.NoWrap;
+        RectTransform textRect = missionTooltipText.rectTransform;
+        textRect.offsetMin = new Vector2(16f, 8f);
+        textRect.offsetMax = new Vector2(-16f, -8f);
+
+        foreach (Graphic graphic in missionTooltip.GetComponentsInChildren<Graphic>(true))
+            graphic.raycastTarget = false;
+
+        missionTooltipText.text = content;
+        Vector2 preferred = missionTooltipText.GetPreferredValues(content);
+        float height = hasStats ? Mathf.Ceil(preferred.y) + 20f : 34f;
+        float width = Mathf.Ceil(preferred.x) + 34f;
+        missionTooltip.sizeDelta = new Vector2(width, height);
+
+        if (!hasStats)
+        {
+            // Solo nombre: debajo del icono, como antes.
+            Vector3 below = missionContent.InverseTransformPoint(tile.root.position);
+            below.x += ts * 0.5f;
+            below.y -= ts + height * 0.5f + 4f;
+            missionTooltip.position = missionContent.TransformPoint(below);
+            missionTooltip.SetAsLastSibling();
+            missionTooltip.gameObject.SetActive(true);
+            return;
+        }
+
+        // Con estadisticas: a la derecha del icono, con la base alineada a la base del icono (crece hacia arriba).
+        Vector3 local = missionContent.InverseTransformPoint(tile.root.position);   // pivote arriba-izquierda del icono
+        local.x += ts + 10f + width * 0.5f;
+        local.y += -ts + height * 0.5f;
+
+        // Si no cabe a la derecha (ultimos iconos), pasa a la izquierda del icono.
+        float rightEdge = missionContent.rect.width * (1f - missionContent.pivot.x) - 16f;
+
+        if (local.x + width * 0.5f > rightEdge)
+            local.x -= ts + 20f + width;
+        missionTooltip.position = missionContent.TransformPoint(local);
         missionTooltip.SetAsLastSibling();
         missionTooltip.gameObject.SetActive(true);
     }
@@ -608,10 +980,15 @@ public partial class WorldMapController
             return;
 
         if (font == null)
-            font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            font = GameFonts.Regular;
 
         missionCloseSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Iconos/Ayuda/UI_Cerrar.png");
         missionButtonSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/Misiones.png");
+        missionWindowSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Buttons/opciones 1.png");
+        missionFontRegular = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherRegular_SDF.asset");
+        missionFontBold = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherBold_SDF.asset");
+        missionXpSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Iconos/XP.png");
+        missionCoinSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Iconos/coronas.png");
 
         Transform area = canvas.transform.Find("MapArea");
         Transform parent = area.Find("PanelesUI");
@@ -630,6 +1007,20 @@ public partial class WorldMapController
         infoTitle = null; infoSubtitle = null; infoRewards = null; infoEnemies = null; infoNote = null;
         infoAccent = null;
         startButtonLabel = null;
+
+        // Restos de una ventana anterior en el lienzo de la tienda.
+        if (shop != null && shop.WindowParent != null)
+        {
+            Transform host = shop.WindowParent;
+
+            for (int i = host.childCount - 1; i >= 0; i--)
+            {
+                string childName = host.GetChild(i).name;
+
+                if (childName == "PanelLugar" || childName == "VeloMisiones")
+                    DestroyImmediate(host.GetChild(i).gameObject);
+            }
+        }
 
         BuildMissionWindow(parent);
         EditorUtility.SetDirty(this);

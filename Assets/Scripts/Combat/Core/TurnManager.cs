@@ -177,6 +177,9 @@ public class TurnManager : MonoBehaviour
         LastExperienceAwarded = 0;
         CurrentUnit = null;
 
+        // Reliquias: estado de combate limpio (usos por combate / turno / ronda).
+        RelicEffects.ResetCombat();
+
         // Descarta cualquier accion enemiga pendiente del encuentro anterior.
         enemyActionToken++;
         StopAllCoroutines();
@@ -283,6 +286,7 @@ public class TurnManager : MonoBehaviour
             if (unit != null && unit.IsAlive)
             {
                 CurrentUnit = unit;
+                RelicEffects.OnTurnStart(unit, currentRound);
 
                 Debug.Log(
                     "Turno de: " +
@@ -408,27 +412,47 @@ public class TurnManager : MonoBehaviour
             ExecuteEnemyAction(unit, ai, token);
     }
 
+    [Header("Ritmo del turno enemigo")]
+    [Tooltip("Segundos que el enemigo espera antes de actuar (se ve quien tiene el turno). Se usa el mayor entre este valor y el retardo de su arquetipo.")]
+    [SerializeField, Min(0f)] private float enemyPreActionSeconds = 2f;
+
+    [Tooltip("Segundos que se mantiene la escena tras la accion del enemigo (se leen el daño, los estados y el mensaje) antes de pasar al siguiente turno.")]
+    [SerializeField, Min(0f)] private float enemyPostActionSeconds = 3f;
+
     private IEnumerator EnemyActionRoutine(
         BattleUnit unit,
         EnemyAIController ai,
         int token
     )
     {
-        yield return new WaitForSeconds(ai.ActionDelay);
+        yield return new WaitForSeconds(Mathf.Max(ai.ActionDelay, enemyPreActionSeconds));
 
-        ExecuteEnemyAction(unit, ai, token);
+        if (!ExecuteEnemyAction(unit, ai, token, false))
+            yield break;
+
+        // El combate termino con esta accion (victoria o derrota): no hay mas turnos.
+        if (battleFinished)
+            yield break;
+
+        // Pausa para distinguir lo que hizo el enemigo antes del siguiente turno.
+        yield return new WaitForSeconds(enemyPostActionSeconds);
+
+        if (!battleFinished && CurrentUnit == unit)
+            EndTurn();
     }
 
     // Una accion como maximo y un unico EndTurn por turno enemigo.
-    private void ExecuteEnemyAction(
+    // Devuelve false si no se ejecuto (turno ya invalido). endTurnNow = pasar de turno al momento (sin pausa).
+    private bool ExecuteEnemyAction(
         BattleUnit unit,
         EnemyAIController ai,
-        int token
+        int token,
+        bool endTurnNow = true
     )
     {
         if (token != enemyActionToken || battleFinished ||
             CurrentUnit != unit || unit == null || !unit.IsAlive)
-            return;
+            return false;
 
         // Invalida cualquier otra ejecucion de este mismo turno.
         enemyActionToken++;
@@ -436,7 +460,10 @@ public class TurnManager : MonoBehaviour
         ai.PerformTurn();
 
         // No hace nada si la accion termino el combate.
-        EndTurn();
+        if (endTurnNow)
+            EndTurn();
+
+        return true;
     }
 
     public void EndTurn()

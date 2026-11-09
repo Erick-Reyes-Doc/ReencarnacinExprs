@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: NoelleMasked_ResistenciaObstinada
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Resistencia Obstinada
-  description: "Gana +20 % de protecci\xF3n durante 2 turnos."
+  description: "Otorga +20 % de protecci\xF3n durante 2 turnos a un aliado a elegir (puede ser ella misma)."
   abilityIcon: {fileID: 0}
   abilityType: 2
   useAnnouncement: 
-  targetType: 3
+  targetType: 0
   basePower: 0
   damagePercent: 100
   canCritical: 1

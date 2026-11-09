@@ -18,6 +18,19 @@ public class AbilityCooldownController : MonoBehaviour
     private readonly List<AbilityData> buffer =
         new List<AbilityData>();
 
+    // Los enemigos nunca esperan mas de 2 turnos para repetir una habilidad (las de los heroes no cambian).
+    public const int MaxEnemyCooldown = 2;
+
+    public static int EffectiveCooldown(BattleUnit unit, AbilityData ability)
+    {
+        if (ability == null)
+            return 0;
+
+        return unit != null && unit.Side == TeamSide.Enemy
+            ? Mathf.Min(ability.cooldown, MaxEnemyCooldown)
+            : ability.cooldown;
+    }
+
     public bool IsReady(AbilityData ability)
     {
         return GetRemainingTurns(ability) <= 0;
@@ -30,10 +43,19 @@ public class AbilityCooldownController : MonoBehaviour
         if (ability == null)
             return 0;
 
-        return remaining.TryGetValue(ability, out int turns)
-            ? turns
+        int turns = remaining.TryGetValue(ability, out int t) ? t : 0;
+
+        // Disponibilidad inicial: no se puede usar antes de su turno propio N del combate.
+        // Solo las habilidades con availableFromTurn > 1 tienen bloqueo inicial; el resto nunca.
+        int initial = ability.availableFromTurn > 1
+            ? Mathf.Max(0, ability.availableFromTurn - ownTurnsStarted)
             : 0;
+
+        return Mathf.Max(turns, initial);
     }
+
+    // Turnos propios iniciados en este combate (para availableFromTurn).
+    private int ownTurnsStarted = 0;
 
     // Inicia el cooldown tras un uso exitoso.
     public void StartCooldown(AbilityData ability)
@@ -41,12 +63,21 @@ public class AbilityCooldownController : MonoBehaviour
         if (ability == null || ability.cooldown <= 0)
             return;
 
-        remaining[ability] = ability.cooldown + 1;
+        BattleUnit owner = GetComponent<BattleUnit>();
+        remaining[ability] = EffectiveCooldown(owner, ability) + 1;
+
+        // Reloj de Arena Roto: la primera habilidad del combate con enfriamiento >= 2 lo reduce en 1.
+        int reduction = RelicEffects.CooldownReduction(owner, ability);
+
+        if (reduction > 0)
+            remaining[ability] = Mathf.Max(1, remaining[ability] - reduction);
     }
 
     // Se llama una vez al inicio de cada turno propio.
     public void TickTurnStart()
     {
+        ownTurnsStarted++;
+
         if (remaining.Count == 0)
             return;
 
@@ -84,5 +115,6 @@ public class AbilityCooldownController : MonoBehaviour
     public void ResetAll()
     {
         remaining.Clear();
+        ownTurnsStarted = 0;
     }
 }

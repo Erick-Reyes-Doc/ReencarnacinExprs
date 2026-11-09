@@ -99,12 +99,20 @@ public static class RelicInventory
     // Se puede recibir una unidad de este tipo (hay partida y el tipo existe en el catalogo).
     public static bool CanAdd(string typeId)
     {
-        return GameSession.IsActive && RelicCatalog.Instance != null && RelicCatalog.Instance.Find(typeId) != null;
+        if (!GameSession.IsActive || RelicCatalog.Instance == null)
+            return false;
+
+        RelicData data = RelicCatalog.Instance.Find(typeId);
+
+        // Las exclusivas (propiedad unica) solo pueden existir en una copia por partida, equipada o en el inventario.
+        return data != null && !(data.uniqueOwnership && CountOwned(typeId) > 0);
     }
 
     public static int Add(string typeId)
     {
-        if (RelicCatalog.Instance == null || RelicCatalog.Instance.Find(typeId) == null)
+        RelicData data = RelicCatalog.Instance != null ? RelicCatalog.Instance.Find(typeId) : null;
+
+        if (data == null || (data.uniqueOwnership && CountOwned(typeId) > 0))
             return 0;
 
         Item item = new Item { uid = nextUid++, typeId = typeId };
@@ -142,6 +150,23 @@ public static class RelicInventory
     public static int EquippedUid(string heroId, int slot)
     {
         return equipped.TryGetValue(heroId, out int[] slots) && slot >= 0 && slot < SlotsPerHero ? slots[slot] : 0;
+    }
+
+    // El personaje lleva equipada alguna reliquia con ese efecto de comportamiento.
+    public static bool HasEffect(string heroId, RelicEffect effect)
+    {
+        if (effect == RelicEffect.None || !equipped.TryGetValue(heroId, out int[] slots))
+            return false;
+
+        foreach (int uid in slots)
+        {
+            RelicData data = uid != 0 ? DataOf(uid) : null;
+
+            if (data != null && data.effect == effect)
+                return true;
+        }
+
+        return false;
     }
 
     // Donde esta equipada una unidad (false si esta en el inventario).

@@ -2324,13 +2324,13 @@ MonoBehaviour:
     m_Font: {fileID: 1777390476}
     m_FontSize: 22
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 14
+    m_MaxSize: 22
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
@@ -6123,8 +6123,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1333802290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.78, y: 0.08}
-  m_AnchorMax: {x: 0.92, y: 0.92}
+  m_AnchorMin: {x: 0.8, y: 0.08}
+  m_AnchorMax: {x: 0.94, y: 0.92}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -16, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8242,10 +8242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4730cdd42c9b80b468a058a2a6cc4dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EvasionController
-  baseChance: 8
-  speedFactor: 0.5
-  maxChance: 25
-  heavyMultiplier: 0.5
 --- !u!114 &620821144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13958,21 +13954,23 @@ MonoBehaviour:
   selectionPeriod: 1
   selectionWidth: 175
   selectionOffsetY: -20
-  statusIconSize: 26
+  statusIconSize: 34
   statusIconSpacing: 2
   statusIconGap: 10
   statusIcons:
-  - {fileID: 845725232, guid: d2be15b2226fa5b4698c1cc1d6131ad3, type: 3}
-  - {fileID: 865903563, guid: f08b5a28502971c45a6fcd6cb1595627, type: 3}
-  - {fileID: -1383632998, guid: d471aa47465660c438224eee93f2b633, type: 3}
-  - {fileID: -766411702, guid: c93355b4e50d5f544a75eb1671cfb404, type: 3}
-  - {fileID: -1757789445, guid: 04f2d30d1852cc74a83491886a7e90db, type: 3}
-  - {fileID: -1703073968, guid: e73efb0edfa904848b6a5cbe1cc56a92, type: 3}
-  - {fileID: 621901142, guid: d93d5238b0a47c24bb40f831b367d611, type: 3}
-  - {fileID: -713128393, guid: afb87dede3a4c69498d50269751d0911, type: 3}
-  - {fileID: 1958056259, guid: 5b19320f6207e8c458dea6d3997e1373, type: 3}
-  - {fileID: -520155340, guid: d9dd8d92ff931dc419dce76854f34648, type: 3}
+  - {fileID: 21300000, guid: d2be15b2226fa5b4698c1cc1d6131ad3, type: 3}
+  - {fileID: 21300000, guid: f08b5a28502971c45a6fcd6cb1595627, type: 3}
+  - {fileID: 21300000, guid: d471aa47465660c438224eee93f2b633, type: 3}
+  - {fileID: 21300000, guid: c93355b4e50d5f544a75eb1671cfb404, type: 3}
+  - {fileID: 21300000, guid: 04f2d30d1852cc74a83491886a7e90db, type: 3}
+  - {fileID: 21300000, guid: e73efb0edfa904848b6a5cbe1cc56a92, type: 3}
+  - {fileID: 21300000, guid: d93d5238b0a47c24bb40f831b367d611, type: 3}
+  - {fileID: 21300000, guid: afb87dede3a4c69498d50269751d0911, type: 3}
+  - {fileID: 21300000, guid: 5b19320f6207e8c458dea6d3997e1373, type: 3}
+  - {fileID: 21300000, guid: d9dd8d92ff931dc419dce76854f34648, type: 3}
   - {fileID: -699715669, guid: be44558073aff3c4895f0add03d3a91d, type: 3}
+  - {fileID: 21300000, guid: f25cf8cb161b04542833b4aad8763b47, type: 3}
+  - {fileID: 21300000, guid: 92f9b9720b1240d45b6e6dd07e6157ec, type: 3}
   statusTip: {fileID: 1079992663}
   statusTipText: {fileID: 919556455}
   allyFrameSprite: {fileID: 1491230634, guid: aedeafbfae805ac409618a3e2373b86c, type: 3}
@@ -14026,7 +14024,15 @@ MonoBehaviour:
   - {fileID: 489770398}
   - {fileID: 566709686}
   - {fileID: 1348121022}
-  portraitOverrides: []
+  portraitOverrides:
+  - unitName: Arquera
+    portrait: {fileID: 21300000, guid: c4100ff6323dfc64aaeedc88da1d8ffa, type: 3}
+  - unitName: Evanora
+    portrait: {fileID: 21300000, guid: 39f85e5618e843e4ea813cf1faf0c22c, type: 3}
+  - unitName: Noelle
+    portrait: {fileID: 21300000, guid: 2ca472676845086469127beb051404d2, type: 3}
+  - unitName: Caballero
+    portrait: {fileID: 21300000, guid: 6777282d9f7f2f3479911edc81f122a2, type: 3}
   turnPortraits:
   - {fileID: 142417333}
   - {fileID: 2070280320}
@@ -21962,6 +21968,56 @@ Transform:
   - {fileID: 1950825329}
   m_Father: {fileID: 550504539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1525448503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1525448505}
+  - component: {fileID: 1525448504}
+  m_Layer: 0
+  m_Name: TutorialCombate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1525448504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525448503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559d4dadc0c5bf143b68c5772847f531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatTutorial
+  hud: {fileID: 998953408}
+  turnManager: {fileID: 1542171287}
+  cardSprite: {fileID: 21300000, guid: 136d8d4e5f1632040aa26ea4795567c6, type: 3}
+  regularFont: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  boldFont: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  sortingOrder: 350
+--- !u!4 &1525448505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525448503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1526963390
 GameObject:
   m_ObjectHideFlags: 0
@@ -22480,7 +22536,6 @@ MonoBehaviour:
   - {fileID: 1590104635}
   - {fileID: 9663729}
   - {fileID: 607557358}
-  postBattleRecoveryPercent: 40
   encounterExperienceOverride: 0
 --- !u!4 &1542171288
 Transform:
@@ -28065,8 +28120,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 981721834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.78, y: 0.08}
-  m_AnchorMax: {x: 0.92, y: 0.92}
+  m_AnchorMin: {x: 0.8, y: 0.08}
+  m_AnchorMax: {x: 0.94, y: 0.92}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -16, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30420,13 +30475,13 @@ MonoBehaviour:
     m_Font: {fileID: 1777390476}
     m_FontSize: 22
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 14
+    m_MaxSize: 22
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
@@ -31435,3 +31490,4 @@ SceneRoots:
   - {fileID: 1992453497}
   - {fileID: 204533293}
   - {fileID: 45285298}
+  - {fileID: 1525448505}

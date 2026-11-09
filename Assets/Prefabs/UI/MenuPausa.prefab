@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -675,8 +675,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: COMBATES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -812,8 +812,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Supera los encuentros de las tres regiones, fortalece a tus h\xE9roes y derrota al Capit\xE1n de las Fuerzas Expedicionarias en Trono Sellado."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  m_sharedMaterial: {fileID: -9106894548677028799, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -949,8 +949,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: REGRESAR AL JUEGO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1234,8 +1234,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Todo se maneja con el rat\xF3n. La tecla Esc abre y cierra el men\xFA de pausa."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  m_sharedMaterial: {fileID: -9106894548677028799, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1371,8 +1371,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: AYUDA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1664,8 +1664,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CONTROLES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1801,8 +1801,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "M\xDASICA"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2004,8 +2004,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CANCELAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2862,8 +2862,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "MEN\xDA PRINCIPAL"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3131,8 +3131,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "NAVEGACI\xD3N"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3578,8 +3578,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: VOLUMEN GENERAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4351,8 +4351,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: OBJETIVO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4524,8 +4524,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CONFIRMAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5038,8 +5038,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: OPCIONES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5604,8 +5604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: VOLVER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5839,8 +5839,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Los combates son por turnos. Selecciona una habilidad y despu\xE9s su objetivo. Tambi\xE9n puedes mover a los h\xE9roes, usar consumibles o terminar el turno."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  m_sharedMaterial: {fileID: -9106894548677028799, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6051,8 +6051,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: VOLVER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6493,8 +6493,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Selecciona una ubicaci\xF3n del mapa para iniciar su encuentro. Las nuevas zonas se desbloquean al superar las anteriores."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  m_sharedMaterial: {fileID: -9106894548677028799, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6891,8 +6891,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\xBFSalir al men\xFA principal?\nSe perder\xE1 el progreso de la partida."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

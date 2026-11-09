@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Evanora_OrbeArcano
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Orbe Arcano
-  description: "Ataque b\xE1sico (100 % del da\xF1o). Puede debilitar: \u221215 % de da\xF1o durante 1 turno."
+  description: "Ataque b\xE1sico (100 % del da\xF1o). Solo puede usarse desde la retaguardia (P3-P4)."
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
@@ -21,7 +21,7 @@ MonoBehaviour:
   basePower: 0
   damagePercent: 100
   canCritical: 1
-  usablePositions: 01010101y
+  usablePositions: 00000101
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
@@ -46,11 +46,4 @@ MonoBehaviour:
   movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
-  statusEffects:
-  - type: 6
-    potency: 15
-    duration: 1
-    chance: 50
-    applyToUser: 0
-    potencyPerLevel: 0
-    durationPerLevel: 0
+  statusEffects: []

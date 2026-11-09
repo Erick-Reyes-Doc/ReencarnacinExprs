@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca15da714383484aa74c8473611c58c, type: 3}
+  m_Name: ValdoriaInforme
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: Oficial de la ciudad
+    text: "Los informes del Refugio del Vig\xEDa confirman nuestros temores. Los ataques en la pradera y el bosque no son incidentes aislados."
+  - speaker: Elaina
+    text: "\xBFEntonces alguien est\xE1 controlando a esas criaturas?"
+  - speaker: Oficial de la ciudad
+    text: "As\xED es. El responsable es el Capit\xE1n de las Fuerzas Expedicionarias, uno de los comandantes que sirven al Rey Demonio."
+  - speaker: Evanora
+    text: "Eso explicar\xEDa por qu\xE9 la corrupci\xF3n se est\xE1 extendiendo. \xBFD\xF3nde se encuentra?"
+  - speaker: Oficial de la ciudad
+    text: "Nuestros exploradores lo han localizado en el Trono Sellado. Pero las Tierras Marchitas est\xE1n infestadas de criaturas corrompidas."
+  - speaker: Noelle
+    text: "Entonces tendremos que atravesarlas para llegar hasta \xE9l."
+  - speaker: Valerian
+    text: "Fant\xE1stico. Cada vez que parece que estamos cerca de terminar, el trabajo se vuelve m\xE1s peligroso."
+  - speaker: Oficial de la ciudad
+    text: "Si logran alcanzar el Trono Sellado y derrotar al Capit\xE1n, podr\xEDan detener el avance de sus fuerzas en esta regi\xF3n."

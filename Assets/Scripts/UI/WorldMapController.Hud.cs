@@ -26,6 +26,7 @@ public partial class WorldMapController
         [HideInInspector] public TMP_Text nameText;
         [HideInInspector] public RectTransform hpFill;
         [HideInInspector] public TMP_Text levelText;
+        [HideInInspector] public TMP_Text hpText;   // cantidad de vida ("35 / 35")
         [HideInInspector] public HeroCardView view;
         [HideInInspector] public Image portrait;
         [HideInInspector] public Button button;
@@ -42,6 +43,10 @@ public partial class WorldMapController
     [SerializeField] private Sprite hudCoinsIcon;
     [SerializeField] private Sprite hudInventoryIcon;
     [SerializeField] private Sprite hudShopIcon;
+    [Header("Rediseno del mapa (Assets/Sprites/MenuUi)")]
+    [SerializeField] private Sprite hudCoinsFrame;    // MarcoMonedas
+    [SerializeField] private Sprite hudBottomFrame;   // MarcoInferior
+    [SerializeField] private Sprite hudSeparator;     // SeparadorDorado
     [SerializeField] private List<HudHero> hudHeroes = new List<HudHero>();
     [SerializeField] private TMP_Text hudCoinsText;
     [SerializeField] private TMP_Text hudMenuHint;
@@ -111,6 +116,7 @@ public partial class WorldMapController
             }
 
             SetTmp(hero.levelText, level.ToString(CultureInfo.InvariantCulture));
+            SetTmp(hero.hpText, health.ToString(CultureInfo.InvariantCulture) + " / " + max.ToString(CultureInfo.InvariantCulture));
 
             if (hero.view != null)
             {
@@ -121,7 +127,7 @@ public partial class WorldMapController
             if (hero.portrait != null && profile != null && hero.portrait.sprite == null)
             {
                 hero.portrait.sprite = characters.PortraitOf(profile);
-                hero.portrait.color = profile.tint;
+                hero.portrait.color = profile.IconTint;
                 hero.portrait.enabled = hero.portrait.sprite != null;
             }
 
@@ -131,8 +137,13 @@ public partial class WorldMapController
             if (!Mathf.Approximately(anchor.x, ratio))
                 hero.hpFill.anchorMax = new Vector2(ratio, anchor.y);
 
+            Color32 textColor = health > 0 ? HudIvory : new Color32(0x55, 0x59, 0x65, 0xFF);
+
             if (hero.nameText != null)
-                hero.nameText.color = health > 0 ? HudIvory : new Color32(0x55, 0x59, 0x65, 0xFF);
+                hero.nameText.color = textColor;
+
+            if (hero.hpText != null)
+                hero.hpText.color = health > 0 ? HudGoldBright : textColor;
         }
 
         // El aviso es el panel que contiene el texto.
@@ -201,28 +212,40 @@ public partial class WorldMapController
 
     private void BuildHudTopLeft(RectTransform root)
     {
-        RectTransform menu = HudRect("BotonMenu", root, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f));
-        // Mismo tamano visual que Inventario y Tienda (87 x 80) y mismo margen al borde (24).
-        menu.anchoredPosition = new Vector2(24f, -50f);   // centrado en la franja azul del estandarte (y ~90)
-        menu.sizeDelta = new Vector2(ButtonVisualWidth, ButtonVisualHeight);
-        Image menuImage = HudImage(menu, hudMenuIcon, Color.white, false, 1f, true);
-        menuImage.preserveAspect = true;
-        menuButton = HudButton(menu, menuImage, hudMenuIconHover);
+        Vector2 topLeft = new Vector2(0f, 1f);
 
-        RectTransform banner = HudRect("Estandarte", root, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f));
-        banner.anchoredPosition = new Vector2(136f, -8f);
-        banner.sizeDelta = new Vector2(800f, 202f);
+        // Titulo: el sprite TituloReino ya trae el rotulo "Reino Aethel". Su parte visible mide ~633 x 82 y queda
+        // centrada a y ~93 del borde superior (el rectangulo incluye un margen transparente de ~5 % por lado). Su punta
+        // izquierda queda por debajo del escudo, como el estandarte original.
+        RectTransform banner = HudRect("Estandarte", root, topLeft, topLeft, topLeft);
+        banner.anchoredPosition = new Vector2(99f, 22f);
+        banner.sizeDelta = new Vector2(703f, 234f);
         Image bannerImage = HudImage(banner, hudBanner, Color.white, false, 1f, false);
         bannerImage.preserveAspect = true;
 
-        // El rotulo ocupa la parte azul del estandarte (la bandera con el leon queda a la izquierda).
-        RectTransform title = HudRect("NombreReino", banner, new Vector2(0.23f, 0.34f), new Vector2(0.90f, 0.84f), new Vector2(0.5f, 0.5f));
-        title.offsetMin = title.offsetMax = Vector2.zero;
-        HudText(title, "Reino Aethel", 54f, HudIvory, TextAlignmentOptions.Center);
+        // Escudo del leon: es el boton de menu (no hay otro). Va encima del titulo, en el extremo izquierdo, solapando
+        // su punta. Su parte visible mide ~116 x 152 y su centro queda a y ~93, la misma linea que el titulo; el cursor
+        // solo reacciona sobre el escudo (raycastPadding recorta el margen transparente).
+        RectTransform menu = HudRect("BotonMenu", root, topLeft, topLeft, topLeft);
+        menu.anchoredPosition = new Vector2(8f, -10f);
+        menu.sizeDelta = new Vector2(191f, 179f);
+        Image menuImage = HudImage(menu, hudMenuIcon, Color.white, false, 1f, true);
+        menuImage.preserveAspect = true;
+        menuImage.raycastPadding = new Vector4(38f, 21f, 38f, 7f);
+        menuButton = HudButton(menu, menuImage, hudMenuIconHover);
+
+        // Hover discreto (crece un 5 %) y pulsacion (se oscurece un poco).
+        menuButton.transition = Selectable.Transition.ColorTint;
+        ColorBlock tint = menuButton.colors;
+        tint.normalColor = tint.highlightedColor = tint.selectedColor = Color.white;
+        tint.pressedColor = new Color(0.78f, 0.78f, 0.78f, 1f);
+        tint.fadeDuration = 0.08f;
+        menuButton.colors = tint;
+        menu.GetComponent<HoverScale>().HoverFactor = 1.05f;
 
         // Aviso de confirmacion del boton de menu (la accion pierde todo el progreso).
-        RectTransform hint = HudRect("AvisoMenu", root, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f));
-        hint.anchoredPosition = new Vector2(24f, -222f);   // bajo la bandera del estandarte
+        RectTransform hint = HudRect("AvisoMenu", root, topLeft, topLeft, topLeft);
+        hint.anchoredPosition = new Vector2(24f, -185f);   // bajo el escudo
         hint.sizeDelta = new Vector2(420f, 44f);
         HudImage(hint, null, new Color(HudDark.r, HudDark.g, HudDark.b, 0.92f), false, 1f, false);
         RectTransform hintText = HudRect("Texto", hint, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
@@ -248,50 +271,84 @@ public partial class WorldMapController
     // transparente al rectangulo.
     private const float ButtonVisualWidth = 87f;
     private const float ButtonVisualHeight = 80f;
-    private const float ShortcutWidth = 102f;    // 87 visibles + margen del sprite
+    private const float ShortcutSize = 70f;      // icono sin marco (cofre y tienda)
 
-    // Barra inferior: un contenedor a todo el ancho con tres grupos en la misma franja
-    // (Coronas a la izquierda, progreso centrado, atajos a la derecha). Cada grupo es un
-    // HorizontalLayoutGroup que se ajusta a su contenido.
+    // Barra inferior (sprite MarcoInferior, 3:1 con margen transparente): ocupa casi todo el ancho de 1920 y su parte
+    // visible mide ~93 de alto, a 61 del borde inferior. Todas las posiciones se miden desde el centro de la barra.
+    private const float BottomBarWidth = 1900f;
+    private const float BottomBarVisibleHeight = 93f;
+    private const float BottomBarBottom = 61f;
+    private const float SeparatorClipHeight = 82f;  // altura interior de la barra, dentro de sus bordes dorados
+    private const float HeroSegmentStart = 55f;     // x del primer segmento (lienzo 1920)
+    private const float HeroSegmentWidth = 387f;    // cuatro segmentos hasta x ~1603, donde empiezan los atajos
+    private const float ShortcutsCenterX = 1733f;
+
+    // Esquina superior derecha: contador de Coronas. Barra inferior: personajes, separadores y atajos.
     private void BuildHudBottomBar(RectTransform root)
     {
-        RectTransform bar = HudRect("BarraInferior", root, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0.5f, 0f));
-        bar.offsetMin = new Vector2(BarMargin, 0f);
-        bar.offsetMax = new Vector2(-BarMargin - 1f, BarHeight);
+        Vector2 mid = new Vector2(0.5f, 0.5f);
 
-        // Coronas: esquina superior derecha (ya no van en la barra inferior).
-        RectTransform left = HudGroup("GrupoCoronas", root, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f));
-        left.anchoredPosition = new Vector2(-17f, -26f);   // margen visible ~24 al borde, como el boton de menu
-        RectTransform coins = HudBarFrame("PanelCoronas", left, CoinsWidth, false);
-        HorizontalLayoutGroup coinsRow = coins.gameObject.AddComponent<HorizontalLayoutGroup>();
-        coinsRow.padding = new RectOffset(36, 22, 0, 0);
-        coinsRow.spacing = 8f;
-        coinsRow.childAlignment = TextAnchor.MiddleLeft;
-        coinsRow.childControlWidth = coinsRow.childControlHeight = true;
-        coinsRow.childForceExpandWidth = coinsRow.childForceExpandHeight = false;
+        // Coronas (sprite MarcoMonedas, 9-slice horizontal): icono a la izquierda y cifra a la derecha. La cifra es la de
+        // GameSession.Coins y se actualiza en RefreshHud. Mide lo mismo de alto que el titulo (~82 visibles), esta en la
+        // misma linea (centro a y ~93) y su margen visible al borde derecho (46) es el del escudo al izquierdo. Con el
+        // multiplicador 683 / 148 el sprite completo mide 148 de alto y solo se estira a lo ancho (~300 visibles).
+        Vector2 topRight = new Vector2(1f, 1f);
+        RectTransform coins = HudRect("GrupoCoronas", root, topRight, topRight, topRight);
+        coins.anchoredPosition = new Vector2(-26f, -19f);
+        coins.sizeDelta = new Vector2(340f, 148f);
+        HudImage(coins, hudCoinsFrame, Color.white, true, 683f / 148f, false);
 
-        RectTransform icon = HudRect("Icono", coins, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        RectTransform icon = HudRect("Icono", coins, mid, mid, mid);
+        icon.anchoredPosition = new Vector2(-62f, 0f);
+        icon.sizeDelta = new Vector2(66f, 54f);
         Image iconImage = HudImage(icon, hudCoinsIcon, Color.white, false, 1f, false);
         iconImage.preserveAspect = true;
-        LayoutElement iconSize = icon.gameObject.AddComponent<LayoutElement>();
-        iconSize.preferredWidth = 66f;
-        iconSize.preferredHeight = 54f;
 
-        RectTransform amount = HudRect("Cantidad", coins, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-        // Cifras centradas en el espacio que deja el icono, con algo de separacion entre ellas.
+        RectTransform amount = HudRect("Cantidad", coins, mid, mid, mid);
+        amount.anchoredPosition = new Vector2(44f, 0f);
+        amount.sizeDelta = new Vector2(130f, 64f);
         hudCoinsText = HudText(amount, "0", 44f, HudGoldBright, TextAlignmentOptions.Midline);
-        hudCoinsText.characterSpacing = 6f;
-        LayoutElement amountSize = amount.gameObject.AddComponent<LayoutElement>();
-        amountSize.flexibleWidth = 1f;
-        amountSize.preferredHeight = 60f;
+        hudCoinsText.characterSpacing = 4f;
 
-        // Centro: una tarjeta por personaje (retrato, nombre, nivel y vida). El progreso por region sigue en
-        // MapProgression.ZoneProgress; solo se retiro de esta barra.
-        RectTransform center = HudGroup("GrupoPersonajes", bar, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        // Barra inferior: el marco es solo decoracion (sin raycast) para no bloquear los clics del mapa.
+        RectTransform bar = HudRect("BarraInferior", root, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), mid);
+        bar.anchoredPosition = new Vector2(0f, BottomBarBottom);
+        bar.sizeDelta = new Vector2(BottomBarWidth, BottomBarVisibleHeight);
+
+        RectTransform frame = HudRect("Marco", bar, mid, mid, mid);
+        frame.anchoredPosition = new Vector2(0f, -6f);
+        frame.sizeDelta = new Vector2(BottomBarWidth, BottomBarWidth / 3f);
+        Image frameImage = HudImage(frame, hudBottomFrame, Color.white, false, 1f, false);
+        frameImage.preserveAspect = true;
+
+        // Centro: cuatro segmentos iguales, uno por personaje (retrato, nivel, nombre y vida). El progreso por region
+        // sigue en MapProgression.ZoneProgress; solo se retiro de esta barra.
+        RectTransform center = HudRect("GrupoPersonajes", bar, mid, mid, mid);
+        center.anchoredPosition = Vector2.zero;
+        center.sizeDelta = new Vector2(BottomBarWidth, BottomBarVisibleHeight);
         BuildHeroCards(center);
 
-        // Derecha: Inventario y Tienda (cuadrados del mismo tamano, solo icono).
-        RectTransform right = HudGroup("GrupoAtajos", bar, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f));
+        // Separadores dorados entre segmentos y antes de los atajos.
+        // El sprite es una aguja muy fina y larga: se recorta (RectMask2D) a la altura interior de la barra para que no
+        // se salga del contenedor.
+        RectTransform separators = HudRect("Separadores", bar, mid, mid, mid);
+        separators.anchoredPosition = Vector2.zero;
+        separators.sizeDelta = new Vector2(BottomBarWidth, SeparatorClipHeight);
+        separators.gameObject.AddComponent<RectMask2D>();
+
+        for (int i = 1; i <= 4; i++)
+        {
+            RectTransform separator = HudRect("Separador_" + i, separators, mid, mid, mid);
+            separator.anchoredPosition = new Vector2(HeroSegmentStart + HeroSegmentWidth * i - 960f, 0f);
+            separator.sizeDelta = new Vector2(70f, 210f);   // aguja muy fina: solo el centro (rombo y tramo grueso) queda dentro del recorte
+            Image separatorImage = HudImage(separator, hudSeparator, Color.white, false, 1f, false);
+            separatorImage.preserveAspect = true;
+        }
+
+        // Derecha: Inventario (cofre) y Tienda, dentro del marco y sin tocar los segmentos de personajes.
+        RectTransform right = HudGroup("GrupoAtajos", bar, mid, mid, mid);
+        right.anchoredPosition = new Vector2(ShortcutsCenterX - 960f, 0f);
+        right.GetComponent<HorizontalLayoutGroup>().spacing = 22f;
         inventoryButton = HudShortcut(right, "BotonInventario", hudInventoryIcon);
         shopButton = HudShortcut(right, "BotonTienda", hudShopIcon);
     }
@@ -299,49 +356,49 @@ public partial class WorldMapController
     // Tarjetas de la barra inferior (diseno limpio): retrato, nombre, nivel en un circulo pequeno y una barra de vida
     // roja y delgada sin numeros (los valores salen en un tooltip al pasar el cursor). Al pasar el cursor la
     // tarjeta se agranda un poco (HoverScale) y HeroCardView muestra el tooltip; el clic abre la ficha del personaje.
-    private const float HeroCardWidth = 312f;
     private static readonly Color HudHealthDark = new Color32(0xA8, 0x32, 0x32, 0xFF);
     private static readonly Color HudHealthTrack = new Color32(0x0B, 0x0F, 0x16, 0xE6);
 
+    // Cada personaje ocupa un segmento de la barra (sin marco propio: el marco es el de la barra). Las posiciones son
+    // relativas al centro de la tarjeta: retrato, circulo de nivel y nombre en una linea y la barra de vida debajo.
     private void BuildHeroCards(RectTransform group)
     {
         hudHeroes.RemoveAll(h => h == null);
+        Vector2 mid = new Vector2(0.5f, 0.5f);
 
-        foreach (HudHero hero in hudHeroes)
+        for (int index = 0; index < hudHeroes.Count; index++)
         {
-            RectTransform card = HudBarFrame("Tarjeta_" + hero.displayName, group, HeroCardWidth, true);
-            Image cardImage = card.GetComponent<Image>();
+            HudHero hero = hudHeroes[index];
+            float segmentStart = HeroSegmentStart + HeroSegmentWidth * index;
+            RectTransform card = HudRect("Tarjeta_" + hero.displayName, group, mid, mid, mid);
+            card.anchoredPosition = new Vector2(segmentStart + HeroSegmentWidth * 0.5f - 960f, 0f);
+            card.sizeDelta = new Vector2(HeroSegmentWidth, BottomBarVisibleHeight);
+            Image cardImage = HudImage(card, null, new Color(1f, 1f, 1f, 0f), false, 1f, true);
 
             // Retrato sin marco ni fondo.
-            RectTransform face = HudRect("Retrato", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            face.anchoredPosition = new Vector2(-118f, -2f);
-            face.sizeDelta = new Vector2(64f, 64f);
+            RectTransform face = HudRect("Retrato", card, mid, mid, mid);
+            face.anchoredPosition = new Vector2(-124.5f, 0f);
+            face.sizeDelta = new Vector2(68f, 68f);
             hero.portrait = HudImage(face, null, Color.white, false, 1f, false);
             hero.portrait.preserveAspect = true;
             hero.portrait.enabled = false;
 
-            // Nivel: numero pequeno dentro de un circulo, en la esquina del retrato.
-            RectTransform ring = HudRect("Nivel", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            ring.anchoredPosition = new Vector2(-92f, 22f);
-            ring.sizeDelta = new Vector2(28f, 28f);
-            HudImage(ring, hudCircle, HudGold, false, 1f, false);
-            RectTransform disc = HudRect("Fondo", ring, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            disc.offsetMin = new Vector2(2f, 2f);
-            disc.offsetMax = new Vector2(-2f, -2f);
-            HudImage(disc, hudCircle, HudDark, false, 1f, false);
-            RectTransform number = HudRect("Numero", ring, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-            number.offsetMin = number.offsetMax = Vector2.zero;
-            hero.levelText = HudText(number, "1", 17f, HudGoldBright, TextAlignmentOptions.Midline);
-
-            RectTransform name = HudRect("Nombre", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
-            name.anchoredPosition = new Vector2(-74f, 10f);
-            name.sizeDelta = new Vector2(196f, 30f);
+            // Sin nivel ni recuadro emergente: retrato a la izquierda y, a su derecha, una linea con el nombre (izquierda) y
+            // la cantidad de vida (derecha, mas pequena y dorada) sobre la barra, con aire entre ambas.
+            RectTransform name = HudRect("Nombre", card, mid, mid, new Vector2(0f, 0.5f));
+            name.anchoredPosition = new Vector2(-86.5f, 15f);
+            name.sizeDelta = new Vector2(150f, 30f);
             hero.nameText = HudText(name, hero.displayName, 26f, HudIvory, TextAlignmentOptions.MidlineLeft);
 
+            RectTransform life = HudRect("Vida", card, mid, mid, new Vector2(1f, 0.5f));
+            life.anchoredPosition = new Vector2(148.5f, 14f);
+            life.sizeDelta = new Vector2(100f, 26f);
+            hero.hpText = HudText(life, "", 22f, HudGoldBright, TextAlignmentOptions.MidlineRight);
+
             // Barra de vida delgada: fondo oscuro y relleno rojo oscuro, sin borde ni cifras.
-            RectTransform track = HudRect("BarraVida", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0.5f));
-            track.anchoredPosition = new Vector2(-74f, -14f);
-            track.sizeDelta = new Vector2(190f, 7f);
+            RectTransform track = HudRect("BarraVida", card, mid, mid, new Vector2(0f, 0.5f));
+            track.anchoredPosition = new Vector2(-86.5f, -16f);
+            track.sizeDelta = new Vector2(235f, 8f);
             HudImage(track, null, HudHealthTrack, false, 1f, false);
 
             RectTransform fill = HudRect("Relleno", track, Vector2.zero, Vector2.one, new Vector2(0f, 0.5f));
@@ -349,15 +406,15 @@ public partial class WorldMapController
             HudImage(fill, null, HudHealthDark, false, 1f, false);
             hero.hpFill = fill;
 
-            hero.button = HudButton(card, cardImage, hudFrameHover);
+            hero.button = HudButton(card, cardImage, null);
             hero.button.transition = Selectable.Transition.None;   // solo se agranda (HoverScale)
             HoverScale hover = card.GetComponent<HoverScale>();
 
             if (hover != null)
                 hover.HoverFactor = 1.02f;
 
-            hero.view = card.gameObject.AddComponent<HeroCardView>();
-            hero.view.Configure(null, hudFont);
+            // Sin HeroCardView: no hay recuadro emergente con nombre, nivel y vida al pasar el cursor.
+            hero.view = null;
         }
     }
 
@@ -376,27 +433,42 @@ public partial class WorldMapController
         return group;
     }
 
-    private RectTransform HudBarFrame(string name, RectTransform parent, float width, bool raycast)
+    private RectTransform HudBarFrame(string name, RectTransform parent, float width, bool raycast, float height = BarHeight)
     {
         RectTransform frame = HudRect(name, parent, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         HudImage(frame, hudFrame, Color.white, true, BarMultiplier, raycast);
         LayoutElement size = frame.gameObject.AddComponent<LayoutElement>();
         size.preferredWidth = width;
-        size.preferredHeight = BarHeight;
+        size.preferredHeight = height;
         return frame;
     }
 
     private Button HudShortcut(RectTransform group, string name, Sprite icon)
     {
-        RectTransform frame = HudBarFrame(name, group, ShortcutWidth, true);
+        // Solo el icono, sin marco: la raiz es una zona de clic transparente y el icono (hijo "Icono", que tambien busca
+        // la tienda) recibe el hover (crece) y la pulsacion (se oscurece un poco).
+        Vector2 mid = new Vector2(0.5f, 0.5f);
+        RectTransform root = HudRect(name, group, mid, mid, mid);
+        HudImage(root, null, new Color(1f, 1f, 1f, 0f), false, 1f, true);
+        LayoutElement size = root.gameObject.AddComponent<LayoutElement>();
+        size.preferredWidth = ShortcutSize;
+        size.preferredHeight = ShortcutSize;
 
-        RectTransform iconRect = HudRect("Icono", frame, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        RectTransform iconRect = HudRect("Icono", root, mid, mid, mid);
         iconRect.anchoredPosition = Vector2.zero;
-        iconRect.sizeDelta = new Vector2(58f, 58f);
+        iconRect.sizeDelta = new Vector2(ShortcutSize, ShortcutSize);
         Image iconImage = HudImage(iconRect, icon, Color.white, false, 1f, false);
         iconImage.preserveAspect = true;
 
-        return HudButton(frame, frame.GetComponent<Image>(), hudFrameHover);
+        Button button = HudButton(root, iconImage, null);
+        button.transition = Selectable.Transition.ColorTint;
+        ColorBlock tint = button.colors;
+        tint.normalColor = tint.highlightedColor = tint.selectedColor = Color.white;
+        tint.pressedColor = new Color(0.78f, 0.78f, 0.78f, 1f);
+        tint.fadeDuration = 0.08f;
+        button.colors = tint;
+        root.GetComponent<HoverScale>().HoverFactor = 1.1f;
+        return button;
     }
 
     // ---------------- Utilidades del HUD ----------------

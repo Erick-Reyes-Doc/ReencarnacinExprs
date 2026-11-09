@@ -1,0 +1,4032 @@
+fileFormatVersion: 2
+guid: 18f4f80d2a6de404c9485c4155f90c13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8807122506321426894
+    second: MarcoUbicaciones_0
+  - first:
+      213: -4595092018482004461
+    second: MarcoUbicaciones_1
+  - first:
+      213: -2756237971935384835
+    second: MarcoUbicaciones_2
+  - first:
+      213: -7529746673200020507
+    second: MarcoUbicaciones_3
+  - first:
+      213: -6798692117600375748
+    second: MarcoUbicaciones_4
+  - first:
+      213: -6773726329446843280
+    second: MarcoUbicaciones_5
+  - first:
+      213: -2261600596548183161
+    second: MarcoUbicaciones_6
+  - first:
+      213: 395761990174721156
+    second: MarcoUbicaciones_7
+  - first:
+      213: 452299819428561431
+    second: MarcoUbicaciones_8
+  - first:
+      213: 125230720187417181
+    second: MarcoUbicaciones_9
+  - first:
+      213: -2517884322383281926
+    second: MarcoUbicaciones_10
+  - first:
+      213: 8805490471597683999
+    second: MarcoUbicaciones_11
+  - first:
+      213: -4798273052637925384
+    second: MarcoUbicaciones_12
+  - first:
+      213: 7525203544171489403
+    second: MarcoUbicaciones_13
+  - first:
+      213: 1097453073949518372
+    second: MarcoUbicaciones_14
+  - first:
+      213: -3181801374236043590
+    second: MarcoUbicaciones_15
+  - first:
+      213: 5101438456716744320
+    second: MarcoUbicaciones_16
+  - first:
+      213: 8591110517806632363
+    second: MarcoUbicaciones_17
+  - first:
+      213: -1521328187346817558
+    second: MarcoUbicaciones_18
+  - first:
+      213: -3913702408826926160
+    second: MarcoUbicaciones_19
+  - first:
+      213: 202218755550016689
+    second: MarcoUbicaciones_20
+  - first:
+      213: 5857416097406166660
+    second: MarcoUbicaciones_21
+  - first:
+      213: -5888135897876504649
+    second: MarcoUbicaciones_22
+  - first:
+      213: -6743180761495669813
+    second: MarcoUbicaciones_23
+  - first:
+      213: -5303260053216386055
+    second: MarcoUbicaciones_24
+  - first:
+      213: -3838462445039300548
+    second: MarcoUbicaciones_25
+  - first:
+      213: 1854909458967629956
+    second: MarcoUbicaciones_26
+  - first:
+      213: -8314311469735844285
+    second: MarcoUbicaciones_27
+  - first:
+      213: 1578812465595786118
+    second: MarcoUbicaciones_28
+  - first:
+      213: -5102505564876715537
+    second: MarcoUbicaciones_29
+  - first:
+      213: 231185460244405764
+    second: MarcoUbicaciones_30
+  - first:
+      213: 5496056972402823566
+    second: MarcoUbicaciones_31
+  - first:
+      213: -3288063833733843758
+    second: MarcoUbicaciones_32
+  - first:
+      213: -2249565837884647897
+    second: MarcoUbicaciones_33
+  - first:
+      213: -5081809607849127003
+    second: MarcoUbicaciones_34
+  - first:
+      213: 4583772937430399749
+    second: MarcoUbicaciones_35
+  - first:
+      213: -1983746935418366221
+    second: MarcoUbicaciones_36
+  - first:
+      213: -7789704369536084239
+    second: MarcoUbicaciones_37
+  - first:
+      213: -7622879727080805265
+    second: MarcoUbicaciones_38
+  - first:
+      213: 1436768427054553120
+    second: MarcoUbicaciones_39
+  - first:
+      213: -8159954995010534688
+    second: MarcoUbicaciones_40
+  - first:
+      213: 1943513865420833141
+    second: MarcoUbicaciones_41
+  - first:
+      213: 6082810419229952472
+    second: MarcoUbicaciones_42
+  - first:
+      213: -2270399150633641363
+    second: MarcoUbicaciones_43
+  - first:
+      213: 8736259344129588637
+    second: MarcoUbicaciones_44
+  - first:
+      213: 7358539802181526960
+    second: MarcoUbicaciones_45
+  - first:
+      213: -4044302319504839894
+    second: MarcoUbicaciones_46
+  - first:
+      213: 5898479216357256288
+    second: MarcoUbicaciones_47
+  - first:
+      213: 940768555015408172
+    second: MarcoUbicaciones_48
+  - first:
+      213: 2208223983995973992
+    second: MarcoUbicaciones_49
+  - first:
+      213: 6612511608011436378
+    second: MarcoUbicaciones_50
+  - first:
+      213: -447183869823175415
+    second: MarcoUbicaciones_51
+  - first:
+      213: -3366583571089555421
+    second: MarcoUbicaciones_52
+  - first:
+      213: 356436797163182761
+    second: MarcoUbicaciones_53
+  - first:
+      213: 4412046216774443307
+    second: MarcoUbicaciones_54
+  - first:
+      213: -3671370183664363700
+    second: MarcoUbicaciones_55
+  - first:
+      213: -6472788144107240131
+    second: MarcoUbicaciones_56
+  - first:
+      213: -6282743324940659610
+    second: MarcoUbicaciones_57
+  - first:
+      213: -3712032387238464815
+    second: MarcoUbicaciones_58
+  - first:
+      213: 7689621296252793196
+    second: MarcoUbicaciones_59
+  - first:
+      213: -3023959511331882352
+    second: MarcoUbicaciones_60
+  - first:
+      213: -1172614437442123748
+    second: MarcoUbicaciones_61
+  - first:
+      213: -6994537198917579667
+    second: MarcoUbicaciones_62
+  - first:
+      213: 6363197602287348275
+    second: MarcoUbicaciones_63
+  - first:
+      213: -5062960115425007156
+    second: MarcoUbicaciones_64
+  - first:
+      213: 5549492331419076405
+    second: MarcoUbicaciones_65
+  - first:
+      213: -4153373436053192704
+    second: MarcoUbicaciones_66
+  - first:
+      213: -435506027295346732
+    second: MarcoUbicaciones_67
+  - first:
+      213: -7273437975787226061
+    second: MarcoUbicaciones_68
+  - first:
+      213: -2313600771604114379
+    second: MarcoUbicaciones_69
+  - first:
+      213: -2168281669828857416
+    second: MarcoUbicaciones_70
+  - first:
+      213: -3491053717498062044
+    second: MarcoUbicaciones_71
+  - first:
+      213: 8909040842494418062
+    second: MarcoUbicaciones_72
+  - first:
+      213: 4123081226827005661
+    second: MarcoUbicaciones_73
+  - first:
+      213: 2025509336194809447
+    second: MarcoUbicaciones_74
+  - first:
+      213: -1732966193350267258
+    second: MarcoUbicaciones_75
+  - first:
+      213: 3720735454022430942
+    second: MarcoUbicaciones_76
+  - first:
+      213: -2002132378166901479
+    second: MarcoUbicaciones_77
+  - first:
+      213: 767239548652846133
+    second: MarcoUbicaciones_78
+  - first:
+      213: -2619690451022422087
+    second: MarcoUbicaciones_79
+  - first:
+      213: -3949434158052601844
+    second: MarcoUbicaciones_80
+  - first:
+      213: 1000305246364434356
+    second: MarcoUbicaciones_81
+  - first:
+      213: 5684567499619274385
+    second: MarcoUbicaciones_82
+  - first:
+      213: 681980476028043090
+    second: MarcoUbicaciones_83
+  - first:
+      213: 4555411789930986007
+    second: MarcoUbicaciones_84
+  - first:
+      213: 911883755661048601
+    second: MarcoUbicaciones_85
+  - first:
+      213: -8562548267951504270
+    second: MarcoUbicaciones_86
+  - first:
+      213: 8351026964160097578
+    second: MarcoUbicaciones_87
+  - first:
+      213: -597439802358233754
+    second: MarcoUbicaciones_88
+  - first:
+      213: -5871400842559962366
+    second: MarcoUbicaciones_89
+  - first:
+      213: 1161960944304189861
+    second: MarcoUbicaciones_90
+  - first:
+      213: 7850300351798972983
+    second: MarcoUbicaciones_91
+  - first:
+      213: 6711529340034683722
+    second: MarcoUbicaciones_92
+  - first:
+      213: 533872617978217006
+    second: MarcoUbicaciones_93
+  - first:
+      213: -4957166471173951840
+    second: MarcoUbicaciones_94
+  - first:
+      213: -2196836449564169840
+    second: MarcoUbicaciones_95
+  - first:
+      213: -7096200236042567732
+    second: MarcoUbicaciones_96
+  - first:
+      213: 3726452346240989234
+    second: MarcoUbicaciones_97
+  - first:
+      213: 1602336312201506502
+    second: MarcoUbicaciones_98
+  - first:
+      213: 7468039096081213567
+    second: MarcoUbicaciones_99
+  - first:
+      213: 5136406784479091842
+    second: MarcoUbicaciones_100
+  - first:
+      213: 519634981103871410
+    second: MarcoUbicaciones_101
+  - first:
+      213: 3580129980753067422
+    second: MarcoUbicaciones_102
+  - first:
+      213: 9017545912845202689
+    second: MarcoUbicaciones_103
+  - first:
+      213: -6936490816526285632
+    second: MarcoUbicaciones_104
+  - first:
+      213: -7111973022754199258
+    second: MarcoUbicaciones_105
+  - first:
+      213: 3200125109725388638
+    second: MarcoUbicaciones_106
+  - first:
+      213: 8104239221263532116
+    second: MarcoUbicaciones_107
+  - first:
+      213: 8546877210890295931
+    second: MarcoUbicaciones_108
+  - first:
+      213: -6651528029165867610
+    second: MarcoUbicaciones_109
+  - first:
+      213: -8464965786275452441
+    second: MarcoUbicaciones_110
+  - first:
+      213: -4330532367954035348
+    second: MarcoUbicaciones_111
+  - first:
+      213: 3537697335355812808
+    second: MarcoUbicaciones_112
+  - first:
+      213: 1658917689479576343
+    second: MarcoUbicaciones_113
+  - first:
+      213: -8162070558688914531
+    second: MarcoUbicaciones_114
+  - first:
+      213: -4389251256907875072
+    second: MarcoUbicaciones_115
+  - first:
+      213: 4575589327589067917
+    second: MarcoUbicaciones_116
+  - first:
+      213: 813813458231080709
+    second: MarcoUbicaciones_117
+  - first:
+      213: -4640697185067191843
+    second: MarcoUbicaciones_118
+  - first:
+      213: -5922042679558287103
+    second: MarcoUbicaciones_119
+  - first:
+      213: -1608197385891625794
+    second: MarcoUbicaciones_120
+  - first:
+      213: -2044350616977878923
+    second: MarcoUbicaciones_121
+  - first:
+      213: -7423728181725277515
+    second: MarcoUbicaciones_122
+  - first:
+      213: -1295812405479105402
+    second: MarcoUbicaciones_123
+  - first:
+      213: -1262228294654860249
+    second: MarcoUbicaciones_124
+  - first:
+      213: 732664740129411526
+    second: MarcoUbicaciones_125
+  - first:
+      213: -3926139792485677061
+    second: MarcoUbicaciones_126
+  - first:
+      213: 7817921545356301652
+    second: MarcoUbicaciones_127
+  - first:
+      213: 835795398019342517
+    second: MarcoUbicaciones_128
+  - first:
+      213: -4997492536590536178
+    second: MarcoUbicaciones_129
+  - first:
+      213: 3396317964838584262
+    second: MarcoUbicaciones_130
+  - first:
+      213: -2580316022898297941
+    second: MarcoUbicaciones_131
+  - first:
+      213: -2632334531059046411
+    second: MarcoUbicaciones_132
+  - first:
+      213: -91068198423526258
+    second: MarcoUbicaciones_133
+  - first:
+      213: -1834164652063163653
+    second: MarcoUbicaciones_134
+  - first:
+      213: 2411955014193713220
+    second: MarcoUbicaciones_135
+  - first:
+      213: -5214352356675751757
+    second: MarcoUbicaciones_136
+  - first:
+      213: -273193791596449494
+    second: MarcoUbicaciones_137
+  - first:
+      213: 7995750671419379712
+    second: MarcoUbicaciones_138
+  - first:
+      213: -4408800630512720459
+    second: MarcoUbicaciones_139
+  - first:
+      213: -233130467032816389
+    second: MarcoUbicaciones_140
+  - first:
+      213: -8500244613486649657
+    second: MarcoUbicaciones_141
+  - first:
+      213: -5356536523042011253
+    second: MarcoUbicaciones_142
+  - first:
+      213: -1032975750159991015
+    second: MarcoUbicaciones_143
+  - first:
+      213: -6600376343081257370
+    second: MarcoUbicaciones_144
+  - first:
+      213: -376320472495075791
+    second: MarcoUbicaciones_145
+  - first:
+      213: 1021480308579126981
+    second: MarcoUbicaciones_146
+  - first:
+      213: 5080789926877979173
+    second: MarcoUbicaciones_147
+  - first:
+      213: -144015168215103852
+    second: MarcoUbicaciones_148
+  - first:
+      213: -7013777650202259395
+    second: MarcoUbicaciones_149
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 150, y: 0, z: 150, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MarcoUbicaciones_0
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 559
+        width: 198
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2360d5d1eb0d6c580800000000000000
+      internalID: -8807122506321426894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_1
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 532
+        width: 367
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31eb520b724fa30c0800000000000000
+      internalID: -4595092018482004461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_2
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 530
+        width: 816
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa295eea20efb9d0800000000000000
+      internalID: -2756237971935384835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_3
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 650
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e3cb378b47f08790800000000000000
+      internalID: -7529746673200020507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_4
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 612
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3c6e214a8136a1a0800000000000000
+      internalID: -6798692117600375748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_5
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 550
+        width: 224
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c3c97cac3eef1a0800000000000000
+      internalID: -6773726329446843280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_6
+      rect:
+        serializedVersion: 2
+        x: 1776
+        y: 632
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b1fea6d3e2d90e0800000000000000
+      internalID: -2261600596548183161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_7
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 642
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48447f7ee670e7500800000000000000
+      internalID: 395761990174721156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_8
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 640
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71243051a44e64600800000000000000
+      internalID: 452299819428561431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_9
+      rect:
+        serializedVersion: 2
+        x: 1921
+        y: 554
+        width: 200
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d52ccbf2da8ecb100800000000000000
+      internalID: 125230720187417181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_10
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 610
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af0c1d29c8dae0dd0800000000000000
+      internalID: -2517884322383281926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_11
+      rect:
+        serializedVersion: 2
+        x: 1842
+        y: 552
+        width: 104
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f15baa03ee2633a70800000000000000
+      internalID: 8805490471597683999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_12
+      rect:
+        serializedVersion: 2
+        x: 1887
+        y: 640
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ffef2ab41c196db0800000000000000
+      internalID: -4798273052637925384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_13
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 626
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b782ad0d0c4ee6860800000000000000
+      internalID: 7525203544171489403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_14
+      rect:
+        serializedVersion: 2
+        x: 1593
+        y: 600
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42aeb6691cfea3f00800000000000000
+      internalID: 1097453073949518372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_15
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 610
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab69fce0288f7d3d0800000000000000
+      internalID: -3181801374236043590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_16
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 594
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0865e107f33fbc640800000000000000
+      internalID: 5101438456716744320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_17
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 602
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bad8cff8f71c93770800000000000000
+      internalID: 8591110517806632363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_18
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 586
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed676ee21823eae0800000000000000
+      internalID: -1521328187346817558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_19
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 597
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bbc745156cbfa9c0800000000000000
+      internalID: -3913702408826926160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 592
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4fa7303ec6ec200800000000000000
+      internalID: 202218755550016689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_21
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 588
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 486ac8b18e8b94150800000000000000
+      internalID: 5857416097406166660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_22
+      rect:
+        serializedVersion: 2
+        x: 1589
+        y: 550
+        width: 31
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf58d9f893294ea0800000000000000
+      internalID: -5888135897876504649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_23
+      rect:
+        serializedVersion: 2
+        x: 1631
+        y: 594
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc37dc603d86b62a0800000000000000
+      internalID: -6743180761495669813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_24
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 578
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f3a48854190766b0800000000000000
+      internalID: -5303260053216386055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_25
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 578
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3051c74eba0bbac0800000000000000
+      internalID: -3838462445039300548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_26
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 570
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48017404356fdb910800000000000000
+      internalID: 1854909458967629956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_27
+      rect:
+        serializedVersion: 2
+        x: 1842
+        y: 560
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3466076f4c1ad9c80800000000000000
+      internalID: -8314311469735844285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_28
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 536
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 683abc2929119e510800000000000000
+      internalID: 1578812465595786118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_29
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 562
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9c11519324039b0800000000000000
+      internalID: -5102505564876715537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_30
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 565
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40e5a1383f5553300800000000000000
+      internalID: 231185460244405764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_31
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 562
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e81116172bae54c40800000000000000
+      internalID: 5496056972402823566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_32
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 550
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d43c773d537e52d0800000000000000
+      internalID: -3288063833733843758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_33
+      rect:
+        serializedVersion: 2
+        x: 1894
+        y: 554
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72618060acfe7c0e0800000000000000
+      internalID: -2249565837884647897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_34
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 554
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a35cf31619c979b0800000000000000
+      internalID: -5081809607849127003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_35
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 551
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b76926335dc9f30800000000000000
+      internalID: 4583772937430399749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_36
+      rect:
+        serializedVersion: 2
+        x: 1870
+        y: 548
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f65e1e2ca05874e0800000000000000
+      internalID: -1983746935418366221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_37
+      rect:
+        serializedVersion: 2
+        x: 1901
+        y: 546
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f65e74c52965e390800000000000000
+      internalID: -7789704369536084239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_38
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 530
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6c62d5a647163690800000000000000
+      internalID: -7622879727080805265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_39
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 530
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0285517a54d60f310800000000000000
+      internalID: 1436768427054553120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 29
+        width: 2156
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e209335a2402ce80800000000000000
+      internalID: -8159954995010534688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_41
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 87
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 571847c309fb8fa10800000000000000
+      internalID: 1943513865420833141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_42
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 78
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d90f3229db7a6450800000000000000
+      internalID: 6082810419229952472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_43
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 108
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6a1228600ced70e0800000000000000
+      internalID: -2270399150633641363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_44
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 97
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9df788369d6d3970800000000000000
+      internalID: 8736259344129588637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_45
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 101
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b56a9e76f8ce1660800000000000000
+      internalID: 7358539802181526960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_46
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 111
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b20a1d770cfd7c0800000000000000
+      internalID: -4044302319504839894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_47
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 71
+        width: 58
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06caff5889b9bd150800000000000000
+      internalID: 5898479216357256288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_48
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 114
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a0d8134084e0d00800000000000000
+      internalID: 940768555015408172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_49
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 152
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 861f396830035ae10800000000000000
+      internalID: 2208223983995973992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_50
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 118
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a513bacd54c54cb50800000000000000
+      internalID: 6612511608011436378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_51
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 99
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905b7e1c3a84bc9f0800000000000000
+      internalID: -447183869823175415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_52
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 63
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3208a8a341e7741d0800000000000000
+      internalID: -3366583571089555421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_53
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 130
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa1ac7e06152f400800000000000000
+      internalID: 356436797163182761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_54
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 124
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21627b78acba3d30800000000000000
+      internalID: 4412046216774443307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_55
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 63
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4799bb054cac0dc0800000000000000
+      internalID: -3671370183664363700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_56
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 119
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35c02c2a790c26a0800000000000000
+      internalID: -6472788144107240131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_57
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 57
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66494fdbb363fc8a0800000000000000
+      internalID: -6282743324940659610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_58
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 69
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d2f7e306363c7cc0800000000000000
+      internalID: -3712032387238464815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_59
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 94
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c613d6cd3d507ba60800000000000000
+      internalID: 7689621296252793196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_60
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 66
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a36e798dcb806d0800000000000000
+      internalID: -3023959511331882352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_61
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 110
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1884c5c1690abfe0800000000000000
+      internalID: -1172614437442123748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_62
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 110
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6c034ae9796eee90800000000000000
+      internalID: -6994537198917579667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_63
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 93
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a64ff618e9e4850800000000000000
+      internalID: 6363197602287348275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_64
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 108
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc92f188990ccb9b0800000000000000
+      internalID: -5062960115425007156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_65
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 114
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5370df97fd1c30d40800000000000000
+      internalID: 5549492331419076405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_66
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 102
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000818c8dd04c56c0800000000000000
+      internalID: -4153373436053192704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_67
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 101
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dfe4895395c4f9f0800000000000000
+      internalID: -435506027295346732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_68
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 95
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33cbd5582be8f0b90800000000000000
+      internalID: -7273437975787226061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_69
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 61
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53497703b5074efd0800000000000000
+      internalID: -2313600771604114379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_70
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 122
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b13cd03f47b8e1e0800000000000000
+      internalID: -2168281669828857416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_71
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 112
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42b98bce3294d8fc0800000000000000
+      internalID: -3491053717498062044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_72
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 110
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c9352b17543ab70800000000000000
+      internalID: 8909040842494418062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_73
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 79
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddefa11e780283930800000000000000
+      internalID: 4123081226827005661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_74
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 116
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ef029720e0c1c10800000000000000
+      internalID: 2025509336194809447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_75
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 74
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68ea895cd6443f7e0800000000000000
+      internalID: -1732966193350267258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_76
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 111
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed07530ae25b2a330800000000000000
+      internalID: 3720735454022430942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_77
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 103
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 915cd06b53ff634e0800000000000000
+      internalID: -2002132378166901479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_78
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 85
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c7513fd48c5aa00800000000000000
+      internalID: 767239548652846133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_79
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 120
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bf535d1a6df4abd0800000000000000
+      internalID: -2619690451022422087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_80
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 75
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c001b79ee8ac039c0800000000000000
+      internalID: -3949434158052601844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_81
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 71
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bff28c525cc1ed00800000000000000
+      internalID: 1000305246364434356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_82
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 142
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e8984d504a3ee40800000000000000
+      internalID: 5684567499619274385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_83
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 77
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f376131a1e67900800000000000000
+      internalID: 681980476028043090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_84
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 114
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a767823e2183f30800000000000000
+      internalID: 4555411789930986007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_85
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 61
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b30a4c179a7ac00800000000000000
+      internalID: 911883755661048601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_86
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 111
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2744d9477b7bb2980800000000000000
+      internalID: -8562548267951504270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_87
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 112
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2da87c37cec4e370800000000000000
+      internalID: 8351026964160097578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_88
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 80
+        width: 23
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66502c54aa775b7f0800000000000000
+      internalID: -597439802358233754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_89
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 110
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 203c84daa08948ea0800000000000000
+      internalID: -5871400842559962366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_90
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 118
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a1f020925d102010800000000000000
+      internalID: 1161960944304189861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_91
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 77
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7321a19c39ed1fc60800000000000000
+      internalID: 7850300351798972983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_92
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 100
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4311642064242d50800000000000000
+      internalID: 6711529340034683722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_93
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 107
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2246e54152b86700800000000000000
+      internalID: 533872617978217006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_94
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 79
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae2331db5b943bb0800000000000000
+      internalID: -4957166471173951840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_95
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 63
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 099e81273e44381e0800000000000000
+      internalID: -2196836449564169840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_96
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 106
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccfb3ab8b7b358d90800000000000000
+      internalID: -7096200236042567732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_97
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 95
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2387d125aa407b330800000000000000
+      internalID: 3726452346240989234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_98
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 114
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ceea7be264ac3610800000000000000
+      internalID: 1602336312201506502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_99
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 135
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7866a29dfdc3a760800000000000000
+      internalID: 7468039096081213567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_100
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 128
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c58c2b1ce284740800000000000000
+      internalID: 5136406784479091842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_101
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 113
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b5209d134d163700800000000000000
+      internalID: 519634981103871410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_102
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 112
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9d3388cf3d2fa130800000000000000
+      internalID: 3580129980753067422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_103
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 94
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105f9e01b32c42d70800000000000000
+      internalID: 9017545912845202689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_104
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 95
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4013d7a52acbf90800000000000000
+      internalID: -6936490816526285632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_105
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 117
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 629239677323d4d90800000000000000
+      internalID: -7111973022754199258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_106
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 94
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5f5df115d0296c20800000000000000
+      internalID: 3200125109725388638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_107
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 108
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450833632aa087070800000000000000
+      internalID: 8104239221263532116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_108
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 146
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a5ffd3a8b9c9670800000000000000
+      internalID: 8546877210890295931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_109
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 112
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ada300bf7601b3a0800000000000000
+      internalID: -6651528029165867610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_110
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 97
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e967397776668a80800000000000000
+      internalID: -8464965786275452441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_111
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 108
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6db4c761cbd6e3c0800000000000000
+      internalID: -4330532367954035348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_112
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 98
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cbaab4abfc681130800000000000000
+      internalID: 3537697335355812808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_113
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 77
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71bba0969d8a50710800000000000000
+      internalID: 1658917689479576343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_114
+      rect:
+        serializedVersion: 2
+        x: 1317
+        y: 110
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d935ca542108abe80800000000000000
+      internalID: -8162070558688914531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_115
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 118
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00db112bc3f3613c0800000000000000
+      internalID: -4389251256907875072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_116
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 114
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8cc30d3042cf7f30800000000000000
+      internalID: 4575589327589067917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_117
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 95
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 507bb4b470f3b4b00800000000000000
+      internalID: 813813458231080709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_118
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 112
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd13ae56f7ee89fb0800000000000000
+      internalID: -4640697185067191843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_119
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 118
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101d93c2f8da0dda0800000000000000
+      internalID: -5922042679558287103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_120
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 87
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb4c7358ff88ea9e0800000000000000
+      internalID: -1608197385891625794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_121
+      rect:
+        serializedVersion: 2
+        x: 1452
+        y: 83
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 570deaef1f101a3e0800000000000000
+      internalID: -2044350616977878923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_122
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 63
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b255332d8e99f890800000000000000
+      internalID: -7423728181725277515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_123
+      rect:
+        serializedVersion: 2
+        x: 1516
+        y: 93
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c9fd39b79540ee0800000000000000
+      internalID: -1295812405479105402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_124
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 74
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72466a7bd0aab7ee0800000000000000
+      internalID: -1262228294654860249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_125
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 154
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c11ed603b2fa2a00800000000000000
+      internalID: 732664740129411526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_126
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 112
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf78d5a09ac8389c0800000000000000
+      internalID: -3926139792485677061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_127
+      rect:
+        serializedVersion: 2
+        x: 1601
+        y: 106
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 455d5d07936de7c60800000000000000
+      internalID: 7817921545356301652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_128
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 110
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b069db7c77599b00800000000000000
+      internalID: 835795398019342517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_129
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 144
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e02fadc040755aab0800000000000000
+      internalID: -4997492536590536178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_130
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 146
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cf3b7ec135222f20800000000000000
+      internalID: 3396317964838584262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_131
+      rect:
+        serializedVersion: 2
+        x: 1633
+        y: 112
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba3f5ee8f30e03cd0800000000000000
+      internalID: -2580316022898297941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_132
+      rect:
+        serializedVersion: 2
+        x: 1633
+        y: 63
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f72b32d0b1187bd0800000000000000
+      internalID: -2632334531059046411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_133
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 93
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8481aeb4f57cbef0800000000000000
+      internalID: -91068198423526258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_134
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 128
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfa723e77fcbb86e0800000000000000
+      internalID: -1834164652063163653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_135
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 65
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4401d3b6e4cf87120800000000000000
+      internalID: 2411955014193713220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_136
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 97
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b0fe9e8826e2a7b0800000000000000
+      internalID: -5214352356675751757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_137
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 62
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a213d09a1bb653cf0800000000000000
+      internalID: -273193791596449494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_138
+      rect:
+        serializedVersion: 2
+        x: 1715
+        y: 112
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0001b825fdc96fe60800000000000000
+      internalID: 7995750671419379712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_139
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 62
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b565c47f2bc0d2c0800000000000000
+      internalID: -4408800630512720459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_140
+      rect:
+        serializedVersion: 2
+        x: 1731
+        y: 114
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf4203e4311c3ccf0800000000000000
+      internalID: -233130467032816389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_141
+      rect:
+        serializedVersion: 2
+        x: 1738
+        y: 77
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce533d6f80190a80800000000000000
+      internalID: -8500244613486649657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_142
+      rect:
+        serializedVersion: 2
+        x: 1752
+        y: 95
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b87cca59962c9a5b0800000000000000
+      internalID: -5356536523042011253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_143
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 63
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ffe1637022aa1f0800000000000000
+      internalID: -1032975750159991015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_144
+      rect:
+        serializedVersion: 2
+        x: 1784
+        y: 116
+        width: 33
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 666ffbeafa0c664a0800000000000000
+      internalID: -6600376343081257370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_145
+      rect:
+        serializedVersion: 2
+        x: 1876
+        y: 71
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13e493b268a07caf0800000000000000
+      internalID: -376320472495075791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_146
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 79
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ce4ae9bde60d2e00800000000000000
+      internalID: 1021480308579126981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_147
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 112
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 522e1f1f487928640800000000000000
+      internalID: 5080789926877979173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_148
+      rect:
+        serializedVersion: 2
+        x: 1941
+        y: 98
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4964540b7fa500ef0800000000000000
+      internalID: -144015168215103852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoUbicaciones_149
+      rect:
+        serializedVersion: 2
+        x: 2065
+        y: 79
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d30de12436e0aae90800000000000000
+      internalID: -7013777650202259395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MarcoUbicaciones_0: -8807122506321426894
+      MarcoUbicaciones_1: -4595092018482004461
+      MarcoUbicaciones_10: -2517884322383281926
+      MarcoUbicaciones_100: 5136406784479091842
+      MarcoUbicaciones_101: 519634981103871410
+      MarcoUbicaciones_102: 3580129980753067422
+      MarcoUbicaciones_103: 9017545912845202689
+      MarcoUbicaciones_104: -6936490816526285632
+      MarcoUbicaciones_105: -7111973022754199258
+      MarcoUbicaciones_106: 3200125109725388638
+      MarcoUbicaciones_107: 8104239221263532116
+      MarcoUbicaciones_108: 8546877210890295931
+      MarcoUbicaciones_109: -6651528029165867610
+      MarcoUbicaciones_11: 8805490471597683999
+      MarcoUbicaciones_110: -8464965786275452441
+      MarcoUbicaciones_111: -4330532367954035348
+      MarcoUbicaciones_112: 3537697335355812808
+      MarcoUbicaciones_113: 1658917689479576343
+      MarcoUbicaciones_114: -8162070558688914531
+      MarcoUbicaciones_115: -4389251256907875072
+      MarcoUbicaciones_116: 4575589327589067917
+      MarcoUbicaciones_117: 813813458231080709
+      MarcoUbicaciones_118: -4640697185067191843
+      MarcoUbicaciones_119: -5922042679558287103
+      MarcoUbicaciones_12: -4798273052637925384
+      MarcoUbicaciones_120: -1608197385891625794
+      MarcoUbicaciones_121: -2044350616977878923
+      MarcoUbicaciones_122: -7423728181725277515
+      MarcoUbicaciones_123: -1295812405479105402
+      MarcoUbicaciones_124: -1262228294654860249
+      MarcoUbicaciones_125: 732664740129411526
+      MarcoUbicaciones_126: -3926139792485677061
+      MarcoUbicaciones_127: 7817921545356301652
+      MarcoUbicaciones_128: 835795398019342517
+      MarcoUbicaciones_129: -4997492536590536178
+      MarcoUbicaciones_13: 7525203544171489403
+      MarcoUbicaciones_130: 3396317964838584262
+      MarcoUbicaciones_131: -2580316022898297941
+      MarcoUbicaciones_132: -2632334531059046411
+      MarcoUbicaciones_133: -91068198423526258
+      MarcoUbicaciones_134: -1834164652063163653
+      MarcoUbicaciones_135: 2411955014193713220
+      MarcoUbicaciones_136: -5214352356675751757
+      MarcoUbicaciones_137: -273193791596449494
+      MarcoUbicaciones_138: 7995750671419379712
+      MarcoUbicaciones_139: -4408800630512720459
+      MarcoUbicaciones_14: 1097453073949518372
+      MarcoUbicaciones_140: -233130467032816389
+      MarcoUbicaciones_141: -8500244613486649657
+      MarcoUbicaciones_142: -5356536523042011253
+      MarcoUbicaciones_143: -1032975750159991015
+      MarcoUbicaciones_144: -6600376343081257370
+      MarcoUbicaciones_145: -376320472495075791
+      MarcoUbicaciones_146: 1021480308579126981
+      MarcoUbicaciones_147: 5080789926877979173
+      MarcoUbicaciones_148: -144015168215103852
+      MarcoUbicaciones_149: -7013777650202259395
+      MarcoUbicaciones_15: -3181801374236043590
+      MarcoUbicaciones_16: 5101438456716744320
+      MarcoUbicaciones_17: 8591110517806632363
+      MarcoUbicaciones_18: -1521328187346817558
+      MarcoUbicaciones_19: -3913702408826926160
+      MarcoUbicaciones_2: -2756237971935384835
+      MarcoUbicaciones_20: 202218755550016689
+      MarcoUbicaciones_21: 5857416097406166660
+      MarcoUbicaciones_22: -5888135897876504649
+      MarcoUbicaciones_23: -6743180761495669813
+      MarcoUbicaciones_24: -5303260053216386055
+      MarcoUbicaciones_25: -3838462445039300548
+      MarcoUbicaciones_26: 1854909458967629956
+      MarcoUbicaciones_27: -8314311469735844285
+      MarcoUbicaciones_28: 1578812465595786118
+      MarcoUbicaciones_29: -5102505564876715537
+      MarcoUbicaciones_3: -7529746673200020507
+      MarcoUbicaciones_30: 231185460244405764
+      MarcoUbicaciones_31: 5496056972402823566
+      MarcoUbicaciones_32: -3288063833733843758
+      MarcoUbicaciones_33: -2249565837884647897
+      MarcoUbicaciones_34: -5081809607849127003
+      MarcoUbicaciones_35: 4583772937430399749
+      MarcoUbicaciones_36: -1983746935418366221
+      MarcoUbicaciones_37: -7789704369536084239
+      MarcoUbicaciones_38: -7622879727080805265
+      MarcoUbicaciones_39: 1436768427054553120
+      MarcoUbicaciones_4: -6798692117600375748
+      MarcoUbicaciones_40: -8159954995010534688
+      MarcoUbicaciones_41: 1943513865420833141
+      MarcoUbicaciones_42: 6082810419229952472
+      MarcoUbicaciones_43: -2270399150633641363
+      MarcoUbicaciones_44: 8736259344129588637
+      MarcoUbicaciones_45: 7358539802181526960
+      MarcoUbicaciones_46: -4044302319504839894
+      MarcoUbicaciones_47: 5898479216357256288
+      MarcoUbicaciones_48: 940768555015408172
+      MarcoUbicaciones_49: 2208223983995973992
+      MarcoUbicaciones_5: -6773726329446843280
+      MarcoUbicaciones_50: 6612511608011436378
+      MarcoUbicaciones_51: -447183869823175415
+      MarcoUbicaciones_52: -3366583571089555421
+      MarcoUbicaciones_53: 356436797163182761
+      MarcoUbicaciones_54: 4412046216774443307
+      MarcoUbicaciones_55: -3671370183664363700
+      MarcoUbicaciones_56: -6472788144107240131
+      MarcoUbicaciones_57: -6282743324940659610
+      MarcoUbicaciones_58: -3712032387238464815
+      MarcoUbicaciones_59: 7689621296252793196
+      MarcoUbicaciones_6: -2261600596548183161
+      MarcoUbicaciones_60: -3023959511331882352
+      MarcoUbicaciones_61: -1172614437442123748
+      MarcoUbicaciones_62: -6994537198917579667
+      MarcoUbicaciones_63: 6363197602287348275
+      MarcoUbicaciones_64: -5062960115425007156
+      MarcoUbicaciones_65: 5549492331419076405
+      MarcoUbicaciones_66: -4153373436053192704
+      MarcoUbicaciones_67: -435506027295346732
+      MarcoUbicaciones_68: -7273437975787226061
+      MarcoUbicaciones_69: -2313600771604114379
+      MarcoUbicaciones_7: 395761990174721156
+      MarcoUbicaciones_70: -2168281669828857416
+      MarcoUbicaciones_71: -3491053717498062044
+      MarcoUbicaciones_72: 8909040842494418062
+      MarcoUbicaciones_73: 4123081226827005661
+      MarcoUbicaciones_74: 2025509336194809447
+      MarcoUbicaciones_75: -1732966193350267258
+      MarcoUbicaciones_76: 3720735454022430942
+      MarcoUbicaciones_77: -2002132378166901479
+      MarcoUbicaciones_78: 767239548652846133
+      MarcoUbicaciones_79: -2619690451022422087
+      MarcoUbicaciones_8: 452299819428561431
+      MarcoUbicaciones_80: -3949434158052601844
+      MarcoUbicaciones_81: 1000305246364434356
+      MarcoUbicaciones_82: 5684567499619274385
+      MarcoUbicaciones_83: 681980476028043090
+      MarcoUbicaciones_84: 4555411789930986007
+      MarcoUbicaciones_85: 911883755661048601
+      MarcoUbicaciones_86: -8562548267951504270
+      MarcoUbicaciones_87: 8351026964160097578
+      MarcoUbicaciones_88: -597439802358233754
+      MarcoUbicaciones_89: -5871400842559962366
+      MarcoUbicaciones_9: 125230720187417181
+      MarcoUbicaciones_90: 1161960944304189861
+      MarcoUbicaciones_91: 7850300351798972983
+      MarcoUbicaciones_92: 6711529340034683722
+      MarcoUbicaciones_93: 533872617978217006
+      MarcoUbicaciones_94: -4957166471173951840
+      MarcoUbicaciones_95: -2196836449564169840
+      MarcoUbicaciones_96: -7096200236042567732
+      MarcoUbicaciones_97: 3726452346240989234
+      MarcoUbicaciones_98: 1602336312201506502
+      MarcoUbicaciones_99: 7468039096081213567
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

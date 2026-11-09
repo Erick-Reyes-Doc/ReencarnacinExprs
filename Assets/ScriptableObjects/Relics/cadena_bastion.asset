@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: cadena_bastion
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: cadena_bastion
+  displayName: "Cadena del Basti\xF3n"
+  description: "Cuando protege a un aliado con Guardia de Trinchera, otro aliado recibe 10 % de Protecci\xF3n durante 1 turno. Una vez por ronda."
+  icon: {fileID: 21300000, guid: 0fcae7034ea9b1e47894b95b63f0aa85, type: 3}
+  rarity: 3
+  effect: 19
+  bonuses: []
+  penalties:
+  - stat: 0
+    amount: 3
+  exclusiveHeroId: PlayerCaballero
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1
+  eventOnly: 0

@@ -226,11 +226,15 @@ public class AbilitySystem : MonoBehaviour
     // propias de cada estado (inmunidad de jefes, Marca, etc.).
     // Devuelve cuantos estados se aplicaron o fallaron por probabilidad
     // (intentos validos). Los rechazados por ApplyEffect() no cuentan.
+    // 'referenceDamage' = daño del golpe antes de la proteccion (con critico y bonos), base del daño por turno de los
+    // estados con "% del daño" (AbilityStatusEffect.damageScalePercent). -1 = la habilidad no hizo golpe directo: en ese
+    // caso se tira un daño de referencia del usuario (con el % de daño y el Poder de la habilidad), una sola vez por aplicacion.
     private int ApplyStatusEffects(
         BattleUnit user,
         BattleUnit target,
         AbilityData ability,
-        bool selfPass = false
+        bool selfPass = false,
+        int referenceDamage = -1
     )
     {
         if (ability.statusEffects == null ||
@@ -267,8 +271,14 @@ public class AbilitySystem : MonoBehaviour
                 continue;
             }
 
-            if (effect.chance < 100f &&
-                Random.Range(0f, 100f) >= effect.chance)
+            float chance = effect.chance;
+
+            // Fragmento de la Mascara (antes de La mascara rota): +10 puntos de Aturdimiento en Impacto Quebrantador.
+            if (effect.type == StatusEffectType.Stun)
+                chance += RelicEffects.StunChanceBonus(user, ability);
+
+            if (chance < 100f &&
+                Random.Range(0f, 100f) >= chance)
             {
                 Debug.Log(
                     effect.type + " no se aplico (probabilidad)."
@@ -279,6 +289,25 @@ public class AbilitySystem : MonoBehaviour
 
             int potency = effect.GetPotency(userLevel);
             int duration = effect.GetDuration(userLevel);
+
+            // Sangrado, Quemadura y Veneno con "% del daño": el daño por turno es ese % del daño de referencia (el golpe
+            // de esta habilidad o, sin golpe, una tirada del usuario). Se fija al aplicar el estado.
+            if (effect.ScalesWithDamage)
+            {
+                if (referenceDamage < 0)
+                {
+                    referenceDamage = DamageCalculator.CalculatePreProtection(
+                        user,
+                        ability.basePower,
+                        ability.damagePercent,
+                        ability.canCritical,
+                        ability.criticalChanceBonus,
+                        out bool _
+                    );
+                }
+
+                potency = effect.PeriodicDamageFrom(referenceDamage);
+            }
 
             // Guard se aplica al usuario; el objetivo (si es otro
             // aliado) pasa a ser el aliado protegido.
@@ -350,7 +379,7 @@ public class AbilitySystem : MonoBehaviour
     // (InterceptPercent al protector, el resto al objetivo) y CADA UNO aplica su propia PROT (con sus topes) a la parte que
     // recibe, asi ninguna parte se reduce dos veces. La Marca y Objetivo Prioritario actuan sobre la parte del objetivo.
     // Devuelve el daño total causado (objetivo + protector).
-    public int DeliverDirectDamage(BattleUnit attacker, BattleUnit target, int preProtectionDamage, float defensePenetration, out int damageToTarget)
+    public int DeliverDirectDamage(BattleUnit attacker, BattleUnit target, int preProtectionDamage, float defensePenetration, out int damageToTarget, int flatBonus = 0)
     {
         StatusEffectController protectorFx = StatusEffectController.FindProtectorOf(target);
         StatusEffectInstance guard = protectorFx != null ? protectorFx.GetEffect(StatusEffectType.Guard) : null;
@@ -362,6 +391,11 @@ public class AbilitySystem : MonoBehaviour
             ? DamageCalculator.ApplyProtection(toTarget, DamageCalculator.GetEffectiveProtection(target, defensePenetration))
             : 0;
 
+        // Daño plano extra de reliquias (Colmillo de Lobo, Espejo del Dolor): se suma a la parte que recibe el objetivo.
+        if (flatBonus > 0)
+            damageToTarget += flatBonus;
+
+        int targetHealthBefore = target.CurrentHealth;
         int protectorDamage = 0;
 
         if (toProtector > 0)
@@ -377,12 +411,22 @@ public class AbilitySystem : MonoBehaviour
             if (damageToTarget > 0)
                 target.TakeDirectDamage(damageToTarget, attacker);
 
+            int protectorHealthBefore = protector.CurrentHealth;
             protector.TakeReducedDamage(protectorDamage);
+
+            // Insignia de la Trinchera: devuelve parte del daño realmente recibido al atacante.
+            int protectorLost = protectorHealthBefore - protector.CurrentHealth;
+            RelicEffects.OnIntercept(protector, attacker, protectorLost);
+            RelicEffects.OnHitBy(protector, attacker, protectorLost);   // Espina del Juramento del protector
+            RelicEffects.OnProtected(protector, target);               // Cadena del Bastion
         }
         else
         {
             target.TakeDirectDamage(damageToTarget, attacker);
         }
+
+        // Espina del Juramento del objetivo (primer daño directo de la ronda).
+        RelicEffects.OnHitBy(target, attacker, targetHealthBefore - target.CurrentHealth);
 
         return damageToTarget + protectorDamage;
     }
@@ -399,6 +443,12 @@ public class AbilitySystem : MonoBehaviour
         bool hadEffect = false;
         bool dodged = false;
 
+        // Estado del objetivo antes del golpe (reliquias: Marca, Sangrado, Veneno, Quemadura).
+        RelicEffects.PreHit relicPre = RelicEffects.Snapshot(target);
+
+        // Daño del golpe antes de la proteccion (base del daño por turno "% del daño"); -1 si no hubo golpe.
+        int hitDamage = -1;
+
         if (ability.dealsDamage)
         {
             // La evasion se tira una sola vez por objetivo, antes del daño directo (todas las unidades esquivan).
@@ -406,6 +456,8 @@ public class AbilitySystem : MonoBehaviour
             {
                 dodged = true;
                 hadEffect = true;
+                CombatFeedback.Show(target, "¡Esquivado!", FeedbackKind.Dodge);
+                RelicEffects.OnDirectAttackMissed(user);   // Anillo del Segundo Intento
 
                 // Un ataque directo esquivado tambien consume la Marca.
                 StatusEffectController dodgedStatuses =
@@ -451,8 +503,15 @@ public class AbilitySystem : MonoBehaviour
                 }
 
 
+                hitDamage = damage;
+
                 // Reparto entre el objetivo y su protector (Guardia de Trinchera); cada uno aplica su propia PROT.
-                int dealt = DeliverDirectDamage(user, target, damage, ability.defensePenetration, out int dealtToTarget);
+                int relicBonus = RelicEffects.DirectHitBonus(user, target, relicPre);
+                if (isCritical)
+                    CombatFeedback.MarkCritical(target);   // el marcador del daño sera el de un critico
+
+                int dealt = DeliverDirectDamage(user, target, damage, ability.defensePenetration, out int dealtToTarget, relicBonus);
+                CombatFeedback.ClearCritical(target);
 
                 Debug.Log(
                     ability.abilityName +
@@ -461,6 +520,9 @@ public class AbilitySystem : MonoBehaviour
                     (isCritical ? " ¡CRITICO!" : "")
                 );
                 hadEffect = true;
+
+                // Reliquias que reaccionan a un golpe directo acertado.
+                RelicEffects.OnDirectHitLanded(user, target, relicPre);
             }
         }
 
@@ -469,11 +531,44 @@ public class AbilitySystem : MonoBehaviour
 
         if (target.IsAlive && !blockedByDodge)
         {
-            if (ApplyStatusEffects(user, target, ability) > 0)
+            if (ApplyStatusEffects(user, target, ability, false, hitDamage) > 0)
                 hadEffect = true;
         }
 
         return hadEffect;
+    }
+
+    // Cantidad que cura una habilidad de curacion: rango fijo, porcentaje de la vida maxima del objetivo o Poder. Solo la
+    // curacion por porcentaje puede ser critica: usa la probabilidad de critico de quien cura (mas el bono de la
+    // habilidad) y, si sale, el porcentaje se multiplica por su daño critico (x1,5 por defecto). Los rangos fijos y el
+    // Poder no cambian. 'percent' es el porcentaje final aplicado (0 si no es por porcentaje).
+    public static int ResolveHeal(
+        BattleUnit user,
+        BattleUnit target,
+        AbilityData ability,
+        out bool critical,
+        out float percent
+    )
+    {
+        critical = false;
+        percent = 0f;
+
+        if (ability.healMax > 0)
+            return Random.Range(ability.healMin, ability.healMax + 1);
+
+        if (ability.healPercentMaxHealth > 0f)
+        {
+            percent = ability.healPercentMaxHealth;
+            critical = ability.canCritical &&
+                Random.Range(0f, 100f) < user.CriticalChance + ability.criticalChanceBonus;
+
+            if (critical)
+                percent *= ability.healCriticalMultiplier > 0f ? ability.healCriticalMultiplier : user.CriticalDamage;
+
+            return Mathf.Max(1, Mathf.RoundToInt(target.MaxHealth * percent / 100f));
+        }
+
+        return Mathf.Max(0, ability.basePower);
     }
 
     // Ejecuta una habilidad previamente validada.
@@ -523,13 +618,7 @@ public class AbilitySystem : MonoBehaviour
                 return false;
             }
 
-            // Curacion fija (Poder) o porcentaje de la vida maxima.
-            int healAmount = ability.healMax > 0
-                ? Random.Range(ability.healMin, ability.healMax + 1)
-                : ability.healPercentMaxHealth > 0f
-                    ? Mathf.Max(1, Mathf.RoundToInt(
-                        target.MaxHealth * ability.healPercentMaxHealth / 100f))
-                    : Mathf.Max(0, ability.basePower);
+            int healAmount = ResolveHeal(user, target, ability, out bool healCritical, out float healPercent);
 
             if (healAmount <= 0)
             {
@@ -540,23 +629,28 @@ public class AbilitySystem : MonoBehaviour
                 return false;
             }
 
+            // Campana del Socorro: HP extra en la primera curacion del turno a un aliado herido.
+            healAmount += RelicEffects.HealBonus(user, target);
+
             Debug.Log(
                 user.Data.unitName +
                 " cura a " +
                 target.Data.unitName +
                 " por " +
                 healAmount +
-                " puntos de vida."
+                " puntos de vida." +
+                (healPercent > 0f ? " (" + healPercent.ToString("0.#") + " % de su vida maxima)" : "") +
+                (healCritical ? " ¡CRITICO!" : "")
             );
 
             target.Heal(healAmount);
+            RelicEffects.OnHealApplied(user, target);
             otherEffect = true;
         }
         else if (ability.abilityType == AbilityType.Support)
         {
             bool hasRegeneration =
-                ability.regenerationPerTurn > 0 &&
-                ability.regenerationDuration > 0;
+                ability.HasRegeneration;
 
             bool hasStatusEffects =
                 ability.statusEffects != null &&
@@ -573,7 +667,7 @@ public class AbilitySystem : MonoBehaviour
             if (hasRegeneration)
             {
                 GetRegeneration(target).ApplyRegeneration(
-                    ability.regenerationPerTurn,
+                    ability.RegenerationFor(target),
                     ability.regenerationDuration
                 );
 
@@ -885,8 +979,7 @@ public class AbilitySystem : MonoBehaviour
             return false;
 
         bool hasRegeneration =
-            ability.regenerationPerTurn > 0 &&
-            ability.regenerationDuration > 0;
+            ability.HasRegeneration;
 
         bool hasStatusEffects =
             ability.statusEffects != null &&
@@ -944,7 +1037,7 @@ public class AbilitySystem : MonoBehaviour
                 // El componente se agrega si falta.
                 GetRegeneration(ally)
                     .ApplyRegeneration(
-                        ability.regenerationPerTurn,
+                        ability.RegenerationFor(ally),
                         ability.regenerationDuration
                     );
             }

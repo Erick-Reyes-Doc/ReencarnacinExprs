@@ -200,7 +200,11 @@ public partial class EnemyAIController
             case StatusEffectType.Bleeding:
             case StatusEffectType.Poison:
             case StatusEffectType.Burn:
-                value = Mathf.Min(status.potency * status.duration, target.CurrentHealth) * 0.6f;
+                // Con "% del daño" no hay potencia fija: se estima con el ataque de referencia.
+                int perTurn = status.ScalesWithDamage
+                    ? Mathf.Max(status.potency, Mathf.RoundToInt(maxAttack * status.damageScalePercent / 100f))
+                    : status.potency;
+                value = Mathf.Min(perTurn * status.duration, target.CurrentHealth) * 0.6f;
                 break;
 
             case StatusEffectType.Stun:

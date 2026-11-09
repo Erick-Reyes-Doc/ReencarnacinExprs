@@ -278,17 +278,55 @@ public static class GameSession
         EndSession();
     }
 
+    // Dialogo del Altar de los Invocados: se reproduce una sola vez, al llegar al mapa tras la introduccion.
+    // Se activa al empezar partida nueva y se apaga al terminar la conversacion (no se repite al reabrir el mapa).
+    public static bool AltarDialoguePending { get; private set; }
+
+    public static void CompleteAltarDialogue()
+    {
+        AltarDialoguePending = false;
+        MapFadeInPending = true;   // el mapa aparece desde negro tras la escena de dialogo
+    }
+
+    // Tutorial interactivo del primer combate (P1): lo activa la escena de dialogo inicial y lo consume CombatTutorial.
+    public static bool CombatTutorialPending { get; private set; }
+
+    public static void RequestCombatTutorial()
+    {
+        CombatTutorialPending = true;
+    }
+
+    public static bool ConsumeCombatTutorial()
+    {
+        bool value = CombatTutorialPending;
+        CombatTutorialPending = false;
+        return value;
+    }
+
+    // El mapa hace un fundido desde negro una sola vez (lo consume SceneFadeIn).
+    public static bool MapFadeInPending { get; private set; }
+
+    public static bool ConsumeMapFadeIn()
+    {
+        bool value = MapFadeInPending;
+        MapFadeInPending = false;
+        return value;
+    }
+
     // Empieza una partida nueva desde cero, descartando la anterior.
     public static void StartNewGame()
     {
         EndSession();
 
         IsActive = true;
+        AltarDialoguePending = true;
         Coins = StartingCoins;
         Potions = StartingPotions;
         Antidotes = StartingAntidotes;
         AntidoteShopStock = StartingShopStock;
 
+        RelicRewards.ResetAll();
+        RelicShopStock.Reset();
         RelicInventory.StartNewGame();   // reliquias de prueba, sin equipar
 
         Debug.Log("Nueva partida: sesion iniciada desde cero.");
@@ -298,6 +336,10 @@ public static class GameSession
     public static void EndSession()
     {
         IsActive = false;
+        AltarDialoguePending = false;
+        MapFadeInPending = false;
+        BossRevealPending = false;
+        CombatTutorialPending = false;
         IsDefeated = false;
         InCombat = false;
         PendingEncounterId = null;
@@ -310,6 +352,8 @@ public static class GameSession
         unlockedZones.Clear();
         party.Clear();
         RelicInventory.Clear();
+        RelicRewards.ResetAll();
+        RelicShopStock.Reset();
     }
 
     public static void MarkDefeated()
@@ -341,8 +385,9 @@ public static class GameSession
 
     public static void MarkEncounterCompleted(string encounterId)
     {
-        if (IsActive && !string.IsNullOrEmpty(encounterId))
-            completedEncounters.Add(encounterId);
+        // Un encuentro completado por primera vez (combate o evento obligatorio) renueva la tienda de reliquias.
+        if (IsActive && !string.IsNullOrEmpty(encounterId) && completedEncounters.Add(encounterId))
+            RelicShopStock.OnEncounterCompleted();
     }
 
     public static bool IsEncounterCompleted(string encounterId)
@@ -355,6 +400,34 @@ public static class GameSession
     // (CombatSessionBinder -> CharacterAbilityLoadout.SetTransformed).
     public const string NoelleEventId = "EVT_NOELLE";
     public const string NoelleId = "PlayerNoelle";
+
+    // Evento "El informe del ultimo vigia" (Valdoria): nodo narrativo entre B3 y C1. Al completarlo se descubre al Capitan
+    // y el Trono Sellado pasa al estado morado de "jefe descubierto". Solo cuenta en la sesion, como los demas progresos.
+    public const string ValdoriaEventId = "EVT_VALDORIA";
+
+    // La ubicacion del jefe es conocida: evento de Valdoria completado, o jefe ya derrotado (nunca retrocede).
+    public static bool IsBossDiscovered =>
+        IsEncounterCompleted(ValdoriaEventId) || IsEncounterCompleted("BOSS");
+
+    // Revelacion del Trono Sellado: se pide al terminar el evento de Valdoria y el mapa la reproduce una sola vez
+    // (mientras esta pendiente el Trono sigue sin mostrarse como descubierto).
+    public static bool BossRevealPending { get; private set; }
+
+    public static void RequestBossReveal()
+    {
+        BossRevealPending = true;
+    }
+
+    public static void ConsumeBossReveal()
+    {
+        BossRevealPending = false;
+    }
+
+    // El mapa funde desde negro al volver de una escena de dialogo.
+    public static void RequestMapFadeIn()
+    {
+        MapFadeInPending = true;
+    }
 
     public static bool IsNoelleLiberated =>
         IsEncounterCompleted(NoelleEventId);

@@ -516,11 +516,13 @@ public static class AbilityRulesTest
 
                 foreach (string id in HeroIds)
                 {
-                    RegenerationEffect r = Hero(id).GetComponent<RegenerationEffect>();
-                    all &= r != null && r.HealPerTurn == 2 && r.RemainingTurns == 2;
+                    BattleUnit h = Hero(id);
+                    RegenerationEffect r = h.GetComponent<RegenerationEffect>();
+                    int expected = Mathf.Max(1, Mathf.RoundToInt(h.MaxHealth * 0.15f));   // 15 % de la vida maxima de cada aliado
+                    all &= r != null && r.HealPerTurn == expected && r.RemainingTurns == 2;
                 }
 
-                Expect(ok && all, "Bendicion Continua: 2 PV por turno durante 2 turnos a los 4 aliados (4 PV en total)");
+                Expect(ok && all, "Bendicion Continua: 15 % de la vida maxima por turno durante 2 turnos a los 4 aliados");
                 return null;
             },
             "Valerian: Embate de Escudo sobre el Bruto (aturdimiento)", () =>

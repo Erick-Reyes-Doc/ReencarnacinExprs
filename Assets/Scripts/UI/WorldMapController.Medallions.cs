@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +16,35 @@ public partial class WorldMapController
     [Tooltip("Simbolo de las misiones disponibles (espadas cruzadas). Si falta se usa la estrella.")]
     [SerializeField] private Sprite questIcon;
 
-    private const float MedallionSize = 50f;
+    [Header("Rediseno de etiquetas (Assets/Sprites/MenuUi)")]
+    [Tooltip("MarcoUbicaciones: marco horizontal azul con bordes dorados (9-slice horizontal).")]
+    [SerializeField] private Sprite hudLabelFrame;
+    [Tooltip("Icono morado del jefe: sustituye al de combate en el Trono Sellado cuando esta disponible.")]
+    [SerializeField] private Sprite bossIcon;
+    [SerializeField] private List<LocationIcon> locationIcons = new List<LocationIcon>();
+
+    // Icono propio de cada ubicacion. "id" es la clave de la etiqueta (camp, ruins, clearing, ...).
+    [Serializable]
+    public class LocationIcon
+    {
+        public string id;
+        public Sprite sprite;
+    }
+
+    private Sprite LocationIconOf(string id)
+    {
+        foreach (LocationIcon entry in locationIcons)
+            if (entry != null && entry.id == id)
+                return entry.sprite;
+
+        return null;
+    }
+
+    // Los iconos de MenuUi son insignias redondas con ~14 % de margen transparente por lado: el circulo visible mide
+    // ~57 % del lienzo del sprite.
+    private const float BadgeVisibleRatio = 0.574f;
+
+    private const float MedallionSize = 54f;
 
     // El medallon flota sobre el edificio (no encima) para dejar ver la ilustracion; su etiqueta sigue bajo el lugar.
     // La gruta, cuya etiqueta va arriba, conserva su posicion.
@@ -43,9 +73,9 @@ public partial class WorldMapController
         ("shrine", "Santuario Velado", 1735f, 878f, true),
         ("gate", "Trono Sellado", 1590f, 215f, true),
         ("city", "Ciudad de Valdoria", 872f, 626f, true),
-        ("pavilion", "Pabellón de Caza", 395f, 337f, true),
+        ("pavilion", "Altar de los Invocados", 395f, 337f, true),   // lugar solo narrativo (antes Pabellón de Caza): sin combates ni recompensas
         ("cathedral", "Catedral del Sol", 862f, 397f, true),
-        ("nest", "Nido de Wyverns", 1370f, 327f, true),
+        ("wastes", "Nido de Wyverns", 1370f, 327f, true),   // el Nido es el lugar jugable de C1 y C2 (id interno "wastes")
     };
 
     // ---------------- Tarjetas ----------------
@@ -98,14 +128,73 @@ public partial class WorldMapController
         return new Vector2(p.x, p.y + (above ? TagOffset : -(TagOffset + extra)));
     }
 
+    // Geometria de la etiqueta con MarcoUbicaciones (2048 x 683, 9-slice solo horizontal). Con el multiplicador
+    // 683 / 96 el sprite completo mide 96 de alto: ~36 visibles, centrados, y los remates de las puntas (~20) no se
+    // deforman al ensanchar. El icono circular se solapa con la punta izquierda; el texto va a su derecha.
+    private const float LabelHeight = 96f;
+    private const float LabelVisibleHeight = 36f;
+    private const float LabelMultiplier = 683f / LabelHeight;
+    private const float LabelMargin = 3.7f;        // margen transparente del sprite en cada punta
+    private const float LabelIconCenter = 26f;     // centro del icono desde la punta izquierda visible
+    private const float LabelTextStart = 56f;      // inicio del texto desde la punta izquierda visible
+    private const float LabelRightPad = 26f;
+
+    // Etiqueta de ubicacion: marco, nombre y (en las informativas) su icono. Los lugares jugables ponen el icono en
+    // su medallon, que se acopla a la punta izquierda de esta etiqueta (LinkLocationTags).
+    private RectTransform BuildLabelCard(string name, Transform parent, string text, float fontSize, Sprite icon)
+    {
+        RectTransform card = HudRect(name, parent, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f));
+        Image frame = HudImage(card, hudLabelFrame, Color.white, true, LabelMultiplier, true);
+        float padding = (LabelHeight - LabelVisibleHeight) * 0.5f;
+        frame.raycastPadding = new Vector4(LabelMargin, padding, LabelMargin, padding);   // solo el marco visible responde
+
+        RectTransform textRect = HudRect("Texto", card, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
+        textRect.offsetMin = new Vector2(LabelMargin + LabelTextStart, 0f);
+        textRect.offsetMax = new Vector2(-(LabelMargin + LabelRightPad), 0f);
+        TMP_Text label = HudText(textRect, text, fontSize, MapIvory, TextAlignmentOptions.Center);
+
+        float width = LabelTextStart + Mathf.Ceil(label.GetPreferredValues(text).x) + LabelRightPad + LabelMargin * 2f;
+        card.sizeDelta = new Vector2(width, LabelHeight);
+
+        // Iluminacion sutil al pasar el cursor: contorno dorado del marco (se activa en RefreshMedallion).
+        Outline glow = card.gameObject.AddComponent<Outline>();
+        glow.effectColor = new Color(MapGold.r, MapGold.g, MapGold.b, 0.55f);
+        glow.effectDistance = new Vector2(2f, 2f);
+        glow.enabled = false;
+
+        if (icon != null)
+        {
+            RectTransform iconRect = HudRect("Icono", card, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+            float iconSize = MedallionSize / BadgeVisibleRatio;
+            iconRect.sizeDelta = new Vector2(iconSize, iconSize);
+            iconRect.anchoredPosition = new Vector2(-width * 0.5f + LabelMargin + LabelIconCenter, 0f);
+            Image iconImage = HudImage(iconRect, icon, Color.white, false, 1f, false);
+            iconImage.preserveAspect = true;
+        }
+
+        return card;
+    }
+
     private RectTransform BuildLocationLabels(RectTransform area)
     {
         RectTransform group = Group("EtiquetasUbicacion", area);
 
         foreach ((string key, string text, float x, float y, bool primary) tag in LocationTags)
         {
-            RectTransform card = InfoCard("Etiqueta_" + tag.key, group, tag.text, 17f);
-            card.sizeDelta = new Vector2(card.sizeDelta.x, 30f);
+            RectTransform card;
+
+            if (hudLabelFrame != null)
+            {
+                // Los lugares sin mision (ciudad, pabellon, catedral, nido) llevan su icono dentro de la etiqueta.
+                Sprite icon = FindLocation(tag.key) == null ? LocationIconOf(tag.key) : null;
+                card = BuildLabelCard("Etiqueta_" + tag.key, group, tag.text, 18f, icon);
+            }
+            else
+            {
+                card = InfoCard("Etiqueta_" + tag.key, group, tag.text, 17f);
+                card.sizeDelta = new Vector2(card.sizeDelta.x, 30f);
+            }
+
             card.anchorMin = card.anchorMax = Vector2.zero;
             card.anchoredPosition = TagPosition(tag.key, tag.x, 1080f - tag.y);
             card.gameObject.SetActive(tag.primary || showSecondaryLabels);
@@ -156,7 +245,10 @@ public partial class WorldMapController
             // El medallon se acopla al borde izquierdo de la placa de su nombre: la ilustracion queda libre y
             // marcador y nombre se leen como una sola pieza.
             RectTransform tagRect = (RectTransform)tag;
-            view.rect.anchoredPosition = tagRect.anchoredPosition + new Vector2(-(tagRect.sizeDelta.x * 0.5f + 31f), 0f);
+            float dockX = hudLabelFrame != null
+                ? -(tagRect.sizeDelta.x * 0.5f) + LabelMargin + LabelIconCenter   // el icono se solapa con la punta izquierda
+                : -(tagRect.sizeDelta.x * 0.5f + 31f);
+            view.rect.anchoredPosition = tagRect.anchoredPosition + new Vector2(dockX, 0f);
         }
 
         // Las placas de lugares sin mision (ciudad, pabellon, catedral, nido) son informativas: se atenuan.
@@ -220,12 +312,32 @@ public partial class WorldMapController
         RectTransform icon = Local("Icono", body, Vector2.zero, new Vector2(34f, 34f), Color.white, IcLock);
 
         // Combate disponible: el icono "Combate" es un medallon completo (anillo dorado + fondo azul + espadas), asi que
-        // sustituye a Marco y Cuerpo. Su anillo ocupa ~79 % del lienzo del sprite: se amplia para igualar los 76 px.
-        float questSize = size / 0.79f;
-        RectTransform quest = Local("Combate", badge, Vector2.zero, new Vector2(questSize, questSize), Color.white, questIcon != null ? questIcon : IcStar);
+        // sustituye a Marco y Cuerpo. Su anillo ocupa ~57 % del lienzo del sprite: se amplia para igualar el medallon.
+        // En el Trono Sellado se usa el icono morado del jefe en lugar del de combate.
+        bool isBoss = def.encounterIds.Contains(BossId);
+        Sprite questSprite = isBoss && bossIcon != null ? bossIcon : (questIcon != null ? questIcon : IcStar);
+        float questSize = size / (isBoss ? 0.60f : BadgeVisibleRatio);
+        RectTransform quest = Local("Combate", badge, Vector2.zero, new Vector2(questSize, questSize), Color.white, questSprite);
         quest.GetComponent<Image>().preserveAspect = true;
         frame.gameObject.SetActive(false);   // estado inicial = disponible (en ejecucion lo fija RefreshMedallion)
         body.gameObject.SetActive(false);
+
+        // Icono propio del lugar (MenuUi): se ve mientras el lugar esta bloqueado o completado. El Trono Sellado usa el
+        // candado de su sprite mientras esta bloqueado.
+        Sprite own = LocationIconOf(def.id);
+        RectTransform insignia = null;
+        RectTransform visto = null;
+
+        if (own != null)
+        {
+            float insigniaSize = size / BadgeVisibleRatio;
+            insignia = Local("Insignia", badge, Vector2.zero, new Vector2(insigniaSize, insigniaSize), Color.white, own);
+            insignia.GetComponent<Image>().preserveAspect = true;
+
+            visto = Local("Visto", badge, new Vector2(size * 0.38f, -size * 0.38f), new Vector2(size * 0.44f, size * 0.44f), MapNavy, SpCircle);
+            Local("Marca", visto, Vector2.zero, new Vector2(size * 0.28f, size * 0.28f), MapGold, IcCheck);
+            visto.gameObject.SetActive(false);
+        }
 
         // Zona de clic algo mayor que el medallon.
         RectTransform hit = Local("Zona", container, Vector2.zero, new Vector2(size + 12f, size + 12f), new Color(1f, 1f, 1f, 0.004f), SpCircle);
@@ -249,7 +361,10 @@ public partial class WorldMapController
             body = body.GetComponent<Image>(), frame = frame.GetComponent<Image>(),
             icon = icon.GetComponent<Image>(), glow = glow.GetComponent<Image>(),
             ring = ring.GetComponent<Image>(), label = label, hover = hover,
-            quest = quest.GetComponent<Image>(), hint = hintRing.GetComponent<Image>()
+            quest = quest.GetComponent<Image>(), hint = hintRing.GetComponent<Image>(),
+            insignia = insignia != null ? insignia.GetComponent<Image>() : null,
+            visto = visto != null ? visto.gameObject.GetComponent<Image>() : null,
+            boss = isBoss
         };
     }
 
@@ -261,11 +376,31 @@ public partial class WorldMapController
         Sprite icon = null;
         bool showQuest = false;
 
+        // Lugares con icono propio (MenuUi): bloqueado = su icono apagado (el Trono Sellado, su candado); completado =
+        // su icono con una marca; combate disponible = medallon de combate (el del jefe, morado) con los efectos
+        // dorados de siempre; evento (La mascara rota) = medallon con mascara. Sin icono propio (Tierras Marchitas)
+        // se conserva el medallon generico.
+        bool hasOwn = view.insignia != null;
+        bool showInsignia = false;
+        bool showVisto = false;
+        Sprite insigniaSprite = hasOwn ? LocationIconOf(view.id) : null;
+        Color insigniaColor = Color.white;
+
         if (state == PlaceState.Completed)
         {
             frame = MapGoldDim;
             icon = IcCheck;
             iconColor = new Color(0.80f, 0.76f, 0.62f, 0.95f);
+
+            if (hasOwn)
+            {
+                showInsignia = true;
+                showVisto = true;
+                insigniaColor = new Color(0.82f, 0.80f, 0.74f, 1f);
+
+                if (view.boss && bossIcon != null)
+                    insigniaSprite = bossIcon;
+            }
         }
         else if (state == PlaceState.Locked)
         {
@@ -273,6 +408,16 @@ public partial class WorldMapController
             body = new Color(0.18f, 0.22f, 0.29f, 1f);
             icon = IcLock;
             iconColor = new Color(0.72f, 0.78f, 0.88f, 1f);
+
+            if (hasOwn)
+            {
+                showInsignia = true;
+                insigniaColor = view.boss ? Color.white : new Color(0.62f, 0.65f, 0.72f, 1f);
+
+                // Jefe descubierto (evento de Valdoria) pero aun bloqueado: icono morado del jefe, sin permitir el combate.
+                if (view.boss && GameSession.IsBossDiscovered && !GameSession.BossRevealPending && bossIcon != null)
+                    insigniaSprite = bossIcon;
+            }
         }
         else if (evt)
         {
@@ -283,19 +428,31 @@ public partial class WorldMapController
             showQuest = true;
         }
 
+        bool showGeneric = !showQuest && !showInsignia;
         view.frame.color = frame;
         view.body.color = body;
 
-        // Disponible: solo el medallon "Combate"; bloqueado, completado y evento: marco + cuerpo + icono.
         if (view.quest.gameObject.activeSelf != showQuest) view.quest.gameObject.SetActive(showQuest);
-        if (view.frame.gameObject.activeSelf == showQuest) view.frame.gameObject.SetActive(!showQuest);
-        if (view.body.gameObject.activeSelf == showQuest) view.body.gameObject.SetActive(!showQuest);
-        if (view.icon.gameObject.activeSelf == showQuest) view.icon.gameObject.SetActive(!showQuest);
+        if (view.frame.gameObject.activeSelf != showGeneric) view.frame.gameObject.SetActive(showGeneric);
+        if (view.body.gameObject.activeSelf != showGeneric) view.body.gameObject.SetActive(showGeneric);
+        if (view.icon.gameObject.activeSelf != showGeneric) view.icon.gameObject.SetActive(showGeneric);
 
-        if (!showQuest)
+        if (showGeneric)
         {
             if (view.icon.sprite != icon) view.icon.sprite = icon;
             view.icon.color = iconColor;
+        }
+
+        if (hasOwn)
+        {
+            if (view.insignia.gameObject.activeSelf != showInsignia) view.insignia.gameObject.SetActive(showInsignia);
+            if (view.visto.gameObject.activeSelf != showVisto) view.visto.gameObject.SetActive(showVisto);
+
+            if (showInsignia)
+            {
+                if (view.insignia.sprite != insigniaSprite) view.insignia.sprite = insigniaSprite;
+                if (view.insignia.color != insigniaColor) view.insignia.color = insigniaColor;
+            }
         }
 
         bool recommendedHere = state == PlaceState.Recommended;
@@ -306,12 +463,14 @@ public partial class WorldMapController
         // Lo que todavia no se ha descubierto no dibuja marcador ni candado. El nombre del lugar se mantiene visible, pero
         // sin interaccion (ni hover ni clic) hasta que el lugar este disponible.
         bool revealed = state != PlaceState.Locked;
-        bool visible = revealed || hint;
+        bool visible = revealed || hint || hasOwn;
         if (view.rect.gameObject.activeSelf != visible) view.rect.gameObject.SetActive(visible);
 
-        // Con solo la pista visible: sin medallon ni clic; unicamente el anillo tenue que respira.
+        // Con solo la pista visible: sin medallon ni clic; unicamente el anillo tenue que respira. Los lugares con icono
+        // propio muestran siempre su icono (apagado mientras estan bloqueados), pero sin clic ni hover.
         bool showHint = hint && !revealed && view.hint != null;
-        if (view.badge.gameObject.activeSelf != revealed) view.badge.gameObject.SetActive(revealed);
+        bool showBadge = revealed || hasOwn;
+        if (view.badge.gameObject.activeSelf != showBadge) view.badge.gameObject.SetActive(showBadge);
         if (view.button != null && view.button.targetGraphic != null && view.button.targetGraphic.raycastTarget != revealed)
             view.button.targetGraphic.raycastTarget = revealed;
 
@@ -396,8 +555,19 @@ public partial class WorldMapController
             float tagAlpha = revealed ? 1f : 0.72f;
             if (tagFade != null) tagFade.restAlpha = tagAlpha;
             Image tagBackground = view.locationTag.GetComponent<Image>();
-            Color tagFill = lit ? new Color(0.098f, 0.129f, 0.188f, 0.97f) : MapNavyCard;
-            if (tagBackground.color != tagFill) tagBackground.color = tagFill;
+
+            if (hudLabelFrame != null)
+            {
+                // Marco de sprite: el color queda en blanco y la iluminacion es un contorno dorado sutil.
+                if (tagBackground.color != Color.white) tagBackground.color = Color.white;
+                Outline tagGlow = view.locationTag.GetComponent<Outline>();
+                if (tagGlow != null && tagGlow.enabled != lit) tagGlow.enabled = lit;
+            }
+            else
+            {
+                Color tagFill = lit ? new Color(0.098f, 0.129f, 0.188f, 0.97f) : MapNavyCard;
+                if (tagBackground.color != tagFill) tagBackground.color = tagFill;
+            }
 
             TMP_Text tagText = view.locationTag.GetComponentInChildren<TMP_Text>();
             Color tagTextColor = lit ? MapGold : MapIvory;
@@ -414,7 +584,7 @@ public partial class WorldMapController
             return;
 
         if (font == null)
-            font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            font = GameFonts.Regular;
 
         Transform area = canvas.transform.Find("MapArea");
         Transform markers = area.Find("MarcadoresInteractivos");

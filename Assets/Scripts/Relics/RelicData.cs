@@ -10,6 +10,33 @@ public enum RelicRarity
     Epic
 }
 
+// Efecto de comportamiento de una reliquia (ver RelicEffects). None = solo modifica estadisticas.
+// Los valores nuevos se agregan siempre al final.
+public enum RelicEffect
+{
+    None,
+    AmuletoCorteza,
+    ColmilloLobo,
+    CampanaSocorro,
+    BotasMensajero,
+    RelojArenaRoto,
+    EspejoDolor,
+    SelloDesollador,
+    IdoloUltimoAliento,
+    PlumaHalcon,
+    CorazonCarbon,
+    InsigniaTrinchera,
+    FragmentoMascara,
+    AnilloSegundoIntento,
+    BrocheVigia,
+    EspinaJuramento,
+    DadoOcaso,
+    OjoAcechador,
+    VeloAscuas,
+    CadenaBastion,
+    RosarioAurora
+}
+
 // Estadisticas que una reliquia puede modificar (las que el sistema de combate ya maneja).
 public enum RelicStat
 {
@@ -46,6 +73,9 @@ public class RelicData : ScriptableObject
     public Sprite icon;
     public RelicRarity rarity;
 
+    [Tooltip("Efecto especial que se dispara en combate (None = solo estadisticas). Lo resuelve RelicEffects.")]
+    public RelicEffect effect = RelicEffect.None;
+
     public List<RelicModifier> bonuses = new List<RelicModifier>();
     public List<RelicModifier> penalties = new List<RelicModifier>();
 
@@ -61,6 +91,9 @@ public class RelicData : ScriptableObject
 
     [Tooltip("Reliquia unica: solo se puede poseer una (entre inventario y equipada). La tienda no vende otra copia.")]
     public bool uniqueOwnership = false;
+
+    [Tooltip("Reliquia con origen unico (p. ej. el Fragmento de la Mascara del evento La mascara rota): nunca sale de la tienda ni de las recompensas aleatorias.")]
+    public bool eventOnly = false;
 
     public bool IsExclusive => !string.IsNullOrEmpty(exclusiveHeroId);
 

@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: colmillo_lobo
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
   typeId: colmillo_lobo
-  displayName: Colmillo de Lobo
-  description: Un colmillo tallado que afila los golpes.
-  icon: {fileID: 845725232, guid: d2be15b2226fa5b4698c1cc1d6131ad3, type: 3}
+  displayName: Colmillo de Lobo Universal
+  description: "El primer ataque directo acertado de cada turno contra un enemigo con Sangrado, Veneno o Quemadura causa 2 puntos de da\xF1o adicionales."
+  icon: {fileID: 21300000, guid: 34983f7deec235c45a5d61ebc606396f, type: 3}
   rarity: 0
-  bonuses:
-  - stat: 1
-    amount: 1
-  penalties: []
+  effect: 2
+  bonuses: []
+  penalties:
+  - stat: 0
+    amount: 3
   exclusiveHeroId: 
   availableInShop: 1
-  shopPrice: 45
+  shopPrice: 50
   uniqueOwnership: 0
+  eventOnly: 0

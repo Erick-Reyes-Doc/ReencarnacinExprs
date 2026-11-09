@@ -7,7 +7,7 @@ using UnityEngine;
 public static class GameAudioSettings
 {
     // Volumen con el que arranca la musica del menu (el del AudioSource de Menu.unity).
-    public const float DefaultMusicVolume = 0.4f;
+    public const float DefaultMusicVolume = 0.35f;
 
     private static float musicVolume = DefaultMusicVolume;
 

@@ -13,13 +13,24 @@ MonoBehaviour:
   m_Name: RelicCatalog
   m_EditorClassIdentifier: Assembly-CSharp::RelicCatalog
   relics:
-  - {fileID: 11400000, guid: 778c4df6dff12c94d8275d6bc602ac3b, type: 2}
+  - {fileID: 11400000, guid: 47298fed69577fa49b8c7c4524392d44, type: 2}
   - {fileID: 11400000, guid: 23da6b6922da4aa409a097309e7e0935, type: 2}
-  - {fileID: 11400000, guid: 8843e737325d22c4ca53a4bb73c97af8, type: 2}
-  - {fileID: 11400000, guid: 4cbf977baa738654da6d0560c3b9d164, type: 2}
-  - {fileID: 11400000, guid: 9477505d4634800459ea2863965b90dd, type: 2}
-  - {fileID: 11400000, guid: 8e4284d2b545a0f4484accb4737b6e9e, type: 2}
-  - {fileID: 11400000, guid: 7d953842883bdfe42bf18c148ef2b0eb, type: 2}
-  - {fileID: 11400000, guid: 3dacb628d66b0fb4aa8491099f31fc48, type: 2}
-  - {fileID: 11400000, guid: 96b565e9071d8f8449a9fb592a28727f, type: 2}
+  - {fileID: 11400000, guid: 600d1729bea11aa438dc496dc3b133ee, type: 2}
+  - {fileID: 11400000, guid: cc96b04b019ada947af5dca73bcecb6c, type: 2}
+  - {fileID: 11400000, guid: 07955431868c60540bb7358c91e2f431, type: 2}
+  - {fileID: 11400000, guid: 4e8c3a3a35a5d9840b4362c434290fb0, type: 2}
+  - {fileID: 11400000, guid: 47c61729678322c4eb3e89a5d42dd64f, type: 2}
+  - {fileID: 11400000, guid: 455bf34c501bbbf4a9c9b5964bbb0b62, type: 2}
+  - {fileID: 11400000, guid: 36589c463ac14a8428cc685a9b748a90, type: 2}
+  - {fileID: 11400000, guid: 737c42872617e8f42960e56649059aaa, type: 2}
+  - {fileID: 11400000, guid: c787b93ea4dffc848b0b12fb20452c1f, type: 2}
+  - {fileID: 11400000, guid: dee756df9b2d2814ba75786322698b59, type: 2}
+  - {fileID: 11400000, guid: 59dfd83be69d1d040b56ecf1df0cb2c4, type: 2}
+  - {fileID: 11400000, guid: 23f5f704896fd764886d18760b2583ce, type: 2}
+  - {fileID: 11400000, guid: 66048d5b34da5474db179e569a1f6f8f, type: 2}
+  - {fileID: 11400000, guid: b55ad1fc75231b9418dee15470dad0c7, type: 2}
+  - {fileID: 11400000, guid: 5515aa1a487147146957028aa6fafe00, type: 2}
+  - {fileID: 11400000, guid: 715a178bd3a0ee145bb0bd909b62f08f, type: 2}
+  - {fileID: 11400000, guid: 4c1ae76b58b3a7246b4deaba02ea4dc7, type: 2}
+  - {fileID: 11400000, guid: e55feae19e9ac2446bec0a084342b9f8, type: 2}
   startWithTestSet: 0

@@ -59,6 +59,8 @@ public class PositionManager : MonoBehaviour
         if (unit == null || !unit.IsAlive)
             return;
 
+        UnitDeathEffect.Cancel(unit);   // si aun se estaba oscureciendo, detiene el efecto y restaura el color
+
         SpriteRenderer sprite = unit.GetComponent<SpriteRenderer>();
 
         if (sprite != null)
@@ -269,7 +271,9 @@ public class PositionManager : MonoBehaviour
     }
 
     // Reacomoda a los sobrevivientes hacia el frente.
-    public void ReorganizeTeam(TeamSide side)
+    // deferVisual = la logica (posiciones P1-P4) se reordena ya, pero el movimiento visual de los supervivientes
+    // espera (lo hace quien llama): asi no tapan al caido mientras se desvanece.
+    public void ReorganizeTeam(TeamSide side, bool deferVisual = false)
     {
         List<BattleUnit> team =
             side == TeamSide.Player
@@ -296,7 +300,8 @@ public class PositionManager : MonoBehaviour
         );
 
         // Actualizar la ubicacion visual.
-        UpdateVisualPositions();
+        if (!deferVisual)
+            UpdateVisualPositions();
     }
 
     
@@ -309,13 +314,13 @@ public void HandleDefeatedUnit(BattleUnit unit)
         unit.Data.unitName + " ha sido derrotado."
     );
 
-    // Ocultar al personaje derrotado.
+    // El personaje derrotado se oscurece, muestra un craneo y se desvanece (UnitDeathEffect); al terminar queda oculto.
     SpriteRenderer sprite =
         unit.GetComponent<SpriteRenderer>();
 
     if (sprite != null)
     {
-        sprite.enabled = false;
+        UnitDeathEffect.Play(unit, sprite);
     }
 
     // Recordar su lugar en la formacion completa (contando los huecos de
@@ -323,8 +328,20 @@ public void HandleDefeatedUnit(BattleUnit unit)
     defeatedAt[unit] = FullFormationSlot(unit);
 
     // Reorganizar al equipo correspondiente.
-    ReorganizeTeam(unit.Side);
+    // Los supervivientes se recolocan visualmente cuando termina la animacion del caido (si no, tapan su silueta).
+    ReorganizeTeam(unit.Side, true);
+
+    if (sprite != null && sprite.enabled && isActiveAndEnabled)
+        StartCoroutine(UpdateVisualsAfterDeath());
+    else
+        UpdateVisualPositions();
 }
+
+    private System.Collections.IEnumerator UpdateVisualsAfterDeath()
+    {
+        yield return new WaitForSeconds(UnitDeathEffect.TotalSeconds + 0.05f);
+        UpdateVisualPositions();
+    }
 
 
     // Un enemigo que huye desaparece del campo y de la formacion, sin mensaje de derrota (no es una baja).

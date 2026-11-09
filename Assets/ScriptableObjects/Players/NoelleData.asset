@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Noelle
   maxHealth: 28
-  damageMin: 4
-  damageMax: 7
+  damageMin: 2
+  damageMax: 4
   protectionPercent: 10
   evasionPercent: 5
   speed: 5

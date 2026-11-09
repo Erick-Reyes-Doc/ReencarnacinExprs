@@ -189,6 +189,7 @@ public partial class WorldMapController
         new NodeDef(GameSession.NoelleEventId, MapProgression.Forest, 0.442f, 0.515f),
         new NodeDef("B2", MapProgression.Forest, 0.485f, 0.62f),
         new NodeDef("B3", MapProgression.Forest, 0.585f, 0.40f),
+        new NodeDef(GameSession.ValdoriaEventId, MapProgression.Forest, 0.650f, 0.50f),
         new NodeDef("C1", MapProgression.Corruption, 0.715f, 0.62f),
         new NodeDef("C2", MapProgression.Corruption, 0.815f, 0.36f),
         new NodeDef(BossId, MapProgression.Corruption, 0.925f, 0.58f),
@@ -272,7 +273,7 @@ public partial class WorldMapController
 
         nodes.Clear(); links.Clear(); regions.Clear();
         infoAccent = null;
-        font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        font = GameFonts.Regular;
 
         GameObject canvasGo = new GameObject("WorldMapCanvas",
             typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));

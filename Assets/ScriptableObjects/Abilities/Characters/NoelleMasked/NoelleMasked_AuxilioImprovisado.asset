@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NoelleMasked_AuxilioImprovisado
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Auxilio Improvisado
-  description: "Asistencia f\xEDsica que cura entre 4 y 6 PV a un aliado."
+  description: "Asistencia f\xEDsica que cura el 25 % de la vida m\xE1xima de un aliado. Un cr\xEDtico cura el 40 %."
   abilityIcon: {fileID: 0}
   abilityType: 1
   useAnnouncement: 
@@ -29,9 +29,10 @@ MonoBehaviour:
   cooldown: 1
   regenerationPerTurn: 0
   regenerationDuration: 0
-  healPercentMaxHealth: 0
-  healMin: 4
-  healMax: 6
+  healPercentMaxHealth: 25
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 1.6
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1

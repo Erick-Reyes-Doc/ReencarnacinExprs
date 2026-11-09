@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: fragmento_mascara
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: fragmento_mascara
+  displayName: "Fragmento de la M\xE1scara"
+  description: "Cambia de efecto con su transformaci\xF3n. Antes de \xABLa m\xE1scara rota\xBB: Impacto Quebrantador obtiene +10 puntos de probabilidad de Aturdimiento (los jefes inmunes siguen inmunes). Despu\xE9s: la primera curaci\xF3n de cada turno tambi\xE9n concede al objetivo 10 % de Protecci\xF3n durante 1 turno."
+  icon: {fileID: 21300000, guid: ee0f350c2a356054381e251614f7a368, type: 3}
+  rarity: 3
+  effect: 12
+  bonuses: []
+  penalties:
+  - stat: 0
+    amount: 2
+  exclusiveHeroId: PlayerNoelle
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1
+  eventOnly: 1

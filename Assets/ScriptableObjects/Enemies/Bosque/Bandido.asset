@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bandido
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Bandido
-  maxHealth: 22
+  maxHealth: 26
   damageMin: 5
   damageMax: 7
   protectionPercent: 5

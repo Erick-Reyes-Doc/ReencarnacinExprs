@@ -178,14 +178,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: "OMITIR INTRODUCCI\xD3N"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291222760
   m_fontColor: {r: 0.9098039, g: 0.8627451, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -577,32 +577,32 @@ MonoBehaviour:
     text: y amenaza la voluntad de sus habitantes.
   - shot: 9
     start: 0.04
-    end: 1.86
+    end: 1.87
     speaker: NARRADOR
     text: "As\xED despertaron en Aethel."
   - shot: 9
-    start: 2.44
-    end: 5.12
+    start: 2.43
+    end: 5.09
     speaker: NARRADOR
     text: "Elaina hab\xEDa adquirido un cuerpo \xE9lfico."
   - shot: 9
-    start: 5.64
-    end: 10.88
+    start: 5.57
+    end: 10.59
     speaker: NARRADOR
-    text: "Evanora hab\xEDa perdido sus recuerdos y ocultaba su rostro tras una m\xE1scara."
+    text: "Noelle hab\xEDa perdido sus recuerdos y ocultaba su rostro tras una m\xE1scara."
   - shot: 9
-    start: 11.44
-    end: 14.54
+    start: 11.2
+    end: 14.16
     speaker: NARRADOR
-    text: "Noelle descubr\xEDa un mundo lleno de magia..."
+    text: "Evanora descubr\xEDa un mundo lleno de magia\u2026"
   - shot: 9
-    start: 15.12
-    end: 19.7
+    start: 14.69
+    end: 19.24
     speaker: NARRADOR
     text: "y Mart\xEDn, ahora llamado Valerian, solo deseaba descansar."
   - shot: 9
-    start: 20.22
-    end: 23.66
+    start: 19.74
+    end: 23.2
     speaker: NARRADOR
     text: "Convertirse en h\xE9roe era lo \xFAltimo que ten\xEDa en mente."
   - shot: 10
@@ -679,7 +679,7 @@ MonoBehaviour:
   openFade: 1.2
   endFade: 2
   skipFade: 0.8
-  nextScene: Map
+  nextScene: IntroDialogo
 --- !u!4 &143122385
 Transform:
   m_ObjectHideFlags: 0
@@ -1714,8 +1714,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "OMITIR INTRODUCCI\xD3N"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2844,8 +2844,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3030,8 +3030,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3050,7 +3050,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3260,14 +3260,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291222760
   m_fontColor: {r: 0.9098039, g: 0.8627451, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3280,7 +3280,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3416,7 +3416,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3505,8 +3505,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f2c331a2a6b2cd48bc365ebda91beda, type: 2}
-  m_sharedMaterial: {fileID: 447085995511228586, guid: 7f2c331a2a6b2cd48bc365ebda91beda, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
+  m_sharedMaterial: {fileID: -9106894548677028799, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3525,7 +3525,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3937,8 +3937,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: REANUDAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
-  m_sharedMaterial: {fileID: 7144781198753597475, guid: f9d8727a296f1e245aa4c87aa9de2410, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
+  m_sharedMaterial: {fileID: -1172270661432568464, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

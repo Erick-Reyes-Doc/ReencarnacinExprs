@@ -44,6 +44,7 @@ public class CombatSessionBinder : MonoBehaviour
         // La tienda no puede abrirse mientras esta escena de combate
         // este cargada.
         GameSession.SetInCombat(true);
+        RelicRewards.ClearLast();
 
         if (GameSession.HasPartySnapshot)
             RestoreParty();
@@ -85,12 +86,20 @@ public class CombatSessionBinder : MonoBehaviour
     // Victoria: ya se entrego la XP y se aplico la recuperacion.
     private void HandleBattleWon()
     {
+        // Estado del equipo ANTES de este combate (para mostrar niveles y barras de XP en la pantalla de victoria).
+        Dictionary<string, GameSession.PartyMemberState> before = new Dictionary<string, GameSession.PartyMemberState>();
+
+        foreach (BattleUnit unit in party)
+            if (unit != null && GameSession.TryGetMember(unit.gameObject.name, out GameSession.PartyMemberState old))
+                before[unit.gameObject.name] = old;
+
         GameSession.SavePartySnapshot(CaptureParty());
 
         if (encounterLoader == null || encounterLoader.Current == null)
             return;
 
         EncounterData encounter = encounterLoader.Current;
+        bool firstClear = !GameSession.IsEncounterCompleted(encounter.encounterId);
 
         // Las Coronas pertenecen al encuentro y se entregan solo la
         // primera vez que se supera (una sola vez por victoria; repetirlo
@@ -102,6 +111,9 @@ public class CombatSessionBinder : MonoBehaviour
                     "Recompensa: +" + encounter.coinReward +
                     " Coronas (total " + GameSession.Coins + ")."
                 );
+
+            // Reliquia aleatoria (solo la primera victoria de la mision; la pantalla de victoria la muestra).
+            RelicRewards.GrantForEncounter(encounter);
         }
         else
         {
@@ -109,10 +121,47 @@ public class CombatSessionBinder : MonoBehaviour
         }
 
         GameSession.MarkEncounterCompleted(encounter.encounterId);
+
+        // Resumen para la escena Victory (solo datos ya calculados; mostrarlo no entrega nada).
+        VictorySummary summary = new VictorySummary
+        {
+            encounter = encounter,
+            encounterId = encounter.encounterId,
+            firstClear = firstClear,
+            coins = firstClear ? encounter.coinReward : 0,
+            relic = firstClear ? RelicRewards.LastReward : null
+        };
+
+        foreach (BattleUnit unit in party)
+        {
+            CharacterProgression progression = unit != null ? unit.GetComponent<CharacterProgression>() : null;
+
+            if (progression == null)
+                continue;
+
+            before.TryGetValue(unit.gameObject.name, out GameSession.PartyMemberState old);
+            bool hasOld = before.ContainsKey(unit.gameObject.name);
+
+            summary.heroes.Add(new VictorySummary.HeroEntry
+            {
+                heroId = unit.gameObject.name,
+                levelBefore = hasOld ? old.level : progression.Level,
+                xpBefore = hasOld ? old.experience : progression.CurrentExperience,
+                levelAfter = progression.Level,
+                xpAfter = progression.CurrentExperience,
+                xpGained = turnManager != null ? turnManager.LastExperienceAwarded : 0,
+                maxLevel = progression.MaxLevel,
+                progression = progression.Data
+            });
+        }
+
+        VictorySummary.Set(summary);
     }
 
     private void HandlePartyDefeated()
     {
+        // La escena Defeat usa el fondo del encuentro perdido (solo se guarda, no cambia nada del juego).
+        DefeatSummary.Set(encounterLoader != null ? encounterLoader.Current : null);
         GameSession.MarkDefeated();
     }
 

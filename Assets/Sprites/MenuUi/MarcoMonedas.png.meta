@@ -1,0 +1,1068 @@
+fileFormatVersion: 2
+guid: 4ad55771d7e0b064d9a2ccbd6cc9ed7b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3176414341785403447
+    second: MarcoMonedas_0
+  - first:
+      213: 3309379537261745695
+    second: MarcoMonedas_1
+  - first:
+      213: -3449245621783817845
+    second: MarcoMonedas_2
+  - first:
+      213: 5248317546360230336
+    second: MarcoMonedas_3
+  - first:
+      213: 4327441711673572745
+    second: MarcoMonedas_4
+  - first:
+      213: -8163756201415489801
+    second: MarcoMonedas_5
+  - first:
+      213: 481743781257736366
+    second: MarcoMonedas_6
+  - first:
+      213: 640615992799462079
+    second: MarcoMonedas_7
+  - first:
+      213: -8218417144099569657
+    second: MarcoMonedas_8
+  - first:
+      213: 761560123324505234
+    second: MarcoMonedas_9
+  - first:
+      213: -8427310011912930499
+    second: MarcoMonedas_10
+  - first:
+      213: 4971159159036046602
+    second: MarcoMonedas_11
+  - first:
+      213: 4201911153898818865
+    second: MarcoMonedas_12
+  - first:
+      213: 1884028055120735086
+    second: MarcoMonedas_13
+  - first:
+      213: -7322418848303598662
+    second: MarcoMonedas_14
+  - first:
+      213: -3064657786603895563
+    second: MarcoMonedas_15
+  - first:
+      213: -6556825318020214020
+    second: MarcoMonedas_16
+  - first:
+      213: -5356678355149756777
+    second: MarcoMonedas_17
+  - first:
+      213: -1835039027317283182
+    second: MarcoMonedas_18
+  - first:
+      213: -8062385738270033520
+    second: MarcoMonedas_19
+  - first:
+      213: -3759290695845945258
+    second: MarcoMonedas_20
+  - first:
+      213: -7049785786494167367
+    second: MarcoMonedas_21
+  - first:
+      213: 6035191641024258779
+    second: MarcoMonedas_22
+  - first:
+      213: 5271126488248159036
+    second: MarcoMonedas_23
+  - first:
+      213: 6936343378500062073
+    second: MarcoMonedas_24
+  - first:
+      213: 7066776135343091686
+    second: MarcoMonedas_25
+  - first:
+      213: 4603456500935426252
+    second: MarcoMonedas_26
+  - first:
+      213: -1131978116983572358
+    second: MarcoMonedas_27
+  - first:
+      213: 6774479960753003763
+    second: MarcoMonedas_28
+  - first:
+      213: 7423423948609296690
+    second: MarcoMonedas_29
+  - first:
+      213: 3545860002839463150
+    second: MarcoMonedas_30
+  - first:
+      213: -7545738446517825140
+    second: MarcoMonedas_31
+  - first:
+      213: -2524891251261789371
+    second: MarcoMonedas_32
+  - first:
+      213: -8345398699028696960
+    second: MarcoMonedas_33
+  - first:
+      213: 2793631292238096569
+    second: MarcoMonedas_34
+  - first:
+      213: -309171331081310834
+    second: MarcoMonedas_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 235, y: 0, z: 235, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MarcoMonedas_0
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 2137
+        height: 706
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7304395b304e41c20800000000000000
+      internalID: 3176414341785403447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_1
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 683
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16de61c7274ded20800000000000000
+      internalID: 3309379537261745695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_2
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 689
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b811182c161d120d0800000000000000
+      internalID: -3449245621783817845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_3
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 681
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c1504b6005c5d840800000000000000
+      internalID: 5248317546360230336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_4
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 681
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98df28a1f492e0c30800000000000000
+      internalID: 4327441711673572745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_5
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 683
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6ccbdfcf284be80800000000000000
+      internalID: -8163756201415489801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_6
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 682
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea0fe9aaa6f7fa600800000000000000
+      internalID: 481743781257736366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_7
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 687
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb20f30f9dce3e800800000000000000
+      internalID: 640615992799462079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_8
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 659
+        width: 25
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70007f5862152fd80800000000000000
+      internalID: -8218417144099569657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_9
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 673
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29c1cd1b5ea919a00800000000000000
+      internalID: 761560123324505234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_10
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 681
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b36d7a13e2c0b80800000000000000
+      internalID: -8427310011912930499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_11
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 667
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0de544baea1df440800000000000000
+      internalID: 4971159159036046602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_12
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 665
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13d04e98eef205a30800000000000000
+      internalID: 4201911153898818865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_13
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 659
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b675cb889652a10800000000000000
+      internalID: 1884028055120735086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_14
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 659
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab33d327ada816a90800000000000000
+      internalID: -7322418848303598662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_15
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 659
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f40757faf52875d0800000000000000
+      internalID: -3064657786603895563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_16
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 661
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf21e11ec1a7105a0800000000000000
+      internalID: -6556825318020214020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_17
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 657
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7966649ba6149a5b0800000000000000
+      internalID: -5356678355149756777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_18
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 661
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29666c32ab1a886e0800000000000000
+      internalID: -1835039027317283182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_19
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 661
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0993d3c23e6ac1090800000000000000
+      internalID: -8062385738270033520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_20
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 663
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650ebaa970154dbc0800000000000000
+      internalID: -3759290695845945258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_21
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 659
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b6da65bd212a2e90800000000000000
+      internalID: -7049785786494167367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_22
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 644
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd268aa52de41c350800000000000000
+      internalID: 6035191641024258779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_23
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 623
+        width: 40
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3b0f2a0d9dc62940800000000000000
+      internalID: 5271126488248159036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_24
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 634
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97b01ab6d87d24060800000000000000
+      internalID: 6936343378500062073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_25
+      rect:
+        serializedVersion: 2
+        x: 2011
+        y: 628
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ef2556247b321260800000000000000
+      internalID: 7066776135343091686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_26
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 601
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc008352c43c2ef30800000000000000
+      internalID: 4603456500935426252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_27
+      rect:
+        serializedVersion: 2
+        x: 2075
+        y: 578
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a78bdab66e76a40f0800000000000000
+      internalID: -1131978116983572358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 449
+        width: 82
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc5faea1a9c30e50800000000000000
+      internalID: 6774479960753003763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_29
+      rect:
+        serializedVersion: 2
+        x: 2085
+        y: 447
+        width: 70
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2391cf110cc450760800000000000000
+      internalID: 7423423948609296690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 371
+        width: 5
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee40384c2ec653130800000000000000
+      internalID: 3545860002839463150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_31
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 184
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c811c47acd6284790800000000000000
+      internalID: -7545738446517825140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_32
+      rect:
+        serializedVersion: 2
+        x: 2097
+        y: 194
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54bac00d8c8c5fcd0800000000000000
+      internalID: -2524891251261789371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_33
+      rect:
+        serializedVersion: 2
+        x: 2057
+        y: 103
+        width: 46
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 080336b59103f2c80800000000000000
+      internalID: -8345398699028696960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_34
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 67
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b86447ebd8f4c620800000000000000
+      internalID: 2793631292238096569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MarcoMonedas_35
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 73
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8de92cff4a95bbf0800000000000000
+      internalID: -309171331081310834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MarcoMonedas_0: 3176414341785403447
+      MarcoMonedas_1: 3309379537261745695
+      MarcoMonedas_10: -8427310011912930499
+      MarcoMonedas_11: 4971159159036046602
+      MarcoMonedas_12: 4201911153898818865
+      MarcoMonedas_13: 1884028055120735086
+      MarcoMonedas_14: -7322418848303598662
+      MarcoMonedas_15: -3064657786603895563
+      MarcoMonedas_16: -6556825318020214020
+      MarcoMonedas_17: -5356678355149756777
+      MarcoMonedas_18: -1835039027317283182
+      MarcoMonedas_19: -8062385738270033520
+      MarcoMonedas_2: -3449245621783817845
+      MarcoMonedas_20: -3759290695845945258
+      MarcoMonedas_21: -7049785786494167367
+      MarcoMonedas_22: 6035191641024258779
+      MarcoMonedas_23: 5271126488248159036
+      MarcoMonedas_24: 6936343378500062073
+      MarcoMonedas_25: 7066776135343091686
+      MarcoMonedas_26: 4603456500935426252
+      MarcoMonedas_27: -1131978116983572358
+      MarcoMonedas_28: 6774479960753003763
+      MarcoMonedas_29: 7423423948609296690
+      MarcoMonedas_3: 5248317546360230336
+      MarcoMonedas_30: 3545860002839463150
+      MarcoMonedas_31: -7545738446517825140
+      MarcoMonedas_32: -2524891251261789371
+      MarcoMonedas_33: -8345398699028696960
+      MarcoMonedas_34: 2793631292238096569
+      MarcoMonedas_35: -309171331081310834
+      MarcoMonedas_4: 4327441711673572745
+      MarcoMonedas_5: -8163756201415489801
+      MarcoMonedas_6: 481743781257736366
+      MarcoMonedas_7: 640615992799462079
+      MarcoMonedas_8: -8218417144099569657
+      MarcoMonedas_9: 761560123324505234
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

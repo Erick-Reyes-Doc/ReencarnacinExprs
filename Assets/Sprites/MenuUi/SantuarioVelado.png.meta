@@ -1,0 +1,1380 @@
+fileFormatVersion: 2
+guid: 6074dfc2497b4944c988d1eb36f7a9bc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8272708947015737168
+    second: SantuarioVelado_0
+  - first:
+      213: 258177243095979421
+    second: SantuarioVelado_1
+  - first:
+      213: -6421965883148476837
+    second: SantuarioVelado_2
+  - first:
+      213: -6535075201612816026
+    second: SantuarioVelado_3
+  - first:
+      213: -4866696550062086
+    second: SantuarioVelado_4
+  - first:
+      213: 3639307633877829971
+    second: SantuarioVelado_5
+  - first:
+      213: 2226595549934385609
+    second: SantuarioVelado_6
+  - first:
+      213: -375998012872968762
+    second: SantuarioVelado_7
+  - first:
+      213: 8129820947494275115
+    second: SantuarioVelado_8
+  - first:
+      213: 2663929005027607283
+    second: SantuarioVelado_9
+  - first:
+      213: -38391861042766109
+    second: SantuarioVelado_10
+  - first:
+      213: 2942090942385166148
+    second: SantuarioVelado_11
+  - first:
+      213: -6522567545449693302
+    second: SantuarioVelado_12
+  - first:
+      213: 5971097374513721150
+    second: SantuarioVelado_13
+  - first:
+      213: 4766805973078899406
+    second: SantuarioVelado_14
+  - first:
+      213: 777737564845441161
+    second: SantuarioVelado_15
+  - first:
+      213: 4994359557094867691
+    second: SantuarioVelado_16
+  - first:
+      213: -3226240038304785593
+    second: SantuarioVelado_17
+  - first:
+      213: -6474387596795026801
+    second: SantuarioVelado_18
+  - first:
+      213: 3793652831886690345
+    second: SantuarioVelado_19
+  - first:
+      213: 7314084971887668409
+    second: SantuarioVelado_20
+  - first:
+      213: 4405319288191211550
+    second: SantuarioVelado_21
+  - first:
+      213: -6797261122671694162
+    second: SantuarioVelado_22
+  - first:
+      213: -5112804498583317821
+    second: SantuarioVelado_23
+  - first:
+      213: 3727085857067189388
+    second: SantuarioVelado_24
+  - first:
+      213: 4368216352887770760
+    second: SantuarioVelado_25
+  - first:
+      213: 7225898284028055608
+    second: SantuarioVelado_26
+  - first:
+      213: -3837969585586795015
+    second: SantuarioVelado_27
+  - first:
+      213: -2489966783348659450
+    second: SantuarioVelado_28
+  - first:
+      213: -701334328265272917
+    second: SantuarioVelado_29
+  - first:
+      213: -7595449456354450634
+    second: SantuarioVelado_30
+  - first:
+      213: 3586747742949493797
+    second: SantuarioVelado_31
+  - first:
+      213: 4184762511841320787
+    second: SantuarioVelado_32
+  - first:
+      213: -5227666257026891895
+    second: SantuarioVelado_33
+  - first:
+      213: 9212256402397644166
+    second: SantuarioVelado_34
+  - first:
+      213: -7903519238557199227
+    second: SantuarioVelado_35
+  - first:
+      213: -8665382597866793729
+    second: SantuarioVelado_36
+  - first:
+      213: 5131734877667980321
+    second: SantuarioVelado_37
+  - first:
+      213: -6367518721369463835
+    second: SantuarioVelado_38
+  - first:
+      213: -149667742230743944
+    second: SantuarioVelado_39
+  - first:
+      213: -7925275304557649582
+    second: SantuarioVelado_40
+  - first:
+      213: -7442769882690421063
+    second: SantuarioVelado_41
+  - first:
+      213: 3937645538342945907
+    second: SantuarioVelado_42
+  - first:
+      213: -1258151088648589651
+    second: SantuarioVelado_43
+  - first:
+      213: -7823315540425238365
+    second: SantuarioVelado_44
+  - first:
+      213: -4484292529492786453
+    second: SantuarioVelado_45
+  - first:
+      213: 5363472788696863072
+    second: SantuarioVelado_46
+  - first:
+      213: -4696035738468869809
+    second: SantuarioVelado_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SantuarioVelado_0
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1002
+        width: 100
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f9115e4f09ec270800000000000000
+      internalID: 8272708947015737168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_1
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 1108
+        width: 55
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9553dfa5da359300800000000000000
+      internalID: 258177243095979421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_2
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1084
+        width: 134
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ed147ed0890e6a0800000000000000
+      internalID: -6421965883148476837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_3
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 1044
+        width: 172
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 661676b7abfbe45a0800000000000000
+      internalID: -6535075201612816026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_4
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 1072
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af767e8e3c5beeff0800000000000000
+      internalID: -4866696550062086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_5
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 1044
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 359c7a9d20b618230800000000000000
+      internalID: 3639307633877829971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_6
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 1046
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c9fd4c0bd476ee10800000000000000
+      internalID: 2226595549934385609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_7
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1033
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c53476accf28caf0800000000000000
+      internalID: -375998012872968762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_8
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 1032
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b280deef31de2d070800000000000000
+      internalID: 8129820947494275115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_9
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 1016
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f2c783e05d28f420800000000000000
+      internalID: 2663929005027607283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 1217
+        height: 1020
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ee97484eca977ff0800000000000000
+      internalID: -38391861042766109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_11
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 1019
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44713cdcf1864d820800000000000000
+      internalID: 2942090942385166148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_12
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 1010
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8fbafd106f2b75a0800000000000000
+      internalID: -6522567545449693302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_13
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 1014
+        width: 9
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f68270d699dd250800000000000000
+      internalID: 5971097374513721150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_14
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 996
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecaf392e6c8172240800000000000000
+      internalID: 4766805973078899406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_15
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 1004
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9800711d1341bca00800000000000000
+      internalID: 777737564845441161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_16
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 659
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be287315e878f4540800000000000000
+      internalID: 4994359557094867691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_17
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 738
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b53bc47c71a33d0800000000000000
+      internalID: -3226240038304785593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_18
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 779
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8266d298ca5626a0800000000000000
+      internalID: -6474387596795026801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_19
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 915
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 928c2c5a623c5a430800000000000000
+      internalID: 3793652831886690345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_20
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 879
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bc236eb789d08560800000000000000
+      internalID: 7314084971887668409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_21
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 650
+        width: 232
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1850de5d86d22d30800000000000000
+      internalID: 4405319288191211550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_22
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 777
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaea499b5074ba1a0800000000000000
+      internalID: -6797261122671694162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_23
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 640
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c21ce7b56bab09b0800000000000000
+      internalID: -5112804498583317821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_24
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 736
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c844fdd07d449b330800000000000000
+      internalID: 3727085857067189388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_25
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 729
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88e8def01a50f9c30800000000000000
+      internalID: 4368216352887770760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_26
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 505
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830d892743c874460800000000000000
+      internalID: 7225898284028055608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_27
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 530
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd88501ffaccbac0800000000000000
+      internalID: -3837969585586795015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_28
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 525
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60b2bf7276cd17dd0800000000000000
+      internalID: -2489966783348659450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_29
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 461
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba116fee42c5446f0800000000000000
+      internalID: -701334328265272917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_30
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 522
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6332f8c36fa879690800000000000000
+      internalID: -7595449456354450634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_31
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 517
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52c407d9110b6c130800000000000000
+      internalID: 3586747742949493797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_32
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 513
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f5cab2553431a30800000000000000
+      internalID: 4184762511841320787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_33
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 453
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98fbd919c399377b0800000000000000
+      internalID: -5227666257026891895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_34
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 473
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 685cabca36288df70800000000000000
+      internalID: 9212256402397644166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_35
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 427
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 584155e802f015290800000000000000
+      internalID: -7903519238557199227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_36
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 361
+        width: 81
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff45c4b30706eb780800000000000000
+      internalID: -8665382597866793729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_37
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 441
+        width: 146
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 124f1e0aea5973740800000000000000
+      internalID: 5131734877667980321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_38
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 487
+        width: 45
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e3af10a57702a7a0800000000000000
+      internalID: -6367518721369463835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_39
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 425
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874700e3bf54cedf0800000000000000
+      internalID: -149667742230743944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_40
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 389
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2516aa4b914c30290800000000000000
+      internalID: -7925275304557649582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_41
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 320
+        width: 33
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bef245a938f5b890800000000000000
+      internalID: -7442769882690421063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_42
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 304
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 374455c21c355a630800000000000000
+      internalID: 3937645538342945907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_43
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 224
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dae645730462a8ee0800000000000000
+      internalID: -1258151088648589651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_44
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 230
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a8192737fffd6390800000000000000
+      internalID: -7823315540425238365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_45
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 196
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be205a604b794c1c0800000000000000
+      internalID: -4484292529492786453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_46
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 188
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06110cc9512ee6a40800000000000000
+      internalID: 5363472788696863072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SantuarioVelado_47
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 109
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f491604606454deb0800000000000000
+      internalID: -4696035738468869809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SantuarioVelado_0: 8272708947015737168
+      SantuarioVelado_1: 258177243095979421
+      SantuarioVelado_10: -38391861042766109
+      SantuarioVelado_11: 2942090942385166148
+      SantuarioVelado_12: -6522567545449693302
+      SantuarioVelado_13: 5971097374513721150
+      SantuarioVelado_14: 4766805973078899406
+      SantuarioVelado_15: 777737564845441161
+      SantuarioVelado_16: 4994359557094867691
+      SantuarioVelado_17: -3226240038304785593
+      SantuarioVelado_18: -6474387596795026801
+      SantuarioVelado_19: 3793652831886690345
+      SantuarioVelado_2: -6421965883148476837
+      SantuarioVelado_20: 7314084971887668409
+      SantuarioVelado_21: 4405319288191211550
+      SantuarioVelado_22: -6797261122671694162
+      SantuarioVelado_23: -5112804498583317821
+      SantuarioVelado_24: 3727085857067189388
+      SantuarioVelado_25: 4368216352887770760
+      SantuarioVelado_26: 7225898284028055608
+      SantuarioVelado_27: -3837969585586795015
+      SantuarioVelado_28: -2489966783348659450
+      SantuarioVelado_29: -701334328265272917
+      SantuarioVelado_3: -6535075201612816026
+      SantuarioVelado_30: -7595449456354450634
+      SantuarioVelado_31: 3586747742949493797
+      SantuarioVelado_32: 4184762511841320787
+      SantuarioVelado_33: -5227666257026891895
+      SantuarioVelado_34: 9212256402397644166
+      SantuarioVelado_35: -7903519238557199227
+      SantuarioVelado_36: -8665382597866793729
+      SantuarioVelado_37: 5131734877667980321
+      SantuarioVelado_38: -6367518721369463835
+      SantuarioVelado_39: -149667742230743944
+      SantuarioVelado_4: -4866696550062086
+      SantuarioVelado_40: -7925275304557649582
+      SantuarioVelado_41: -7442769882690421063
+      SantuarioVelado_42: 3937645538342945907
+      SantuarioVelado_43: -1258151088648589651
+      SantuarioVelado_44: -7823315540425238365
+      SantuarioVelado_45: -4484292529492786453
+      SantuarioVelado_46: 5363472788696863072
+      SantuarioVelado_47: -4696035738468869809
+      SantuarioVelado_5: 3639307633877829971
+      SantuarioVelado_6: 2226595549934385609
+      SantuarioVelado_7: -375998012872968762
+      SantuarioVelado_8: 8129820947494275115
+      SantuarioVelado_9: 2663929005027607283
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

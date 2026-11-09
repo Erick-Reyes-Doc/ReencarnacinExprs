@@ -20,6 +20,8 @@ public class CombatIntroTransition : MonoBehaviour
 
     [Header("Tiempos (segundos)")]
     [SerializeField] private float duration = 2f;
+    [Tooltip("Segundos extra que las espadas se quedan cruzadas tras el impacto, antes de retirarse y revelar el combate.")]
+    [SerializeField, Min(0f)] private float crossHoldSeconds = 1.5f;
 
     [Header("Aspecto")]
     [Tooltip("Ancho en pixeles (lienzo 1920x1080) de cada espada.")]
@@ -94,11 +96,18 @@ public class CombatIntroTransition : MonoBehaviour
         float elapsed = 0f;
         float total = Mathf.Max(duration, 0.5f);
         float k = total / 1.5f;   // si se cambia la duracion, todo se escala proporcionalmente
+        float hold = Mathf.Max(0f, crossHoldSeconds);
+        const float holdAt = 0.82f;   // momento (de la linea de tiempo) en que las espadas ya estan cruzadas y termino el destello
+        float holdStart = holdAt * k;
 
-        while (elapsed < total)
+        while (elapsed < total + hold)
         {
             elapsed += Time.unscaledDeltaTime;
-            float t = elapsed / k;
+
+            // Pausa con las espadas cruzadas: la linea de tiempo se detiene en el cruce y despues continua.
+            float t = elapsed < holdStart ? elapsed / k
+                    : elapsed < holdStart + hold ? holdAt
+                    : (elapsed - hold) / k;
 
             SetAlpha(veil, Mathf.Lerp(0f, veilOpacity, Smooth(t / 0.25f)) * (1f - Smooth((t - 0.90f) / 0.60f)));
 
@@ -110,8 +119,11 @@ public class CombatIntroTransition : MonoBehaviour
             Place(swordA, imageA, -1f, Mathf.Lerp(-offX, 0f, inA) + Mathf.Lerp(0f, -offX * 0.6f, outAll), crossCenterY, Mathf.Lerp(-25f, 0f, inA), scale, inA, outAll);
             Place(swordB, imageB, 1f, Mathf.Lerp(offX, 0f, inB) + Mathf.Lerp(0f, offX * 0.6f, outAll), crossCenterY, Mathf.Lerp(25f, 0f, inB), scale, inB, outAll);
 
-            // Golpe en el cruce: las dos espadas dan un pequeno rebote de escala.
+            // Golpe en el cruce: las dos espadas dan un pequeno rebote de escala (y durante la pausa respiran apenas).
             float punch = 1f + 0.05f * Mathf.Sin(Mathf.Clamp01((t - 0.62f) / 0.20f) * Mathf.PI);
+
+            if (elapsed >= holdStart && elapsed < holdStart + hold)
+                punch += 0.012f * Mathf.Sin((elapsed - holdStart) * 3.2f);
             swordA.localScale = Vector3.Scale(swordA.localScale, new Vector3(punch, punch, 1f));
             swordB.localScale = Vector3.Scale(swordB.localScale, new Vector3(punch, punch, 1f));
 

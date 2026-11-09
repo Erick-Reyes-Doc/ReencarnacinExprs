@@ -1,0 +1,626 @@
+fileFormatVersion: 2
+guid: 6048933043e50e24a858ced22851427f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8796737863211082974
+    second: AltarInvocados_0
+  - first:
+      213: 7823577557205095560
+    second: AltarInvocados_1
+  - first:
+      213: -3770882498641521468
+    second: AltarInvocados_2
+  - first:
+      213: -5721772762646220765
+    second: AltarInvocados_3
+  - first:
+      213: -2069829191952132747
+    second: AltarInvocados_4
+  - first:
+      213: 1166667195382483687
+    second: AltarInvocados_5
+  - first:
+      213: -5803170112366783035
+    second: AltarInvocados_6
+  - first:
+      213: -2191903138142537549
+    second: AltarInvocados_7
+  - first:
+      213: 4444150548156662061
+    second: AltarInvocados_8
+  - first:
+      213: 2304891334469334368
+    second: AltarInvocados_9
+  - first:
+      213: -6719452667134053201
+    second: AltarInvocados_10
+  - first:
+      213: 8320642727783379255
+    second: AltarInvocados_11
+  - first:
+      213: 8929763405518690927
+    second: AltarInvocados_12
+  - first:
+      213: -6776429626451987119
+    second: AltarInvocados_13
+  - first:
+      213: 6254881311740359849
+    second: AltarInvocados_14
+  - first:
+      213: 2068702382030518396
+    second: AltarInvocados_15
+  - first:
+      213: 6595124506845344781
+    second: AltarInvocados_16
+  - first:
+      213: 5435057349953112856
+    second: AltarInvocados_17
+  - first:
+      213: -1081162116658894661
+    second: AltarInvocados_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AltarInvocados_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 267
+        width: 1500
+        height: 1007
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b13114585bbe580800000000000000
+      internalID: -8796737863211082974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_1
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 1265
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8849de1565ee29c60800000000000000
+      internalID: 7823577557205095560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_2
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 1261
+        width: 105
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c41cb2b8522babc0800000000000000
+      internalID: -3770882498641521468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_3
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 1243
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32077f4dcfd2890b0800000000000000
+      internalID: -5721772762646220765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_4
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1250
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57595fbf05d7643e0800000000000000
+      internalID: -2069829191952132747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_5
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 1200
+        width: 43
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eacfd702a5d03010800000000000000
+      internalID: 1166667195382483687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_6
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 1225
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c5d631878ff67fa0800000000000000
+      internalID: -5803170112366783035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_7
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 1213
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b833f485bbc491e0800000000000000
+      internalID: -2191903138142537549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_8
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 798
+        width: 6
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d214c3f906bccad30800000000000000
+      internalID: 4444150548156662061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_9
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 425
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 065bbe4f47e9cff10800000000000000
+      internalID: 2304891334469334368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_10
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 383
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa47c628665bfb2a0800000000000000
+      internalID: -6719452667134053201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_11
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 351
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 731377ce97cd87370800000000000000
+      internalID: 8320642727783379255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_12
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 315
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a59326184eceb70800000000000000
+      internalID: 8929763405518690927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_13
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 343
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15575e5682945f1a0800000000000000
+      internalID: -6776429626451987119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_14
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 345
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a4738ac96dcdc650800000000000000
+      internalID: 6254881311740359849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_15
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 341
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c78fee22bd185bc10800000000000000
+      internalID: 2068702382030518396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_16
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 302
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d047df7ebc6968b50800000000000000
+      internalID: 6595124506845344781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_17
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 275
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81bc4d51dd33d6b40800000000000000
+      internalID: 5435057349953112856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltarInvocados_18
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 291
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8efeb78c0fef0f0800000000000000
+      internalID: -1081162116658894661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      AltarInvocados_0: -8796737863211082974
+      AltarInvocados_1: 7823577557205095560
+      AltarInvocados_10: -6719452667134053201
+      AltarInvocados_11: 8320642727783379255
+      AltarInvocados_12: 8929763405518690927
+      AltarInvocados_13: -6776429626451987119
+      AltarInvocados_14: 6254881311740359849
+      AltarInvocados_15: 2068702382030518396
+      AltarInvocados_16: 6595124506845344781
+      AltarInvocados_17: 5435057349953112856
+      AltarInvocados_18: -1081162116658894661
+      AltarInvocados_2: -3770882498641521468
+      AltarInvocados_3: -5721772762646220765
+      AltarInvocados_4: -2069829191952132747
+      AltarInvocados_5: 1166667195382483687
+      AltarInvocados_6: -5803170112366783035
+      AltarInvocados_7: -2191903138142537549
+      AltarInvocados_8: 4444150548156662061
+      AltarInvocados_9: 2304891334469334368
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

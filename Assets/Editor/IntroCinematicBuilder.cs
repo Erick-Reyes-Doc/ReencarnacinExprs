@@ -78,13 +78,13 @@ public static class IntroCinematicBuilder
         new SubtitleLine(8, 2.28f, 6.41f, "Un mundo donde las fuerzas del Rey Demonio avanzan sin descanso."),
         new SubtitleLine(8, 7.02f, 9.16f, "La corrupción consume sus tierras"),
         new SubtitleLine(8, 9.43f, 12.12f, "y amenaza la voluntad de sus habitantes."),
-        // 9 Nuevo amanecer
-        new SubtitleLine(9, 0.04f, 1.86f, "Así despertaron en Aethel."),
-        new SubtitleLine(9, 2.44f, 5.12f, "Elaina había adquirido un cuerpo élfico."),
-        new SubtitleLine(9, 5.64f, 10.88f, "Evanora había perdido sus recuerdos y ocultaba su rostro tras una máscara."),
-        new SubtitleLine(9, 11.44f, 14.54f, "Noelle descubría un mundo lleno de magia..."),
-        new SubtitleLine(9, 15.12f, 19.70f, "y Martín, ahora llamado Valerian, solo deseaba descansar."),
-        new SubtitleLine(9, 20.22f, 23.66f, "Convertirse en héroe era lo último que tenía en mente."),
+        // 9 Nuevo amanecer (audio VO_09 regrabado: Noelle pierde la memoria y Evanora descubre la magia)
+        new SubtitleLine(9, 0.04f, 1.87f, "Así despertaron en Aethel."),
+        new SubtitleLine(9, 2.43f, 5.09f, "Elaina había adquirido un cuerpo élfico."),
+        new SubtitleLine(9, 5.57f, 10.59f, "Noelle había perdido sus recuerdos y ocultaba su rostro tras una máscara."),
+        new SubtitleLine(9, 11.20f, 14.16f, "Evanora descubría un mundo lleno de magia…"),
+        new SubtitleLine(9, 14.69f, 19.24f, "y Martín, ahora llamado Valerian, solo deseaba descansar."),
+        new SubtitleLine(9, 19.74f, 23.20f, "Convertirse en héroe era lo último que tenía en mente."),
         // 10 Primera mision
         new SubtitleLine(10, 0.06f, 3.02f, "Las Llanuras Centrales están siendo devastadas."),
         new SubtitleLine(10, 3.52f, 7.12f, "Si caen, la corrupción continuará extendiéndose."),
@@ -136,8 +136,8 @@ public static class IntroCinematicBuilder
                 cameraObject.AddComponent<AudioListener>();
         }
 
-        TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Georgia_OS_SDF.asset");
-        TMP_FontAsset bold = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/GeorgiaBold_OS_SDF.asset");
+        TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherRegular_SDF.asset");
+        TMP_FontAsset bold = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/MerriweatherBold_SDF.asset");
 
         GameObject managerObject = new GameObject("IntroManager");
         IntroCinematicController controller = managerObject.AddComponent<IntroCinematicController>();

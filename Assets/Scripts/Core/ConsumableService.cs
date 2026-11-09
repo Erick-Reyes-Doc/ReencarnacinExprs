@@ -175,10 +175,13 @@ public static class ConsumableService
 
     // Usa el objeto sobre una unidad. Solo consume el objeto si el uso es
     // valido; el llamador consume la accion del turno si devuelve true.
+    // 'user' (opcional) es quien usa el objeto en combate: lo necesitan las reliquias (Campana del Socorro, Botas del
+    // Mensajero, Fragmento de la Mascara).
     public static bool TryUse(
         GameSession.Consumable type,
         BattleUnit target,
-        out string message
+        out string message,
+        BattleUnit user = null
     )
     {
         if (!CanUse(type, target, out message))
@@ -193,7 +196,10 @@ public static class ConsumableService
         if (type == GameSession.Consumable.Potion)
         {
             int before = target.CurrentHealth;
-            target.Heal(PotionHealAmount(target.MaxHealth));
+            int relicBonus = RelicEffects.HealBonus(user, target);
+            target.Heal(PotionHealAmount(target.MaxHealth) + relicBonus);
+            RelicEffects.OnHealApplied(user, target);
+            RelicEffects.OnConsumableUsed(user);
 
             message = target.Data.unitName + " usa " + Name(type) +
                       " y recupera " + (target.CurrentHealth - before) +
@@ -210,6 +216,8 @@ public static class ConsumableService
             if (IsCurable(effect.Type))
                 effects.RemoveEffect(effect.Type);
         }
+
+        RelicEffects.OnConsumableUsed(user);
 
         message = target.Data.unitName + " usa " + Name(type) +
                   " y se cura de sangrado, veneno y quemadura.";
