@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b2e47a05a8d284a922ccff33cfdbc2, type: 3}
+  m_Name: CapitanExpedicionario_Arquetipo
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyArchetypeData
+  archetypeName: "Capit\xE1n de las Fuerzas Expedicionarias"
+  zone: 3
+  unitData: {fileID: 11400000, guid: 39143b48d6eb8da47a94327dec735434, type: 2}
+  basicAttack: {fileID: 11400000, guid: d95c4d0ef1c8c5f42870e4c30d5e91a6, type: 2}
+  specialAbilities:
+  - {fileID: 11400000, guid: c7b0be177528ee84dbc64b2b616d8a46, type: 2}
+  - {fileID: 11400000, guid: f417c1395124e994eae673d46cf7d3a1, type: 2}
+  - {fileID: 11400000, guid: d3ef10fe65ff7a24381932003927e142, type: 2}
+  - {fileID: 11400000, guid: 427711939de71d543918b3ba60514649, type: 2}
+  - {fileID: 11400000, guid: 9e61ea711d79d724c822757f41fec334, type: 2}
+  - {fileID: 11400000, guid: f5aa3f5f9a8a76544898f3fdc6703969, type: 2}
+  aiStyle: 2
+  behaviors: 0
+  actionDelay: 0.6

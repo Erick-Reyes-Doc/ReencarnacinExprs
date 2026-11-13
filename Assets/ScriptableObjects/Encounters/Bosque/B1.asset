@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845ced885d8acae4082ba82d78cf5460, type: 3}
+  m_Name: B1
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterData
+  encounterId: B1
+  displayName: "Bosque 1: Tres lobos y cham\xE1n"
+  zone: 1
+  mandatory: 1
+  background: {fileID: -8818737071433974374, guid: 201333f184e53414990f172909876141, type: 3}
+  enemies:
+  - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
+    position: 1
+  - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
+    position: 2
+  - prefab: {fileID: 6474201098144825437, guid: 147479c210fdda84abdaddcf6e4dc87a, type: 3}
+    position: 3
+  - prefab: {fileID: 42092059375376226, guid: 71e3503e088baa84d8abb3927f5ab4ef, type: 3}
+    position: 4
+  minionsFleeWhenBossFalls: 0
+  bossFallsMessage: 
+  experienceReward: 100
+  coinReward: 40

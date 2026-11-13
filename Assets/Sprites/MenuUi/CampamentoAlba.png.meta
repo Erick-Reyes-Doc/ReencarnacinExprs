@@ -1,0 +1,704 @@
+fileFormatVersion: 2
+guid: 86e4765a326fa7449b9792addf90ae8a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3748908409043495201
+    second: CampamentoAlba_0
+  - first:
+      213: -5625384078238914154
+    second: CampamentoAlba_1
+  - first:
+      213: -7733924054955438387
+    second: CampamentoAlba_2
+  - first:
+      213: -4750194426950319324
+    second: CampamentoAlba_3
+  - first:
+      213: -269653069559360757
+    second: CampamentoAlba_4
+  - first:
+      213: -2809959536676036413
+    second: CampamentoAlba_5
+  - first:
+      213: -722306428423119632
+    second: CampamentoAlba_6
+  - first:
+      213: -4451710062218300495
+    second: CampamentoAlba_7
+  - first:
+      213: 3774732834614556142
+    second: CampamentoAlba_8
+  - first:
+      213: 2703688039166915268
+    second: CampamentoAlba_9
+  - first:
+      213: 5933216057983434084
+    second: CampamentoAlba_10
+  - first:
+      213: 6718562981011033457
+    second: CampamentoAlba_11
+  - first:
+      213: 2284120560487420004
+    second: CampamentoAlba_12
+  - first:
+      213: 4237922989606487861
+    second: CampamentoAlba_13
+  - first:
+      213: -5771590647209180782
+    second: CampamentoAlba_14
+  - first:
+      213: 4159809794992562125
+    second: CampamentoAlba_15
+  - first:
+      213: 6864602281890697616
+    second: CampamentoAlba_16
+  - first:
+      213: -9007134781549007406
+    second: CampamentoAlba_17
+  - first:
+      213: 5080336072354177786
+    second: CampamentoAlba_18
+  - first:
+      213: -3857751133315393792
+    second: CampamentoAlba_19
+  - first:
+      213: -5896874953344966284
+    second: CampamentoAlba_20
+  - first:
+      213: 1471874600053636043
+    second: CampamentoAlba_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CampamentoAlba_0
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 57
+        width: 938
+        height: 1095
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1292380e55cc60430800000000000000
+      internalID: 3748908409043495201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_1
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1045
+        width: 51
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6996e634cfe9ee1b0800000000000000
+      internalID: -5625384078238914154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_2
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 1030
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dce48805c059ba490800000000000000
+      internalID: -7733924054955438387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_3
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 948
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4230697165be31eb0800000000000000
+      internalID: -4750194426950319324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_4
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 829
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03125046fff14cf0800000000000000
+      internalID: -269653069559360757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_5
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 648
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0243f60b40109d0800000000000000
+      internalID: -2809959536676036413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_6
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 473
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fcdbda512ad9f5f0800000000000000
+      internalID: -722306428423119632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_7
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 427
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b3327ad8495832c0800000000000000
+      internalID: -4451710062218300495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_8
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 440
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee53431838b826430800000000000000
+      internalID: 3774732834614556142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_9
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 402
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2340662fd658520800000000000000
+      internalID: 2703688039166915268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_10
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 353
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46dfeb7b194075250800000000000000
+      internalID: 5933216057983434084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_11
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 348
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17d804c4f612d3d50800000000000000
+      internalID: 6718562981011033457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_12
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 339
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 460d4084c83d2bf10800000000000000
+      internalID: 2284120560487420004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_13
+      rect:
+        serializedVersion: 2
+        x: 999
+        y: 288
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 537c4fc618020da30800000000000000
+      internalID: 4237922989606487861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_14
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 264
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2914124b2e037efa0800000000000000
+      internalID: -5771590647209180782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_15
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 208
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcfd8bb08fc9ab930800000000000000
+      internalID: 4159809794992562125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_16
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 176
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0915e68b767f34f50800000000000000
+      internalID: 6864602281890697616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_17
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 136
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dda4b553aa300380800000000000000
+      internalID: -9007134781549007406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_18
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 134
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af22644bdbaf08640800000000000000
+      internalID: 5080336072354177786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_19
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 119
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00710e298c3867ac0800000000000000
+      internalID: -3857751133315393792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_20
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 114
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 471a9f019771a2ea0800000000000000
+      internalID: -5896874953344966284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CampamentoAlba_21
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 79
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcbfd1286262d6410800000000000000
+      internalID: 1471874600053636043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CampamentoAlba_0: 3748908409043495201
+      CampamentoAlba_1: -5625384078238914154
+      CampamentoAlba_10: 5933216057983434084
+      CampamentoAlba_11: 6718562981011033457
+      CampamentoAlba_12: 2284120560487420004
+      CampamentoAlba_13: 4237922989606487861
+      CampamentoAlba_14: -5771590647209180782
+      CampamentoAlba_15: 4159809794992562125
+      CampamentoAlba_16: 6864602281890697616
+      CampamentoAlba_17: -9007134781549007406
+      CampamentoAlba_18: 5080336072354177786
+      CampamentoAlba_19: -3857751133315393792
+      CampamentoAlba_2: -7733924054955438387
+      CampamentoAlba_20: -5896874953344966284
+      CampamentoAlba_21: 1471874600053636043
+      CampamentoAlba_3: -4750194426950319324
+      CampamentoAlba_4: -269653069559360757
+      CampamentoAlba_5: -2809959536676036413
+      CampamentoAlba_6: -722306428423119632
+      CampamentoAlba_7: -4451710062218300495
+      CampamentoAlba_8: 3774732834614556142
+      CampamentoAlba_9: 2703688039166915268
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

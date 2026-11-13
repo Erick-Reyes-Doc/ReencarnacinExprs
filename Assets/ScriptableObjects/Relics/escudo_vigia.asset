@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: escudo_vigia
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: escudo_vigia
+  displayName: "Escudo del Vig\xEDa"
+  description: "Un peque\xF1o escudo de guardia, pesado para marchar."
+  icon: {fileID: -520155340, guid: d9dd8d92ff931dc419dce76854f34648, type: 3}
+  rarity: 1
+  bonuses:
+  - stat: 2
+    amount: 8
+  penalties:
+  - stat: 3
+    amount: 1
+  exclusiveHeroId: PlayerCaballero
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b2e47a05a8d284a922ccff33cfdbc2, type: 3}
+  m_Name: GuardianCorrupto_Arquetipo
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyArchetypeData
+  archetypeName: "Guardi\xE1n Corrupto"
+  zone: 2
+  unitData: {fileID: 11400000, guid: 8353e58689b046f458c1b26155743b1e, type: 2}
+  basicAttack: {fileID: 11400000, guid: 1704a2a75d864304093a3690a3516788, type: 2}
+  specialAbilities:
+  - {fileID: 11400000, guid: e0aaa3bd240e0e14c89bbb96bfdac9a7, type: 2}
+  - {fileID: 11400000, guid: af3a37973f1b70746849ee89e2b11a4e, type: 2}
+  aiStyle: 2
+  actionDelay: 0.6

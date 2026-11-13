@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: sello_sagrado
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: sello_sagrado
+  displayName: Sello Sagrado
+  description: Un sello de luz que solo responde a Noelle.
+  icon: {fileID: -699715669, guid: be44558073aff3c4895f0add03d3a91d, type: 3}
+  rarity: 2
+  bonuses:
+  - stat: 0
+    amount: 4
+  - stat: 2
+    amount: 5
+  penalties: []
+  exclusiveHeroId: PlayerNoelle
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1

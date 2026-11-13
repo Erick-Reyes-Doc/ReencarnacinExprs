@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343e08c8b259f0945adff188745d25ad, type: 3}
+  m_Name: CapitanExpedicionario_Fases
+  m_EditorClassIdentifier: Assembly-CSharp::BossPhaseData
+  phases:
+  - phaseName: Comandante calculador
+    hpThresholdPercent: 100
+    announcement: 
+    bannerText: 
+    exclusiveAbilities: []
+    ai:
+      offensiveBonus: 0
+      markedTargetBonus: 0
+      preparedAttackBias: 0
+      selfSupportAdjust: 0
+      ultimateBias: 0
+  - phaseName: "\xDAltima resistencia"
+    hpThresholdPercent: 50
+    announcement: "\xAB\xA1No ceder\xE9 este terreno!\xBB El Capit\xE1n entra en \xDAltima resistencia."
+    bannerText: "\xDALTIMA RESISTENCIA"
+    exclusiveAbilities:
+    - {fileID: 11400000, guid: 9e61ea711d79d724c822757f41fec334, type: 2}
+    ai:
+      offensiveBonus: 2
+      markedTargetBonus: 2.5
+      preparedAttackBias: 3
+      selfSupportAdjust: -3
+      ultimateBias: 5

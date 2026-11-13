@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45629c93afa43c42be1590a6e483812, type: 3}
+  m_Name: AcechadorOscuro
+  m_EditorClassIdentifier: Assembly-CSharp::UnitData
+  unitName: Acechador Oscuro
+  maxHealth: 26
+  damageMin: 6
+  damageMax: 8
+  protectionPercent: 0
+  evasionPercent: 12
+  speed: 8
+  isBoss: 0
+  criticalChance: 8
+  criticalDamage: 1.5
+  characterSprite: {fileID: 21300000, guid: c8e46600a8a6c504d9db2cc729efd8b3, type: 3}
+  portraitRect:
+    serializedVersion: 2
+    x: 33
+    y: 141
+    width: 597
+    height: 597
+  offsetAfterWideUnit: -0.4
+  occupiesTwoSlots: 0
+  healthBarScale: 1

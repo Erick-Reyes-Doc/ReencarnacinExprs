@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45629c93afa43c42be1590a6e483812, type: 3}
+  m_Name: HechiceroCorrupto
+  m_EditorClassIdentifier: Assembly-CSharp::UnitData
+  unitName: Hechicero Corrupto
+  maxHealth: 25
+  damageMin: 5
+  damageMax: 7
+  protectionPercent: 0
+  evasionPercent: 4
+  speed: 7
+  isBoss: 0
+  criticalChance: 7
+  criticalDamage: 1.5
+  characterSprite: {fileID: 21300000, guid: ac7e0f76cd9a4634d82425232fbbed54, type: 3}
+  portraitRect:
+    serializedVersion: 2
+    x: 475
+    y: 1058
+    width: 459
+    height: 459
+  occupiesTwoSlots: 0
+  healthBarScale: 1

@@ -1,0 +1,2108 @@
+fileFormatVersion: 2
+guid: ce716bb82b8d03d48a93875c3501e85f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8438289532114239927
+    second: TituloReino_0
+  - first:
+      213: -8201962403497169369
+    second: TituloReino_1
+  - first:
+      213: -7182183341733923429
+    second: TituloReino_2
+  - first:
+      213: -4934557657889979227
+    second: TituloReino_3
+  - first:
+      213: 1122988212476558982
+    second: TituloReino_4
+  - first:
+      213: 1049086027389775307
+    second: TituloReino_5
+  - first:
+      213: -3416226509633378040
+    second: TituloReino_6
+  - first:
+      213: 4128020739412620814
+    second: TituloReino_7
+  - first:
+      213: -5577013600800819547
+    second: TituloReino_8
+  - first:
+      213: 7736850941055542111
+    second: TituloReino_9
+  - first:
+      213: -1939983613253682576
+    second: TituloReino_10
+  - first:
+      213: -5159598589537814030
+    second: TituloReino_11
+  - first:
+      213: 4921669932785761625
+    second: TituloReino_12
+  - first:
+      213: 3951543196371295322
+    second: TituloReino_13
+  - first:
+      213: 6061493818503365234
+    second: TituloReino_14
+  - first:
+      213: 1389514240751873600
+    second: TituloReino_15
+  - first:
+      213: 3603039272396476403
+    second: TituloReino_16
+  - first:
+      213: 7263434608455864918
+    second: TituloReino_17
+  - first:
+      213: -2428325651538863446
+    second: TituloReino_18
+  - first:
+      213: 2408448875638237909
+    second: TituloReino_19
+  - first:
+      213: 7473331767431661435
+    second: TituloReino_20
+  - first:
+      213: -4766054476630925449
+    second: TituloReino_21
+  - first:
+      213: -760841195555632798
+    second: TituloReino_22
+  - first:
+      213: 7575283426368153631
+    second: TituloReino_23
+  - first:
+      213: -8329153658137210131
+    second: TituloReino_24
+  - first:
+      213: 1355395581620312992
+    second: TituloReino_25
+  - first:
+      213: -5890671964125498754
+    second: TituloReino_26
+  - first:
+      213: 1940494709422166835
+    second: TituloReino_27
+  - first:
+      213: 7362103851473358771
+    second: TituloReino_28
+  - first:
+      213: -8878606810104824615
+    second: TituloReino_29
+  - first:
+      213: 4990620295425266409
+    second: TituloReino_30
+  - first:
+      213: 3148771539659739852
+    second: TituloReino_31
+  - first:
+      213: 4010661207016692651
+    second: TituloReino_32
+  - first:
+      213: -5049132312047834640
+    second: TituloReino_33
+  - first:
+      213: 3324451500372558582
+    second: TituloReino_34
+  - first:
+      213: 1118168090835385586
+    second: TituloReino_35
+  - first:
+      213: 7330709811209983012
+    second: TituloReino_36
+  - first:
+      213: -8857064175757317441
+    second: TituloReino_37
+  - first:
+      213: 4179790038893079062
+    second: TituloReino_38
+  - first:
+      213: 4069853401849001864
+    second: TituloReino_39
+  - first:
+      213: 2201712157079320240
+    second: TituloReino_40
+  - first:
+      213: -2068605075522965475
+    second: TituloReino_41
+  - first:
+      213: 4453884354989251655
+    second: TituloReino_42
+  - first:
+      213: 1947018069269364892
+    second: TituloReino_43
+  - first:
+      213: -8037031330985613306
+    second: TituloReino_44
+  - first:
+      213: -8318031986783890710
+    second: TituloReino_45
+  - first:
+      213: 4507701491593084887
+    second: TituloReino_46
+  - first:
+      213: 8467863085433501763
+    second: TituloReino_47
+  - first:
+      213: -7725321743581964046
+    second: TituloReino_48
+  - first:
+      213: -6754962644145013660
+    second: TituloReino_49
+  - first:
+      213: -8168639840415852684
+    second: TituloReino_50
+  - first:
+      213: -3532820806275718392
+    second: TituloReino_51
+  - first:
+      213: -2941353983366648760
+    second: TituloReino_52
+  - first:
+      213: -8955010042750988423
+    second: TituloReino_53
+  - first:
+      213: 6333309029079623913
+    second: TituloReino_54
+  - first:
+      213: 4770061862189958354
+    second: TituloReino_55
+  - first:
+      213: 8393882542726817742
+    second: TituloReino_56
+  - first:
+      213: -5919431775826152680
+    second: TituloReino_57
+  - first:
+      213: 4059024784245972230
+    second: TituloReino_58
+  - first:
+      213: -2630196679420642506
+    second: TituloReino_59
+  - first:
+      213: 2389457753075709654
+    second: TituloReino_60
+  - first:
+      213: -3095885359035995169
+    second: TituloReino_61
+  - first:
+      213: 7999130899321211340
+    second: TituloReino_62
+  - first:
+      213: 6111255209871382422
+    second: TituloReino_63
+  - first:
+      213: 2749420129009045824
+    second: TituloReino_64
+  - first:
+      213: -9218227298287489990
+    second: TituloReino_65
+  - first:
+      213: -8915923439277121714
+    second: TituloReino_66
+  - first:
+      213: -4952290195380001919
+    second: TituloReino_67
+  - first:
+      213: 5454483467498546976
+    second: TituloReino_68
+  - first:
+      213: 1381875609008036275
+    second: TituloReino_69
+  - first:
+      213: 452982357512168843
+    second: TituloReino_70
+  - first:
+      213: -6296549348161045316
+    second: TituloReino_71
+  - first:
+      213: -3162207360183466936
+    second: TituloReino_72
+  - first:
+      213: -3013082989504076774
+    second: TituloReino_73
+  - first:
+      213: 3913591945486672851
+    second: TituloReino_74
+  - first:
+      213: -3107141986269008619
+    second: TituloReino_75
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TituloReino_0
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 578
+        width: 107
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b101991f93da1570800000000000000
+      internalID: 8438289532114239927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_1
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 616
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e217e56a6cc2e80800000000000000
+      internalID: -8201962403497169369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_2
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 594
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b95b834bd42c35c90800000000000000
+      internalID: -7182183341733923429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_3
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 610
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a4c8cd54fde48bb0800000000000000
+      internalID: -4934557657889979227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_4
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 626
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68ebd9354d7a59f00800000000000000
+      internalID: 1122988212476558982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_5
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 608
+        width: 44
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcda4610f2a1f8e00800000000000000
+      internalID: 1049086027389775307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_6
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 591
+        width: 45
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809a705e6102790d0800000000000000
+      internalID: -3416226509633378040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_7
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 602
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e067226cdfca94930800000000000000
+      internalID: 4128020739412620814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_8
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 604
+        width: 40
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a6beb8ada77a92b0800000000000000
+      internalID: -5577013600800819547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_9
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 593
+        width: 57
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5323c570f0de5b60800000000000000
+      internalID: 7736850941055542111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_10
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 626
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a7fe5ae2bc315e0800000000000000
+      internalID: -1939983613253682576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_11
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 562
+        width: 67
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f9fdf66b6c6568b0800000000000000
+      internalID: -5159598589537814030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_12
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 626
+        width: 26
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d7a6d4ab84d4440800000000000000
+      internalID: 4921669932785761625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_13
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 622
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5c9256d993b6d630800000000000000
+      internalID: 3951543196371295322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_14
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 609
+        width: 43
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2728e144380ce1450800000000000000
+      internalID: 6061493818503365234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_15
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 602
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04eac5a07db884310800000000000000
+      internalID: 1389514240751873600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_16
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 624
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ff49f6e021900230800000000000000
+      internalID: 3603039272396476403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_17
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 588
+        width: 94
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6525a460b47ecc460800000000000000
+      internalID: 7263434608455864918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_18
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 624
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaa9e0d8faadc4ed0800000000000000
+      internalID: -2428325651538863446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_19
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 602
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5da2b1ced778c6120800000000000000
+      internalID: 2408448875638237909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_20
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 618
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b770866a5ab96b760800000000000000
+      internalID: 7473331767431661435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_21
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 616
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77fd04484b29bddb0800000000000000
+      internalID: -4766054476630925449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_22
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 612
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2694c68b6f2f075f0800000000000000
+      internalID: -760841195555632798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_23
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 608
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f18e3950420d02960800000000000000
+      internalID: 7575283426368153631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_24
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 584
+        width: 116
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de2161fa0e6e86c80800000000000000
+      internalID: -8329153658137210131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_25
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 616
+        width: 43
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0abdc9ca9155fc210800000000000000
+      internalID: 1355395581620312992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_26
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 620
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7272f90f01204ea0800000000000000
+      internalID: -5890671964125498754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_27
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 614
+        width: 56
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33312a338a50eea10800000000000000
+      internalID: 1940494709422166835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_28
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 624
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bfca9262727b2660800000000000000
+      internalID: 7362103851473358771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_29
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 612
+        width: 53
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dc7657a52ad8c480800000000000000
+      internalID: -8878606810104824615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_30
+      rect:
+        serializedVersion: 2
+        x: 1671
+        y: 604
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e29dad97be324540800000000000000
+      internalID: 4990620295425266409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_31
+      rect:
+        serializedVersion: 2
+        x: 1760
+        y: 614
+        width: 47
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc2574c480fa2bb20800000000000000
+      internalID: 3148771539659739852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_32
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 570
+        width: 19
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bab5bae4e1bb8a730800000000000000
+      internalID: 4010661207016692651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55
+        width: 2121
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f92174e9e0ede9b0800000000000000
+      internalID: -5049132312047834640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_34
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 596
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f288b0a603d22e20800000000000000
+      internalID: 3324451500372558582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_35
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 608
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fc7b6d44f7848f00800000000000000
+      internalID: 1118168090835385586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_36
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 606
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42454a8cbb9ebb560800000000000000
+      internalID: 7330709811209983012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_37
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 608
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbaa5231f03651580800000000000000
+      internalID: -8857064175757317441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_38
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 607
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a20f715e8910a30800000000000000
+      internalID: 4179790038893079062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_39
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 598
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 887ff112b160b7830800000000000000
+      internalID: 4069853401849001864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_40
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 594
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b63f5caa8d0e8e10800000000000000
+      internalID: 2201712157079320240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_41
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 600
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1032ecc4a6da43e0800000000000000
+      internalID: -2068605075522965475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_42
+      rect:
+        serializedVersion: 2
+        x: 1673
+        y: 606
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74cddc129306fcd30800000000000000
+      internalID: 4453884354989251655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_43
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 602
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9041164e92350b10800000000000000
+      internalID: 1947018069269364892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_44
+      rect:
+        serializedVersion: 2
+        x: 1760
+        y: 604
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 608eae3269ab67090800000000000000
+      internalID: -8037031330985613306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_45
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 612
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae2d8659af9609c80800000000000000
+      internalID: -8318031986783890710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_46
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 593
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7df77efaf929e8e30800000000000000
+      internalID: 4507701491593084887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_47
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 588
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34838ed8c94e38570800000000000000
+      internalID: 8467863085433501763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_48
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 592
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f812320ec42ac490800000000000000
+      internalID: -7725321743581964046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_49
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 594
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46cf3b4b34d8142a0800000000000000
+      internalID: -6754962644145013660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_50
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 589
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477d8ed285923ae80800000000000000
+      internalID: -8168639840415852684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_51
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 594
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 803a3d2c136e8fec0800000000000000
+      internalID: -3532820806275718392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_52
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 586
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c20c6d2263e27d0800000000000000
+      internalID: -2941353983366648760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_53
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 588
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f85c1dfc969b380800000000000000
+      internalID: -8955010042750988423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_54
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 583
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8a013b10f64e750800000000000000
+      internalID: 6333309029079623913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_55
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 566
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d48874adf9a23240800000000000000
+      internalID: 4770061862189958354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_56
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 572
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec7a59d23bf0d7470800000000000000
+      internalID: 8393882542726817742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_57
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 574
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 813f8b19924f9dda0800000000000000
+      internalID: -5919431775826152680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_58
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 578
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ddc7f198d845830800000000000000
+      internalID: 4059024784245972230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_59
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 580
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63b78b13e0aaf7bd0800000000000000
+      internalID: -2630196679420642506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_60
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 553
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d671e1aa2f092120800000000000000
+      internalID: 2389457753075709654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_61
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 564
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdba35d2ba43905d0800000000000000
+      internalID: -3095885359035995169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_62
+      rect:
+        serializedVersion: 2
+        x: 1488
+        y: 564
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc944e5fb2f920f60800000000000000
+      internalID: 7999130899321211340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_63
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 570
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 697932c0c3a8fc450800000000000000
+      internalID: 6111255209871382422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_64
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 547
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04194ef4a07e72620800000000000000
+      internalID: 2749420129009045824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_65
+      rect:
+        serializedVersion: 2
+        x: 2067
+        y: 547
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ce3cacc17421080800000000000000
+      internalID: -9218227298287489990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_66
+      rect:
+        serializedVersion: 2
+        x: 2073
+        y: 546
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4fde4dded6444480800000000000000
+      internalID: -8915923439277121714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_67
+      rect:
+        serializedVersion: 2
+        x: 2122
+        y: 485
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 183a9bf3e4ee54bb0800000000000000
+      internalID: -4952290195380001919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_68
+      rect:
+        serializedVersion: 2
+        x: 2075
+        y: 445
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 027ed7980d732bb40800000000000000
+      internalID: 5454483467498546976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_69
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 130
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b953be7b886d2310800000000000000
+      internalID: 1381875609008036275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_70
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 120
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b85280ddd01594600800000000000000
+      internalID: 452982357512168843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_71
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 95
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbcb4287ab92e98a0800000000000000
+      internalID: -6296549348161045316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_72
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 93
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8448326f8259d14d0800000000000000
+      internalID: -3162207360183466936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_73
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 85
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1466db2cf06f26d0800000000000000
+      internalID: -3013082989504076774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_74
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 81
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3209aa32fdf4630800000000000000
+      internalID: 3913591945486672851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TituloReino_75
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 77
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51debb963d631e4d0800000000000000
+      internalID: -3107141986269008619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TituloReino_0: 8438289532114239927
+      TituloReino_1: -8201962403497169369
+      TituloReino_10: -1939983613253682576
+      TituloReino_11: -5159598589537814030
+      TituloReino_12: 4921669932785761625
+      TituloReino_13: 3951543196371295322
+      TituloReino_14: 6061493818503365234
+      TituloReino_15: 1389514240751873600
+      TituloReino_16: 3603039272396476403
+      TituloReino_17: 7263434608455864918
+      TituloReino_18: -2428325651538863446
+      TituloReino_19: 2408448875638237909
+      TituloReino_2: -7182183341733923429
+      TituloReino_20: 7473331767431661435
+      TituloReino_21: -4766054476630925449
+      TituloReino_22: -760841195555632798
+      TituloReino_23: 7575283426368153631
+      TituloReino_24: -8329153658137210131
+      TituloReino_25: 1355395581620312992
+      TituloReino_26: -5890671964125498754
+      TituloReino_27: 1940494709422166835
+      TituloReino_28: 7362103851473358771
+      TituloReino_29: -8878606810104824615
+      TituloReino_3: -4934557657889979227
+      TituloReino_30: 4990620295425266409
+      TituloReino_31: 3148771539659739852
+      TituloReino_32: 4010661207016692651
+      TituloReino_33: -5049132312047834640
+      TituloReino_34: 3324451500372558582
+      TituloReino_35: 1118168090835385586
+      TituloReino_36: 7330709811209983012
+      TituloReino_37: -8857064175757317441
+      TituloReino_38: 4179790038893079062
+      TituloReino_39: 4069853401849001864
+      TituloReino_4: 1122988212476558982
+      TituloReino_40: 2201712157079320240
+      TituloReino_41: -2068605075522965475
+      TituloReino_42: 4453884354989251655
+      TituloReino_43: 1947018069269364892
+      TituloReino_44: -8037031330985613306
+      TituloReino_45: -8318031986783890710
+      TituloReino_46: 4507701491593084887
+      TituloReino_47: 8467863085433501763
+      TituloReino_48: -7725321743581964046
+      TituloReino_49: -6754962644145013660
+      TituloReino_5: 1049086027389775307
+      TituloReino_50: -8168639840415852684
+      TituloReino_51: -3532820806275718392
+      TituloReino_52: -2941353983366648760
+      TituloReino_53: -8955010042750988423
+      TituloReino_54: 6333309029079623913
+      TituloReino_55: 4770061862189958354
+      TituloReino_56: 8393882542726817742
+      TituloReino_57: -5919431775826152680
+      TituloReino_58: 4059024784245972230
+      TituloReino_59: -2630196679420642506
+      TituloReino_6: -3416226509633378040
+      TituloReino_60: 2389457753075709654
+      TituloReino_61: -3095885359035995169
+      TituloReino_62: 7999130899321211340
+      TituloReino_63: 6111255209871382422
+      TituloReino_64: 2749420129009045824
+      TituloReino_65: -9218227298287489990
+      TituloReino_66: -8915923439277121714
+      TituloReino_67: -4952290195380001919
+      TituloReino_68: 5454483467498546976
+      TituloReino_69: 1381875609008036275
+      TituloReino_7: 4128020739412620814
+      TituloReino_70: 452982357512168843
+      TituloReino_71: -6296549348161045316
+      TituloReino_72: -3162207360183466936
+      TituloReino_73: -3013082989504076774
+      TituloReino_74: 3913591945486672851
+      TituloReino_75: -3107141986269008619
+      TituloReino_8: -5577013600800819547
+      TituloReino_9: 7736850941055542111
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

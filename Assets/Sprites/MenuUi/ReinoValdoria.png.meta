@@ -1,0 +1,1120 @@
+fileFormatVersion: 2
+guid: 01b2fbe0999fea445b158f2787d39fbd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2641344630003140269
+    second: ReinoValdoria_0
+  - first:
+      213: -6914925198191013803
+    second: ReinoValdoria_1
+  - first:
+      213: 5419077546639960013
+    second: ReinoValdoria_2
+  - first:
+      213: -5858354128805096600
+    second: ReinoValdoria_3
+  - first:
+      213: 2323311368731518941
+    second: ReinoValdoria_4
+  - first:
+      213: -9217537802656719114
+    second: ReinoValdoria_5
+  - first:
+      213: -3206067053520223879
+    second: ReinoValdoria_6
+  - first:
+      213: 8219431554062598396
+    second: ReinoValdoria_7
+  - first:
+      213: -9210333619878948902
+    second: ReinoValdoria_8
+  - first:
+      213: 2714078356926366981
+    second: ReinoValdoria_9
+  - first:
+      213: 2692635667412238918
+    second: ReinoValdoria_10
+  - first:
+      213: -4009085197148815379
+    second: ReinoValdoria_11
+  - first:
+      213: -7568779518086281164
+    second: ReinoValdoria_12
+  - first:
+      213: 4338429595907737799
+    second: ReinoValdoria_13
+  - first:
+      213: 2590382661695835272
+    second: ReinoValdoria_14
+  - first:
+      213: -5930437064241026982
+    second: ReinoValdoria_15
+  - first:
+      213: 4786597036731965238
+    second: ReinoValdoria_16
+  - first:
+      213: 4947827739542021749
+    second: ReinoValdoria_17
+  - first:
+      213: 4983860105068762138
+    second: ReinoValdoria_18
+  - first:
+      213: 5492864335293873650
+    second: ReinoValdoria_19
+  - first:
+      213: -2937083213596909563
+    second: ReinoValdoria_20
+  - first:
+      213: -4886182404324537653
+    second: ReinoValdoria_21
+  - first:
+      213: 6683742320597058970
+    second: ReinoValdoria_22
+  - first:
+      213: -8187961723746524756
+    second: ReinoValdoria_23
+  - first:
+      213: 6054092418396349344
+    second: ReinoValdoria_24
+  - first:
+      213: 3713772353451816077
+    second: ReinoValdoria_25
+  - first:
+      213: -3337633175479986814
+    second: ReinoValdoria_26
+  - first:
+      213: 4070800893416393657
+    second: ReinoValdoria_27
+  - first:
+      213: -460221006725591031
+    second: ReinoValdoria_28
+  - first:
+      213: -4975926710016993326
+    second: ReinoValdoria_29
+  - first:
+      213: -6450352134227108098
+    second: ReinoValdoria_30
+  - first:
+      213: 4968915568707528123
+    second: ReinoValdoria_31
+  - first:
+      213: -6193652243405600149
+    second: ReinoValdoria_32
+  - first:
+      213: -5718624386739489837
+    second: ReinoValdoria_33
+  - first:
+      213: -9015615165842936017
+    second: ReinoValdoria_34
+  - first:
+      213: -8360449069506148558
+    second: ReinoValdoria_35
+  - first:
+      213: 9121525467704128470
+    second: ReinoValdoria_36
+  - first:
+      213: -6162237877928513087
+    second: ReinoValdoria_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ReinoValdoria_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1217
+        height: 1219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da609b052f0f7a420800000000000000
+      internalID: 2641344630003140269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_1
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 1108
+        width: 73
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5505d694b204900a0800000000000000
+      internalID: -6914925198191013803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_2
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 1143
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc725c1315e643b40800000000000000
+      internalID: 5419077546639960013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_3
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1108
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 863112075f1f2bea0800000000000000
+      internalID: -5858354128805096600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_4
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 1024
+        width: 58
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd76ed3616f0e3020800000000000000
+      internalID: 2323311368731518941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_5
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1004
+        width: 67
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe59e0843ab41080800000000000000
+      internalID: -9217537802656719114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_6
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 1042
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97108d45003c183d0800000000000000
+      internalID: -3206067053520223879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_7
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 1034
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf0c9833379411270800000000000000
+      internalID: 8219431554062598396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_8
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 1002
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adf07440f525e2080800000000000000
+      internalID: -9210333619878948902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_9
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 1012
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5050c25c2e75aa520800000000000000
+      internalID: 2714078356926366981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_10
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 947
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64247a19fd92e5520800000000000000
+      internalID: 2692635667412238918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_11
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 923
+        width: 7
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deffaa5114edc58c0800000000000000
+      internalID: -4009085197148815379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_12
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 889
+        width: 68
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4380731212b46f690800000000000000
+      internalID: -7568779518086281164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_13
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 915
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c84f134bb2353c30800000000000000
+      internalID: 4338429595907737799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_14
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 881
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88c06be6e43e2f320800000000000000
+      internalID: 2590382661695835272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_15
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 822
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a586a1f29ead2bda0800000000000000
+      internalID: -5930437064241026982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_16
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 726
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f9859f4a86d6240800000000000000
+      internalID: 4786597036731965238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_17
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 604
+        width: 128
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 576e9394d173aa440800000000000000
+      internalID: 4947827739542021749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_18
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 651
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a145dd42c5a3a2540800000000000000
+      internalID: 4983860105068762138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_19
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 642
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fd7a90b2039a3c40800000000000000
+      internalID: 5492864335293873650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_20
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 620
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5002bc9e0626d37d0800000000000000
+      internalID: -2937083213596909563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_21
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 597
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcac87acdfac03cb0800000000000000
+      internalID: -4886182404324537653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_22
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 497
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a95ce658a3c61cc50800000000000000
+      internalID: 6683742320597058970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_23
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 440
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca1e795a1348e5e80800000000000000
+      internalID: -8187961723746524756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_24
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 439
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a366e38af4740450800000000000000
+      internalID: 6054092418396349344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_25
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 385
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8479207748f98330800000000000000
+      internalID: 3713772353451816077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_26
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 395
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285d4f87f485ea1d0800000000000000
+      internalID: -3337633175479986814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_27
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 392
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bb4d6338d36e7830800000000000000
+      internalID: 4070800893416393657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_28
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 393
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 900d2f7ce67fc99f0800000000000000
+      internalID: -460221006725591031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_29
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 387
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d71f055505f1fab0800000000000000
+      internalID: -4975926710016993326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_30
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 359
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efed53bc8eebb76a0800000000000000
+      internalID: -6450352134227108098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_31
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 233
+        width: 36
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb568bf126225f440800000000000000
+      internalID: 4968915568707528123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_32
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 232
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6a0289991abb0aa0800000000000000
+      internalID: -6193652243405600149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_33
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 216
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3b1883b6d53a0b0800000000000000
+      internalID: -5718624386739489837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_34
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 172
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2fae4006c912e280800000000000000
+      internalID: -9015615165842936017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_35
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 123
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2374759edd7b9fb80800000000000000
+      internalID: -8360449069506148558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_36
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 111
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d3fe20c51b269e70800000000000000
+      internalID: 9121525467704128470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ReinoValdoria_37
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 47
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c13d988c455b7aa0800000000000000
+      internalID: -6162237877928513087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ReinoValdoria_0: 2641344630003140269
+      ReinoValdoria_1: -6914925198191013803
+      ReinoValdoria_10: 2692635667412238918
+      ReinoValdoria_11: -4009085197148815379
+      ReinoValdoria_12: -7568779518086281164
+      ReinoValdoria_13: 4338429595907737799
+      ReinoValdoria_14: 2590382661695835272
+      ReinoValdoria_15: -5930437064241026982
+      ReinoValdoria_16: 4786597036731965238
+      ReinoValdoria_17: 4947827739542021749
+      ReinoValdoria_18: 4983860105068762138
+      ReinoValdoria_19: 5492864335293873650
+      ReinoValdoria_2: 5419077546639960013
+      ReinoValdoria_20: -2937083213596909563
+      ReinoValdoria_21: -4886182404324537653
+      ReinoValdoria_22: 6683742320597058970
+      ReinoValdoria_23: -8187961723746524756
+      ReinoValdoria_24: 6054092418396349344
+      ReinoValdoria_25: 3713772353451816077
+      ReinoValdoria_26: -3337633175479986814
+      ReinoValdoria_27: 4070800893416393657
+      ReinoValdoria_28: -460221006725591031
+      ReinoValdoria_29: -4975926710016993326
+      ReinoValdoria_3: -5858354128805096600
+      ReinoValdoria_30: -6450352134227108098
+      ReinoValdoria_31: 4968915568707528123
+      ReinoValdoria_32: -6193652243405600149
+      ReinoValdoria_33: -5718624386739489837
+      ReinoValdoria_34: -9015615165842936017
+      ReinoValdoria_35: -8360449069506148558
+      ReinoValdoria_36: 9121525467704128470
+      ReinoValdoria_37: -6162237877928513087
+      ReinoValdoria_4: 2323311368731518941
+      ReinoValdoria_5: -9217537802656719114
+      ReinoValdoria_6: -3206067053520223879
+      ReinoValdoria_7: 8219431554062598396
+      ReinoValdoria_8: -9210333619878948902
+      ReinoValdoria_9: 2714078356926366981
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

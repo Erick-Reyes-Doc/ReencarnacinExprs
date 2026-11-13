@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: c818a100e56ff9d4e9cec4eefa617f48
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6301508516172293127
+    second: Bandido_AtaqueSucio_05_0
+  - first:
+      213: -1336696093779295196
+    second: Bandido_AtaqueSucio_05_1
+  - first:
+      213: -8100754841877140383
+    second: Bandido_AtaqueSucio_05_2
+  - first:
+      213: 1552073001593942769
+    second: Bandido_AtaqueSucio_05_3
+  - first:
+      213: 9205827684145470671
+    second: Bandido_AtaqueSucio_05_4
+  - first:
+      213: 9094064680745749818
+    second: Bandido_AtaqueSucio_05_5
+  - first:
+      213: -2191761624999256026
+    second: Bandido_AtaqueSucio_05_6
+  - first:
+      213: -6766188221000160491
+    second: Bandido_AtaqueSucio_05_7
+  - first:
+      213: -6775282191130071354
+    second: Bandido_AtaqueSucio_05_8
+  - first:
+      213: -4780651337073191539
+    second: Bandido_AtaqueSucio_05_9
+  - first:
+      213: 7720562556000385563
+    second: Bandido_AtaqueSucio_05_10
+  - first:
+      213: 2114904878767789511
+    second: Bandido_AtaqueSucio_05_11
+  - first:
+      213: -3080182042616135763
+    second: Bandido_AtaqueSucio_05_12
+  - first:
+      213: 6744606860938121638
+    second: Bandido_AtaqueSucio_05_13
+  - first:
+      213: 3640580447207175228
+    second: Bandido_AtaqueSucio_05_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.4993, y: 0.3974}
+  spritePixelsToUnits: 66.1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_0
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 950
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb9370346b8c88a0800000000000000
+      internalID: -6301508516172293127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 911
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42402ad1cf9137de0800000000000000
+      internalID: -1336696093779295196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 929
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c23651466549f80800000000000000
+      internalID: -8100754841877140383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_3
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 922
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f23b75fb221a8510800000000000000
+      internalID: 1552073001593942769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 869
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcc92f0118ba1cf70800000000000000
+      internalID: 9205827684145470671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_5
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 870
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3dc64c05ab943e70800000000000000
+      internalID: 9094064680745749818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_6
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 886
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 620269d1a6c4591e0800000000000000
+      internalID: -2191761624999256026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_7
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 889
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51b6adb69aba912a0800000000000000
+      internalID: -6766188221000160491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_8
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 852
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce69a08ebc59f1a0800000000000000
+      internalID: -6775282191130071354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 83
+        width: 509
+        height: 794
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8591ca10f6b7adb0800000000000000
+      internalID: -4780651337073191539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_10
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 872
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ab5984db2f42b60800000000000000
+      internalID: 7720562556000385563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 829
+        width: 58
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c5d1b038c6a95d10800000000000000
+      internalID: 2114904878767789511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 819
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daff35270cef045d0800000000000000
+      internalID: -3080182042616135763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_13
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 829
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a111ef9438a99d50800000000000000
+      internalID: 6744606860938121638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandido_AtaqueSucio_05_14
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 811
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34340cc0a0f58230800000000000000
+      internalID: 3640580447207175228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bandido_AtaqueSucio_05_0: -6301508516172293127
+      Bandido_AtaqueSucio_05_1: -1336696093779295196
+      Bandido_AtaqueSucio_05_10: 7720562556000385563
+      Bandido_AtaqueSucio_05_11: 2114904878767789511
+      Bandido_AtaqueSucio_05_12: -3080182042616135763
+      Bandido_AtaqueSucio_05_13: 6744606860938121638
+      Bandido_AtaqueSucio_05_14: 3640580447207175228
+      Bandido_AtaqueSucio_05_2: -8100754841877140383
+      Bandido_AtaqueSucio_05_3: 1552073001593942769
+      Bandido_AtaqueSucio_05_4: 9205827684145470671
+      Bandido_AtaqueSucio_05_5: 9094064680745749818
+      Bandido_AtaqueSucio_05_6: -2191761624999256026
+      Bandido_AtaqueSucio_05_7: -6766188221000160491
+      Bandido_AtaqueSucio_05_8: -6775282191130071354
+      Bandido_AtaqueSucio_05_9: -4780651337073191539
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

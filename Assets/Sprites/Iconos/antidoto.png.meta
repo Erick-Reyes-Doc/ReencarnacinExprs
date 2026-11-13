@@ -1,0 +1,1094 @@
+fileFormatVersion: 2
+guid: e2c158d24dde0bd49aed4ccf7897d26c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 160657078609862298
+    second: antidoto_0
+  - first:
+      213: -2213337012466227521
+    second: antidoto_1
+  - first:
+      213: -962626105819975607
+    second: antidoto_2
+  - first:
+      213: 2545826367966766449
+    second: antidoto_3
+  - first:
+      213: -7345681309210686453
+    second: antidoto_4
+  - first:
+      213: -3854155871456224792
+    second: antidoto_5
+  - first:
+      213: -4395880171146586580
+    second: antidoto_6
+  - first:
+      213: 3704954447185081919
+    second: antidoto_7
+  - first:
+      213: 2511080184208107440
+    second: antidoto_8
+  - first:
+      213: -3466478952907021163
+    second: antidoto_9
+  - first:
+      213: 2624301117596714830
+    second: antidoto_10
+  - first:
+      213: -4283966066909001819
+    second: antidoto_11
+  - first:
+      213: -787396599617001045
+    second: antidoto_12
+  - first:
+      213: -5193412664321332998
+    second: antidoto_13
+  - first:
+      213: 430510990492066381
+    second: antidoto_14
+  - first:
+      213: 5285520077240541354
+    second: antidoto_15
+  - first:
+      213: 567525201353661255
+    second: antidoto_16
+  - first:
+      213: -266743081779682855
+    second: antidoto_17
+  - first:
+      213: -2313480225781438986
+    second: antidoto_18
+  - first:
+      213: -4022191865969527088
+    second: antidoto_19
+  - first:
+      213: -8494647240995741250
+    second: antidoto_20
+  - first:
+      213: 5485906559484632043
+    second: antidoto_21
+  - first:
+      213: -4570698588439109401
+    second: antidoto_22
+  - first:
+      213: 9160978644270107516
+    second: antidoto_23
+  - first:
+      213: 1494577730308635278
+    second: antidoto_24
+  - first:
+      213: -4187016809580082647
+    second: antidoto_25
+  - first:
+      213: -7112108447095761136
+    second: antidoto_26
+  - first:
+      213: -1423894703953910853
+    second: antidoto_27
+  - first:
+      213: 7523503547822791326
+    second: antidoto_28
+  - first:
+      213: -3082282945758458976
+    second: antidoto_29
+  - first:
+      213: -1067942895556948426
+    second: antidoto_30
+  - first:
+      213: 6328029540046281444
+    second: antidoto_31
+  - first:
+      213: -5097061652434072628
+    second: antidoto_32
+  - first:
+      213: 350010617827367168
+    second: antidoto_33
+  - first:
+      213: 580822152373207547
+    second: antidoto_34
+  - first:
+      213: 7182225909789336001
+    second: antidoto_35
+  - first:
+      213: 7661655975517955987
+    second: antidoto_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: antidoto_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 837
+        width: 75
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9e513503c4ca3200800000000000000
+      internalID: 160657078609862298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 71
+        width: 1254
+        height: 1177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6e9b3c6b5a841e0800000000000000
+      internalID: -2213337012466227521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1209
+        width: 90
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 940351f28a014a2f0800000000000000
+      internalID: -962626105819975607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_3
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 1221
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1756b72e797945320800000000000000
+      internalID: 2545826367966766449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_4
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 1223
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c4543b4c5ee0a90800000000000000
+      internalID: -7345681309210686453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1227
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e99dd4b7a9438ac0800000000000000
+      internalID: -3854155871456224792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_6
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 901
+        width: 117
+        height: 353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26df935642bef2c0800000000000000
+      internalID: -4395880171146586580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_7
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 1213
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f367875a074aa6330800000000000000
+      internalID: 3704954447185081919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_8
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 1102
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b72f3e8f1629d220800000000000000
+      internalID: 2511080184208107440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_9
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 1066
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 594eb9e22c794efc0800000000000000
+      internalID: -3466478952907021163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_10
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 974
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e47430a56f36b6420800000000000000
+      internalID: 2624301117596714830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_11
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 730
+        width: 16
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a7cf004f8b4c84c0800000000000000
+      internalID: -4283966066909001819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_12
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 578
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba96a76e6fa9215f0800000000000000
+      internalID: -787396599617001045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_13
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 577
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af8ac1b92ba4de7b0800000000000000
+      internalID: -5193412664321332998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 481
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d426e24077b79f500800000000000000
+      internalID: 430510990492066381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_15
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 489
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa02e11a180f95940800000000000000
+      internalID: 5285520077240541354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_16
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 443
+        width: 21
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b54cbe92140e700800000000000000
+      internalID: 567525201353661255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_17
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 457
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d1aa3494965c4cf0800000000000000
+      internalID: -266743081779682855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_18
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 439
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f52863fdfdd4efd0800000000000000
+      internalID: -2313480225781438986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_19
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 419
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d6bb62fecd4e28c0800000000000000
+      internalID: -4022191865969527088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_20
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 385
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb162344753fc1a80800000000000000
+      internalID: -8494647240995741250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_21
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 387
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beb111543fad12c40800000000000000
+      internalID: 5485906559484632043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_22
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 374
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e025b4b9dd9190c0800000000000000
+      internalID: -4570698588439109401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_23
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 351
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7bc8ae3a85522f70800000000000000
+      internalID: 9160978644270107516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_24
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 369
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8a7140f68ecdb410800000000000000
+      internalID: 1494577730308635278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_25
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 379
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ac36c356ab4e5c0800000000000000
+      internalID: -4187016809580082647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_26
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 372
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0175dc68c07bc4d90800000000000000
+      internalID: -7112108447095761136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_27
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 328
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb364459f4f4d3ce0800000000000000
+      internalID: -1423894703953910853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_28
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 326
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a5e529d9ad86860800000000000000
+      internalID: 7523503547822791326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_29
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 315
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ab82d0ddf78935d0800000000000000
+      internalID: -3082282945758458976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_30
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 315
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e0ded3897ed21f0800000000000000
+      internalID: -1067942895556948426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_31
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 312
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea13aed65da1d750800000000000000
+      internalID: 6328029540046281444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_32
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 306
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbc668be699349b0800000000000000
+      internalID: -5097061652434072628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_33
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 287
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 009173f6dcc7bd400800000000000000
+      internalID: 350010617827367168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_34
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 287
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf102e59bae7f0800800000000000000
+      internalID: 580822152373207547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_35
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 289
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1a99179646ca360800000000000000
+      internalID: 7182225909789336001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: antidoto_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1254
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3972ffb348ba35a60800000000000000
+      internalID: 7661655975517955987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      antidoto_0: 160657078609862298
+      antidoto_1: -2213337012466227521
+      antidoto_10: 2624301117596714830
+      antidoto_11: -4283966066909001819
+      antidoto_12: -787396599617001045
+      antidoto_13: -5193412664321332998
+      antidoto_14: 430510990492066381
+      antidoto_15: 5285520077240541354
+      antidoto_16: 567525201353661255
+      antidoto_17: -266743081779682855
+      antidoto_18: -2313480225781438986
+      antidoto_19: -4022191865969527088
+      antidoto_2: -962626105819975607
+      antidoto_20: -8494647240995741250
+      antidoto_21: 5485906559484632043
+      antidoto_22: -4570698588439109401
+      antidoto_23: 9160978644270107516
+      antidoto_24: 1494577730308635278
+      antidoto_25: -4187016809580082647
+      antidoto_26: -7112108447095761136
+      antidoto_27: -1423894703953910853
+      antidoto_28: 7523503547822791326
+      antidoto_29: -3082282945758458976
+      antidoto_3: 2545826367966766449
+      antidoto_30: -1067942895556948426
+      antidoto_31: 6328029540046281444
+      antidoto_32: -5097061652434072628
+      antidoto_33: 350010617827367168
+      antidoto_34: 580822152373207547
+      antidoto_35: 7182225909789336001
+      antidoto_36: 7661655975517955987
+      antidoto_4: -7345681309210686453
+      antidoto_5: -3854155871456224792
+      antidoto_6: -4395880171146586580
+      antidoto_7: 3704954447185081919
+      antidoto_8: 2511080184208107440
+      antidoto_9: -3466478952907021163
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

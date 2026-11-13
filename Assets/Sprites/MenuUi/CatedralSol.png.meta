@@ -1,0 +1,600 @@
+fileFormatVersion: 2
+guid: 7489dbce9f50a2c41a1a91789516ef27
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7698921615909821139
+    second: CatedralSol_0
+  - first:
+      213: 4186836848416856702
+    second: CatedralSol_1
+  - first:
+      213: 451601438592934175
+    second: CatedralSol_2
+  - first:
+      213: 4292984737679760727
+    second: CatedralSol_3
+  - first:
+      213: 8596489870944476490
+    second: CatedralSol_4
+  - first:
+      213: 3111570847714555690
+    second: CatedralSol_5
+  - first:
+      213: 4671323323660161895
+    second: CatedralSol_6
+  - first:
+      213: -929243469549566928
+    second: CatedralSol_7
+  - first:
+      213: 3065523169304064500
+    second: CatedralSol_8
+  - first:
+      213: 5077400028162247999
+    second: CatedralSol_9
+  - first:
+      213: -3614239842953354249
+    second: CatedralSol_10
+  - first:
+      213: -2809199420580619683
+    second: CatedralSol_11
+  - first:
+      213: -4375976768071629267
+    second: CatedralSol_12
+  - first:
+      213: 4377652330918021754
+    second: CatedralSol_13
+  - first:
+      213: -8470294921912043775
+    second: CatedralSol_14
+  - first:
+      213: -610045308606107225
+    second: CatedralSol_15
+  - first:
+      213: -2777963605190070499
+    second: CatedralSol_16
+  - first:
+      213: 9053008016559568144
+    second: CatedralSol_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CatedralSol_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 31
+        width: 1225
+        height: 1153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3da91e54b6018da60800000000000000
+      internalID: 7698921615909821139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_1
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 1108
+        width: 112
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a176a4ee1aa1a30800000000000000
+      internalID: 4186836848416856702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_2
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 964
+        width: 273
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11236f9d19644600800000000000000
+      internalID: 451601438592934175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_3
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 1004
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d539bafdeb39b30800000000000000
+      internalID: 4292984737679760727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_4
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 990
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d93e0ddfddc4770800000000000000
+      internalID: 8596489870944476490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_5
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 986
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27bc7f33358e2b20800000000000000
+      internalID: 3111570847714555690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_6
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 939
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 763d2c920dfd3d040800000000000000
+      internalID: 4671323323660161895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_7
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 833
+        width: 90
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03485afdcf9aa13f0800000000000000
+      internalID: -929243469549566928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_8
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 497
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f13915a41dea8a20800000000000000
+      internalID: 3065523169304064500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_9
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 455
+        width: 27
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d4b25ac6c867640800000000000000
+      internalID: 5077400028162247999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_10
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 440
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f3a3bb0304a7ddc0800000000000000
+      internalID: -3614239842953354249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_11
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 428
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5a1f01c208b309d0800000000000000
+      internalID: -2809199420580619683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_12
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 351
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d268ab970586543c0800000000000000
+      internalID: -4375976768071629267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_13
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 353
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a8786e99b80cc30800000000000000
+      internalID: 4377652330918021754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_14
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 192
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10733a465a7737a80800000000000000
+      internalID: -8470294921912043775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_15
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 184
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a1b3a3260fa887f0800000000000000
+      internalID: -610045308606107225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_16
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 192
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1faea1c1d0b279d0800000000000000
+      internalID: -2777963605190070499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CatedralSol_17
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 146
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015fbcf73deb2ad70800000000000000
+      internalID: 9053008016559568144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CatedralSol_0: 7698921615909821139
+      CatedralSol_1: 4186836848416856702
+      CatedralSol_10: -3614239842953354249
+      CatedralSol_11: -2809199420580619683
+      CatedralSol_12: -4375976768071629267
+      CatedralSol_13: 4377652330918021754
+      CatedralSol_14: -8470294921912043775
+      CatedralSol_15: -610045308606107225
+      CatedralSol_16: -2777963605190070499
+      CatedralSol_17: 9053008016559568144
+      CatedralSol_2: 451601438592934175
+      CatedralSol_3: 4292984737679760727
+      CatedralSol_4: 8596489870944476490
+      CatedralSol_5: 3111570847714555690
+      CatedralSol_6: 4671323323660161895
+      CatedralSol_7: -929243469549566928
+      CatedralSol_8: 3065523169304064500
+      CatedralSol_9: 5077400028162247999
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

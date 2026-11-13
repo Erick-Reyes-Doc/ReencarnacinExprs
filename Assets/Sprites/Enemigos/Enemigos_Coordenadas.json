@@ -1,0 +1,13 @@
+﻿[
+  {"name":"GoblinComun","zone":"Pradera","x":0,"y":0,"w":1536,"h":1536},
+  {"name":"GoblinArquero","zone":"Pradera","x":1536,"y":0,"w":1536,"h":1536},
+  {"name":"GoblinBruto","zone":"Pradera","x":3072,"y":0,"w":1536,"h":1536},
+  {"name":"LoboSalvaje","zone":"Bosque","x":0,"y":1536,"w":1536,"h":1536},
+  {"name":"Bandido","zone":"Bosque","x":1536,"y":1536,"w":1536,"h":1536},
+  {"name":"ChamanBosque","zone":"Bosque","x":3072,"y":1536,"w":1536,"h":1536},
+  {"name":"GuardianForestal","zone":"Bosque","x":4608,"y":1536,"w":1536,"h":1536},
+  {"name":"CorruptoErrante","zone":"Corrupcion","x":0,"y":3072,"w":1536,"h":1536},
+  {"name":"AcechadorOscuro","zone":"Corrupcion","x":1536,"y":3072,"w":1536,"h":1536},
+  {"name":"HechiceroCorrupto","zone":"Corrupcion","x":3072,"y":3072,"w":1536,"h":1536},
+  {"name":"GuardianCorrupto","zone":"Corrupcion","x":4608,"y":3072,"w":1536,"h":1536}
+]

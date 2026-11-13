@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
+  m_Name: HechiceroCorrupto_LlamaCorrupta
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  abilityName: Llama Corrupta
+  description: Provoca quemadura.
+  abilityIcon: {fileID: 0}
+  abilityType: 0
+  useAnnouncement: 
+  animationTrigger: LlamaCorrupta
+  animationSpeed: 1
+  impactTime: 0.476
+  hitSound: {fileID: 8300000, guid: a4424c7b8af148845bd9c1c5569935ca, type: 3}
+  hitSoundLead: 0.06
+  impactSlashAngle: 0
+  impactEffect: 6
+  projectileFlightSeconds: 0.2
+  projectileKind: 2
+  extraProjectiles: 0
+  projectileColor: {r: 0.8, g: 0.35, b: 1, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
+  targetType: 0
+  basePower: 1
+  damagePercent: 100
+  canCritical: 1
+  usablePositions: 01010101y
+  targetPositions: 01010101y
+  movementEffect: 0
+  movementDistance: 0
+  movementChance: 100
+  cooldown: 2
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
+  regenerationPerTurn: 0
+  regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
+  healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 0
+  requiresPreparation: 0
+  selectableAreas: []
+  dealsDamage: 1
+  defensePenetration: 0
+  evasionPenetration: 0
+  attackWeight: 0
+  statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
+  userMovement: 0
+  allyProtectionPercent: 0
+  statusEffects:
+  - type: 5
+    potency: 1
+    duration: 3
+    chance: 100
+    applyToUser: 0
+    damageScalePercent: 30
+    potencyPerLevel: 0
+    durationPerLevel: 0

@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876c0863397ca0644a1fe44def37f473, type: 3}
+  m_Name: Capitan_LlamadoAFilas
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  abilityName: Llamado a Filas
+  description: "El Capit\xE1n convoca hasta 2 enemigos corruptos al azar (Corrupto Errante, Acechador Oscuro o Hechicero Corrupto; nunca el Guardi\xE1n Corrupto) en el frente de su formaci\xF3n. Solo lo usa cuando le quedan 0 o 1 secuaces, a partir de la ronda 3 y como m\xE1ximo 2 veces por combate. Los invocados act\xFAan desde la ronda siguiente."
+  abilityIcon: {fileID: 0}
+  abilityType: 2
+  useAnnouncement: "\xAB\xA1A m\xED las filas! \xA1Nadie abandona su puesto!\xBB"
+  animationTrigger: LlamadoAFilas
+  animationSpeed: 1
+  impactTime: 0
+  hitSound: {fileID: 8300000, guid: 6be6fdf2dc97e1f40aa72b5fce04b286, type: 3}
+  hitSoundLead: 0.3
+  impactSlashAngle: -35
+  impactEffect: 0
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
+  targetType: 3
+  basePower: 0
+  damagePercent: 100
+  canCritical: 1
+  usablePositions: 01010101y
+  targetPositions: 01010101y
+  movementEffect: 0
+  movementDistance: 0
+  movementChance: 100
+  cooldown: 5
+  availableFromTurn: 3
+  speechLine: "\xAB\xA1A m\xED las filas! \xA1Nadie abandona su puesto!\xBB"
+  preparationTrigger: 
+  summonPool:
+  - {fileID: 834953994027991344, guid: 3d767a1ce76556346a31f6a57ebc22fa, type: 3}
+  - {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
+  - {fileID: 9112187240780045373, guid: 404650015d0992c469df4e35fc9e2214, type: 3}
+  summonCount: 2
+  maxUsesPerCombat: 2
+  regenerationPerTurn: 0
+  regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
+  healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 0
+  requiresPreparation: 0
+  selectableAreas: []
+  dealsDamage: 0
+  defensePenetration: 0
+  evasionPenetration: 0
+  attackWeight: 0
+  statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
+  userMovement: 0
+  allyProtectionPercent: 0
+  statusEffects: []

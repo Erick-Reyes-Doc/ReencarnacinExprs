@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: anillo_segundo_intento
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: anillo_segundo_intento
+  displayName: Anillo del Segundo Intento
+  description: "Si fallas un ataque directo, tu siguiente ataque directo gana +2 de da\xF1o si acierta. Solo una activaci\xF3n por ronda."
+  icon: {fileID: 21300000, guid: 990e7862e08abde4b85f4a6b48043001, type: 3}
+  rarity: 0
+  effect: 13
+  bonuses: []
+  penalties:
+  - stat: 2
+    amount: 1
+  exclusiveHeroId: 
+  availableInShop: 1
+  shopPrice: 45
+  uniqueOwnership: 0
+  eventOnly: 0

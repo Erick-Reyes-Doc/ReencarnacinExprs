@@ -1,0 +1,600 @@
+fileFormatVersion: 2
+guid: 920dee56f0eea144c881ac7637abf511
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5134070796818653225
+    second: botonsecundario_0
+  - first:
+      213: 2332559629777185151
+    second: botonsecundario_1
+  - first:
+      213: -7354627449452316074
+    second: botonsecundario_2
+  - first:
+      213: 6854152865426776332
+    second: botonsecundario_3
+  - first:
+      213: -392788889429749979
+    second: botonsecundario_4
+  - first:
+      213: -2328326470465195198
+    second: botonsecundario_5
+  - first:
+      213: 331791952368072517
+    second: botonsecundario_6
+  - first:
+      213: 337714507575623919
+    second: botonsecundario_7
+  - first:
+      213: 7508554270883869258
+    second: botonsecundario_8
+  - first:
+      213: -285390316841103624
+    second: botonsecundario_9
+  - first:
+      213: -188053771673824661
+    second: botonsecundario_10
+  - first:
+      213: 5384126229724495191
+    second: botonsecundario_11
+  - first:
+      213: 6469263083205603151
+    second: botonsecundario_12
+  - first:
+      213: -6865077839512381654
+    second: botonsecundario_13
+  - first:
+      213: -922346294242292435
+    second: botonsecundario_14
+  - first:
+      213: -4588120116258745644
+    second: botonsecundario_15
+  - first:
+      213: 3588453481695409010
+    second: botonsecundario_16
+  - first:
+      213: 3065730424297064762
+    second: botonsecundario_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 185, y: 325, z: 185, w: 308}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: botonsecundario_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 2078
+        height: 655
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dfdaefcfcd10c8b0800000000000000
+      internalID: -5134070796818653225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_1
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 624
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f792946ff9aee5020800000000000000
+      internalID: 2332559629777185151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_2
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 614
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65abe0c1d4d1fe990800000000000000
+      internalID: -7354627449452316074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_3
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 610
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c012dfb57b7de1f50800000000000000
+      internalID: 6854152865426776332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_4
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 610
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52fc1dd06988c8af0800000000000000
+      internalID: -392788889429749979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_5
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 616
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24378ce396f10bfd0800000000000000
+      internalID: -2328326470465195198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_6
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 622
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5477b34d503ca9400800000000000000
+      internalID: 331791952368072517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_7
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 610
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe08a8b2e8dcfa400800000000000000
+      internalID: 337714507575623919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_8
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 602
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4276ccc35eb33860800000000000000
+      internalID: 7508554270883869258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_9
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 600
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fe8956d4071a0cf0800000000000000
+      internalID: -285390316841103624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_10
+      rect:
+        serializedVersion: 2
+        x: 1790
+        y: 582
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6295bc4716e36df0800000000000000
+      internalID: -188053771673824661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_11
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 160
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d7794974248ba40800000000000000
+      internalID: 5384126229724495191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_12
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 143
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4fa401af7077c950800000000000000
+      internalID: 6469263083205603151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_13
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 144
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a275574e3185ab0a0800000000000000
+      internalID: -6865077839512381654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_14
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 134
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2d4ac3aeea2333f0800000000000000
+      internalID: -922346294242292435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_15
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 128
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d2d29b2019b350c0800000000000000
+      internalID: -4588120116258745644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_16
+      rect:
+        serializedVersion: 2
+        x: 1777
+        y: 132
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 273f77ddd6fbcc130800000000000000
+      internalID: 3588453481695409010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botonsecundario_17
+      rect:
+        serializedVersion: 2
+        x: 1777
+        y: 49
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a398555f399ab8a20800000000000000
+      internalID: 3065730424297064762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      botonsecundario_0: -5134070796818653225
+      botonsecundario_1: 2332559629777185151
+      botonsecundario_10: -188053771673824661
+      botonsecundario_11: 5384126229724495191
+      botonsecundario_12: 6469263083205603151
+      botonsecundario_13: -6865077839512381654
+      botonsecundario_14: -922346294242292435
+      botonsecundario_15: -4588120116258745644
+      botonsecundario_16: 3588453481695409010
+      botonsecundario_17: 3065730424297064762
+      botonsecundario_2: -7354627449452316074
+      botonsecundario_3: 6854152865426776332
+      botonsecundario_4: -392788889429749979
+      botonsecundario_5: -2328326470465195198
+      botonsecundario_6: 331791952368072517
+      botonsecundario_7: 337714507575623919
+      botonsecundario_8: 7508554270883869258
+      botonsecundario_9: -285390316841103624
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

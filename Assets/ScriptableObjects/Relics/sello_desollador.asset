@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: sello_desollador
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: sello_desollador
+  displayName: Sello del Desollador Universal
+  description: Al acertar un ataque directo contra un enemigo que sufre Sangrado, recuperas 3 HP. Una vez por turno.
+  icon: {fileID: 21300000, guid: 6c9b83827fdfb544d8b808eafadeaa12, type: 3}
+  rarity: 2
+  effect: 7
+  bonuses: []
+  penalties:
+  - stat: 3
+    amount: 1
+  exclusiveHeroId: 
+  availableInShop: 1
+  shopPrice: 115
+  uniqueOwnership: 0
+  eventOnly: 0

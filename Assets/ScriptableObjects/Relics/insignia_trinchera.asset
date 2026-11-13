@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: insignia_trinchera
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: insignia_trinchera
+  displayName: Insignia de la Trinchera
+  description: "Cuando Valerian intercepta un golpe dirigido a un aliado, devuelve al atacante el 30 % del da\xF1o que realmente recibi\xF3 (m\xEDnimo 2, m\xE1ximo 8). Una vez por ronda."
+  icon: {fileID: 21300000, guid: 79937582821d48a4082cb02bf1aae3f1, type: 3}
+  rarity: 3
+  effect: 11
+  bonuses: []
+  penalties:
+  - stat: 3
+    amount: 1
+  exclusiveHeroId: PlayerCaballero
+  availableInShop: 0
+  shopPrice: 45
+  uniqueOwnership: 1
+  eventOnly: 0

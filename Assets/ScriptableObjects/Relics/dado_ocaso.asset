@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f353cb1ed7822c48ba9efdc7101c1c9, type: 3}
+  m_Name: dado_ocaso
+  m_EditorClassIdentifier: Assembly-CSharp::RelicData
+  typeId: dado_ocaso
+  displayName: Dado del Ocaso
+  description: "En tu primer ataque directo que acierte de cada combate, tienes un 50 % de probabilidad de infligir +3 de da\xF1o o un 50 % de obtener 15 % de Protecci\xF3n durante 1 turno."
+  icon: {fileID: 21300000, guid: 2a5654eb1a2b2d14680517d4d3079eed, type: 3}
+  rarity: 2
+  effect: 16
+  bonuses: []
+  penalties:
+  - stat: 3
+    amount: 1
+  exclusiveHeroId: 
+  availableInShop: 1
+  shopPrice: 105
+  uniqueOwnership: 0
+  eventOnly: 0

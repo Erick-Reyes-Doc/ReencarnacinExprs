@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 7e76e6469a62be140bb3116d00be52d6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4233960619658807079
+    second: HabilidadHover_0
+  - first:
+      213: -6719922258149668303
+    second: HabilidadHover_1
+  - first:
+      213: 4348049440235540269
+    second: HabilidadHover_2
+  - first:
+      213: 3247835899375825862
+    second: HabilidadHover_3
+  - first:
+      213: -1509541440565669811
+    second: HabilidadHover_4
+  - first:
+      213: 3491235136716825154
+    second: HabilidadHover_5
+  - first:
+      213: 8579704424428845742
+    second: HabilidadHover_6
+  - first:
+      213: 4379963398095937355
+    second: HabilidadHover_7
+  - first:
+      213: 1698840833920517578
+    second: HabilidadHover_8
+  - first:
+      213: -1363443993691660494
+    second: HabilidadHover_9
+  - first:
+      213: -6544193053181542068
+    second: HabilidadHover_10
+  - first:
+      213: 8571834112024189734
+    second: HabilidadHover_11
+  - first:
+      213: 6451295300992165960
+    second: HabilidadHover_12
+  - first:
+      213: 3594683419502191550
+    second: HabilidadHover_13
+  - first:
+      213: 4269970276258108220
+    second: HabilidadHover_14
+  - first:
+      213: 3724648565920110382
+    second: HabilidadHover_15
+  - first:
+      213: 4797173025980533317
+    second: HabilidadHover_16
+  - first:
+      213: 6341811557679555851
+    second: HabilidadHover_17
+  - first:
+      213: -4482647620280224870
+    second: HabilidadHover_18
+  - first:
+      213: -487830421931618906
+    second: HabilidadHover_19
+  - first:
+      213: 6536280906956921158
+    second: HabilidadHover_20
+  - first:
+      213: 4983563490374279875
+    second: HabilidadHover_21
+  - first:
+      213: 8303625318958458256
+    second: HabilidadHover_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HabilidadHover
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 125
+        width: 1090
+        height: 1007
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08646b583495f114292722177ce26ace
+      internalID: -1900023242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2462cc29ace2e114e98da9569da40648
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      HabilidadHover: -1900023242
+      HabilidadHover_0: -4233960619658807079
+      HabilidadHover_1: -6719922258149668303
+      HabilidadHover_10: -6544193053181542068
+      HabilidadHover_11: 8571834112024189734
+      HabilidadHover_12: 6451295300992165960
+      HabilidadHover_13: 3594683419502191550
+      HabilidadHover_14: 4269970276258108220
+      HabilidadHover_15: 3724648565920110382
+      HabilidadHover_16: 4797173025980533317
+      HabilidadHover_17: 6341811557679555851
+      HabilidadHover_18: -4482647620280224870
+      HabilidadHover_19: -487830421931618906
+      HabilidadHover_2: 4348049440235540269
+      HabilidadHover_20: 6536280906956921158
+      HabilidadHover_21: 4983563490374279875
+      HabilidadHover_22: 8303625318958458256
+      HabilidadHover_3: 3247835899375825862
+      HabilidadHover_4: -1509541440565669811
+      HabilidadHover_5: 3491235136716825154
+      HabilidadHover_6: 8579704424428845742
+      HabilidadHover_7: 4379963398095937355
+      HabilidadHover_8: 1698840833920517578
+      HabilidadHover_9: -1363443993691660494
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

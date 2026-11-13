@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: 77ca340e5e7d6234293c8d0f78edc386
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1363092679142559844
+    second: Turno_0
+  - first:
+      213: 3941226490786199753
+    second: Turno_1
+  - first:
+      213: -7308687096026840836
+    second: Turno_2
+  - first:
+      213: -5162345312054622919
+    second: Turno_3
+  - first:
+      213: 2969841952732223134
+    second: Turno_4
+  - first:
+      213: 8518575847994066780
+    second: Turno_5
+  - first:
+      213: 1858443969498216134
+    second: Turno_6
+  - first:
+      213: 1170823167925243128
+    second: Turno_7
+  - first:
+      213: -1690708845918509793
+    second: Turno_8
+  - first:
+      213: 255880844673048636
+    second: Turno_9
+  - first:
+      213: -4744485997206168424
+    second: Turno_10
+  - first:
+      213: -5595283516530389765
+    second: Turno_11
+  - first:
+      213: 2753381392249466097
+    second: Turno_12
+  - first:
+      213: -3829446960848874717
+    second: Turno_13
+  - first:
+      213: -6772394375404634292
+    second: Turno_14
+  - first:
+      213: -6678045863339902186
+    second: Turno_15
+  - first:
+      213: -7367158871409664349
+    second: Turno_16
+  - first:
+      213: -9007859311475452592
+    second: Turno_17
+  - first:
+      213: 4050224214673513669
+    second: Turno_18
+  - first:
+      213: -831491099695464082
+    second: Turno_19
+  - first:
+      213: -933004029378499498
+    second: Turno_20
+  - first:
+      213: -586077387780455081
+    second: Turno_21
+  - first:
+      213: -2191373539507506294
+    second: Turno_22
+  - first:
+      213: -2438800573972122857
+    second: Turno_23
+  - first:
+      213: -7007107584606571688
+    second: Turno_24
+  - first:
+      213: 4920712670925731115
+    second: Turno_25
+  - first:
+      213: -1913229410162124313
+    second: Turno_26
+  - first:
+      213: 3692243819977914972
+    second: Turno_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Turno
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 158
+        width: 1974
+        height: 440
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb40b1686865f53428712b3ff8c7443f
+      internalID: 414287000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ef48e9b829ff90949848b728ebb2d587
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Turno: 414287000
+      Turno_0: -1363092679142559844
+      Turno_1: 3941226490786199753
+      Turno_10: -4744485997206168424
+      Turno_11: -5595283516530389765
+      Turno_12: 2753381392249466097
+      Turno_13: -3829446960848874717
+      Turno_14: -6772394375404634292
+      Turno_15: -6678045863339902186
+      Turno_16: -7367158871409664349
+      Turno_17: -9007859311475452592
+      Turno_18: 4050224214673513669
+      Turno_19: -831491099695464082
+      Turno_2: -7308687096026840836
+      Turno_20: -933004029378499498
+      Turno_21: -586077387780455081
+      Turno_22: -2191373539507506294
+      Turno_23: -2438800573972122857
+      Turno_24: -7007107584606571688
+      Turno_25: 4920712670925731115
+      Turno_26: -1913229410162124313
+      Turno_27: 3692243819977914972
+      Turno_3: -5162345312054622919
+      Turno_4: 2969841952732223134
+      Turno_5: 8518575847994066780
+      Turno_6: 1858443969498216134
+      Turno_7: 1170823167925243128
+      Turno_8: -1690708845918509793
+      Turno_9: 255880844673048636
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

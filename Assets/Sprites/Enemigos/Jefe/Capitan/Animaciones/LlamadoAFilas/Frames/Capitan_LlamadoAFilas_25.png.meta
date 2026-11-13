@@ -1,0 +1,444 @@
+fileFormatVersion: 2
+guid: 5fe732887898ede4b917460ce68ef956
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3986170702195783622
+    second: Capitan_LlamadoAFilas_25_0
+  - first:
+      213: -1920611126799471860
+    second: Capitan_LlamadoAFilas_25_1
+  - first:
+      213: 2397903728313184973
+    second: Capitan_LlamadoAFilas_25_2
+  - first:
+      213: -4471609936917354847
+    second: Capitan_LlamadoAFilas_25_3
+  - first:
+      213: 4194381282671116244
+    second: Capitan_LlamadoAFilas_25_4
+  - first:
+      213: -393417611578520304
+    second: Capitan_LlamadoAFilas_25_5
+  - first:
+      213: -3835592447054206077
+    second: Capitan_LlamadoAFilas_25_6
+  - first:
+      213: 6259304150959753347
+    second: Capitan_LlamadoAFilas_25_7
+  - first:
+      213: 9186102323611132259
+    second: Capitan_LlamadoAFilas_25_8
+  - first:
+      213: -4862515695564571917
+    second: Capitan_LlamadoAFilas_25_9
+  - first:
+      213: -8267476123098990608
+    second: Capitan_LlamadoAFilas_25_10
+  - first:
+      213: -3559978166909304028
+    second: Capitan_LlamadoAFilas_25_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.49790502, y: 0.34544572}
+  spritePixelsToUnits: 37.76744
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_0
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 341
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a380d81bdd64ea8c0800000000000000
+      internalID: -3986170702195783622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_1
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 88
+        width: 373
+        height: 506
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0b64732b5e9855e0800000000000000
+      internalID: -1920611126799471860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 317
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc231bb7cb0174120800000000000000
+      internalID: 2397903728313184973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_3
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 305
+        width: 37
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a62fe73476a1f1c0800000000000000
+      internalID: -4471609936917354847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_4
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 242
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dfb826cd8f653a30800000000000000
+      internalID: 4194381282671116244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_5
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 252
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01dca7544cc4a8af0800000000000000
+      internalID: -393417611578520304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_6
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 194
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38ba922cdfc35cac0800000000000000
+      internalID: -3835592447054206077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_7
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 198
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 388851b46f38dd650800000000000000
+      internalID: 6259304150959753347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_8
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 152
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3616b3da4679b7f70800000000000000
+      internalID: 9186102323611132259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_9
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 132
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fabc13dcbfd48cb0800000000000000
+      internalID: -4862515695564571917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_10
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 108
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f739add446044d80800000000000000
+      internalID: -8267476123098990608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_LlamadoAFilas_25_11
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 78
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 423893108ba689ec0800000000000000
+      internalID: -3559978166909304028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Capitan_LlamadoAFilas_25_0: -3986170702195783622
+      Capitan_LlamadoAFilas_25_1: -1920611126799471860
+      Capitan_LlamadoAFilas_25_10: -8267476123098990608
+      Capitan_LlamadoAFilas_25_11: -3559978166909304028
+      Capitan_LlamadoAFilas_25_2: 2397903728313184973
+      Capitan_LlamadoAFilas_25_3: -4471609936917354847
+      Capitan_LlamadoAFilas_25_4: 4194381282671116244
+      Capitan_LlamadoAFilas_25_5: -393417611578520304
+      Capitan_LlamadoAFilas_25_6: -3835592447054206077
+      Capitan_LlamadoAFilas_25_7: 6259304150959753347
+      Capitan_LlamadoAFilas_25_8: 9186102323611132259
+      Capitan_LlamadoAFilas_25_9: -4862515695564571917
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
