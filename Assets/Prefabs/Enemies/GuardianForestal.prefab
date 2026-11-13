@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1470371028163391274}
   - component: {fileID: 3451210317529251918}
   - component: {fileID: 3982888271885495098}
+  - component: {fileID: 2877229121583481129}
+  - component: {fileID: 6117354578705963712}
   m_Layer: 0
   m_Name: GuardianForestal
   m_TagString: Untagged
@@ -31,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.22, y: 0.22, z: 1}
+  m_LocalScale: {x: 0.34313726, y: 0.34313726, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,8 +87,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: ce01e11afb14080468310a4ebf05b7eb, type: 3}
-  m_Color: {r: 0.78, g: 0.62, b: 0.45, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 82b230dcf6c0a8042b1a5b03b3d22696, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -158,3 +160,41 @@ MonoBehaviour:
   abilitySystem: {fileID: 0}
   positionManager: {fileID: 0}
   archetype: {fileID: 11400000, guid: 7a8d972aa2e9c8e48bf1297211903c3f, type: 2}
+--- !u!95 &2877229121583481129
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126109078345942815}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d33c8becb1fde44db7e4ba4ad24b9a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6117354578705963712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126109078345942815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1

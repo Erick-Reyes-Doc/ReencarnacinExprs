@@ -17,18 +17,43 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: Llamarada
+  animationSpeed: 1
+  impactTime: 0.7
+  hitSound: {fileID: 8300000, guid: 046d81f67b6ac6c41a74937523ca49eb, type: 3}
+  hitSoundLead: 0.1
+  impactSlashAngle: -35
+  impactEffect: 6
+  projectileFlightSeconds: 0.28
+  projectileKind: 2
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.5, b: 0.15, a: 1}
+  shotSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
   damagePercent: 85
   canCritical: 1
-  usablePositions: 00000101
-  targetPositions: 00000101
+  usablePositions: 00000101y
+  targetPositions: 00000101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 1
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0

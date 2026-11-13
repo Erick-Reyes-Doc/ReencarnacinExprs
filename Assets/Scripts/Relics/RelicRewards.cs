@@ -6,10 +6,10 @@ using UnityEngine;
 // evento "La mascara rota". Solo decide y entrega (RelicInventory guarda lo poseido); no hay venta de reliquias.
 //
 // Reglas (Pradera / Bosque / Corrupcion / Jefe):
-//   probabilidad de reliquia: 65 % / 80 % / 90 % / 100 %
-//   rareza: 100 % comun | 60 % comun-40 % rara | 30 % comun-70 % rara | rara o exclusiva disponible
+//   probabilidad de reliquia: 75 % / 90 % / 100 % / 100 %
+//   rareza: 75 % comun-25 % rara | 45 % comun-55 % rara | 20 % comun-80 % rara | rara o exclusiva disponible
 //   garantia: tras dos combates seguidos sin reliquia, el tercero entrega una (el contador se reinicia al obtener una)
-//   desde B2: 20 % de que la recompensa sea una exclusiva disponible (no poseida y que no sea el Fragmento de la Mascara)
+//   desde B1: 40 % de que la recompensa sea una exclusiva disponible (no poseida y que no sea el Fragmento de la Mascara)
 //   C2: si aun no se consiguio ninguna exclusiva ademas del Fragmento, se garantiza una exclusiva disponible
 // Todo el estado vive en memoria con la sesion (GameSession lo reinicia al empezar o descartar la partida).
 public static class RelicRewards
@@ -18,7 +18,7 @@ public static class RelicRewards
 
     // Recompensa del evento narrativo de Valdoria ("El informe del ultimo vigia"): el Broche del Vigia.
     public const string ValdoriaRewardTypeId = "broche_vigia";
-    public const float ExclusiveChance = 0.20f;
+    public const float ExclusiveChance = 0.40f;
     public const int PityThreshold = 2;
 
     // Origen de los numeros aleatorios (0-1); las pruebas pueden sustituirlo para repetir resultados.
@@ -101,9 +101,8 @@ public static class RelicRewards
                 return guaranteed;
         }
 
-        float chance = zone == EnemyArchetypeData.Zone.Pradera ? 0.65f
-            : zone == EnemyArchetypeData.Zone.Bosque ? 0.80f
-            : zone == EnemyArchetypeData.Zone.Corrupcion ? 0.90f
+        float chance = zone == EnemyArchetypeData.Zone.Pradera ? 0.75f
+            : zone == EnemyArchetypeData.Zone.Bosque ? 0.90f
             : 1f;
 
         bool success = boss || missesInARow >= PityThreshold || Rng() < chance;
@@ -126,9 +125,9 @@ public static class RelicRewards
 
             if (relic == null)
             {
-                float rareShare = zone == EnemyArchetypeData.Zone.Pradera ? 0f
-                    : zone == EnemyArchetypeData.Zone.Bosque ? 0.40f
-                    : 0.70f;
+                float rareShare = zone == EnemyArchetypeData.Zone.Pradera ? 0.25f
+                    : zone == EnemyArchetypeData.Zone.Bosque ? 0.55f
+                    : 0.80f;
 
                 relic = PickOfRarity(Rng() < rareShare ? RelicRarity.Rare : RelicRarity.Common);
             }
@@ -141,14 +140,14 @@ public static class RelicRewards
         return relic;
     }
 
-    // B2 y los combates posteriores de la cadena (no los eventos ni el jefe).
+    // B1 y los combates posteriores de la cadena (no los eventos ni el jefe): desde aqui pueden caer exclusivas.
     private static bool IsB2OrLater(string encounterId)
     {
         if (MapProgression.IsEvent(encounterId) || encounterId == "BOSS")
             return false;
 
         int index = MapProgression.IndexOf(encounterId);
-        return index >= 0 && index >= MapProgression.IndexOf("B2");
+        return index >= 0 && index >= MapProgression.IndexOf("B1");
     }
 
     // ------------------------------------------------------------

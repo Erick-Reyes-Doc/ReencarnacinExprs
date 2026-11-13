@@ -13,10 +13,28 @@ MonoBehaviour:
   m_Name: Valerian_GolpeBajo
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Embate de Escudo
-  description: "Golpe de escudo (90 % del da\xF1o) que puede aturdir 1 turno y avanza una posici\xF3n si es posible."
+  description: "Golpe de escudo (90 % del da\xF1o) que aturde 1 turno si conecta y avanza una posici\xF3n si es posible."
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: Embate
+  animationSpeed: 1
+  impactTime: 0.23
+  hitSound: {fileID: 8300000, guid: 1c3afff18ca60b54fa0f6f8e8a7cbe41, type: 3}
+  hitSoundLead: 0.1
+  impactSlashAngle: -35
+  impactEffect: 1
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1.5
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
   damagePercent: 90
@@ -27,11 +45,19 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 2
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1
@@ -50,7 +76,8 @@ MonoBehaviour:
   - type: 4
     potency: 1
     duration: 1
-    chance: 30
+    chance: 100
     applyToUser: 0
+    damageScalePercent: 0
     potencyPerLevel: 0
     durationPerLevel: 0

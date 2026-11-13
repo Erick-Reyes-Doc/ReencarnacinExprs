@@ -287,82 +287,257 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IntroCinematicController
   shots:
   - name: 1 El ultimo turno
-    image: {fileID: -5168228057612586181, guid: 28034a3035baf6840899667c8ff4bf40, type: 3}
+    image: {fileID: 21300000, guid: 0d5ff217656385247976bdcc0b63e558, type: 3}
     duration: 12
     fadeIn: 0
     voice: {fileID: 8300000, guid: 8da8d62cbbe5ee84fac3d1e04f711f67, type: 3}
     voiceDelay: 0.8
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 2 Salir a casa
-    image: {fileID: -6365904647825208276, guid: 995af3072b6093f4293113302bc5483f, type: 3}
+    image: {fileID: 21300000, guid: e2f1582058aa570488c3bb250d10e5ba, type: 3}
     duration: 10
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: b698a7e181d76d94988c239a863b654c, type: 3}
     voiceDelay: 0.6
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys:
+    - time: 0
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.1
+    - time: 0.9
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 1.2
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 1.9
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 3
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 3.8
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.15
+    - time: 5.7
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.15
+    - time: 6.4
+      point: {x: 0.25, y: 0.75}
+      zoom: 2.15
+    - time: 7.8
+      point: {x: 0.25, y: 0.75}
+      zoom: 2.15
+    - time: 8.5
+      point: {x: 0.75, y: 0.75}
+      zoom: 2.15
+    - time: 10
+      point: {x: 0.75, y: 0.75}
+      zoom: 2.15
   - name: 3 Tres amigas
-    image: {fileID: -2476038888776165780, guid: 1b5dcad729911fc49a44911fc50db003, type: 3}
+    image: {fileID: 21300000, guid: 676f398c35a627e4ab9b4d70738b86f5, type: 3}
     duration: 14
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: a666eb451457b1c4ea156dc833f365e7, type: 3}
     voiceDelay: 0.7
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 4 La interseccion
-    image: {fileID: 7492707276588313532, guid: 90040c6ff5ee3234ca305cd15863858e, type: 3}
+    image: {fileID: 21300000, guid: 10543e34fd9073d4abdfa6f8a392f6ec, type: 3}
     duration: 10
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: fbd7b3ccc66403f4296e89d7adc402f6, type: 3}
     voiceDelay: 0
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.004
+    focusKeys:
+    - time: 0
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.1
+    - time: 1.4
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 2
+      point: {x: 0.56, y: 0.76}
+      zoom: 1.85
+    - time: 2.5
+      point: {x: 0.56, y: 0.76}
+      zoom: 1.85
+    - time: 3.2
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 5.2
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 6.2
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.05
+    - time: 10
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.05
   - name: 5 Un solo instante
-    image: {fileID: -3190592686652802048, guid: f354caec6d58cd24cbc27c3dbfe67215, type: 3}
+    image: {fileID: 21300000, guid: 10543e34fd9073d4abdfa6f8a392f6ec, type: 3}
     duration: 10
-    fadeIn: 0.5
+    fadeIn: 0
     voice: {fileID: 8300000, guid: 3477b366cd2331145a54da7adf83de1c, type: 3}
     voiceDelay: 0.2
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.004
+    focusKeys:
+    - time: 0
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.05
+    - time: 0.9
+      point: {x: 0.17, y: 0.75}
+      zoom: 2.1
+    - time: 2.2
+      point: {x: 0.17, y: 0.75}
+      zoom: 2.1
+    - time: 2.9
+      point: {x: 0.88, y: 0.74}
+      zoom: 2.1
+    - time: 4.7
+      point: {x: 0.88, y: 0.74}
+      zoom: 2.1
+    - time: 5.5
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.15
+    - time: 9
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.45
+    - time: 10
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.45
   - name: 6 Cuatro almas
-    image: {fileID: -2207460165285217245, guid: 93a97a36142ac854c9c26894d08057a0, type: 3}
+    image: {fileID: 21300000, guid: 1674f8f0740cf5f408977c4eff474c56, type: 3}
     duration: 14
     fadeIn: 0
     voice: {fileID: 8300000, guid: e8e8763cba5afff4d85b454d2437efa7, type: 3}
     voiceDelay: 1.2
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 7 Segunda oportunidad
-    image: {fileID: -6166944193299840399, guid: 48fc0d65896cc5249a1aa7d9cbb0594e, type: 3}
+    image: {fileID: 21300000, guid: 5cd76abb8c60f0140b24a744f2e489fc, type: 3}
     duration: 18
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: 927b42dc32697fd45a48f39fcf7cf5e4, type: 3}
     voiceDelay: 2
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 8 Un mundo en peligro
-    image: {fileID: 4135248259546043579, guid: d90f240f80faae24c972b4d8abacd040, type: 3}
+    image: {fileID: 21300000, guid: 5cd76abb8c60f0140b24a744f2e489fc, type: 3}
     duration: 15
-    fadeIn: 0.5
+    fadeIn: 0
     voice: {fileID: 8300000, guid: f45c5c55c012d0a448a830c6d8cd6847, type: 3}
     voiceDelay: 1
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 9 Nuevo amanecer
-    image: {fileID: -1969198531599874981, guid: d65224f5f59ce2948a891676fea3d79e, type: 3}
+    image: {fileID: 21300000, guid: c835f3c64d739f34f88e520b9d7c408e, type: 3}
     duration: 27
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: 544a86f94e4dd2443b3a292ce9612c23, type: 3}
     voiceDelay: 1.5
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys:
+    - time: 0
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.1
+    - time: 1.8
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 3.3
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 4
+      point: {x: 0.75, y: 0.75}
+      zoom: 2.15
+    - time: 6.6
+      point: {x: 0.75, y: 0.75}
+      zoom: 2.15
+    - time: 7.3
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 12.2
+      point: {x: 0.25, y: 0.25}
+      zoom: 2.15
+    - time: 12.9
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.15
+    - time: 15.7
+      point: {x: 0.75, y: 0.25}
+      zoom: 2.15
+    - time: 16.4
+      point: {x: 0.25, y: 0.75}
+      zoom: 2.15
+    - time: 20.7
+      point: {x: 0.25, y: 0.75}
+      zoom: 2.15
+    - time: 21.6
+      point: {x: 0.5, y: 0.5}
+      zoom: 1
+    - time: 27
+      point: {x: 0.5, y: 0.5}
+      zoom: 1.04
   - name: 10 Primera mision
-    image: {fileID: 3902373714625783368, guid: 13f022efd1d08704dae4c956cffa0555, type: 3}
+    image: {fileID: 21300000, guid: 88aa38895c7d5044089bd7b1de272f1b, type: 3}
     duration: 22
     fadeIn: 0.5
     voice: {fileID: 8300000, guid: f846a3c4ce7e27046a41eee53303263e, type: 3}
     voiceDelay: 0.8
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   - name: 11 Logo
-    image: {fileID: -6065609078494257234, guid: f544f6e05d9000b47bbb197bcfa6b33f, type: 3}
+    image: {fileID: 21300000, guid: 88aa38895c7d5044089bd7b1de272f1b, type: 3}
     duration: 8
-    fadeIn: 0.5
+    fadeIn: 0
     voice: {fileID: 0}
     voiceDelay: 0
     voiceVolume: 1
+    motion: 1
+    entryZoom: 1.1
+    entrySeconds: 1.8
+    driftPerSecond: 0.003
+    focusKeys: []
   effects:
   - name: 01 Lluvia nocturna
     clip: {fileID: 8300000, guid: a8e4f569f0d0e3f478819c1513e0a0d7, type: 3}
@@ -643,6 +818,8 @@ MonoBehaviour:
   subtitlePadding: {x: 44, y: 20}
   music: {fileID: 8300000, guid: 13c55c9c2add7f846ad8ab606879710a, type: 3}
   musicVolume: 0.7
+  musicStartDelay: 14
+  musicFadeIn: 4
   voiceVolume: 1
   sfxVolume: 1
   musicDuck: 0.3

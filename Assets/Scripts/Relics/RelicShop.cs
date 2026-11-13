@@ -84,6 +84,79 @@ public static class RelicShop
         return Result.Success;
     }
 
+    // ------------------------------------------------------------
+    // Venta
+    // ------------------------------------------------------------
+
+    // La tienda paga la mitad del precio de la reliquia (minimo 1 Corona).
+    public const int SellPercent = 50;
+
+    public static int SellPrice(RelicData data)
+    {
+        return data != null ? Mathf.Max(1, (Price(data) * SellPercent + 50) / 100) : 0;
+    }
+
+    // Las reliquias de evento y las exclusivas de un heroe son irrepetibles: no se pueden vender.
+    public static bool CanBeSold(RelicData data)
+    {
+        return data != null && !data.eventOnly && !data.IsExclusive;
+    }
+
+    public enum SellResult { Success, NoSession, InCombat, NotSellable, Equipped, Missing }
+
+    public static SellResult CheckSell(int uid)
+    {
+        if (!GameSession.IsActive)
+            return SellResult.NoSession;
+
+        if (GameSession.InCombat)
+            return SellResult.InCombat;
+
+        if (!RelicInventory.TryGetItem(uid, out RelicInventory.Item item))
+            return SellResult.Missing;
+
+        if (!CanBeSold(RelicInventory.DataOf(uid)))
+            return SellResult.NotSellable;
+
+        return RelicInventory.IsEquipped(uid) ? SellResult.Equipped : SellResult.Success;
+    }
+
+    public static SellResult TrySell(int uid, out string message)
+    {
+        SellResult result = CheckSell(uid);
+        RelicData data = RelicInventory.DataOf(uid);
+        string name = data != null ? data.displayName : "";
+        message = DescribeSell(result, name, SellPrice(data));
+
+        if (result != SellResult.Success)
+            return result;
+
+        int price = SellPrice(data);
+
+        if (!RelicInventory.TryRemove(uid))
+        {
+            message = DescribeSell(SellResult.Missing, name, price);
+            return SellResult.Missing;
+        }
+
+        GameSession.AddCoins(price);
+        GameSession.NotifySaleCompleted();
+        return SellResult.Success;
+    }
+
+    public static string DescribeSell(SellResult result, string name, int price)
+    {
+        switch (result)
+        {
+            case SellResult.Success: return "Vendiste: " + name + " (+" + price + " CR).";
+            case SellResult.Equipped: return "Equipada: desequípala en la ficha del personaje para venderla";
+            case SellResult.NotSellable: return "Esta reliquia no se puede vender";
+            case SellResult.InCombat: return "La tienda no esta disponible durante el combate.";
+            case SellResult.NoSession: return "No hay una partida en curso.";
+            default: return "Esa reliquia ya no está en tu inventario";
+        }
+    }
+
     public static string Describe(Result result, RelicData data)
     {
         string name = data != null ? data.displayName : "";

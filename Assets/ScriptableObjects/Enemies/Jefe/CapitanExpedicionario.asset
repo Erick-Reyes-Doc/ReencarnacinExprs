@@ -23,3 +23,15 @@ MonoBehaviour:
   criticalChance: 8
   criticalDamage: 1.5
   characterSprite: {fileID: 0}
+  portraitRect:
+    serializedVersion: 2
+    x: 215
+    y: 562
+    width: 190
+    height: 190
+  offsetAfterWideUnit: 0
+  occupiesTwoSlots: 1
+  wideCenterOffsetX: -0.6
+  defeatLine: "Mi guardia... termina aqu\xED..."
+  defeatSound: {fileID: 8300000, guid: 054d877db149ce14d9ae402856290398, type: 3}
+  healthBarScale: 1.6

@@ -5,23 +5,11 @@ TextureImporter:
   - first:
       213: 3658786584150343315
     second: Noelle_0
-  - first:
-      213: 4207724886899680768
-    second: Noelle_1
-  - first:
-      213: 2605995171682806654
-    second: Noelle_2
-  - first:
-      213: -8464896607841995417
-    second: Noelle_3
-  - first:
-      213: -5482681732988701270
-    second: Noelle_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -49,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 2
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,9 +48,9 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.49920383, y: 0.49920383}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -89,7 +77,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,117 +113,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Noelle_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 13
-        width: 1233
-        height: 1230
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 39efe31630f96c230800000000000000
-      internalID: 3658786584150343315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Noelle_1
-      rect:
-        serializedVersion: 2
-        x: 1143
-        y: 891
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 006e93cbd77d46a30800000000000000
-      internalID: 4207724886899680768
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Noelle_2
-      rect:
-        serializedVersion: 2
-        x: 1133
-        y: 738
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7b698e2dca5a2420800000000000000
-      internalID: 2605995171682806654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Noelle_3
-      rect:
-        serializedVersion: 2
-        x: 1053
-        y: 554
-        width: 7
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7653b255265a68a80800000000000000
-      internalID: -8464896607841995417
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Noelle_4
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 473
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa57fa8230a99e3b0800000000000000
-      internalID: -5482681732988701270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
@@ -251,10 +129,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Noelle_0: 3658786584150343315
-      Noelle_1: 4207724886899680768
-      Noelle_2: 2605995171682806654
-      Noelle_3: -8464896607841995417
-      Noelle_4: -5482681732988701270
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

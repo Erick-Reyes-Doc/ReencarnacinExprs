@@ -48,17 +48,25 @@ public partial class MapShopController
     {
         public RelicData relic;
         public int consumable;
+        public int uid;          // unidad concreta del inventario (solo en la pestana Vender)
+        public bool sell;        // entrada de la pestana Vender
         public bool IsRelic => relic != null;
     }
+
+    private const int TabCount = 4;      // 0 todo, 1 reliquias, 2 consumibles, 3 vender
+    private const int SellTab = 3;
+    private TMP_Text buyButtonLabel;
+    private string buyButtonDefaultText;
+    private static readonly string[] TabNames = { "Todo", "Reliquias", "Consumibles", "Vender" };
 
     private List<ShopEntry> relicProducts = new List<ShopEntry>();
     private readonly List<RelicCard> relicCards = new List<RelicCard>();
     private GameObject relicRoot;
     private RectTransform relicContent;
     private ScrollRect relicScroll;
-    private readonly Image[] tabBorders = new Image[3];
-    private readonly Image[] tabFills = new Image[3];
-    private readonly ShopCardHover[] tabHovers = new ShopCardHover[3];
+    private readonly Image[] tabBorders = new Image[TabCount];
+    private readonly Image[] tabFills = new Image[TabCount];
+    private readonly ShopCardHover[] tabHovers = new ShopCardHover[TabCount];
 
     // Sprites y fuentes tomados de la propia ventana de tienda.
     private Sprite relicCrown;
@@ -70,7 +78,7 @@ public partial class MapShopController
 
     public void SetShopTab(int tab)
     {
-        tab = Mathf.Clamp(tab, 0, 2);
+        tab = Mathf.Clamp(tab, 0, TabCount - 1);
 
         if (tab == shopTab)
             return;
@@ -305,11 +313,12 @@ public partial class MapShopController
         detailIconBasePos.y -= TabsBand * 0.5f;
 
         // Pestanas.
-        string[] tabNames = { "Todo", "Reliquias", "Consumibles" };
+        string[] tabNames = TabNames;
+        const float tabW = 184f, tabStep = 194f;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < TabCount; i++)
         {
-            RectTransform tab = RCentered("Pestana_" + tabNames[i], window, new Vector2((i - 1) * 206f, 290f), new Vector2(190f, 46f));
+            RectTransform tab = RCentered("Pestana_" + tabNames[i], window, new Vector2((i - (TabCount - 1) * 0.5f) * tabStep, 290f), new Vector2(tabW, 46f));
             Image hit = RImage(tab, null, new Color(0f, 0f, 0f, 0f), 0f, true);
             Button button = tab.gameObject.AddComponent<Button>();
             button.targetGraphic = hit;
@@ -321,9 +330,9 @@ public partial class MapShopController
             button.onClick.AddListener(() => SetShopTab(index));
             tabHovers[i] = tab.gameObject.AddComponent<ShopCardHover>();
 
-            tabFills[i] = RBorder("Marco", tab, Vector2.zero, new Vector2(190f, 46f), RelicNavy, RelicBorderIdle);
+            tabFills[i] = RBorder("Marco", tab, Vector2.zero, new Vector2(tabW, 46f), RelicNavy, RelicBorderIdle);
             tabBorders[i] = tabFills[i];
-            TMP_Text label = RText(tab, "Texto", Vector2.zero, new Vector2(176f, 40f), tabNames[i], 25f, new Color(0.910f, 0.863f, 0.776f, 1f),
+            TMP_Text label = RText(tab, "Texto", Vector2.zero, new Vector2(tabW - 8f, 40f), tabNames[i], 24f, new Color(0.910f, 0.863f, 0.776f, 1f),
                 TextAlignmentOptions.Midline, relicBold);
             label.textWrappingMode = TextWrappingModes.NoWrap;
         }
@@ -358,6 +367,12 @@ public partial class MapShopController
 
         BuildRelicTip(window);
         relicRoot.SetActive(false);
+
+        if (detailBuyButton != null)
+        {
+            buyButtonLabel = detailBuyButton.GetComponentInChildren<TMP_Text>(true);
+            buyButtonDefaultText = buyButtonLabel != null ? buyButtonLabel.text : "COMPRAR";
+        }
     }
 
     // Tarjeta compacta: solo icono y precio. Nombre, rareza y efectos salen en un tooltip al pasar el cursor y en el
@@ -468,6 +483,9 @@ public partial class MapShopController
             body = ConsumableService.Description(type);
         }
 
+        if (entry.sell)
+            body += "\n<color=#D4AF6A>Se vende por " + EntryPrice(entry) + " CR</color>";
+
         // Las reliquias llevan descripcion: tarjeta algo mas ancha para que se lea sin ocupar demasiado alto.
         float width = entry.IsRelic ? 420f : 330f;
         const float pad = 14f;
@@ -513,13 +531,31 @@ public partial class MapShopController
         relicDirty = false;
         relicProducts = new List<ShopEntry>();
 
-        if (shopTab != 1)
+        if (shopTab == SellTab)
+        {
+            // Vender: consumables que se tienen y reliquias del inventario (las equipadas salen bloqueadas).
             for (int c = 0; c < 2; c++)
-                relicProducts.Add(new ShopEntry { consumable = c });
+                if (GameSession.GetCount((GameSession.Consumable)c) > 0)
+                    relicProducts.Add(new ShopEntry { consumable = c, sell = true });
 
-        if (shopTab != 2)
-            foreach (RelicData relic in RelicShop.Products())
-                relicProducts.Add(new ShopEntry { relic = relic, consumable = -1 });
+            foreach (RelicInventory.Item item in RelicInventory.Items)
+            {
+                RelicData data = RelicInventory.DataOf(item.uid);
+
+                if (data != null && RelicShop.CanBeSold(data))
+                    relicProducts.Add(new ShopEntry { relic = data, consumable = -1, uid = item.uid, sell = true });
+            }
+        }
+        else
+        {
+            if (shopTab != 1)
+                for (int c = 0; c < 2; c++)
+                    relicProducts.Add(new ShopEntry { consumable = c });
+
+            if (shopTab != 2)
+                foreach (RelicData relic in RelicShop.Products())
+                    relicProducts.Add(new ShopEntry { relic = relic, consumable = -1 });
+        }
 
         while (relicCards.Count < relicProducts.Count)
             relicCards.Add(MakeRelicCard(relicCards.Count));
@@ -554,6 +590,9 @@ public partial class MapShopController
 
     private static int EntryPrice(ShopEntry entry)
     {
+        if (entry.sell)
+            return entry.IsRelic ? RelicShop.SellPrice(entry.relic) : ConsumableService.SellPrice((GameSession.Consumable)entry.consumable);
+
         return entry.IsRelic ? RelicShop.Price(entry.relic) : ConsumableService.Price((GameSession.Consumable)entry.consumable);
     }
 
@@ -564,7 +603,7 @@ public partial class MapShopController
     // Pestanas y visibilidad de cada vista; se llama cada fotograma con la tienda abierta.
     private void ApplyShopTab()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < TabCount; i++)
         {
             bool selected = i == shopTab;
             bool hovered = tabHovers[i] != null && tabHovers[i].Hovered;
@@ -636,6 +675,17 @@ public partial class MapShopController
             RebuildRelicProducts();
 
         SetText(shopCoinsText, GameSession.Coins.ToString());
+
+        string wantedLabel = shopTab == SellTab ? "VENDER" : buyButtonDefaultText;
+
+        if (buyButtonLabel != null && wantedLabel != null && buyButtonLabel.text != wantedLabel)
+            buyButtonLabel.text = wantedLabel;
+
+        if (shopTab == SellTab)
+        {
+            RefreshSellTab();
+            return;
+        }
 
         int coins = GameSession.Coins;
         ShopEntry? hoveredEntry = null;
@@ -778,10 +828,160 @@ public partial class MapShopController
             detailBuyButton.interactable = canBuy;
     }
 
+    // Pestana Vender: lo que el jugador puede entregar (consumibles y reliquias sin equipar) a mitad de precio.
+    private void RefreshSellTab()
+    {
+        ShopEntry? hoveredEntry = null;
+        Color gold = new Color(0.831f, 0.686f, 0.416f, 1f);
+
+        for (int i = 0; i < relicProducts.Count && i < relicCards.Count; i++)
+        {
+            RelicCard card = relicCards[i];
+            ShopEntry entry = relicProducts[i];
+            bool selected = i == selectedRelic;
+            bool hovered = card.hover != null && card.hover.Hovered;
+            bool equipped = entry.IsRelic && RelicInventory.IsEquipped(entry.uid);
+            Color idle = entry.IsRelic ? Color.Lerp(RelicBorderIdle, RelicData.RarityColor(entry.relic.rarity), 0.45f) : RelicBorderIdle;
+
+            SetBorderColor(card.border, selected ? RelicBorderSelected : hovered ? RelicBorderHover : idle);
+
+            if (hovered)
+                hoveredEntry = entry;
+
+            if (card.priceGroup.activeSelf == equipped)
+                card.priceGroup.SetActive(!equipped);
+
+            if (card.ownedLabel.activeSelf != equipped)
+                card.ownedLabel.SetActive(equipped);
+
+            card.ownedLabel.GetComponent<TMP_Text>().text = "EQUIPADA";
+
+            if (card.price.color != gold)
+                card.price.color = gold;
+
+            card.icon.color = equipped ? new Color(0.5f, 0.5f, 0.55f, 1f) : Color.white;
+        }
+
+        UpdateRelicTip(hoveredEntry);
+
+        bool has = selectedRelic >= 0 && selectedRelic < relicProducts.Count;
+        bool canSell = false;
+        string status = "";
+
+        if (!has)
+        {
+            SetText(detailName, "Nada que vender");
+            SetText(detailDescription, "No tienes consumibles ni reliquias sin equipar. La tienda paga la mitad del precio de compra.");
+            SetText(detailAvailable, "");
+            SetText(detailOwned, "");
+
+            if (detailIcon != null)
+                detailIcon.enabled = false;
+        }
+        else
+        {
+            ShopEntry current = relicProducts[selectedRelic];
+            int price = EntryPrice(current);
+
+            if (current.IsRelic)
+            {
+                RelicData relic = current.relic;
+
+                if (detailIcon != null)
+                {
+                    detailIcon.enabled = relic.icon != null;
+                    detailIcon.sprite = relic.icon;
+                    detailIcon.rectTransform.sizeDelta = new Vector2(84f, 84f);
+                    detailIcon.rectTransform.anchoredPosition = detailIconBasePos;
+                }
+
+                RelicShop.SellResult check = RelicShop.CheckSell(current.uid);
+                canSell = check == RelicShop.SellResult.Success && Time.unscaledTime >= buyLockedUntil;
+                string rarityColor = ColorUtility.ToHtmlStringRGB(RelicData.RarityColor(relic.rarity));
+                string body = EffectsText(relic) + "\n<color=#" + rarityColor + ">" + RelicData.RarityName(relic.rarity) + "</color>";
+
+                if (!string.IsNullOrEmpty(relic.description))
+                    body += "\n" + relic.description;
+
+                SetText(detailName, relic.displayName);
+                SetText(detailDescription, body);
+                SetText(detailAvailable, "");
+                SetText(detailOwned, "Valor de venta: " + price + " CR");
+
+                if (check != RelicShop.SellResult.Success)
+                    status = RelicShop.DescribeSell(check, relic.displayName, price);
+            }
+            else
+            {
+                GameSession.Consumable type = (GameSession.Consumable)current.consumable;
+                int owned = GameSession.GetCount(type);
+
+                if (detailIcon != null)
+                {
+                    detailIcon.enabled = true;
+                    detailIcon.sprite = current.consumable < productIcons.Length ? productIcons[current.consumable] : null;
+
+                    if (detailIconSizes != null && current.consumable < detailIconSizes.Length)
+                    {
+                        detailIcon.rectTransform.sizeDelta = detailIconSizes[current.consumable];
+                        detailIcon.rectTransform.anchoredPosition = detailIconBasePos + detailIconOffsets[current.consumable];
+                    }
+                }
+
+                canSell = owned > 0 && Time.unscaledTime >= buyLockedUntil;
+                SetText(detailName, ConsumableService.Name(type));
+                SetText(detailDescription, ProductDescription(type));
+                SetText(detailAvailable, "");
+                SetText(detailOwned, "En inventario: " + owned + "  ·  Valor de venta: " + price + " CR");
+            }
+        }
+
+        SetText(shopMessageText, Time.unscaledTime < relicMessageUntil ? relicMessage : status);
+
+        if (detailBuyButton != null && detailBuyButton.interactable != canSell)
+            detailBuyButton.interactable = canSell;
+    }
+
+    // Boton VENDER: una unidad por clic (reliquia concreta o un consumible).
+    private void SellSelected()
+    {
+        if (Time.unscaledTime < buyLockedUntil)
+            return;
+
+        relicMessageUntil = Time.unscaledTime + 3f;
+
+        if (selectedRelic < 0 || selectedRelic >= relicProducts.Count)
+        {
+            relicMessage = "Selecciona algo para vender.";
+            return;
+        }
+
+        ShopEntry entry = relicProducts[selectedRelic];
+        buyLockedUntil = Time.unscaledTime + BuyCooldownSeconds;
+
+        if (entry.IsRelic)
+        {
+            RelicShop.TrySell(entry.uid, out string text);
+            relicMessage = text;
+        }
+        else
+        {
+            relicMessage = ConsumableService.Sell((GameSession.Consumable)entry.consumable, out _);
+        }
+
+        relicDirty = true;   // la lista cambia: se rehace en el siguiente fotograma
+    }
+
     // Boton COMPRAR: una sola operacion validada (RelicShop para reliquias, ConsumableService para consumibles), con
     // una pausa corta para que varios clics rapidos no repitan la compra sin querer.
     private void BuySelectedRelic()
     {
+        if (shopTab == SellTab)
+        {
+            SellSelected();
+            return;
+        }
+
         if (Time.unscaledTime < buyLockedUntil)
             return;
 

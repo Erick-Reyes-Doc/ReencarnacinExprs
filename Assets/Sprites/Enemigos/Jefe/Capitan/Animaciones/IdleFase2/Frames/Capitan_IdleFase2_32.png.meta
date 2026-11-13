@@ -1,0 +1,470 @@
+fileFormatVersion: 2
+guid: 7d6414da0113cbb4fb4a2d2c9111366a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4269390491516631647
+    second: Capitan_IdleFase2_32_0
+  - first:
+      213: -7167809492133465824
+    second: Capitan_IdleFase2_32_1
+  - first:
+      213: 390716558815215047
+    second: Capitan_IdleFase2_32_2
+  - first:
+      213: -1646703594791408753
+    second: Capitan_IdleFase2_32_3
+  - first:
+      213: -8138751929528145615
+    second: Capitan_IdleFase2_32_4
+  - first:
+      213: -5392407386034675979
+    second: Capitan_IdleFase2_32_5
+  - first:
+      213: 7468164600378843609
+    second: Capitan_IdleFase2_32_6
+  - first:
+      213: 3648500019763091178
+    second: Capitan_IdleFase2_32_7
+  - first:
+      213: -4472649368013545641
+    second: Capitan_IdleFase2_32_8
+  - first:
+      213: 8273605621223536355
+    second: Capitan_IdleFase2_32_9
+  - first:
+      213: -4684692079853030318
+    second: Capitan_IdleFase2_32_10
+  - first:
+      213: -2507701071863079430
+    second: Capitan_IdleFase2_32_11
+  - first:
+      213: 75049654606925635
+    second: Capitan_IdleFase2_32_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.49906716, y: 0.35290697}
+  spritePixelsToUnits: 44.93023
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_0
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 927
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a588b9d7f310c4c0800000000000000
+      internalID: -4269390491516631647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_1
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 898
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02136bb5e33d68c90800000000000000
+      internalID: -7167809492133465824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_2
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 877
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cd3b00e3aa1c6500800000000000000
+      internalID: 390716558815215047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_3
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 876
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8b691e1ecbb529e0800000000000000
+      internalID: -1646703594791408753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 133
+        width: 436
+        height: 694
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1392375bd385d0f80800000000000000
+      internalID: -8138751929528145615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_5
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 822
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fed5377d025a25b0800000000000000
+      internalID: -5392407386034675979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_6
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 807
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d16ab1d22044a760800000000000000
+      internalID: 7468164600378843609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_7
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 814
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae61cf8ff6312a230800000000000000
+      internalID: 3648500019763091178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_8
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 633
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75f5daec815fde1c0800000000000000
+      internalID: -4472649368013545641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 502
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e634b02a70c1d270800000000000000
+      internalID: 8273605621223536355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_10
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 388
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 254364abf51acfeb0800000000000000
+      internalID: -4684692079853030318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_11
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 282
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd1cb8592bd23dd0800000000000000
+      internalID: -2507701071863079430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capitan_IdleFase2_32_12
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 208
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f8c536341aa0100800000000000000
+      internalID: 75049654606925635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Capitan_IdleFase2_32_0: -4269390491516631647
+      Capitan_IdleFase2_32_1: -7167809492133465824
+      Capitan_IdleFase2_32_10: -4684692079853030318
+      Capitan_IdleFase2_32_11: -2507701071863079430
+      Capitan_IdleFase2_32_12: 75049654606925635
+      Capitan_IdleFase2_32_2: 390716558815215047
+      Capitan_IdleFase2_32_3: -1646703594791408753
+      Capitan_IdleFase2_32_4: -8138751929528145615
+      Capitan_IdleFase2_32_5: -5392407386034675979
+      Capitan_IdleFase2_32_6: 7468164600378843609
+      Capitan_IdleFase2_32_7: 3648500019763091178
+      Capitan_IdleFase2_32_8: -4472649368013545641
+      Capitan_IdleFase2_32_9: 8273605621223536355
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

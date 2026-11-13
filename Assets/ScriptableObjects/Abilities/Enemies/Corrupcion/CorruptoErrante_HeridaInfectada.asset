@@ -17,17 +17,41 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: HeridaInfectada
+  animationSpeed: 1
+  impactTime: 0.272
+  hitSound: {fileID: 8300000, guid: 6015a1be68eb99043b0ae953eb473093, type: 3}
+  hitSoundLead: 0.25
+  impactSlashAngle: -60
+  impactEffect: 0
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1.2
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 1
   damagePercent: 100
   canCritical: 1
-  usablePositions: 01010000y
+  usablePositions: 01010100y
   targetPositions: 01010000y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 2
   availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
   regenerationPercentMaxHealth: 0

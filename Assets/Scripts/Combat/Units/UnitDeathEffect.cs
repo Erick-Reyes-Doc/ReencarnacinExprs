@@ -35,8 +35,62 @@ public class UnitDeathEffect : MonoBehaviour
         if (effect == null)
             effect = unit.gameObject.AddComponent<UnitDeathEffect>();
 
+        // Unidad con animacion de derrota propia (el Capitan): la hace, se queda en su ultima pose y despues se desvanece
+        // (sin oscurecer ni craneo). Dice su ultima frase.
+        UnitAnimationDriver driver = unit.GetComponent<UnitAnimationDriver>();
+
+        if (unit.gameObject.activeInHierarchy && driver != null && driver.PlayDefeat())
+        {
+            effect.BeginDefeatAnimation(sprite, driver.DefeatSeconds);
+
+            // Sonido de la derrota (armadura que se derrumba), junto con la animacion.
+            if (unit.Data != null)
+                CombatCueSounds.Play(unit.Data.defeatSound, AttackCinematic.AbilitySfxVolume * 1.5f);
+
+            if (unit.Data != null && !string.IsNullOrEmpty(unit.Data.defeatLine))
+                BossSpeechBanner.Show(unit, unit.Data.defeatLine, null);
+
+            return;
+        }
+
         if (!unit.gameObject.activeInHierarchy || !effect.Begin(sprite))
             sprite.enabled = false;
+    }
+
+    // Segundos que dura la derrota animada mas reciente (animacion + pausa + desvanecido): la victoria espera esto.
+    public static float LastDefeatAnimationSeconds { get; private set; }
+
+    private const float DefeatHoldSeconds = 1.2f;
+    private const float DefeatFadeSeconds = 0.7f;
+
+    private void BeginDefeatAnimation(SpriteRenderer sprite, float clipSeconds)
+    {
+        Stop(true);
+        body = sprite;
+        originalColor = sprite.color;
+        LastDefeatAnimationSeconds = clipSeconds + DefeatHoldSeconds + DefeatFadeSeconds;
+        routine = StartCoroutine(RunDefeat(clipSeconds));
+    }
+
+    private IEnumerator RunDefeat(float clipSeconds)
+    {
+        yield return new WaitForSeconds(clipSeconds + DefeatHoldSeconds);
+
+        for (float t = 0f; t < DefeatFadeSeconds; t += Time.deltaTime)
+        {
+            if (body == null)
+                yield break;
+
+            Color c = originalColor;
+            c.a = originalColor.a * (1f - t / DefeatFadeSeconds);
+            body.color = c;
+            yield return null;
+        }
+
+        if (body != null)
+            body.enabled = false;
+
+        routine = null;
     }
 
     // Detiene el efecto y deja el sprite como estaba (lo reactiva quien revive a la unidad).

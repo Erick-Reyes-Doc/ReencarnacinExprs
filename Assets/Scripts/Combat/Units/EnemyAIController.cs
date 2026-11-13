@@ -189,6 +189,10 @@ public partial class EnemyAIController : MonoBehaviour
         if (ability == null || ability.requiresPreparation)
             return false;
 
+        // Las invocaciones no entran en la puntuacion normal: solo las decide el jefe segun la situacion (TryBossSummon).
+        if (ability.IsSummon)
+            return false;
+
         if (!ability.CanUseFromPosition(self.Position))
             return false;
 
@@ -230,13 +234,29 @@ public partial class EnemyAIController : MonoBehaviour
             ? (self.Side == TeamSide.Player ? TeamSide.Enemy : TeamSide.Player)
             : self.Side;
 
+        // Heroes: casilla real primero, con respaldo a la posicion compactada (ver PositionManager).
+        List<BattleUnit> reachable = side == TeamSide.Player
+            ? positionManager.GetPlayerUnitsAtPositions(ability.CanTargetPosition)
+            : null;
+
         for (int position = 1; position <= 4; position++)
         {
-            if (!ability.CanTargetPosition(position))
-                continue;
+            BattleUnit candidate;
 
-            BattleUnit candidate =
-                positionManager.GetUnitAtPosition(side, position);
+            if (reachable != null)
+            {
+                if (position > reachable.Count)
+                    break;
+
+                candidate = reachable[position - 1];
+            }
+            else
+            {
+                if (!ability.CanTargetPosition(position))
+                    continue;
+
+                candidate = positionManager.GetUnitAtPosition(side, position);
+            }
 
             if (candidate == null || !candidate.IsAlive)
                 continue;
@@ -502,6 +522,9 @@ public partial class EnemyAIController : MonoBehaviour
             ? " pasa su turno: no hay objetivos validos."
             : " pasa su turno: no pudo usar ninguna habilidad."));
 
+        // Se ve en pantalla que no actuo (antes el turno pasaba en silencio y parecia un fallo).
+        CombatFeedback.Show(self, options.Count == 0 ? "¡Fuera de alcance!" : "¡Sin accion!", FeedbackKind.Dodge);
+
         return TurnResult.Passed;
     }
 
@@ -533,10 +556,30 @@ public partial class EnemyAIController : MonoBehaviour
         if (direction == 0 || !positionManager.CanMoveUnit(self, direction))
             return false;
 
+        // El movimiento intercambia lugar con quien ocupe el destino. Si ese aliado SI puede atacar desde donde esta y no
+        // podria desde la posicion que dejo yo, no se intercambia: se quedaria sin poder atacar (bucle de intercambios en el
+        // que solo ataca la mitad de la fila).
+        BattleUnit occupant = positionManager.GetUnitAtPosition(self.Side, self.Position + direction);
+
+        if (occupant != null && occupant != self)
+        {
+            EnemyAIController other = occupant.GetComponent<EnemyAIController>();
+
+            if (other != null && other.basicAttack != null &&
+                other.basicAttack.CanUseFromPosition(occupant.Position) &&
+                !other.basicAttack.CanUseFromPosition(self.Position))
+                return false;
+        }
+
         Debug.Log(
             self.Data.unitName + " se mueve una posicion para poder atacar."
         );
 
-        return positionManager.MoveUnit(self, direction);
+        bool moved = positionManager.MoveUnit(self, direction);
+
+        if (moved)
+            CombatFeedback.Show(self, direction < 0 ? "¡Avanza!" : "¡Retrocede!", FeedbackKind.Dodge);
+
+        return moved;
     }
 }

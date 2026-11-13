@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca15da714383484aa74c8473611c58c, type: 3}
+  m_Name: EpilogoCapitan
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 
+    text: "En el Trono Sellado, el \xFAltimo eco de la armadura del Capit\xE1n se apaga entre las piedras."
+    light: 0
+    action: 0
+  - speaker: Elaina
+    text: "Se acab\xF3... Mira, la corrupci\xF3n se est\xE1 desvaneciendo."
+    light: 0
+    action: 0
+  - speaker: Evanora
+    text: "Las ra\xEDces dejan de moverse. El bosque por fin puede respirar."
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: "Sus fuerzas se retirar\xE1n hacia el norte, a la Forja de Combusti\xF3n. Ah\xED es donde el Rey Demonio los espera."
+    light: 0
+    action: 0
+  - speaker: Valerian
+    text: Perfecto. Un comandante menos. Solo falta el Rey Demonio, nada que no se arregle con una buena siesta.
+    light: 0
+    action: 0
+  - speaker: Noelle
+    text: Esto es solo el comienzo, Valerian. Ahora sabe que existimos.
+    light: 0
+    action: 0
+  - speaker: Elaina
+    text: "Que lo sepa. Aethel ya tiene h\xE9roes."
+    light: 0
+    action: 0
+  - speaker: 
+    text: "As\xED, los reencarnados regresaron como los h\xE9roes del primer tramo. La guerra contra el Rey Demonio continuaba."
+    light: 0
+    action: 0

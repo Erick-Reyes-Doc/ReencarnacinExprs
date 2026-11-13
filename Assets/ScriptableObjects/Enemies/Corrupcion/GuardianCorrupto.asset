@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GuardianCorrupto
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: "Guardi\xE1n Corrupto"
-  maxHealth: 40
+  maxHealth: 65
   damageMin: 6
   damageMax: 8
   protectionPercent: 20
@@ -22,4 +22,13 @@ MonoBehaviour:
   isBoss: 0
   criticalChance: 6
   criticalDamage: 1.5
-  characterSprite: {fileID: 0}
+  characterSprite: {fileID: 21300000, guid: fca35f01386ec05439c5559e8d7f7e9f, type: 3}
+  portraitRect:
+    serializedVersion: 2
+    x: 570
+    y: 915
+    width: 443
+    height: 443
+  offsetAfterWideUnit: 0
+  occupiesTwoSlots: 1
+  healthBarScale: 1.6

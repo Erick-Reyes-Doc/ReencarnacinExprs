@@ -101,6 +101,10 @@ public class BattleUnit : MonoBehaviour
 
     public bool IsAlive => currentHealth > 0 && !hasFled;
 
+    // Heroe CAIDO: vida 0. Los protagonistas no mueren: quedan en el suelo, sin turno ni objetivo para los enemigos,
+    // hasta que reciben una curacion (pocion o habilidad de curacion de Noelle).
+    public bool IsDowned => currentHealth <= 0 && teamSide == TeamSide.Player && !hasFled;
+
     // Se dispara una sola vez cuando la unidad huye (PositionManager la retira de la formacion).
     public event Action<BattleUnit> OnFled;
 
@@ -196,10 +200,10 @@ public class BattleUnit : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    // Restaura la vida guardada (sesion). Minimo 1: no revive a nadie.
+    // Restaura la vida guardada (sesion). Un heroe puede quedar en 0 (caido, espera curacion); un enemigo nunca baja de 1.
     public void RestoreHealth(int health)
     {
-        currentHealth = Mathf.Clamp(health, 1, maxHealth);
+        currentHealth = Mathf.Clamp(health, teamSide == TeamSide.Player ? 0 : 1, maxHealth);
     }
 
     // Calcula las estadisticas segun el nivel actual.
@@ -267,13 +271,12 @@ public class BattleUnit : MonoBehaviour
     {
         UpdateStats();
 
-        // La vida actual se conserva.
-        // Solo nos aseguramos de no superar
-        // el nuevo maximo.
-        currentHealth = Mathf.Min(
-            currentHealth,
-            maxHealth
-        );
+        // Al subir de nivel el heroe recupera el 100 % de su vida (con el nuevo maximo). Un heroe caido (vida 0) no se
+        // levanta por subir de nivel: sigue esperando una curacion.
+        if (IsAlive)
+            currentHealth = maxHealth;
+        else
+            currentHealth = Mathf.Min(currentHealth, maxHealth);
 
         Debug.Log(
             unitData.unitName +
@@ -393,6 +396,20 @@ public class BattleUnit : MonoBehaviour
         // La intercepcion de Guardia de Trinchera (reparto entre protector y objetivo, cada uno con su PROT) se resuelve
         // ANTES, en AbilitySystem.DeliverDirectDamage: aqui el daño ya es la parte que recibe esta unidad.
         TakeReducedDamage(damage);
+
+        // Un golpe directo de un atacante consume la Defensa elevada de esta unidad (ya protegio este golpe).
+        if (attacker != null && damage > 0)
+            ConsumeDefenseBoostOnHit();
+    }
+
+    // Defensa elevada (bono de proteccion de habilidades): ademas de gastarse con los turnos, se acaba al recibir un golpe
+    // directo (el golpe que la consume ya cuenta con ella). Vale para heroes y enemigos; el daño periodico no la consume.
+    public void ConsumeDefenseBoostOnHit()
+    {
+        StatusEffectController statuses = GetComponent<StatusEffectController>();
+
+        if (statuses != null && statuses.RemoveEffect(StatusEffectType.DefenseBoost))
+            Debug.Log(unitData.unitName + " pierde Defensa elevada al recibir un golpe.");
     }
 
     // Aplica la reduccion de daño directo propia (Guard, con tope)
@@ -466,25 +483,49 @@ public class BattleUnit : MonoBehaviour
         }
     }
 
+    // Porcentaje de vida maxima con el que revive un aliado caido al recibir una curacion.
+    public const int ReviveHealPercent = 40;
+
     // Curacion realmente aplicada a una unidad (solo presentacion: marcadores flotantes).
     public static event Action<BattleUnit, int> HealApplied;
 
     // Recupera puntos de vida.
     public void Heal(int amount)
     {
-        if (!IsAlive) return;
+        // Un heroe caido SI puede recibir curacion: es lo que lo levanta. Un enemigo derrotado no.
+        bool wasDowned = IsDowned;
+
+        if (!IsAlive && !wasDowned) return;
 
         amount = Mathf.Max(0, amount);
 
         int before = currentHealth;
 
-        currentHealth = Mathf.Min(
-            maxHealth,
-            currentHealth + amount
-        );
+        if (wasDowned)
+        {
+            // Aliado caido (0 de vida): cualquier curacion lo levanta con el 40 % de su vida maxima (redondeo hacia
+            // arriba, minimo 1), sin importar cuanto curaba. Solo aplica a heroes en 0 de vida; a los demas se les
+            // suma la curacion normal.
+            if (amount > 0)
+                currentHealth = Mathf.Clamp((maxHealth * ReviveHealPercent + 99) / 100, 1, maxHealth);
+        }
+        else
+        {
+            currentHealth = Mathf.Min(
+                maxHealth,
+                currentHealth + amount
+            );
+        }
 
         if (currentHealth > before)
             HealApplied?.Invoke(this, currentHealth - before);
+
+        if (wasDowned && currentHealth > 0)
+        {
+            Debug.Log(unitData.unitName + " se levanta con " + currentHealth + "/" + maxHealth + " HP.");
+            OnRevived?.Invoke(this);
+            return;
+        }
 
         Debug.Log(
             unitData.unitName +

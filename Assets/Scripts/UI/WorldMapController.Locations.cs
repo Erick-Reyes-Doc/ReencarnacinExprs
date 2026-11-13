@@ -314,6 +314,7 @@ public partial class WorldMapController
             bool open = openLocationId == view.id;
             bool hover = hoveredLocationId == view.id;
             bool hint = state == PlaceState.Locked && nextAfterRecommended != null && def.encounterIds.Contains(nextAfterRecommended);
+            ApplyHoverSilence(view, state);
 
             if (view.badge != null && view.quest != null)
             {

@@ -22,5 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d3ef10fe65ff7a24381932003927e142, type: 2}
   - {fileID: 11400000, guid: 427711939de71d543918b3ba60514649, type: 2}
   - {fileID: 11400000, guid: 9e61ea711d79d724c822757f41fec334, type: 2}
+  - {fileID: 11400000, guid: f5aa3f5f9a8a76544898f3fdc6703969, type: 2}
   aiStyle: 2
+  behaviors: 0
   actionDelay: 0.6

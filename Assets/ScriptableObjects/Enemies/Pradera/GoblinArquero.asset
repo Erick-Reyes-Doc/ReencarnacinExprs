@@ -22,4 +22,12 @@ MonoBehaviour:
   isBoss: 0
   criticalChance: 4
   criticalDamage: 1.5
-  characterSprite: {fileID: 0}
+  characterSprite: {fileID: 21300000, guid: bfa62c0679640794885d43f40c0742ad, type: 3}
+  portraitRect:
+    serializedVersion: 2
+    x: 498
+    y: 775
+    width: 524
+    height: 524
+  occupiesTwoSlots: 0
+  healthBarScale: 1

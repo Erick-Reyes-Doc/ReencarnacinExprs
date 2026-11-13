@@ -16,23 +16,61 @@ MonoBehaviour:
   description: Ataque basico a distancia.
   abilityIcon: {fileID: 0}
   abilityType: 0
+  useAnnouncement: 
+  animationTrigger: OrbeMaldito
+  animationSpeed: 1
+  impactTime: 0.48
+  hitSound: {fileID: 8300000, guid: d1a7bd7aa10cac440b86caae33f9ff83, type: 3}
+  hitSoundLead: 0.06
+  impactSlashAngle: 0
+  impactEffect: 5
+  projectileFlightSeconds: 0.2
+  projectileKind: 1
+  extraProjectiles: 0
+  projectileColor: {r: 0.75, g: 0.3, b: 1, a: 1}
+  shotSound: {fileID: 8300000, guid: 814ed8b99b03024459809c4fcd2ff296, type: 3}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0.16
+  impactPower: 0.9
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
+  damagePercent: 100
   canCritical: 1
-  usablePositions: 00010101y
+  usablePositions: 01010101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 0
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
+  healMin: 0
+  healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
+  selectableAreas: []
   dealsDamage: 1
   defensePenetration: 0
+  evasionPenetration: 0
   attackWeight: 0
   statusesRequireHit: 1
+  criticalChanceBonus: 0
+  bonusIfTargetHas: 0
+  bonusDamagePercent: 0
+  consumeBonusStatus: 0
+  movementOptional: 0
   userMovement: 0
   allyProtectionPercent: 0
   statusEffects: []

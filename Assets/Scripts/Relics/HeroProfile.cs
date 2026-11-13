@@ -15,14 +15,55 @@ public class HeroProfile
     [Header("Icono oficial (Assets/Sprites/Personajes/Iconos)")]
     [Tooltip("Retrato oficial del personaje. Si esta asignado sustituye al retrato provisional en la barra del mapa y en la ficha.")]
     public Sprite icon;
+    [Tooltip("Icono que sustituye al oficial cuando ya se completo el evento indicado (p. ej. Noelle sin mascara tras La mascara rota).")]
+    public Sprite iconAfterEvent;
+    public string iconAfterEventId;
 
     [Header("Retrato provisional (recorte de la cabeza del sprite de combate, con su tinte)")]
     public Sprite bodySprite;
+    [Tooltip("Sprite del cuerpo que sustituye a 'bodySprite' cuando ya se completo 'iconAfterEventId' (Noelle sin mascara).")]
+    public Sprite bodyAfterEvent;
     public Color tint = Color.white;
 
+    [Header("Animacion Idle del retrato grande de la ficha (opcional)")]
+    [Tooltip("Fotogramas de la animacion en reposo. Si hay 2 o mas sustituyen al sprite estatico grande SOLO en la ventana de descripcion del personaje; no afectan al combate.")]
+    public Sprite[] idleFrames = new Sprite[0];
+    [Min(1f)] public float idleFps = 8f;
+
+    [Tooltip("Fotogramas del Idle cuando ya se completo 'iconAfterEventId' (Noelle sin mascara). Vacio = tras el evento se muestra el sprite estatico de 'bodyAfterEvent'.")]
+    public Sprite[] idleFramesAfterEvent = new Sprite[0];
+
+    // Fotogramas del Idle que corresponden al aspecto actual (antes o despues del evento que cambia al personaje).
+    public Sprite[] ActiveIdleFrames =>
+        bodyAfterEvent != null && !string.IsNullOrEmpty(iconAfterEventId) && GameSession.IsEncounterCompleted(iconAfterEventId)
+            ? idleFramesAfterEvent
+            : idleFrames;
+
+    public bool HasIdle
+    {
+        get
+        {
+            Sprite[] frames = ActiveIdleFrames;
+
+            if (frames == null || frames.Length < 2)
+                return false;
+
+            foreach (Sprite frame in frames)
+                if (frame == null)
+                    return false;
+
+            return true;
+        }
+    }
+
     // Retrato que se muestra en iconos: el oficial (sin tinte) o, si falta, el recorte provisional con su tinte.
-    public Sprite Icon => icon != null ? icon : HeroPortraits.Get(bodySprite);
-    public Color IconTint => icon != null ? Color.white : tint;
+    // Cuerpo completo para la ficha: el de despues del evento si ya se completo; si no, el base.
+    public Sprite Body => bodyAfterEvent != null && !string.IsNullOrEmpty(iconAfterEventId) && GameSession.IsEncounterCompleted(iconAfterEventId) ? bodyAfterEvent : bodySprite;
+
+    public Sprite Icon => iconAfterEvent != null && !string.IsNullOrEmpty(iconAfterEventId) && GameSession.IsEncounterCompleted(iconAfterEventId)
+        ? iconAfterEvent
+        : (icon != null ? icon : HeroPortraits.Get(bodySprite));
+    public Color IconTint => icon != null || iconAfterEvent != null ? Color.white : tint;
 
     [Header("Habilidades (las del conjunto inicial y, si existe, el transformado)")]
     public AbilityData[] abilities = new AbilityData[0];
@@ -75,7 +116,7 @@ public static class CharacterStats
         stats.speed = Mathf.Max(0, u.speed + (p != null ? p.GetSpeedBonus(level) : 0) + mods.speed);
         stats.crit = Mathf.Clamp(u.criticalChance + mods.crit, 0f, 100f);
         stats.experienceRequired = p != null && level < MaxLevel ? p.GetExperienceRequired(level) : 0;
-        stats.health = savedHealth < 0 ? stats.maxHealth : Mathf.Clamp(savedHealth, 1, stats.maxHealth);
+        stats.health = savedHealth < 0 ? stats.maxHealth : Mathf.Clamp(savedHealth, 0, stats.maxHealth);
         return stats;
     }
 

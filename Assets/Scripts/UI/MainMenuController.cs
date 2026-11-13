@@ -26,6 +26,8 @@ public class MainMenuController : MonoBehaviour
     [Header("Transiciones")]
     [SerializeField] private float musicFadeInDuration = 2f;
     [SerializeField] private float newGameFadeDuration = 2f;
+    [Tooltip("Duracion del fundido desde negro al abrir el menu (0 = sin fundido).")]
+    [SerializeField] private float menuFadeInDuration = 1.5f;
     [Tooltip("Imagen negra a pantalla completa (Canvas Overlay por encima de toda la interfaz).")]
     [SerializeField] private Image transitionOverlay;
 
@@ -67,9 +69,13 @@ public class MainMenuController : MonoBehaviour
         if (transitionOverlay != null)
         {
             Color clear = transitionOverlay.color;
-            clear.a = 0f;
+            // El menu entra con un fundido desde negro (en vez de aparecer de golpe); la musica sube a la par.
+            clear.a = menuFadeInDuration > 0f ? 1f : 0f;
             transitionOverlay.color = clear;
             transitionOverlay.raycastTarget = false;
+
+            if (menuFadeInDuration > 0f)
+                StartCoroutine(FadeScreenIn());
         }
 
         masterVolumeSlider.SetValueWithoutNotify(AudioListener.volume);
@@ -79,6 +85,26 @@ public class MainMenuController : MonoBehaviour
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
 
         StartCoroutine(FadeMusicIn());
+    }
+
+    // Fundido de negro a transparente al abrir el menu (tiempo no escalado; arranca un fotograma despues para no arrastrar la carga).
+    private IEnumerator FadeScreenIn()
+    {
+        yield return null;
+        yield return null;
+
+        float startTime = Time.unscaledTime;
+        float duration = Mathf.Max(menuFadeInDuration, 0.01f);
+        float t = 0f;
+
+        while (t < 1f && !transitioning && transitionOverlay != null)
+        {
+            t = Mathf.Clamp01((Time.unscaledTime - startTime) / duration);
+            Color c = transitionOverlay.color;
+            c.a = 1f - Mathf.SmoothStep(0f, 1f, t);
+            transitionOverlay.color = c;
+            yield return null;
+        }
     }
 
     // Fade in unico al abrir el menu: la musica ya esta en bucle (loop del AudioSource), asi que
@@ -307,6 +333,21 @@ public class MainMenuController : MonoBehaviour
         if (transitioning)
             return;
 
+        if (quitting)
+            return;
+
+        // Pequeña espera para que el sonido del clic se oiga completo antes de cerrar.
+        StartCoroutine(QuitAfterDelay());
+    }
+
+    [Tooltip("Segundos que se espera tras pulsar Salir para que termine de sonar el clic.")]
+    [SerializeField] private float quitDelay = 0.6f;
+    private bool quitting;
+
+    private IEnumerator QuitAfterDelay()
+    {
+        quitting = true;
+        yield return new WaitForSecondsRealtime(quitDelay);
         Debug.Log("Saliendo de Reencarnación Express...");
         Application.Quit();
     }

@@ -19,6 +19,9 @@ public class CombatTutorial : MonoBehaviour
     [SerializeField] private TMP_FontAsset regularFont;
     [SerializeField] private TMP_FontAsset boldFont;
     [SerializeField] private int sortingOrder = 350;
+    [Header("Boton Omitir (sprites del menu)")]
+    [SerializeField] private Sprite skipNormal;
+    [SerializeField] private Sprite skipHover;
 
     private static readonly Color Dim = new Color(0.02f, 0.03f, 0.06f, 0.72f);
     private static readonly Color Gold = new Color(0.96f, 0.80f, 0.40f, 1f);
@@ -36,6 +39,9 @@ public class CombatTutorial : MonoBehaviour
     private string currentArea;
     private bool showHole;
     private bool blockHole;
+
+    // Intencion del guion: el cartel se oculta mientras el combate esta en pausa y vuelve al reanudar.
+    private bool tutorialVisible;
 
     private bool abilityTargeting;
     private bool abilityUsed;
@@ -130,6 +136,14 @@ public class CombatTutorial : MonoBehaviour
         Hide();
     }
 
+    // Omitir: detiene el guion y quita el tutorial; el combate sigue con normalidad.
+    public void Skip()
+    {
+        StopAllCoroutines();
+        Hide();
+        enabled = false;
+    }
+
     private bool Finished => turnManager == null || turnManager.BattleFinished;
 
     private bool PlayerCanAct()
@@ -162,7 +176,7 @@ public class CombatTutorial : MonoBehaviour
         {
             Keyboard keyboard = Keyboard.current;
 
-            if (Time.unscaledTime >= guard && keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
+            if (Time.unscaledTime >= guard && !hud.IsPaused && keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
                 break;
 
             yield return null;
@@ -214,8 +228,11 @@ public class CombatTutorial : MonoBehaviour
         showHole = dim;
         blockHole = explain;
         cardText.text = text;
-        root.gameObject.SetActive(true);
-        Layout();
+        tutorialVisible = true;
+        root.gameObject.SetActive(!hud.IsPaused);
+
+        if (root.gameObject.activeSelf)
+            Layout();
     }
 
     private void Hide()
@@ -223,6 +240,7 @@ public class CombatTutorial : MonoBehaviour
         currentArea = null;
         showHole = false;
         blockHole = false;
+        tutorialVisible = false;
 
         if (root != null)
             root.gameObject.SetActive(false);
@@ -230,7 +248,16 @@ public class CombatTutorial : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (root != null && root.gameObject.activeSelf)
+        if (root == null)
+            return;
+
+        // En pausa el tutorial se oculta (su capa oscura tapaba el menu y bloqueaba sus botones); al reanudar vuelve.
+        bool want = tutorialVisible && !hud.IsPaused;
+
+        if (root.gameObject.activeSelf != want)
+            root.gameObject.SetActive(want);
+
+        if (want)
             Layout();
     }
 
@@ -396,6 +423,11 @@ public class CombatTutorial : MonoBehaviour
         cardHint = NewText("Pista", card, Gold, boldFont, 20f, TextAlignmentOptions.BottomRight);
         cardHint.rectTransform.sizeDelta = new Vector2(1240f, 130f);
         cardHint.rectTransform.anchoredPosition = new Vector2(0f, 4f);
+
+        // Omitir: cierra el tutorial en cualquier paso (igual que el boton de la introduccion).
+        if (skipNormal != null)
+            SkipButtonFactory.Create(card, "OMITIR TUTORIAL", skipNormal, skipHover != null ? skipHover : skipNormal, boldFont, Skip,
+                new Vector2(0.5f, 0.5f), new Vector2(1f, 1f), new Vector2(620f, -118f), 330f, 100f);
 
         root.gameObject.SetActive(false);
     }

@@ -411,7 +411,15 @@ public partial class WorldMapController : MonoBehaviour
             return false;
 
         loading = true;
-        SceneManager.LoadScene(combatSceneName);
+
+        // Fundido rapido a negro con la carga del combate en segundo plano (antes el mapa se congelaba al cargar).
+        SceneFadeIn fade = FindAnyObjectByType<SceneFadeIn>(FindObjectsInactive.Include);
+
+        if (fade != null)
+            fade.FadeOutAndLoad(combatSceneName, 0.4f);
+        else
+            SceneManager.LoadScene(combatSceneName);
+
         return true;
     }
 

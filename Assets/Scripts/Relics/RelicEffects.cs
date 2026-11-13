@@ -632,10 +632,40 @@ public static class RelicEffects
     // Habilidades
     // ------------------------------------------------------------
 
-    // Reloj de Arena Roto: la primera habilidad del combate con enfriamiento de 2 o mas turnos lo reduce en 1.
+    // Mayor enfriamiento entre las habilidades del portador (minimo 2): la que mas se espera es la que el Reloj ayuda.
+    private static int LongestCooldown(BattleUnit unit)
+    {
+        int longest = 2;
+        CharacterAbilityLoadout loadout = unit.GetComponent<CharacterAbilityLoadout>();
+
+        if (loadout != null)
+        {
+            foreach (AbilityData known in loadout.Abilities)
+                if (known != null && known.cooldown > longest)
+                    longest = known.cooldown;
+        }
+        else
+        {
+            EnemyAIController ai = unit.GetComponent<EnemyAIController>();
+
+            if (ai != null && ai.KnownAbilities != null)
+                foreach (AbilityData known in ai.KnownAbilities)
+                    if (known != null && AbilityCooldownController.EffectiveCooldown(unit, known) > longest)
+                        longest = AbilityCooldownController.EffectiveCooldown(unit, known);
+        }
+
+        return longest;
+    }
+
+    // Reloj de Arena Roto: la primera vez en cada combate que se usa la habilidad de mayor enfriamiento del portador
+    // (minimo 2 turnos), su enfriamiento se reduce en 1. Asi ayuda a la habilidad que mas se espera (p. ej. el Meteorito de
+    // Evanora) y no se gasta antes en otra de enfriamiento menor (p. ej. la Ruptura Ignea).
     public static int CooldownReduction(BattleUnit unit, AbilityData ability)
     {
         if (ability == null || ability.cooldown < 2 || !Has(unit, RelicEffect.RelojArenaRoto))
+            return 0;
+
+        if (AbilityCooldownController.EffectiveCooldown(unit, ability) < LongestCooldown(unit))
             return 0;
 
         State state = Of(unit);

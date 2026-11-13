@@ -45,21 +45,43 @@ public class AbilityCooldownController : MonoBehaviour
 
         int turns = remaining.TryGetValue(ability, out int t) ? t : 0;
 
-        // Disponibilidad inicial: no se puede usar antes de su turno propio N del combate.
+        // Disponibilidad inicial: no se puede usar antes de la RONDA N del combate (la ronda que lleva el TurnManager,
+        // no los turnos propios de la unidad). Fuera de un combate en curso se cuentan los turnos propios.
         // Solo las habilidades con availableFromTurn > 1 tienen bloqueo inicial; el resto nunca.
+        int reached = CombatRound > 0 ? CombatRound : ownTurnsStarted;
         int initial = ability.availableFromTurn > 1
-            ? Mathf.Max(0, ability.availableFromTurn - ownTurnsStarted)
+            ? Mathf.Max(0, ability.availableFromTurn - reached)
             : 0;
 
         return Mathf.Max(turns, initial);
     }
 
-    // Turnos propios iniciados en este combate (para availableFromTurn).
+    // Turnos propios iniciados en este combate (solo respaldo si no hay ronda de combate en curso).
     private int ownTurnsStarted = 0;
+
+    // Ronda actual del combate (la fija TurnManager al empezar el combate y cada ronda; 0 = sin combate en curso).
+    public static int CombatRound { get; set; }
+
+    // Usos de cada habilidad en el combate actual (para AbilityData.maxUsesPerCombat).
+    private readonly Dictionary<AbilityData, int> uses = new Dictionary<AbilityData, int>();
+
+    public int GetUses(AbilityData ability)
+    {
+        return ability != null && uses.TryGetValue(ability, out int n) ? n : 0;
+    }
+
+    // true si la habilidad ya llego a su limite de usos por combate.
+    public bool UsesExhausted(AbilityData ability)
+    {
+        return ability != null && ability.maxUsesPerCombat > 0 && GetUses(ability) >= ability.maxUsesPerCombat;
+    }
 
     // Inicia el cooldown tras un uso exitoso.
     public void StartCooldown(AbilityData ability)
     {
+        if (ability != null)
+            uses[ability] = GetUses(ability) + 1;
+
         if (ability == null || ability.cooldown <= 0)
             return;
 
@@ -115,6 +137,7 @@ public class AbilityCooldownController : MonoBehaviour
     public void ResetAll()
     {
         remaining.Clear();
+        uses.Clear();
         ownTurnsStarted = 0;
     }
 }

@@ -994,6 +994,9 @@ GameObject:
   - component: {fileID: 68013149}
   - component: {fileID: 68013148}
   - component: {fileID: 68013150}
+  - component: {fileID: 68013151}
+  - component: {fileID: 68013152}
+  - component: {fileID: 68013153}
   m_Layer: 0
   m_Name: AbilitySystem
   m_TagString: Untagged
@@ -1048,6 +1051,82 @@ MonoBehaviour:
   targetSelector: {fileID: 1542171291}
   ability: {fileID: 0}
   allowDebugTransform: 0
+--- !u!114 &68013151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68013147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56dd36b396356d40a0fadf17de60d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackCinematic
+  zoom: 1.18
+  zoomInSeconds: 0.09
+  zoomOutSeconds: 0.28
+  dimFactor: 0.45
+  shadeAlpha: 0.5
+  defaultImpactSeconds: 0.3
+  hitStopSeconds: 0.05
+  holdAfterImpactSeconds: 0.3
+  shakeSeconds: 0.16
+  shakeAmount: 0.012
+  flashSeconds: 0.14
+  punchZoom: 0.05
+  punchSeconds: 0.14
+  slashSeconds: 0.16
+  lungeDistance: 0.9
+  lungeInSeconds: 0.1
+  lungeBackSeconds: 0.25
+  recoilDistance: 0.4
+  recoilBackSeconds: 0.25
+  hitTint: {r: 1, g: 0.38, b: 0.32, a: 1}
+  hitTintSeconds: 0.16
+  defaultHitSound: {fileID: 8300000, guid: 302c40a889afd7e49a11ccd490846a7a, type: 3}
+  hitVolume: 0.12
+  hitSoundLeadSeconds: 0.08
+  blockSound: {fileID: 8300000, guid: 1a127c8227a0be841be597ef9295142d, type: 3}
+  blockLeadSeconds: 0.1
+  blockRecoilFactor: 0.4
+  auraSeconds: 0.95
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  bannerSeconds: 1
+--- !u!114 &68013152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68013147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8968c293491a8644aa6e54a27fb4c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StunIndicator
+  starCount: 3
+  starColor: {r: 1, g: 0.9, b: 0.3, a: 1}
+  starSize: 0.07
+  orbitRadius: 0.15
+  turnsPerSecond: 1
+  popSeconds: 0.18
+--- !u!114 &68013153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68013147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb4f6dc12cbe9f43aab0a2256af7730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusVisuals
+  burnColor: {r: 1, g: 0.5, b: 0.12, a: 1}
+  burnFlames: 8
+  evasionColor: {r: 0.62, g: 1, b: 0.78, a: 1}
+  evasionSparks: 4
 --- !u!1 &72123270
 GameObject:
   m_ObjectHideFlags: 0
@@ -6414,6 +6493,7 @@ GameObject:
   - component: {fileID: 507065917}
   - component: {fileID: 507065916}
   - component: {fileID: 507065915}
+  - component: {fileID: 507065919}
   m_Layer: 0
   m_Name: Habilidad_3
   m_TagString: Untagged
@@ -6539,6 +6619,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507065913}
   m_CullTransparentMesh: 1
+--- !u!114 &507065919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507065913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33deb6772f4339e4cb9b97a27961724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickSoundOverride
+  clip: {fileID: 8300000, guid: 3cfbbda3dae2fa54aa396bdf55bf63e8, type: 3}
+  volume: 0.1
 --- !u!1 &508866256
 GameObject:
   m_ObjectHideFlags: 0
@@ -8093,6 +8187,8 @@ GameObject:
   - component: {fileID: 620821142}
   - component: {fileID: 620821143}
   - component: {fileID: 620821144}
+  - component: {fileID: 620821146}
+  - component: {fileID: 620821145}
   m_Layer: 0
   m_Name: PlayerArquera
   m_TagString: Untagged
@@ -8149,8 +8245,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 8dc5539e0f6638c4d83e146fb8c4bf73, type: 3}
-  m_Color: {r: 0.10733346, g: 0.7584905, b: 0.19224407, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7650d9f6e3c466547971c0736b1a1111, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8185,7 +8281,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.45, y: 0.79, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.336, y: 0.336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426431944}
@@ -8264,6 +8360,52 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &620821145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620821136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  talkTrigger: Hablar
+  phaseTrigger: EntradaFase2
+  phaseBool: Fase2
+  defeatTrigger: Derrota
+  phaseEntrySound: {fileID: 0}
+  phaseLoopSound: {fileID: 0}
+  phaseLoopVolume: 0.08
+  phaseLoopFadeSeconds: 1.5
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1
+--- !u!95 &620821146
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620821136}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58270b8aa6d19bc4c841d469301f9438, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &629692450
 GameObject:
   m_ObjectHideFlags: 0
@@ -12005,6 +12147,7 @@ GameObject:
   - component: {fileID: 861709339}
   - component: {fileID: 861709338}
   - component: {fileID: 861709337}
+  - component: {fileID: 861709341}
   m_Layer: 0
   m_Name: Habilidad_2
   m_TagString: Untagged
@@ -12130,6 +12273,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861709335}
   m_CullTransparentMesh: 1
+--- !u!114 &861709341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861709335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33deb6772f4339e4cb9b97a27961724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickSoundOverride
+  clip: {fileID: 8300000, guid: 3cfbbda3dae2fa54aa396bdf55bf63e8, type: 3}
+  volume: 0.1
 --- !u!1 &871511208
 GameObject:
   m_ObjectHideFlags: 0
@@ -12386,7 +12543,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatIntroTransition
   swordSprite: {fileID: -1795219528, guid: 6f5e31bc3a1bc4445b2a1fc1f1b2dbf2, type: 3}
+  impactClip: {fileID: 8300000, guid: 161b9b8f13b86fc4380e5e29757a51b3, type: 3}
+  impactVolume: 0.8
+  impactOffset: 0
   duration: 2
+  crossHoldSeconds: 1.5
   swordWidth: 330
   crossCenterY: 90
   flashSize: 2.2
@@ -12959,6 +13120,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919556453}
   m_CullTransparentMesh: 1
+--- !u!1 &922415583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922415585}
+  - component: {fileID: 922415584}
+  m_Layer: 0
+  m_Name: MusicaCombate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &922415584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922415583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5928dc7f878f93446892e5e5fe6fbfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMusic
+  clip: {fileID: 8300000, guid: 7d2b9e4a1c3f4b8d9a5e6f0c8b17a3e2, type: 3}
+  turnManager: {fileID: 1542171287}
+  fadeInSeconds: 2.5
+  fadeOutSeconds: 1.5
+  volumeScale: 1.5
+--- !u!4 &922415585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922415583}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930101014
 GameObject:
   m_ObjectHideFlags: 0
@@ -13770,6 +13980,8 @@ MonoBehaviour:
   mapSceneName: Map
   victoryPanel: {fileID: 2070522819}
   continueButton: {fileID: 350910053}
+  victorySceneName: Victory
+  defeatSceneName: Defeat
   pauseMenu: {fileID: 902130376}
   shieldHover: {fileID: 1263673773}
   shieldButton: {fileID: 1263673772}
@@ -14027,12 +14239,20 @@ MonoBehaviour:
   portraitOverrides:
   - unitName: Arquera
     portrait: {fileID: 21300000, guid: c4100ff6323dfc64aaeedc88da1d8ffa, type: 3}
+    portraitAfterEvent: {fileID: 0}
+    afterEventId: 
   - unitName: Evanora
     portrait: {fileID: 21300000, guid: 39f85e5618e843e4ea813cf1faf0c22c, type: 3}
+    portraitAfterEvent: {fileID: 0}
+    afterEventId: 
   - unitName: Noelle
     portrait: {fileID: 21300000, guid: 2ca472676845086469127beb051404d2, type: 3}
+    portraitAfterEvent: {fileID: 21300000, guid: b5fce4d331bcade428cdb14170fcbd3f, type: 3}
+    afterEventId: EVT_NOELLE
   - unitName: Caballero
     portrait: {fileID: 21300000, guid: 6777282d9f7f2f3479911edc81f122a2, type: 3}
+    portraitAfterEvent: {fileID: 0}
+    afterEventId: 
   turnPortraits:
   - {fileID: 142417333}
   - {fileID: 2070280320}
@@ -15966,6 +16186,8 @@ GameObject:
   - component: {fileID: 1138924734}
   - component: {fileID: 1138924735}
   - component: {fileID: 1138924736}
+  - component: {fileID: 1138924737}
+  - component: {fileID: 1138924738}
   m_Layer: 0
   m_Name: PlayerCaballero
   m_TagString: Untagged
@@ -15998,7 +16220,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.35, y: 0.79, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.336, y: 0.336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426431944}
@@ -16052,7 +16274,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 8dc5539e0f6638c4d83e146fb8c4bf73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1feb56e03fc686a4f842e1b6e568ee84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16125,6 +16347,52 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!95 &1138924737
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138924729}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8a5d4b994c0b13439e50bf2730dbccb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1138924738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138924729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  talkTrigger: Hablar
+  phaseTrigger: EntradaFase2
+  phaseBool: Fase2
+  defeatTrigger: Derrota
+  phaseEntrySound: {fileID: 0}
+  phaseLoopSound: {fileID: 0}
+  phaseLoopVolume: 0.08
+  phaseLoopFadeSeconds: 1.5
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1
 --- !u!1 &1150105773
 GameObject:
   m_ObjectHideFlags: 0
@@ -22003,6 +22271,8 @@ MonoBehaviour:
   regularFont: {fileID: 11400000, guid: 85123164574e46d49a0e3756d9c653df, type: 2}
   boldFont: {fileID: 11400000, guid: 2e3a015827b0ac44c8dd11b138226555, type: 2}
   sortingOrder: 350
+  skipNormal: {fileID: 21300000, guid: 0af77c4c8a5ffb74bb106bdeb74832d0, type: 3}
+  skipHover: {fileID: 21300000, guid: 7cbaee56d9f29dd4092a3dc9c0373bf1, type: 3}
 --- !u!4 &1525448505
 Transform:
   m_ObjectHideFlags: 0
@@ -22537,6 +22807,12 @@ MonoBehaviour:
   - {fileID: 9663729}
   - {fileID: 607557358}
   encounterExperienceOverride: 0
+  enemyPreActionSeconds: 1.2
+  enemyPostActionSeconds: 2.8
+  stunnedNoticeDelay: 0.8
+  stunnedNoticeHold: 1.6
+  phaseEntryExtraSeconds: 1
+  phaseEntryMaxSeconds: 10
 --- !u!4 &1542171288
 Transform:
   m_ObjectHideFlags: 0
@@ -23931,6 +24207,9 @@ GameObject:
   - component: {fileID: 1647433385}
   - component: {fileID: 1647433384}
   - component: {fileID: 1647433383}
+  - component: {fileID: 1647433390}
+  - component: {fileID: 1647433392}
+  - component: {fileID: 1647433391}
   m_Layer: 0
   m_Name: PlayerNoelle
   m_TagString: Untagged
@@ -24049,8 +24328,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 8dc5539e0f6638c4d83e146fb8c4bf73, type: 3}
-  m_Color: {r: 0.6, g: 0.8, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: cfb8b561f0b16194e97a474999f808a1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -24085,11 +24364,72 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.4, y: 0.79, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.336, y: 0.336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426431944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1647433390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647433382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75b8fc7bb634684c88c40a9eb0b0dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoelleIconSwap
+  afterEvent: {fileID: 21300000, guid: 37eab4015d1606e40b0650644adcf8d9, type: 3}
+  eventId: EVT_NOELLE
+  afterEventController: {fileID: 9100000, guid: dffebcd780b0251449a52b4dff5077b1, type: 2}
+--- !u!114 &1647433391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647433382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  talkTrigger: Hablar
+  phaseTrigger: EntradaFase2
+  phaseBool: Fase2
+  defeatTrigger: Derrota
+  phaseEntrySound: {fileID: 0}
+  phaseLoopSound: {fileID: 0}
+  phaseLoopVolume: 0.08
+  phaseLoopFadeSeconds: 1.5
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1
+--- !u!95 &1647433392
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647433382}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8cc22921154efa6499a4d8db7de6157b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1667497220
 GameObject:
   m_ObjectHideFlags: 0
@@ -27838,6 +28178,8 @@ GameObject:
   - component: {fileID: 1924187909}
   - component: {fileID: 1924187908}
   - component: {fileID: 1924187907}
+  - component: {fileID: 1924187915}
+  - component: {fileID: 1924187914}
   m_Layer: 0
   m_Name: PlayerEvanora
   m_TagString: Untagged
@@ -27956,8 +28298,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 8dc5539e0f6638c4d83e146fb8c4bf73, type: 3}
-  m_Color: {r: 0.7, g: 0.3, b: 0.9, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2d375e3faca1d90488df0bea3733bc62, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -27992,11 +28334,57 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.5, y: 0.79, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.336, y: 0.336, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426431944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1924187914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924187906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  talkTrigger: Hablar
+  phaseTrigger: EntradaFase2
+  phaseBool: Fase2
+  defeatTrigger: Derrota
+  phaseEntrySound: {fileID: 0}
+  phaseLoopSound: {fileID: 0}
+  phaseLoopVolume: 0.08
+  phaseLoopFadeSeconds: 1.5
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1
+--- !u!95 &1924187915
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924187906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a486a9564b4be3b47b40f70b40296265, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1926383656
 GameObject:
   m_ObjectHideFlags: 0
@@ -28646,6 +29034,7 @@ GameObject:
   - component: {fileID: 1948808485}
   - component: {fileID: 1948808484}
   - component: {fileID: 1948808483}
+  - component: {fileID: 1948808487}
   m_Layer: 0
   m_Name: Habilidad_1
   m_TagString: Untagged
@@ -28771,6 +29160,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948808481}
   m_CullTransparentMesh: 1
+--- !u!114 &1948808487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948808481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33deb6772f4339e4cb9b97a27961724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickSoundOverride
+  clip: {fileID: 8300000, guid: 3cfbbda3dae2fa54aa396bdf55bf63e8, type: 3}
+  volume: 0.1
 --- !u!1 &1950825328
 GameObject:
   m_ObjectHideFlags: 0
@@ -31356,6 +31759,7 @@ GameObject:
   - component: {fileID: 2140507163}
   - component: {fileID: 2140507162}
   - component: {fileID: 2140507161}
+  - component: {fileID: 2140507165}
   m_Layer: 0
   m_Name: Habilidad_0
   m_TagString: Untagged
@@ -31481,6 +31885,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140507159}
   m_CullTransparentMesh: 1
+--- !u!114 &2140507165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140507159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33deb6772f4339e4cb9b97a27961724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickSoundOverride
+  clip: {fileID: 8300000, guid: 3cfbbda3dae2fa54aa396bdf55bf63e8, type: 3}
+  volume: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -31491,3 +31909,4 @@ SceneRoots:
   - {fileID: 204533293}
   - {fileID: 45285298}
   - {fileID: 1525448505}
+  - {fileID: 922415585}

@@ -17,6 +17,25 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 2
   useAnnouncement: 
+  animationTrigger: BendicionContinua
+  animationSpeed: 1
+  impactTime: 0.34
+  hitSound: {fileID: 8300000, guid: 69d79c5334cef544f9a0e56e017be51d, type: 3}
+  hitSoundLead: 0.05
+  impactSlashAngle: -35
+  impactEffect: 0
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 1
+  auraColor: {r: 0.7, g: 1, b: 0.6, a: 1}
+  auraRings: 2
+  auraSparks: 28
   targetType: 1
   basePower: 0
   damagePercent: 100
@@ -28,6 +47,11 @@ MonoBehaviour:
   movementChance: 100
   cooldown: 3
   availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 2
   regenerationDuration: 2
   regenerationPercentMaxHealth: 15

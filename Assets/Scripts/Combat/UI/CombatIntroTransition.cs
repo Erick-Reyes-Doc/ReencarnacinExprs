@@ -18,6 +18,13 @@ public class CombatIntroTransition : MonoBehaviour
     [Tooltip("Sprite de la espada (Assets/Sprites/UICombate+/Espada). La segunda espada es su reflejo.")]
     [SerializeField] private Sprite swordSprite;
 
+    [Header("Sonido")]
+    [Tooltip("Choque de espadas: suena en el instante del cruce (cuando aparece el destello). Vacio = sin sonido.")]
+    [SerializeField] private AudioClip impactClip;
+    [SerializeField, Range(0f, 1f)] private float impactVolume = 0.8f;
+    [Tooltip("Ajuste fino (s) del momento del sonido respecto al cruce: negativo = antes, positivo = despues.")]
+    [SerializeField] private float impactOffset = 0f;
+
     [Header("Tiempos (segundos)")]
     [SerializeField] private float duration = 2f;
     [Tooltip("Segundos extra que las espadas se quedan cruzadas tras el impacto, antes de retirarse y revelar el combate.")]
@@ -100,9 +107,29 @@ public class CombatIntroTransition : MonoBehaviour
         const float holdAt = 0.82f;   // momento (de la linea de tiempo) en que las espadas ya estan cruzadas y termino el destello
         float holdStart = holdAt * k;
 
+        // Instante del cruce (el destello empieza en t = 0.62 de la linea de tiempo); el sonido se ajusta con impactOffset.
+        float impactAt = Mathf.Max(0f, 0.62f * k + impactOffset);
+        bool impactPlayed = false;
+        AudioSource impactSource = null;
+
+        if (impactClip != null)
+        {
+            impactClip.LoadAudioData();
+            impactSource = gameObject.AddComponent<AudioSource>();
+            impactSource.playOnAwake = false;
+            impactSource.spatialBlend = 0f;
+            impactSource.ignoreListenerPause = true;
+        }
+
         while (elapsed < total + hold)
         {
             elapsed += Time.unscaledDeltaTime;
+
+            if (!impactPlayed && impactSource != null && elapsed >= impactAt)
+            {
+                impactPlayed = true;
+                impactSource.PlayOneShot(impactClip, impactVolume);
+            }
 
             // Pausa con las espadas cruzadas: la linea de tiempo se detiene en el cruce y despues continua.
             float t = elapsed < holdStart ? elapsed / k

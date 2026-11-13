@@ -17,6 +17,25 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: FuegoImpacto
+  animationSpeed: 1
+  impactTime: 0.27272728
+  hitSound: {fileID: 8300000, guid: 4fd974f9b3ef8c745a9da8afe1ddd941, type: 3}
+  hitSoundLead: 0.08
+  impactSlashAngle: -35
+  impactEffect: 5
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 8300000, guid: 2ddf4f4ee48cd254e9ed3429588b9a87, type: 3}
+  shotSoundLead: 0
+  impactPower: 1.5
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 2
   basePower: 0
   damagePercent: 100
@@ -27,11 +46,19 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 4
+  availableFromTurn: 1
+  speechLine: "\xA1Preparen... apunten...!"
+  preparationTrigger: FuegoAnuncio
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 1
   selectableAreas:
   - label: "la primera l\xEDnea"

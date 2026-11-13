@@ -667,7 +667,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113781082}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9835583, w: 0.18059114}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6715999, w: 0.740914}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -676,8 +676,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 217.1524, y: -310.57773}
-  m_SizeDelta: {x: 71.06114, y: 71.06114}
+  m_AnchoredPosition: {x: 477.49918, y: -302.07425}
+  m_SizeDelta: {x: 77.31161, y: 77.31161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &113781084
 MonoBehaviour:
@@ -1468,7 +1468,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314305939}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9967154, w: -0.08098408}
+  m_LocalRotation: {x: 0, y: 0, z: 0.5836663, w: 0.8119936}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1477,8 +1477,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 214.49573, y: -152.46512}
-  m_SizeDelta: {x: 83.00974, y: 83.00974}
+  m_AnchoredPosition: {x: 284.90137, y: -259.6341}
+  m_SizeDelta: {x: 59.886646, y: 59.886646}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314305941
 MonoBehaviour:
@@ -1543,7 +1543,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344181424}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9881211, w: 0.15367731}
+  m_LocalRotation: {x: 0, y: 0, z: -0.11447331, w: 0.9934263}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1552,8 +1552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 591.482, y: -516.88043}
-  m_SizeDelta: {x: 70.689445, y: 70.689445}
+  m_AnchoredPosition: {x: 673.39044, y: -328.19632}
+  m_SizeDelta: {x: 72.993965, y: 72.993965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344181426
 MonoBehaviour:
@@ -3223,7 +3223,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698741631}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9954018, w: 0.095787734}
+  m_LocalRotation: {x: 0, y: 0, z: 0.89787894, w: -0.4402424}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3232,8 +3232,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 769.1769, y: -728.732}
-  m_SizeDelta: {x: 61.084938, y: 61.084938}
+  m_AnchoredPosition: {x: 655.72046, y: -538.43365}
+  m_SizeDelta: {x: 64.15837, y: 64.15837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698741633
 MonoBehaviour:
@@ -4259,6 +4259,7 @@ GameObject:
   - component: {fileID: 1010838511}
   - component: {fileID: 1010838512}
   - component: {fileID: 1010838513}
+  - component: {fileID: 1010838514}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -4433,6 +4434,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverScale
   hoverScale: 1.08
   speed: 14
+--- !u!114 &1010838514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010838506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9ca0741707d934c94a5f20aedea060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuButtonSound
+  hoverClip: {fileID: 8300000, guid: f4be18be150d62f4ba806139a4ce2d6d, type: 3}
+  clickClip: {fileID: 8300000, guid: 006cf7c2b80242d4f967686651b2656b, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 0.65
 --- !u!1 &1042908269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,7 +4551,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043457349}
-  m_LocalRotation: {x: 0, y: 0, z: 0.48418987, w: 0.874963}
+  m_LocalRotation: {x: 0, y: 0, z: 0.050154053, w: -0.9987415}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4543,8 +4560,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 212.70862, y: -598.90405}
-  m_SizeDelta: {x: 67.407684, y: 67.407684}
+  m_AnchoredPosition: {x: 330.4896, y: -180.30016}
+  m_SizeDelta: {x: 54.238644, y: 54.238644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043457351
 MonoBehaviour:
@@ -4968,6 +4985,7 @@ GameObject:
   - component: {fileID: 1156193558}
   - component: {fileID: 1156193562}
   - component: {fileID: 1156193563}
+  - component: {fileID: 1156193564}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -5142,6 +5160,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverScale
   hoverScale: 1.08
   speed: 14
+--- !u!114 &1156193564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156193556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9ca0741707d934c94a5f20aedea060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuButtonSound
+  hoverClip: {fileID: 8300000, guid: f4be18be150d62f4ba806139a4ce2d6d, type: 3}
+  clickClip: {fileID: 8300000, guid: 006cf7c2b80242d4f967686651b2656b, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 0.65
 --- !u!1 &1192904233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5203,7 +5237,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236529339}
-  m_LocalRotation: {x: 0, y: 0, z: 0.33491048, w: -0.94224995}
+  m_LocalRotation: {x: 0, y: 0, z: 0.749349, w: 0.6621753}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5212,8 +5246,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 545.8451, y: -233.60411}
-  m_SizeDelta: {x: 62.258213, y: 62.258213}
+  m_AnchoredPosition: {x: 376.33646, y: -431.39334}
+  m_SizeDelta: {x: 82.83283, y: 82.83283}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1236529341
 MonoBehaviour:
@@ -5568,6 +5602,7 @@ GameObject:
   - component: {fileID: 1285547942}
   - component: {fileID: 1285547941}
   - component: {fileID: 1285547944}
+  - component: {fileID: 1285547945}
   m_Layer: 0
   m_Name: BotonCerrar
   m_TagString: Untagged
@@ -5702,6 +5737,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverScale
   hoverScale: 1.08
   speed: 14
+--- !u!114 &1285547945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285547939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9ca0741707d934c94a5f20aedea060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuButtonSound
+  hoverClip: {fileID: 8300000, guid: f4be18be150d62f4ba806139a4ce2d6d, type: 3}
+  clickClip: {fileID: 8300000, guid: 006cf7c2b80242d4f967686651b2656b, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 0.65
 --- !u!1 &1293120271
 GameObject:
   m_ObjectHideFlags: 0
@@ -6169,6 +6220,7 @@ GameObject:
   - component: {fileID: 1462888834}
   - component: {fileID: 1462888838}
   - component: {fileID: 1462888839}
+  - component: {fileID: 1462888840}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -6343,6 +6395,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverScale
   hoverScale: 1.08
   speed: 14
+--- !u!114 &1462888840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462888832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9ca0741707d934c94a5f20aedea060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuButtonSound
+  hoverClip: {fileID: 8300000, guid: f4be18be150d62f4ba806139a4ce2d6d, type: 3}
+  clickClip: {fileID: 8300000, guid: 006cf7c2b80242d4f967686651b2656b, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 0.65
 --- !u!1 &1463740334
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,7 +6511,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467412480}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9219005, w: 0.3874267}
+  m_LocalRotation: {x: 0, y: 0, z: 0.22344914, w: 0.9747156}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6452,8 +6520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 343.9813, y: -771.20636}
-  m_SizeDelta: {x: 59.773266, y: 59.773266}
+  m_AnchoredPosition: {x: 275.72702, y: -219.28076}
+  m_SizeDelta: {x: 62.38745, y: 62.38745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467412482
 MonoBehaviour:
@@ -6624,7 +6692,9 @@ MonoBehaviour:
   newGameScene: IntroCinematic
   musicFadeInDuration: 2
   newGameFadeDuration: 2
+  menuFadeInDuration: 1.5
   transitionOverlay: {fileID: 1247956912}
+  quitDelay: 0.6
 --- !u!82 &1484974915
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7029,6 +7099,7 @@ GameObject:
   - component: {fileID: 1612807480}
   - component: {fileID: 1612807484}
   - component: {fileID: 1612807485}
+  - component: {fileID: 1612807486}
   m_Layer: 5
   m_Name: NewGameButton
   m_TagString: Untagged
@@ -7203,6 +7274,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverScale
   hoverScale: 1.08
   speed: 14
+--- !u!114 &1612807486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612807478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9ca0741707d934c94a5f20aedea060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuButtonSound
+  hoverClip: {fileID: 8300000, guid: f4be18be150d62f4ba806139a4ce2d6d, type: 3}
+  clickClip: {fileID: 8300000, guid: 920365d7c5739cf429b9a6d60fd1f129, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 0.9
 --- !u!1 &1619841474
 GameObject:
   m_ObjectHideFlags: 0
@@ -7453,7 +7540,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727454965}
-  m_LocalRotation: {x: 0, y: 0, z: 0.88487864, w: -0.46582177}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6389544, w: -0.7692446}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7462,8 +7549,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 663.6764, y: -219.8744}
-  m_SizeDelta: {x: 73.996376, y: 73.996376}
+  m_AnchoredPosition: {x: 525.0004, y: -400.48517}
+  m_SizeDelta: {x: 59.02469, y: 59.02469}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727454967
 MonoBehaviour:
@@ -7903,7 +7990,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860211968}
-  m_LocalRotation: {x: 0, y: 0, z: 0.85998654, w: 0.5103167}
+  m_LocalRotation: {x: 0, y: 0, z: 0.20968744, w: 0.9777685}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7912,8 +7999,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 639.9179, y: -489.2482}
-  m_SizeDelta: {x: 80.52071, y: 80.52071}
+  m_AnchoredPosition: {x: 460.29556, y: -464.7176}
+  m_SizeDelta: {x: 82.99055, y: 82.99055}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1860211970
 MonoBehaviour:
@@ -8657,7 +8744,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014920453}
-  m_LocalRotation: {x: 0, y: 0, z: 0.67718166, w: 0.73581594}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6102476, w: 0.7922107}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8666,8 +8753,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 272.34995, y: -352.63684}
-  m_SizeDelta: {x: 79.76936, y: 79.76936}
+  m_AnchoredPosition: {x: 461.14236, y: -576.53864}
+  m_SizeDelta: {x: 68.24171, y: 68.24171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2014920455
 MonoBehaviour:

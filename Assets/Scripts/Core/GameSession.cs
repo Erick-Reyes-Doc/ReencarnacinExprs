@@ -116,7 +116,22 @@ public static class GameSession
             return false;
 
         Coins -= amount;
+
+        if (amount > 0)
+            PurchaseCompleted?.Invoke();
+
         return true;
+    }
+
+    // Se dispara tras una compra valida en la tienda (ya descontadas las Coronas); solo presentacion (sonido).
+    public static event System.Action PurchaseCompleted;
+
+    // Se dispara tras una venta valida en la tienda (ya sumadas las Coronas); solo presentacion (sonido).
+    public static event System.Action SaleCompleted;
+
+    public static void NotifySaleCompleted()
+    {
+        SaleCompleted?.Invoke();
     }
 
     // ------------------------------------------------------------
@@ -152,6 +167,9 @@ public static class GameSession
             AntidoteShopStock--;
         }
 
+        if (price > 0)
+            PurchaseCompleted?.Invoke();
+
         return PurchaseResult.Success;
     }
 
@@ -179,7 +197,7 @@ public static class GameSession
                 continue;
 
             PartyMemberState state = party[i];
-            state.health = Mathf.Clamp(health, 1, state.maxHealth);
+            state.health = Mathf.Clamp(health, 0, state.maxHealth);   // 0 = heroe caido (no muere: espera una curacion)
             party[i] = state;
             return true;
         }
@@ -198,7 +216,7 @@ public static class GameSession
 
             PartyMemberState state = party[i];
             state.maxHealth = Mathf.Max(1, maxHealth);
-            state.health = Mathf.Clamp(state.health, 1, state.maxHealth);
+            state.health = Mathf.Clamp(state.health, 0, state.maxHealth);
             party[i] = state;
             return true;
         }
@@ -303,6 +321,22 @@ public static class GameSession
         return value;
     }
 
+    // Tutorial interactivo del mapa (tienda, venta, inventario y reliquias): se pide junto al del primer combate y lo
+    // consume MapTutorial al abrirse el mapa tras ganarlo. Una derrota descarta la sesion y con ella el aviso.
+    public static bool MapTutorialPending { get; private set; }
+
+    public static void RequestMapTutorial()
+    {
+        MapTutorialPending = true;
+    }
+
+    public static bool ConsumeMapTutorial()
+    {
+        bool value = MapTutorialPending;
+        MapTutorialPending = false;
+        return value;
+    }
+
     // El mapa hace un fundido desde negro una sola vez (lo consume SceneFadeIn).
     public static bool MapFadeInPending { get; private set; }
 
@@ -319,6 +353,7 @@ public static class GameSession
         EndSession();
 
         IsActive = true;
+        GameStats.Reset();   // estadisticas de la partida (creditos)
         AltarDialoguePending = true;
         Coins = StartingCoins;
         Potions = StartingPotions;
@@ -340,6 +375,7 @@ public static class GameSession
         MapFadeInPending = false;
         BossRevealPending = false;
         CombatTutorialPending = false;
+        MapTutorialPending = false;
         IsDefeated = false;
         InCombat = false;
         PendingEncounterId = null;

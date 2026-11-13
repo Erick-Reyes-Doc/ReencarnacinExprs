@@ -156,6 +156,14 @@ public class CombatSessionBinder : MonoBehaviour
         }
 
         VictorySummary.Set(summary);
+
+        // Estadisticas de la partida (creditos): victoria, Coronas, reliquia y niveles ganados.
+        int levelsGained = 0;
+
+        foreach (VictorySummary.HeroEntry hero in summary.heroes)
+            levelsGained += Mathf.Max(0, hero.levelAfter - hero.levelBefore);
+
+        GameStats.RecordVictory(summary.coins, summary.relic != null, levelsGained);
     }
 
     private void HandlePartyDefeated()

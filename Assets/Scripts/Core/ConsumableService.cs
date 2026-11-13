@@ -38,7 +38,7 @@ public static class ConsumableService
     public static string Description(GameSession.Consumable type)
     {
         if (type == GameSession.Consumable.Potion)
-            return "Restaura el " + PotionHealPercent + "% del HP máximo.\nObjetivo: un aliado vivo.";
+            return "Restaura el " + PotionHealPercent + "% del HP máximo.\nObjetivo: un aliado. Levanta a un héroe caído.";
 
         string list = "";
 
@@ -105,6 +105,39 @@ public static class ConsumableService
         }
     }
 
+    // La tienda paga la mitad del precio de compra (minimo 1 Corona).
+    public const int SellPercent = 50;
+
+    public static int SellPrice(GameSession.Consumable type)
+    {
+        return Mathf.Max(1, (Price(type) * SellPercent + 50) / 100);
+    }
+
+    // Vende una unidad: se descuenta del inventario y se pagan las Coronas. No se puede durante el combate.
+    public static string Sell(GameSession.Consumable type, out bool success)
+    {
+        success = false;
+
+        if (GameSession.InCombat)
+            return "La tienda no esta disponible durante el combate.";
+
+        if (!GameSession.IsActive)
+            return "No hay una partida en curso.";
+
+        if (GameSession.GetCount(type) <= 0)
+            return "No te quedan " + Name(type) + ".";
+
+        int price = SellPrice(type);
+
+        if (!GameSession.TryConsume(type))
+            return "No te quedan " + Name(type) + ".";
+
+        GameSession.AddCoins(price);
+        GameSession.NotifySaleCompleted();
+        success = true;
+        return "Vendiste: " + Name(type) + " (+" + price + " CR).";
+    }
+
     // ------------------------------------------------------------
     // Combate (unidades reales)
     // ------------------------------------------------------------
@@ -130,9 +163,18 @@ public static class ConsumableService
             return false;
         }
 
-        if (target == null || !target.IsAlive)
+        if (target == null)
         {
-            reason = "El objetivo esta derrotado: los objetos no reviven.";
+            reason = "No hay objetivo.";
+            return false;
+        }
+
+        // Un heroe caido (vida 0) solo puede recibir la pocion, que lo levanta. El antidoto no tiene efecto sobre el.
+        if (!target.IsAlive && !(target.IsDowned && type == GameSession.Consumable.Potion))
+        {
+            reason = target.IsDowned
+                ? target.Data.unitName + " esta caido: solo la pocion de curacion lo levanta."
+                : "El objetivo esta derrotado.";
             return false;
         }
 
@@ -256,10 +298,10 @@ public static class ConsumableService
             return false;
         }
 
-        // Los objetos no reviven: la foto siempre tiene vida >= 1.
-        if (member.health <= 0)
+        // Un heroe caido (vida 0) solo se levanta con la pocion; el antidoto no le hace nada.
+        if (member.health <= 0 && type != GameSession.Consumable.Potion)
         {
-            message = "Los objetos no pueden revivir aliados.";
+            message = "Esta caido: solo la pocion de curacion lo levanta.";
             return false;
         }
 
@@ -281,7 +323,7 @@ public static class ConsumableService
 
             GameSession.TryUpdateMemberHealth(memberId, member.health + healed);
 
-            message = memberId + " recupera " + healed + " HP.";
+            message = (member.health <= 0 ? memberId + " se levanta y recupera " : memberId + " recupera ") + healed + " HP.";
             return true;
         }
 

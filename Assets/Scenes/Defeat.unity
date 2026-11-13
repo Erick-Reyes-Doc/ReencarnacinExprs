@@ -1052,6 +1052,7 @@ GameObject:
   - component: {fileID: 417863955}
   - component: {fileID: 417863956}
   - component: {fileID: 417863957}
+  - component: {fileID: 417863958}
   m_Layer: 0
   m_Name: Retrato
   m_TagString: Untagged
@@ -1116,6 +1117,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &417863958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417863954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75b8fc7bb634684c88c40a9eb0b0dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoelleIconSwap
+  afterEvent: {fileID: 21300000, guid: b5fce4d331bcade428cdb14170fcbd3f, type: 3}
+  eventId: EVT_NOELLE
 --- !u!1 &503008584
 GameObject:
   m_ObjectHideFlags: 0

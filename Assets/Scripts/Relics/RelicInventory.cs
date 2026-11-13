@@ -121,6 +121,25 @@ public static class RelicInventory
         return item.uid;
     }
 
+    // Quita una unidad del inventario (venta). Solo si no esta equipada; las equipadas hay que quitarlas antes.
+    public static bool TryRemove(int uid)
+    {
+        if (IsEquipped(uid))
+            return false;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].uid != uid)
+                continue;
+
+            items.RemoveAt(i);
+            Changed?.Invoke();
+            return true;
+        }
+
+        return false;
+    }
+
     // ------------------------------------------------------------
     // Consulta
     // ------------------------------------------------------------

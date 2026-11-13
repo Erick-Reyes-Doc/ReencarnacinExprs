@@ -88,6 +88,8 @@ public class DialogueController : MonoBehaviour
     [Header("Sonido de escritura")]
     [Tooltip("Blip corto que suena mientras el texto aparece letra a letra. Vacio = sin sonido.")]
     [SerializeField] private AudioClip typeClip;
+    [Tooltip("Voces de escritura: si hay varias, cada sonido elige una al azar (sin repetir la misma dos veces seguidas). Tiene prioridad sobre 'Type Clip'.")]
+    [SerializeField] private AudioClip[] typeClips = new AudioClip[0];
     [SerializeField, Range(0f, 1f)] private float typeVolume = 0.06f;
     [Tooltip("Suena una vez cada N letras visibles (los espacios y signos no cuentan ni suenan).")]
     [SerializeField, Min(1)] private int lettersPerBlip = 3;
@@ -122,12 +124,38 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private float charsPerSecond = 45f;
     [SerializeField] private float dimmedBrightness = 0.45f;
 
+    [Header("Boton Omitir (sprites del menu)")]
+    [SerializeField] private Sprite skipNormal;
+    [SerializeField] private Sprite skipHover;
+
+    [Header("Pausa (Esc)")]
+    [Tooltip("Menu de pausa (prefab MenuPausa). Esc lo abre y cierra durante la conversacion; la conversacion queda en espera.")]
+    [SerializeField] private MapPauseMenu pauseMenu;
+    [SerializeField] private string menuSceneName = "Menu";
+
     private bool running;
+    private float pauseClosedAt = -10f;
+    private bool skipRequested;
+    private Button skipButton;
+
+    // Omitir: salta el resto de la conversacion y pasa directo al cierre (mismas recompensas y registro del evento).
+    public void SkipDialogue()
+    {
+        skipRequested = true;
+
+        if (skipButton != null)
+            skipButton.gameObject.SetActive(false);
+    }
+    private bool wasPauseOpen;
+    private bool PauseOpen => pauseMenu != null && pauseMenu.IsOpen;
 
     private void Start()
     {
         // El mapa nunca arranca sin sesion; en pruebas directas sobre el mapa se crea una nueva (y el dialogo se muestra).
         GameSession.EnsureSession();
+
+        if (pauseMenu != null)
+            pauseMenu.ExitToMenuHandler = ExitToMenu;
 
         if (panel != null)
             panel.alpha = 0f;
@@ -156,6 +184,7 @@ public class DialogueController : MonoBehaviour
             if (blocker != null)
                 blocker.raycastTarget = true;
 
+            CreateSkipButton();
             StartCoroutine(Run());
         }
         else
@@ -168,6 +197,47 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (pauseMenu != null && IsPlaying && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            pauseMenu.HandleEscape();
+
+        bool open = PauseOpen;
+
+        if (wasPauseOpen && !open)
+            pauseClosedAt = Time.unscaledTime;
+
+        wasPauseOpen = open;
+    }
+
+    // Salida al menu principal desde la pausa: descarta la sesion y carga el menu (flujo de siempre).
+    private bool ExitToMenu()
+    {
+        if (!GameSession.IsSceneInBuild(menuSceneName))
+            return false;
+
+        GameSession.EndSession();
+        IsPlaying = false;
+        SceneManager.LoadScene(menuSceneName);
+        return true;
+    }
+
+    // Boton OMITIR arriba a la derecha, con el estilo del boton de la introduccion; solo mientras dura la conversacion.
+    private void CreateSkipButton()
+    {
+        if (skipNormal == null || bodyText == null || skipButton != null)
+            return;
+
+        Canvas root = bodyText.canvas != null ? bodyText.canvas.rootCanvas : null;
+
+        if (root == null)
+            return;
+
+        skipButton = SkipButtonFactory.Create(root.transform, "OMITIR DIÁLOGO", skipNormal, skipHover != null ? skipHover : skipNormal,
+            bodyText.font, SkipDialogue, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-24f, -16f), 330f, 100f);
+        skipButton.transform.SetAsLastSibling();
+    }
+
     private void LoadNext()
     {
         if (string.IsNullOrEmpty(nextScene) || !GameSession.IsSceneInBuild(nextScene))
@@ -175,7 +245,10 @@ public class DialogueController : MonoBehaviour
 
         // Primer combate guiado: el encuentro se prepara igual que desde el mapa (misma progresion y recompensas).
         if (!string.IsNullOrEmpty(startEncounterId) && GameSession.SetPendingEncounter(startEncounterId) && combatTutorial)
+        {
             GameSession.RequestCombatTutorial();
+            GameSession.RequestMapTutorial();   // al ganar el combate guiado, el mapa ensena tienda, inventario y reliquias
+        }
 
         SceneManager.LoadScene(nextScene);
     }
@@ -213,6 +286,9 @@ public class DialogueController : MonoBehaviour
 
         foreach (DialogueData.Line line in dialogue.lines)
         {
+            if (skipRequested)
+                break;
+
             // Las lineas sin hablante son el tutorial: los personajes salen de escena y queda solo el cuadro.
             if (hidePortraitsOnEmptySpeaker && string.IsNullOrEmpty(line.speaker) && !portraitsHidden && portraitsGroup != null)
             {
@@ -248,6 +324,9 @@ public class DialogueController : MonoBehaviour
 
             while (true)
             {
+                if (skipRequested)
+                    break;
+
                 bool space = Time.unscaledTime >= inputBlockedUntil && SpacePressed();
 
                 if (shown < total)
@@ -259,7 +338,7 @@ public class DialogueController : MonoBehaviour
                     }
                     else
                     {
-                        shown = Mathf.Min(total, shown + charsPerSecond * Time.unscaledDeltaTime);
+                        shown = Mathf.Min(total, shown + (PauseOpen ? 0f : charsPerSecond * Time.unscaledDeltaTime));
                     }
 
                     int visible = Mathf.CeilToInt(shown);
@@ -300,6 +379,19 @@ public class DialogueController : MonoBehaviour
                 lightRoutine = StartCoroutine(LightEffect(DialogueLight.FadeOut, 0.5f));
             }
         }
+
+        // Omitir: sin efectos de luz pendientes y sin boton.
+        if (skipRequested)
+        {
+            if (lightRoutine != null)
+                StopCoroutine(lightRoutine);
+
+            if (lightImage != null)
+                SetLight(0f);
+        }
+
+        if (skipButton != null)
+            skipButton.gameObject.SetActive(false);
 
         // 4. La interfaz se desvanece, se presentan las habilidades nuevas (si hay panel) y la escena funde a negro.
         yield return Fade(t => panel.alpha = 1f - t);
@@ -364,15 +456,35 @@ public class DialogueController : MonoBehaviour
 
     // Varias fuentes en rotacion: cada blip usa su propia fuente y su propio tono, asi un sonido nuevo nunca
     // corta ni cambia el tono de otro que sigue sonando (eso producia la interferencia / vibrato).
-    private const int BlipVoices = 3;
+    private const int BlipVoices = 4;
     private AudioSource[] blipSources;
     private int nextBlipVoice;
     private float lastBlipTime = -10f;
+    private int lastTypeClipIndex = -1;
+
+    // Elige la voz de escritura: de la lista si la hay (al azar, sin repetir la anterior) o el clip unico.
+    private AudioClip PickTypeClip()
+    {
+        int count = typeClips != null ? typeClips.Length : 0;
+
+        if (count == 0)
+            return typeClip;
+
+        int index = UnityEngine.Random.Range(0, count);
+
+        if (count > 1 && index == lastTypeClipIndex)
+            index = (index + 1 + UnityEngine.Random.Range(0, count - 1)) % count;
+
+        lastTypeClipIndex = index;
+        return typeClips[index] != null ? typeClips[index] : typeClip;
+    }
 
     // Un sonido corto por llamada; fuentes propias para no tocar la musica ni el efecto de la mascara.
     private void PlayBlip()
     {
-        if (typeClip == null || !isActiveAndEnabled)
+        AudioClip chosen = PickTypeClip();
+
+        if (chosen == null || !isActiveAndEnabled)
             return;
 
         if (Time.unscaledTime - lastBlipTime < blipMinInterval)
@@ -388,7 +500,6 @@ public class DialogueController : MonoBehaviour
                 s.playOnAwake = false;
                 s.loop = false;
                 s.spatialBlend = 0f;
-                s.clip = typeClip;
                 blipSources[k] = s;
             }
         }
@@ -396,6 +507,7 @@ public class DialogueController : MonoBehaviour
         AudioSource voice = blipSources[nextBlipVoice];
         nextBlipVoice = (nextBlipVoice + 1) % BlipVoices;
         lastBlipTime = Time.unscaledTime;
+        voice.clip = chosen;
         voice.pitch = UnityEngine.Random.Range(blipPitchMin, blipPitchMax);
         voice.volume = typeVolume;
         voice.Play();
@@ -637,7 +749,7 @@ public class DialogueController : MonoBehaviour
     {
         float duration = Mathf.Max(fadeSeconds, 0.01f);
 
-        for (float time = 0f; time < duration; time += Mathf.Min(Time.unscaledDeltaTime, 0.1f))
+        for (float time = 0f; time < duration; time += PauseOpen ? 0f : Mathf.Min(Time.unscaledDeltaTime, 0.1f))
         {
             apply(Mathf.SmoothStep(0f, 1f, time / duration));
             yield return null;
@@ -656,10 +768,16 @@ public class DialogueController : MonoBehaviour
         blackOverlay.color = c;
     }
 
-    private static bool SpacePressed()
+    private bool SpacePressed()
     {
+        // Avanzar: Espacio o clic izquierdo (nunca mientras la pausa esta abierta ni en el mismo fotograma en que se cierra).
+        if (PauseOpen || Time.unscaledTime < pauseClosedAt + 0.2f)
+            return false;
+
         Keyboard keyboard = Keyboard.current;
-        return keyboard != null && keyboard.spaceKey.wasPressedThisFrame;
+        Mouse mouse = Mouse.current;
+        return (keyboard != null && keyboard.spaceKey.wasPressedThisFrame) ||
+               (mouse != null && mouse.leftButton.wasPressedThisFrame);
     }
 
     // Quien habla se ve iluminado y los demas atenuados. Los retratos no cambian de posicion. Sin hablante

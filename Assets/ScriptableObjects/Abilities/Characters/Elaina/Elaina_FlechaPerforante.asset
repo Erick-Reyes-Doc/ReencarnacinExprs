@@ -17,6 +17,24 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: Perforante
+  animationSpeed: 1
+  impactTime: 0.58
+  hitSound: {fileID: 8300000, guid: 6b2fb4394b89d964481a72317d164b46, type: 3}
+  hitSoundLead: 0.14
+  impactSlashAngle: -35
+  impactEffect: 3
+  projectileFlightSeconds: 0.12
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 0.7, g: 0.88, b: 1, a: 1}
+  shotSound: {fileID: 8300000, guid: b01dc9d4ff298ba4bae126e16efe9403, type: 3}
+  shotSoundLead: 0.06
+  impactPower: 1.2
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
   damagePercent: 110
@@ -27,11 +45,19 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 2
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 1

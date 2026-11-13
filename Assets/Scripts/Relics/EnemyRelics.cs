@@ -14,10 +14,10 @@ public static class EnemyRelics
     public const float Chance = 0.25f;
     public const int MaxPerEncounter = 2;
 
-    // typeId de las reliquias que pueden portar los enemigos.
+    // typeId de las reliquias que pueden portar los enemigos (las 5 del GDD, todas del catalogo). Antes la lista incluia 4 reliquias
+    // de solo estadisticas que no estan en el catalogo: nunca se asignaban y gastaban el sorteo (la probabilidad real bajaba del 25 %).
     private static readonly string[] Pool =
     {
-        "amuleto_vital", "anillo_hierro", "dado_maldito", "pluma_veloz",          // solo estadisticas
         "amuleto_corteza", "broche_vigia", "espina_juramento",                    // efectos defensivos
         "idolo_ultimo_aliento", "reloj_arena_roto"
     };

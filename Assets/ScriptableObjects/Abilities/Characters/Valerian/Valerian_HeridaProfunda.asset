@@ -17,6 +17,24 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: HeridaAgresiva
+  animationSpeed: 1
+  impactTime: 0.19
+  hitSound: {fileID: 8300000, guid: b489c3819c337af48b7a6b3c84f2baca, type: 3}
+  hitSoundLead: 0.08
+  impactSlashAngle: 0
+  impactEffect: 0
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
   damagePercent: 85
@@ -27,8 +45,15 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 1
+  availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0

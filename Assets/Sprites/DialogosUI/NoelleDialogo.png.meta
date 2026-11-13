@@ -5,11 +5,14 @@ TextureImporter:
   - first:
       213: -2528652829902141999
     second: NoelleDialogo_0
+  - first:
+      213: -9112849956494480407
+    second: NoelleDialogo_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -119,9 +122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1223
-        height: 1254
+        y: 15
+        width: 1169
+        height: 1239
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,6 +135,28 @@ TextureImporter:
       bones: []
       spriteID: 1d5856906ab68ecd0800000000000000
       internalID: -2528652829902141999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoelleDialogo_1
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 487
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eb66bb1f37a88180800000000000000
+      internalID: -9112849956494480407
       vertices: []
       indices: 
       edges: []
@@ -151,6 +176,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       NoelleDialogo_0: -2528652829902141999
+      NoelleDialogo_1: -9112849956494480407
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

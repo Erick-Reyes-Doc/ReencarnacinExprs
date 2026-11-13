@@ -218,6 +218,22 @@ public partial class MapShopController : MonoBehaviour
     public bool IsOpen => isOpen && CanOpen();
     public bool ShopMode => shopMode;
 
+    // Zonas que ilumina el tutorial del mapa (null si no estan visibles).
+    public RectTransform TutorialRect(string key)
+    {
+        switch (key)
+        {
+            case "tienda":
+                return shopWindow != null && shopWindow.activeInHierarchy ? (RectTransform)shopWindow.transform : null;
+            case "inventario":
+                return inventoryWindow != null && inventoryWindow.activeInHierarchy ? (RectTransform)inventoryWindow.transform : null;
+            case "tabVender":
+                return tabHovers[SellTab] != null ? (RectTransform)tabHovers[SellTab].transform : null;
+            default:
+                return null;
+        }
+    }
+
     // La tienda se cerro en este mismo fotograma (p. ej. con Escape): el menu de pausa no debe
     // abrirse con esa misma pulsacion.
     // Lienzo y velo de la tienda: otras ventanas (misiones) se montan en el mismo para verse y animarse igual.

@@ -1,0 +1,392 @@
+fileFormatVersion: 2
+guid: 5e1dd8579210a7f4ca594dc226e5179e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5086073210750981462
+    second: GuardianForestal_GolpeDeRaices_14_0
+  - first:
+      213: 2490481714558305759
+    second: GuardianForestal_GolpeDeRaices_14_1
+  - first:
+      213: 4567337124666534145
+    second: GuardianForestal_GolpeDeRaices_14_2
+  - first:
+      213: 3030278670544341080
+    second: GuardianForestal_GolpeDeRaices_14_3
+  - first:
+      213: 7172646451821112448
+    second: GuardianForestal_GolpeDeRaices_14_4
+  - first:
+      213: -2949470124875135076
+    second: GuardianForestal_GolpeDeRaices_14_5
+  - first:
+      213: 4580263159196407066
+    second: GuardianForestal_GolpeDeRaices_14_6
+  - first:
+      213: -3381106494313512228
+    second: GuardianForestal_GolpeDeRaices_14_7
+  - first:
+      213: 741610082829183108
+    second: GuardianForestal_GolpeDeRaices_14_8
+  - first:
+      213: -5313947012491279721
+    second: GuardianForestal_GolpeDeRaices_14_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.35096908}
+  spritePixelsToUnits: 52.7
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_0
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 701
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaaae8bac53aa69b0800000000000000
+      internalID: -5086073210750981462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_1
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 664
+        width: 39
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd58adb9ce7ff8220800000000000000
+      internalID: 2490481714558305759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_2
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 669
+        width: 40
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109e3358ae0726f30800000000000000
+      internalID: 4567337124666534145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_3
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 603
+        width: 42
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8580d305566bd0a20800000000000000
+      internalID: 3030278670544341080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_4
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 626
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c634412fb5a8360800000000000000
+      internalID: 7172646451821112448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_5
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 605
+        width: 52
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c97c0336c806117d0800000000000000
+      internalID: -2949470124875135076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_6
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 536
+        width: 25
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a15d5b5731d509f30800000000000000
+      internalID: 4580263159196407066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_7
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 578
+        width: 33
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd24daaae85e311d0800000000000000
+      internalID: -3381106494313512228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 33
+        width: 615
+        height: 533
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 488a1ece07aba4a00800000000000000
+      internalID: 741610082829183108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GuardianForestal_GolpeDeRaices_14_9
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 476
+        width: 55
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 792853db8511146b0800000000000000
+      internalID: -5313947012491279721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GuardianForestal_GolpeDeRaices_14_0: -5086073210750981462
+      GuardianForestal_GolpeDeRaices_14_1: 2490481714558305759
+      GuardianForestal_GolpeDeRaices_14_2: 4567337124666534145
+      GuardianForestal_GolpeDeRaices_14_3: 3030278670544341080
+      GuardianForestal_GolpeDeRaices_14_4: 7172646451821112448
+      GuardianForestal_GolpeDeRaices_14_5: -2949470124875135076
+      GuardianForestal_GolpeDeRaices_14_6: 4580263159196407066
+      GuardianForestal_GolpeDeRaices_14_7: -3381106494313512228
+      GuardianForestal_GolpeDeRaices_14_8: 741610082829183108
+      GuardianForestal_GolpeDeRaices_14_9: -5313947012491279721
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

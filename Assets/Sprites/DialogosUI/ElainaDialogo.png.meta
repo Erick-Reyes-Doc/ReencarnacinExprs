@@ -5,14 +5,11 @@ TextureImporter:
   - first:
       213: -4279374557978590443
     second: ElainaDialogo_0
-  - first:
-      213: -3758967287395664474
-    second: ElainaDialogo_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -123,8 +120,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1235
-        height: 1221
+        width: 1222
+        height: 1217
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,28 +132,6 @@ TextureImporter:
       bones: []
       spriteID: 51387da338b9c94c0800000000000000
       internalID: -4279374557978590443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ElainaDialogo_1
-      rect:
-        serializedVersion: 2
-        x: 1159
-        y: 276
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6adb7700b2775dbc0800000000000000
-      internalID: -3758967287395664474
       vertices: []
       indices: 
       edges: []
@@ -176,7 +151,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       ElainaDialogo_0: -4279374557978590443
-      ElainaDialogo_1: -3758967287395664474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

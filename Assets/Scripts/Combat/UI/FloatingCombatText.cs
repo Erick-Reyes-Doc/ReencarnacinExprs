@@ -24,10 +24,46 @@ public static class CombatFeedback
 
     private static readonly HashSet<BattleUnit> critical = new HashSet<BattleUnit>();
 
+    // Retencion para el enfoque cinematografico (AttackCinematic): mientras esta activa, los avisos se guardan y salen todos
+    // juntos al liberarla (en el instante del impacto). Sin retencion todo funciona como siempre.
+    private struct Held { public BattleUnit unit; public string text; public FeedbackKind kind; }
+    private static readonly List<Held> held = new List<Held>();
+    private static bool holding;
+
+    public static void BeginHold()
+    {
+        holding = true;
+    }
+
+    public static void ReleaseHold()
+    {
+        holding = false;
+
+        if (held.Count == 0)
+            return;
+
+        Held[] pending = held.ToArray();
+        held.Clear();
+
+        foreach (Held h in pending)
+        {
+            if (h.unit != null)
+                Message?.Invoke(h.unit, h.text, h.kind);
+        }
+    }
+
     public static void Show(BattleUnit unit, string text, FeedbackKind kind)
     {
-        if (unit != null)
-            Message?.Invoke(unit, text, kind);
+        if (unit == null)
+            return;
+
+        if (holding)
+        {
+            held.Add(new Held { unit = unit, text = text, kind = kind });
+            return;
+        }
+
+        Message?.Invoke(unit, text, kind);
     }
 
     // El golpe que se va a entregar a 'unit' fue critico (lo consume el siguiente daño mostrado).

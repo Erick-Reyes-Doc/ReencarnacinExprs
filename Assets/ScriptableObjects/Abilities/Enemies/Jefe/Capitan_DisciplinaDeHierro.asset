@@ -17,6 +17,25 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 2
   useAnnouncement: 
+  animationTrigger: DisciplinaHierro
+  animationSpeed: 1
+  impactTime: 0
+  hitSound: {fileID: 8300000, guid: 3be1018f221a6e148b26444c6b09acda, type: 3}
+  hitSoundLead: 0.06
+  impactSlashAngle: -35
+  impactEffect: 0
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 3
   basePower: 0
   damagePercent: 100
@@ -27,11 +46,19 @@ MonoBehaviour:
   movementDistance: 0
   movementChance: 100
   cooldown: 3
+  availableFromTurn: 1
+  speechLine: Un oficial no se quiebra. Se endurece.
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0
+  healCriticalMultiplier: 0
   requiresPreparation: 0
   selectableAreas: []
   dealsDamage: 0
@@ -52,5 +79,6 @@ MonoBehaviour:
     duration: 2
     chance: 100
     applyToUser: 0
+    damageScalePercent: 0
     potencyPerLevel: 0
     durationPerLevel: 0

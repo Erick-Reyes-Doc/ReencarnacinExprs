@@ -34,21 +34,29 @@ public class CharacterAbilityLoadout : MonoBehaviour
     // Se dispara una sola vez, al transformarse.
     public event Action<CharacterAbilityLoadout> OnTransformed;
 
-    public bool IsTransformed => isTransformed;
+    // La etapa se lee de la sesion en cada consulta (ademas de lo que fije el combate): asi el conjunto de habilidades siempre
+    // coincide con el estado real de la partida (p. ej. Noelle tras "La mascara rota"), en la barra del combate y en la ficha.
+    public bool IsTransformed => isTransformed || SessionTransformed;
+
+    private bool SessionTransformed =>
+        GameSession.IsActive &&
+        GameSession.TryGetMember(gameObject.name, out GameSession.PartyMemberState state) &&
+        state.transformed &&
+        Build(transformedAbilities).Count > 0;
 
     // true si aun no se transformo y existe un conjunto alternativo.
     public bool CanTransform =>
-        !isTransformed && Build(transformedAbilities).Count > 0;
+        !IsTransformed && Build(transformedAbilities).Count > 0;
 
     // Equivalentes para Noelle.
-    public bool IsMasked => !isTransformed;
-    public bool IsLiberated => isTransformed;
+    public bool IsMasked => !IsTransformed;
+    public bool IsLiberated => IsTransformed;
 
     // Habilidades del conjunto activo (ranuras vacias omitidas).
     public IReadOnlyList<AbilityData> Abilities => Build(ActiveSet);
 
     private AbilityData[] ActiveSet =>
-        isTransformed ? transformedAbilities : initialAbilities;
+        IsTransformed ? transformedAbilities : initialAbilities;
 
     private static List<AbilityData> Build(AbilityData[] set)
     {

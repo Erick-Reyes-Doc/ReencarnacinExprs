@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
   typeId: reloj_arena_roto
   displayName: Reloj de Arena Roto Universal
-  description: "La primera habilidad que uses en cada combate con enfriamiento de 2 turnos o m\xE1s reduce su enfriamiento en 1."
+  description: "La primera vez en cada combate que usas tu habilidad de mayor enfriamiento (m\xEDnimo 2 turnos), su enfriamiento se reduce en 1."
   icon: {fileID: 21300000, guid: 683235dd08c565a4b99611a56d17e268, type: 3}
   rarity: 2
   effect: 5

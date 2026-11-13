@@ -35,6 +35,10 @@ public class CombatHudController : MonoBehaviour
     [SerializeField] private Text logText;
     [SerializeField] private Text bannerText;
     [SerializeField] private Text prepText;
+    private GameObject prepRoot;
+    private string lastPrep = "";
+    private float prepShownAt;
+    private const float PrepNoticeSeconds = 4f;
     [SerializeField] private Text detailText;
     [SerializeField] private Text hintText;
     [SerializeField] private Button[] abilityButtons = new Button[AbilitySlots];
@@ -80,6 +84,12 @@ public class CombatHudController : MonoBehaviour
 
     private bool paused => pauseMenu != null && pauseMenu.IsOpen;
     public bool IsPaused => paused;
+
+    // Casilla de formacion de un heroe para las reglas de habilidades (conserva su lugar aunque otros caigan).
+    private int SlotOf(BattleUnit unit)
+    {
+        return positionManager != null ? positionManager.AbilitySlotOf(unit) : unit.Position;
+    }
 
     [SerializeField] private Button[] tileButtons = new Button[SlotCount];
     [SerializeField] private Image[] tileImages = new Image[SlotCount];
@@ -302,6 +312,11 @@ public class CombatHudController : MonoBehaviour
     {
         public string unitName;
         public Sprite portrait;
+        [Tooltip("Retrato que sustituye al anterior cuando ya se completo afterEventId (Noelle sin mascara).")]
+        public Sprite portraitAfterEvent;
+        public string afterEventId;
+
+        public Sprite Current => portraitAfterEvent != null && !string.IsNullOrEmpty(afterEventId) && GameSession.IsEncounterCompleted(afterEventId) ? portraitAfterEvent : portrait;
     }
 
     [SerializeField] private PortraitOverride[] portraitOverrides = new PortraitOverride[0];
@@ -511,6 +526,34 @@ public class CombatHudController : MonoBehaviour
 
     private readonly Queue<string> recentLog = new Queue<string>();
 
+    // La interfaz guardada en la escena puede ser anterior al contenedor azul del anuncio de preparacion: se crea al vuelo
+    // y se reubica el texto existente dentro (sin tener que regenerar toda la interfaz).
+    private void EnsurePrepBox()
+    {
+        if (prepRoot != null || prepText == null)
+            return;
+
+        Transform existing = prepText.transform.parent;
+
+        if (existing != null && existing.name == "AnuncioPreparacion")
+        {
+            prepRoot = existing.gameObject;
+            return;
+        }
+
+        RectTransform prepBox = Box("AnuncioPreparacion", existing, new Vector2(0.243f, 0.322f), new Vector2(0.696f, 0.372f), new Color(0.075f, 0.098f, 0.141f, 1f));
+        AddFlatBorder(prepBox.gameObject, AgedGold, false);
+        prepText.transform.SetParent(prepBox, false);
+        RectTransform tr = (RectTransform)prepText.transform;
+        tr.anchorMin = new Vector2(0.025f, 0.06f);
+        tr.anchorMax = new Vector2(0.975f, 0.94f);
+        tr.offsetMin = tr.offsetMax = Vector2.zero;
+        prepText.fontSize = 18;
+        Fit(prepText, 12, 18);
+        prepRoot = prepBox.gameObject;
+        prepRoot.SetActive(false);
+    }
+
     // ------------------------------------------------------------
     // Ciclo de vida
     // ------------------------------------------------------------
@@ -520,7 +563,9 @@ public class CombatHudController : MonoBehaviour
         if (canvas == null)
             BuildUI();
 
+        EnsurePrepBox();
         ApplyFont();
+        FitInfoHeader();
 
         // Marcadores flotantes de daño, curacion, esquivas y estados (lienzo propio; solo presentacion).
         if (GetComponent<FloatingCombatText>() == null)
@@ -529,6 +574,31 @@ public class CombatHudController : MonoBehaviour
         CacheUnits();
         WireButtons();
         ConnectPauseMenu();
+    }
+
+    // Cabecera del panel central ("Habilidades de <nombre>" a la izquierda, HP y posicion a la derecha): cada texto tiene su
+    // mitad y se reduce para caber, asi un nombre largo (p. ej. "Chaman del Bosque") nunca pisa los HP.
+    private void FitInfoHeader()
+    {
+        if (infoText != null && statsText != null)
+        {
+            RectTransform info = infoText.rectTransform;
+            RectTransform stats = statsText.rectTransform;
+            info.anchorMax = new Vector2(0.58f, info.anchorMax.y);
+            stats.anchorMin = new Vector2(0.58f, stats.anchorMin.y);
+
+            infoText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            infoText.verticalOverflow = VerticalWrapMode.Truncate;
+            infoText.resizeTextForBestFit = true;
+            infoText.resizeTextMinSize = 14;
+            infoText.resizeTextMaxSize = 30;
+
+            statsText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            statsText.verticalOverflow = VerticalWrapMode.Truncate;
+            statsText.resizeTextForBestFit = true;
+            statsText.resizeTextMinSize = 14;
+            statsText.resizeTextMaxSize = 24;
+        }
     }
 
     private void OnEnable()
@@ -553,7 +623,10 @@ public class CombatHudController : MonoBehaviour
             return;
 
         if (!string.IsNullOrEmpty(next.announcement))
+        {
             phaseMessage = next.announcement;
+            BossSpeechBanner.Show(boss != null ? boss.Unit : null, next.announcement, messageText != null ? messageText.font : null);   // frase grande, no perdida en el cuadro de acciones
+        }
 
         if (string.IsNullOrEmpty(next.bannerText) || bannerText == null)
             return;
@@ -590,6 +663,10 @@ public class CombatHudController : MonoBehaviour
     // Aviso de la marca tactica del Capitan (solo presentacion).
     private void OnEnemyAction(BattleUnit self, AbilityData ability, BattleUnit target, bool special)
     {
+        // Frase del jefe al usar la habilidad: rotulo grande aparte del cuadro de acciones.
+        if (ability != null && self != null && !string.IsNullOrEmpty(ability.speechLine))
+            BossSpeechBanner.Show(self, ability.speechLine, messageText != null ? messageText.font : null);
+
         // Habilidad con frase de uso (p. ej. Ultima Orden): frase ahora y, un
         // instante despues, el nombre y los efectos realmente aplicados.
         if (ability != null && self != null && !string.IsNullOrEmpty(ability.useAnnouncement))
@@ -900,7 +977,9 @@ public class CombatHudController : MonoBehaviour
     // que muestra los resultados guardados en VictorySummary (la reliquia, la XP y las Coronas ya se entregaron antes).
     private IEnumerator VictoryTransition()
     {
-        yield return SceneFadeTransition(victorySceneName, 1.4f, 0.8f);
+        // Si el ultimo enemigo (el jefe) tiene derrota animada, se espera a que se vea entera antes del fundido.
+        float wait = Mathf.Max(1.4f, UnitDeathEffect.LastDefeatAnimationSeconds + 0.4f);
+        yield return SceneFadeTransition(victorySceneName, wait, 0.8f);
     }
 
     // Igual para la derrota: espera mas (se ve el banner DERROTA) y el fundido a negro es mas lento.
@@ -1050,7 +1129,7 @@ public class CombatHudController : MonoBehaviour
 
     private BattleUnit ActivePlayerUnit()
     {
-        if (turnManager == null || turnManager.BattleFinished)
+        if (turnManager == null || turnManager.BattleFinished || turnManager.ShowingStunNotice || turnManager.PhasePause)
             return null;
 
         BattleUnit unit = turnManager.CurrentUnit;
@@ -1179,6 +1258,9 @@ public class CombatHudController : MonoBehaviour
 
     private void OnMoveClicked()
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit user = ActivePlayerUnit();
 
         if (user == null)
@@ -1205,6 +1287,9 @@ public class CombatHudController : MonoBehaviour
     // Primer clic: vista previa del destino. Segundo clic: confirma.
     private void OnMoveDirectionClicked(int index)
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit user = ActivePlayerUnit();
 
         if (user == null)
@@ -1280,6 +1365,9 @@ public class CombatHudController : MonoBehaviour
     // Abre o cierra el menu de objetos (solo en turno de un protagonista).
     private void OnItemsClicked()
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit user = ActivePlayerUnit();
 
         if (user == null)
@@ -1355,6 +1443,9 @@ public class CombatHudController : MonoBehaviour
     // abierto: 0 pocion, 1 antidoto, 2 volver.
     private void OnItemSlotClicked(int slot)
     {
+        if (AttackCinematic.Busy)
+            return;
+
         if (slot == 2)
         {
             CancelSelection();
@@ -1386,6 +1477,15 @@ public class CombatHudController : MonoBehaviour
                 reason = why;
         }
 
+        // Los heroes caidos tambien pueden ser objetivo (la pocion los levanta).
+        foreach (BattleUnit downed in positionManager.GetDownedHeroes())
+        {
+            if (ConsumableService.CanUse(type, downed, out string whyDowned))
+                validTargets.Add(downed);
+            else if (reason == "")
+                reason = whyDowned;
+        }
+
         if (validTargets.Count == 0)
         {
             Say(GameSession.GetCount(type) <= 0
@@ -1402,6 +1502,9 @@ public class CombatHudController : MonoBehaviour
 
     private void OnEndTurnClicked()
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit user = ActivePlayerUnit();
 
         if (user == null)
@@ -1417,6 +1520,9 @@ public class CombatHudController : MonoBehaviour
 
     private void OnAbilityClicked(int index)
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit user = ActivePlayerUnit();
 
         if (user == null)
@@ -1475,18 +1581,39 @@ public class CombatHudController : MonoBehaviour
 
             case AbilityTargetType.AllAllies:
                 Execute(user, ability, () =>
-                    abilitySystem.ExecuteGroupRegeneration(user, ability));
+                    abilitySystem.ExecuteGroupRegeneration(user, ability), ability.protectiveAura ? user : null);
                 break;
 
             case AbilityTargetType.AllEnemies:
+                // Los ataques de area inmediatos (sin preparacion ni areas por posiciones) llevan enfoque cinematografico: se pasa
+                // el primer enemigo como referencia de camara; el enfoque recoge a todos los demas.
+                bool plainArea = !ability.requiresPreparation &&
+                                 (ability.selectableAreas == null || ability.selectableAreas.Count == 0);
                 Execute(user, ability, () =>
-                    abilitySystem.ExecuteAreaAbility(user, ability));
+                    abilitySystem.ExecuteAreaAbility(user, ability), plainArea ? FirstAliveEnemy() : null);
                 break;
 
             default:
                 BeginTargetSelection(user, ability);
                 break;
         }
+    }
+
+    // Primer enemigo vivo de la formacion (referencia de camara para los ataques de area).
+    private BattleUnit FirstAliveEnemy()
+    {
+        if (positionManager == null)
+            return null;
+
+        for (int position = 1; position <= 4; position++)
+        {
+            BattleUnit unit = positionManager.GetUnitAtPosition(TeamSide.Enemy, position);
+
+            if (unit != null && unit.IsAlive)
+                return unit;
+        }
+
+        return null;
     }
 
     // Habilidad individual: lista de objetivos validos.
@@ -1498,16 +1625,32 @@ public class CombatHudController : MonoBehaviour
 
         List<BattleUnit> candidates = new List<BattleUnit>();
 
-        for (int position = 1; position <= 4; position++)
+        if (side == TeamSide.Player)
         {
-            if (!ability.CanTargetPosition(position))
-                continue;
+            // Heroes: casilla real primero, con respaldo a la posicion compactada (ver PositionManager).
+            candidates.AddRange(positionManager.GetPlayerUnitsAtPositions(ability.CanTargetPosition));
+        }
+        else
+        {
+            for (int position = 1; position <= 4; position++)
+            {
+                if (!ability.CanTargetPosition(position))
+                    continue;
 
-            BattleUnit unit =
-                positionManager.GetUnitAtPosition(side, position);
+                BattleUnit unit =
+                    positionManager.GetUnitAtPosition(side, position);
 
-            if (unit != null && unit.IsAlive)
-                candidates.Add(unit);
+                if (unit != null && unit.IsAlive)
+                    candidates.Add(unit);
+            }
+        }
+
+        // Una curacion tambien puede levantar a un heroe caido.
+        if (ability.abilityType == AbilityType.Heal && side == user.Side && side == TeamSide.Player)
+        {
+            foreach (BattleUnit downed in positionManager.GetDownedHeroes())
+                if (ability.CanTargetPosition(downed.Position))
+                    candidates.Add(downed);
         }
 
         if (candidates.Count == 0)
@@ -1537,6 +1680,9 @@ public class CombatHudController : MonoBehaviour
 
     private void OnTileClicked(int slot)
     {
+        if (AttackCinematic.Busy)
+            return;
+
         BattleUnit unit = TileUnit(slot);
 
         // Objeto elegido: el aliado clicado lo recibe. Si el uso es
@@ -1597,13 +1743,70 @@ public class CombatHudController : MonoBehaviour
 
         AbilityData ability = selectedAbility;
         Execute(user, ability, () =>
-            abilitySystem.ExecuteAbility(user, unit, ability));
+            abilitySystem.ExecuteAbility(user, unit, ability), unit);
+    }
+
+    // Ataque de un heroe con enfoque cinematografico (AttackCinematic): la habilidad se resuelve en el instante del golpe y
+    // el turno se consume al terminar la secuencia. Si no es valida, se avisa igual que siempre antes de empezar.
+    // Devuelve true si el ataque lo gestiona el enfoque (o se rechazo); false = flujo normal.
+    private bool TryExecuteCinematic(BattleUnit user, BattleUnit target, AbilityData ability, Func<bool> action)
+    {
+        if (!AttackCinematic.Wants(ability, user, target))
+            return false;
+
+        // Curar a quien ya tiene la vida completa se rechaza con el flujo normal (mensaje), sin animacion ni zoom.
+        if (ability.abilityType == AbilityType.Heal && target.CurrentHealth >= target.MaxHealth)
+            return false;
+
+        bool usable = false;
+        string why = ability.targetType == AbilityTargetType.AllAllies
+            ? Capture(() => usable = true)   // el apoyo de grupo se valida al resolver; aqui no hay objetivo unico
+            : ability.targetType == AbilityTargetType.AllEnemies
+            ? Capture(() => usable = abilitySystem.CanUseAreaAbility(user, ability, out _))
+            : Capture(() => usable = abilitySystem.CanUseAbility(user, target, ability));
+
+        if (!usable)
+        {
+            Say(why, true);
+            return true;
+        }
+
+        CancelSelection();
+
+        AttackCinematic.Play(user, target, ability,
+            () =>
+            {
+                bool done = false;
+                string reason = Capture(() => done = action());
+
+                if (!done)
+                    Say(reason, true);
+
+                return done;
+            },
+            success =>
+            {
+                if (!success)
+                    return;
+
+                Say(DisplayName(user) + " uso " + ability.abilityName + ".");
+                AbilityUsed?.Invoke();
+                turnManager.EndTurn();
+            });
+
+        return true;
     }
 
     // Ejecuta la accion real. Si falla, muestra el motivo y no avanza
     // el turno; si funciona, el turno se consume una sola vez.
-    private void Execute(BattleUnit user, AbilityData ability, Func<bool> action)
+    private void Execute(BattleUnit user, AbilityData ability, Func<bool> action, BattleUnit target = null)
     {
+        if (AttackCinematic.Busy)
+            return;
+
+        if (target != null && TryExecuteCinematic(user, target, ability, action))
+            return;
+
         bool success = false;
         string reason = Capture(() => success = action());
 
@@ -1664,12 +1867,15 @@ public class CombatHudController : MonoBehaviour
         bool ally = slot < 4;
         int position = ally ? 4 - slot : slot - 3;
 
-        BattleUnit unit = positionManager.GetUnitAtPosition(
-            ally ? TeamSide.Player : TeamSide.Enemy,
-            position
-        );
+        // La tarjeta es de la casilla visual: un heroe caido conserva la suya (no se mueve de su lugar) y los vivos la saltan.
+        BattleUnit unit = positionManager.GetUnitAtVisualSlot(ally ? TeamSide.Player : TeamSide.Enemy, position);
+        return unit;
+    }
 
-        return unit != null && unit.IsAlive ? unit : null;
+    // Unidad que sigue en el campo: viva o heroe caido (puede recibir curacion).
+    private bool IsOnField(BattleUnit unit)
+    {
+        return unit != null && (unit.IsAlive || (positionManager != null && positionManager.IsDowned(unit)));
     }
 
     private static void SetText(Text text, string value)
@@ -1765,13 +1971,13 @@ public class CombatHudController : MonoBehaviour
             {
                 SetText(infoText, "Habilidades de " + DisplayName(active));
                 SetText(statsText, "HP " + active.CurrentHealth + " / " + active.MaxHealth +
-                    "   |   Posición P" + active.Position);
+                    "   |   Posición P" + SlotOf(active));
             }
             else
             {
                 SetText(infoText,
                     DisplayName(active) + "     HP " + active.CurrentHealth +
-                    " / " + active.MaxHealth + "     Posición P" + active.Position);
+                    " / " + active.MaxHealth + "     Posición P" + SlotOf(active));
             }
         }
 
@@ -1805,6 +2011,10 @@ public class CombatHudController : MonoBehaviour
                 StartCoroutine(DefeatTransition());
             }
 
+            // La escena Defeat ya muestra su propio titulo: se quita el rotulo "DERROTA" del combate.
+            if (useDefeatScene)
+                SetText(bannerText, "");
+
             showDefeat &= !useDefeatScene;
 
             if (defeatPanel.activeSelf != showDefeat)
@@ -1824,6 +2034,10 @@ public class CombatHudController : MonoBehaviour
                 victoryTransitionStarted = true;
                 StartCoroutine(VictoryTransition());
             }
+
+            // La escena Victory ya muestra su propio titulo: se quita el rotulo "VICTORIA" del combate.
+            if (useVictoryScene)
+                SetText(bannerText, "");
 
             bool showPanel = showVictory && !useVictoryScene;
 
@@ -1862,11 +2076,11 @@ public class CombatHudController : MonoBehaviour
             int remaining = cooldowns != null
                 ? cooldowns.GetRemainingTurns(ability) : 0;
             bool blocked = remaining > 0 ||
-                !ability.CanUseFromPosition(active.Position);
+                !ability.CanUseFromPosition(SlotOf(active));
 
             string status = remaining > 0
                 ? "<color=#C9965A>Recarga " + remaining + "</color>"
-                : (!ability.CanUseFromPosition(active.Position)
+                : (!ability.CanUseFromPosition(SlotOf(active))
                     ? "<color=#C98A8A>Solo desde " + PositionList(ability.usablePositions) + "</color>"
                     : "");
 
@@ -1930,7 +2144,7 @@ public class CombatHudController : MonoBehaviour
 
             if (moveMode && active != null)
             {
-                SetText(detailText, MoveInfo + "\nPosición actual: P" + active.Position +
+                SetText(detailText, MoveInfo + "\nPosición actual: P" + SlotOf(active) +
                     (moveDirection == 0 ? "." : "") +
                     (moveDirection == 0 ? "\nElige una dirección." : "\nPulsa de nuevo la dirección elegida para confirmar."));
             }
@@ -2024,6 +2238,21 @@ public class CombatHudController : MonoBehaviour
         }
         SetText(prepText, prep);
 
+        if (prepRoot != null)
+        {
+            // El anuncio se muestra un rato y se retira solo (la preparacion sigue activa, solo se oculta el aviso).
+            if (prep != lastPrep)
+            {
+                lastPrep = prep;
+                prepShownAt = Time.time;
+            }
+
+            bool showPrep = prep.Trim().Length > 0 && Time.time - prepShownAt < PrepNoticeSeconds;
+
+            if (prepRoot.activeSelf != showPrep)
+                prepRoot.SetActive(showPrep);
+        }
+
         // Cambio de fase de un jefe: mensaje narrativo y rotulo temporal.
         if (phaseMessage != "")
         {
@@ -2106,7 +2335,7 @@ public class CombatHudController : MonoBehaviour
 
         if (!picking)
             focusTarget = null;
-        else if (focusTarget == null || !focusTarget.IsAlive || !validTargets.Contains(focusTarget))
+        else if (focusTarget == null || !IsOnField(focusTarget) || !validTargets.Contains(focusTarget))
             focusTarget = validTargets[0];
 
         // Casillas de unidades.
@@ -2164,7 +2393,7 @@ public class CombatHudController : MonoBehaviour
 
             bool threatened = IsThreatenedByPreparedArea(unit);
             SetText(tileStatus[slot],
-                PhaseTag(unit) + (threatened ? "<color=#F28B3C>FUEGO</color> " : "") + StatusTags(unit));
+                (unit.IsDowned ? "<color=#D98080>CAÍDO</color> " : "") + PhaseTag(unit) + (threatened ? "<color=#F28B3C>FUEGO</color> " : "") + StatusTags(unit));
 
             tileBars[slot].anchorMax = new Vector2(
                 Mathf.Clamp01((float)unit.CurrentHealth / unit.MaxHealth), 1f);
@@ -2185,7 +2414,7 @@ public class CombatHudController : MonoBehaviour
                 UpdateRelicBadge(slot, unit);
 
                 // Habilidades y objetos (pocion, antidoto): el sprite del aliado valido tambien es clicable, no solo la barra.
-                bool abilityTarget = (picking || itemSelected >= 0) && isTarget && unit.IsAlive;
+                bool abilityTarget = (picking || itemSelected >= 0) && isTarget && IsOnField(unit);
 
                 // Rojo = enemigos (habilidades ofensivas). Las beneficiosas usan el indicador verde de aliados.
                 bool redFrame = picking && abilityTarget && selectedAbility.abilityType == AbilityType.Attack;
@@ -2266,7 +2495,7 @@ public class CombatHudController : MonoBehaviour
         foreach (BattleUnit unit in allyBenefitTargets)
         {
             for (int slot = 0; slot < 4; slot++)
-                if (unit != null && unit.IsAlive && TileUnit(slot) == unit)
+                if (IsOnField(unit) && TileUnit(slot) == unit)
                     mark[slot] = true;
         }
 
@@ -2362,6 +2591,7 @@ public class CombatHudController : MonoBehaviour
     private int titleSizeValue = 34;
     private int lastChipCount = -1;
     private readonly Dictionary<Sprite, Sprite> portraitCache = new Dictionary<Sprite, Sprite>();
+    private readonly Dictionary<BattleUnit, Sprite> unitPortraitCache = new Dictionary<BattleUnit, Sprite>();
 
     // Mayor tamano de letra (36..22) con el que el titulo cabe en una sola linea del area de texto.
     public int FitTitleSize(string title)
@@ -2391,7 +2621,7 @@ public class CombatHudController : MonoBehaviour
             return false;
 
         foreach (PortraitOverride entry in portraitOverrides)
-            if (entry != null && entry.portrait != null && entry.unitName == unit.Data.unitName)
+            if (entry != null && entry.Current != null && entry.unitName == unit.Data.unitName)
                 return true;
 
         return false;
@@ -2406,22 +2636,43 @@ public class CombatHudController : MonoBehaviour
 
         if (portraitOverrides != null)
             foreach (PortraitOverride entry in portraitOverrides)
-                if (entry != null && entry.portrait != null && entry.unitName == unit.Data.unitName)
-                    return entry.portrait;
+                if (entry != null && entry.Current != null && entry.unitName == unit.Data.unitName)
+                    return entry.Current;
 
         Sprite source = unit.Data.characterSprite;
+        bool fromRenderer = false;
 
         if (source == null)
         {
+            // Sin sprite fijo en los datos: se usa el que dibuja ahora. Los jefes animados cambian de fotograma (y de fase) todo el
+            // tiempo, asi que el retrato se calcula UNA vez por unidad y se conserva (si no, el icono salta o se recorta mal).
+            if (unitPortraitCache.TryGetValue(unit, out Sprite fixedPortrait) && fixedPortrait != null)
+                return fixedPortrait;
+
             SpriteRenderer renderer = unit.GetComponentInChildren<SpriteRenderer>();
             source = renderer != null ? renderer.sprite : null;
+            fromRenderer = true;
         }
 
         if (source == null)
             return null;
 
-        if (portraitCache.TryGetValue(source, out Sprite cached) && cached != null)
+        if (!fromRenderer && portraitCache.TryGetValue(source, out Sprite cached) && cached != null)
             return cached;
+
+        // Recorte de rostro definido para este enemigo (UnitData.portraitRect).
+        Rect custom = unit.Data.portraitRect;
+
+        if (custom.width > 4f && custom.height > 4f && source.texture != null &&
+            custom.xMin >= 0f && custom.yMin >= 0f && custom.xMax <= source.texture.width && custom.yMax <= source.texture.height)
+        {
+            Sprite face = Sprite.Create(source.texture, custom, new Vector2(0.5f, 0.5f), source.pixelsPerUnit);
+            face.name = "Retrato_" + unit.Data.unitName;
+
+            if (fromRenderer) unitPortraitCache[unit] = face; else portraitCache[source] = face;
+
+            return face;
+        }
 
         // Area visible del sprite (malla ajustada) para ignorar el margen transparente.
         Rect r = source.textureRect;
@@ -2458,7 +2709,9 @@ public class CombatHudController : MonoBehaviour
 
         Sprite portrait = Sprite.Create(source.texture, crop, new Vector2(0.5f, 0.5f), source.pixelsPerUnit);
         portrait.name = "Retrato_" + unit.Data.unitName;
-        portraitCache[source] = portrait;
+
+        if (fromRenderer) unitPortraitCache[unit] = portrait; else portraitCache[source] = portrait;
+
         return portrait;
     }
 
@@ -2637,8 +2890,17 @@ public class CombatHudController : MonoBehaviour
             PreparedAbilityController prepared = caster.GetComponent<PreparedAbilityController>();
 
             if (prepared != null && prepared.HasPreparation &&
-                prepared.PreparedArea != null && prepared.PreparedArea.Contains(unit.Position))
-                return true;
+                prepared.PreparedArea != null)
+            {
+                AbilityPositionArea area = prepared.PreparedArea;
+
+                bool inArea = unit.Side == TeamSide.Player && positionManager != null
+                    ? positionManager.IsPlayerUnitInPositions(unit, area.Contains)
+                    : area.Contains(unit.Position);
+
+                if (inArea)
+                    return true;
+            }
         }
 
         return false;
@@ -2881,7 +3143,7 @@ public class CombatHudController : MonoBehaviour
             case StatusEffectType.Vulnerability: return "<b>Vulnerabilidad</b>\n-" + p + "% de protección" + turns;
             case StatusEffectType.Mark: return "<b>Marca</b>\nEl siguiente ataque directo causa x2 de daño" + turns;
             case StatusEffectType.PriorityTarget: return "<b>Objetivo prioritario</b>\n+" + p + "% de daño directo recibido" + turns;
-            case StatusEffectType.DefenseBoost: return "<b>Defensa elevada</b>\n+" + p + "% de protección" + turns;
+            case StatusEffectType.DefenseBoost: return "<b>Defensa elevada</b>\n+" + p + "% de protección" + turns + "\nSe pierde al recibir un golpe";
             case StatusEffectType.Guard: return "<b>Protección</b>\n-" + p + "% de daño directo" + turns;
             case StatusEffectType.Stun: return "<b>Aturdimiento</b>\nPierde su turno" + turns;
             case StatusEffectType.EvasionBoost: return "<b>Evasión</b>\n+" + p + " puntos de evasión" + turns;
@@ -2938,6 +3200,10 @@ public class CombatHudController : MonoBehaviour
     // cabeza. Con Match=Altura del escalador, la altura del lienzo equivale
     // a 2 x tamano ortografico de la camara, asi que la conversion no
     // depende de la resolucion.
+    private const float GroundLineY = -0.90f;
+    private readonly float[] cardBaseWidth = new float[16];
+    private readonly Dictionary<BattleUnit, float> restingOffset = new Dictionary<BattleUnit, float>();
+
     private void PlaceUnitCard(int slot, BattleUnit unit, bool isActive, bool isTarget)
     {
         Camera cam = canvas != null && canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
@@ -2948,14 +3214,48 @@ public class CombatHudController : MonoBehaviour
         float ppu = canvasRect.rect.height / (2f * cam.orthographicSize);
         SpriteRenderer sr = unit.GetComponentInChildren<SpriteRenderer>();
         Vector3 center = unit.transform.position;
-        float feet = sr != null ? sr.bounds.min.y + sr.bounds.size.y * 0.09f : center.y - 1.5f;
+        // Linea de suelo comun (los pies de heroes y enemigos estan en y = -0,9): todas las barras, de heroes y enemigos,
+        // quedan exactamente al mismo nivel horizontal sin importar el sprite.
+        float feet = GroundLineY + 0.30f;
         float head = sr != null ? sr.bounds.max.y - sr.bounds.size.y * 0.06f : center.y + 1.5f;
-        float x = (center.x - cam.transform.position.x) * ppu;
+        // La barra se centra bajo la figura visible (no bajo el punto de la casilla), asi sigue a los sprites desplazados.
+        float figureX = sr != null ? sr.bounds.center.x : center.x;
+
+        // Barra fija: se ancla a la casilla de la unidad (+ el desfase de su figura en reposo), no al sprite del momento. Asi no se
+        // mueve con embestidas, retrocesos, animaciones de otro ancho ni con la pose de caida del heroe.
+        if (positionManager != null && positionManager.TryGetHome(unit, out Vector3 home))
+        {
+            UnitAnimationDriver driver = unit.GetComponent<UnitAnimationDriver>();
+            bool resting = !AttackCinematic.Busy && !UnitDownedVisual.IsActive(unit) && (driver == null || !driver.IsPlayingAttack);
+
+            if (sr != null && (resting || !restingOffset.ContainsKey(unit)))
+                restingOffset[unit] = sr.bounds.center.x - unit.transform.position.x;
+
+            figureX = home.x + (restingOffset.TryGetValue(unit, out float off) ? off : 0f);
+        }
+
+        float x = (figureX - cam.transform.position.x) * ppu;
 
         RectTransform card = (RectTransform)tileImages[slot].transform;
+        // Los enemigos grandes (Guardian Corrupto) llevan la barra mas ancha pero a la misma altura que las demas,
+        // centrada bajo ellos (la unidad ya esta colocada entre sus dos casillas).
+        float barScale = unit.Data != null ? Mathf.Max(1f, unit.Data.healthBarScale) : 1f;
+
+        if (cardBaseWidth[slot] <= 0f)
+            cardBaseWidth[slot] = card.sizeDelta.x;
+
+        float wantedWidth = cardBaseWidth[slot] * barScale;
+
+        if (!Mathf.Approximately(card.sizeDelta.x, wantedWidth))
+            card.sizeDelta = new Vector2(wantedWidth, card.sizeDelta.y);
+
+        if (card.localScale != Vector3.one)
+            card.localScale = Vector3.one;
+
+        float cardHalf = card.sizeDelta.y * 0.5f;
         // La tarjeta nunca baja de los paneles inferiores (margen de 8 px sobre su borde).
-        float cardY = (feet - 0.08f - cam.transform.position.y) * ppu - card.sizeDelta.y * 0.5f - (NewHud ? 36f : 0f);
-        float minCardY = -canvasRect.rect.height * 0.5f + canvasRect.rect.height * (NewHud ? 0.315f : 0.297f) + 8f + card.sizeDelta.y * 0.5f;
+        float cardY = (feet - 0.08f - cam.transform.position.y) * ppu - cardHalf - (NewHud ? 36f : 0f);
+        float minCardY = -canvasRect.rect.height * 0.5f + canvasRect.rect.height * (NewHud ? 0.315f : 0.297f) + 8f + cardHalf;
         card.anchoredPosition = new Vector2(x, Mathf.Max(cardY, minCardY));
 
         if (targetZones[slot] != null)
@@ -2968,7 +3268,7 @@ public class CombatHudController : MonoBehaviour
         {
             hpTipText.text = "HP " + unit.CurrentHealth + " / " + unit.MaxHealth;
             hpTip.sizeDelta = new Vector2(Mathf.Max(180f, hpTipText.preferredWidth + 56f), 54f);
-            hpTip.anchoredPosition = card.anchoredPosition + new Vector2(0f, card.sizeDelta.y * 0.5f + 8f);
+            hpTip.anchoredPosition = card.anchoredPosition + new Vector2(0f, cardHalf + 8f);
             hpTip.SetAsLastSibling();
             hpTip.gameObject.SetActive(true);
             hpTipSlot = slot;
@@ -3159,12 +3459,10 @@ public class CombatHudController : MonoBehaviour
 
         List<AbilityData> abilities = new List<AbilityData>();
         EnemyAIController ai = unit.GetComponent<EnemyAIController>();
-        CharacterAbilityLoadout loadout = unit.GetComponent<CharacterAbilityLoadout>();
 
+        // Los heroes ya tienen sus habilidades en el panel central: su ficha solo muestra estadisticas y estados.
         if (ai != null)
             abilities.AddRange(ai.KnownAbilities);
-        else if (loadout != null)
-            abilities.AddRange(loadout.Abilities);
 
         if (abilities.Count > 0)
             s += "\n<b>Habilidades</b>";
@@ -4009,7 +4307,13 @@ public class CombatHudController : MonoBehaviour
         logText = Label("Texto", logRoot, Vector2.zero, Vector2.one, 12, TextAnchor.LowerLeft, DimTextColor);
         logRoot.gameObject.SetActive(false);
 
-        prepText = Label("Preparacion", root, new Vector2(0.20f, 0.732f), new Vector2(0.80f, 0.770f), 16, TextAnchor.MiddleCenter, new Color(0.95f, 0.78f, 0.50f));
+        // Anuncio de habilidad preparada (p. ej. Fuego de Supresion del Capitan): contenedor azul con borde dorado, justo encima del panel de habilidades.
+        RectTransform prepBox = Box("AnuncioPreparacion", root, new Vector2(0.243f, 0.322f), new Vector2(0.696f, 0.372f), new Color(0.075f, 0.098f, 0.141f, 1f));
+        AddFlatBorder(prepBox.gameObject, AgedGold, false);
+        prepText = Label("Preparacion", prepBox, new Vector2(0.025f, 0.06f), new Vector2(0.975f, 0.94f), 18, TextAnchor.MiddleCenter, new Color(0.95f, 0.78f, 0.50f));
+        Fit(prepText, 12, 18);
+        prepRoot = prepBox.gameObject;
+        prepRoot.SetActive(false);
         bannerText = Label("Banner", root, new Vector2(0.2f, 0.60f), new Vector2(0.8f, 0.73f), 80, TextAnchor.MiddleCenter, Color.white);
         bannerText.fontStyle = FontStyle.Bold;
 

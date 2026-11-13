@@ -17,19 +17,43 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: Meteorito
+  animationSpeed: 1
+  impactTime: 0.84
+  hitSound: {fileID: 8300000, guid: 3a3795c98e4b4cf4096d842045d1ac81, type: 3}
+  hitSoundLead: 0.8
+  impactSlashAngle: -35
+  impactEffect: 8
+  projectileFlightSeconds: 0.5
+  projectileKind: 2
+  extraProjectiles: 5
+  projectileColor: {r: 1, g: 0.45, b: 0.12, a: 1}
+  shotSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1.5
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 2
   basePower: 0
   damagePercent: 100
   canCritical: 1
-  usablePositions: 00000101
+  usablePositions: 00000101y
   targetPositions: 01010101y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 3
   availableFromTurn: 3
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
+  regenerationPercentMaxHealth: 0
   healPercentMaxHealth: 0
   healMin: 0
   healMax: 0

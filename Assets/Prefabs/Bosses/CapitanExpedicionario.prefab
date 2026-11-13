@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3579267703838859135}
   - component: {fileID: 5197642019687548893}
   - component: {fileID: 5726511364592311609}
+  - component: {fileID: 4769996145069761270}
+  - component: {fileID: 3232859443019499562}
   m_Layer: 0
   m_Name: CapitanExpedicionario
   m_TagString: Untagged
@@ -86,8 +88,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: ce01e11afb14080468310a4ebf05b7eb, type: 3}
-  m_Color: {r: 0.55, g: 0.16, b: 0.18, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c43b445bf613da64faabca49bc9e8684, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -155,6 +157,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d3ef10fe65ff7a24381932003927e142, type: 2}
   - {fileID: 11400000, guid: 427711939de71d543918b3ba60514649, type: 2}
   - {fileID: 11400000, guid: 9e61ea711d79d724c822757f41fec334, type: 2}
+  - {fileID: 11400000, guid: f5aa3f5f9a8a76544898f3fdc6703969, type: 2}
   style: 2
   specialChance: 0.3
   statusPreference: 0.6
@@ -176,3 +179,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossPhaseController
   data: {fileID: 11400000, guid: 7969c8b81b982a64d80d1e936fb9ae4a, type: 2}
+--- !u!95 &4769996145069761270
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5314035158176758356}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa853413ff377b94d9de1ba80d6ce3ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3232859443019499562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5314035158176758356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8af21863bc9a6a40b198a32a196c084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimationDriver
+  defendTrigger: Defensa
+  talkTrigger: Hablar
+  phaseTrigger: EntradaFase2
+  phaseBool: Fase2
+  defeatTrigger: Derrota
+  phaseEntrySound: {fileID: 8300000, guid: 81a684d4c9653934d92c5f09a75509b1, type: 3}
+  phaseLoopSound: {fileID: 8300000, guid: d48bff0b1ead1ac40af9e890c2e1157e, type: 3}
+  phaseLoopVolume: 0.08
+  phaseLoopFadeSeconds: 1.5
+  downedTrigger: Caido
+  standTrigger: Levantar
+  syncIdle: 1

@@ -52,6 +52,88 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private CanvasGroup continueGroup;
     [SerializeField] private Button continueButton;
     [SerializeField] private string nextScene = "Map";
+    [Tooltip("Escena tras vencer al jefe final (epilogo y creditos). Vacio = vuelve al mapa como siempre.")]
+    [SerializeField] private string endingScene = "FinalDialogo";
+
+    [Header("Sonidos")]
+    [SerializeField] private AudioClip victoryFanfare;
+    [SerializeField] private AudioClip xpFillLoop;
+    [SerializeField] private AudioClip levelUpSound;
+    [SerializeField] private AudioClip relicSound;
+    [SerializeField] private AudioClip relicRareSound;
+    [SerializeField, Range(0f, 1f)] private float fanfareVolume = 0.6f;
+    [SerializeField, Range(0f, 1f)] private float xpLoopVolume = 0.25f;
+    [SerializeField, Range(0f, 1f)] private float levelUpVolume = 0.6f;
+    [SerializeField, Range(0f, 1f)] private float relicVolume = 0.6f;
+
+    private AudioSource sfxSource;
+    private AudioSource loopSource;
+    private int fillsRunning;
+    private float lastLevelUpSoundTime = -10f;
+
+    private void PlaySfx(AudioClip clip, float volume)
+    {
+        if (clip == null)
+            return;
+
+        if (sfxSource == null)
+        {
+            sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+            sfxSource.spatialBlend = 0f;
+        }
+
+        sfxSource.PlayOneShot(clip, volume);
+    }
+
+    // Bucle de llenado de XP: suena mientras haya alguna barra llenandose y se apaga con un fundido corto.
+    private void BeginFillSound()
+    {
+        fillsRunning++;
+
+        if (xpFillLoop == null || fillsRunning != 1)
+            return;
+
+        if (loopSource == null)
+        {
+            loopSource = gameObject.AddComponent<AudioSource>();
+            loopSource.playOnAwake = false;
+            loopSource.spatialBlend = 0f;
+            loopSource.loop = true;
+            loopSource.clip = xpFillLoop;
+        }
+
+        loopSource.volume = xpLoopVolume;
+
+        if (!loopSource.isPlaying)
+            loopSource.Play();
+    }
+
+    private void EndFillSound()
+    {
+        fillsRunning = Mathf.Max(0, fillsRunning - 1);
+
+        if (fillsRunning == 0 && loopSource != null && loopSource.isPlaying)
+            StartCoroutine(FadeOutLoop());
+    }
+
+    private IEnumerator FadeOutLoop()
+    {
+        AudioSource source = loopSource;
+        float start = source.volume;
+
+        for (float t = 0f; t < 0.25f; t += Time.unscaledDeltaTime)
+        {
+            if (fillsRunning > 0 || source == null)
+                yield break;
+
+            source.volume = Mathf.Lerp(start, 0f, t / 0.25f);
+            yield return null;
+        }
+
+        if (fillsRunning == 0 && source != null)
+            source.Stop();
+    }
 
     private static readonly Color Gold = new Color(0.96f, 0.86f, 0.58f, 1f);
     private static readonly Color Ivory = new Color(0.93f, 0.90f, 0.82f, 1f);
@@ -381,7 +463,9 @@ public class VictoryController : MonoBehaviour
             fade.gameObject.SetActive(false);
         }
 
-        // 2. Aparece el titulo (fundido + un pequeno crecimiento).
+        // 2. Aparece el titulo (fundido + un pequeno crecimiento): suena la fanfarria de victoria.
+        PlaySfx(victoryFanfare, fanfareVolume);
+
         if (titleRect != null)
             titleRect.localScale = Vector3.one * 0.9f;
 
@@ -473,6 +557,8 @@ public class VictoryController : MonoBehaviour
         float span = Mathf.Abs(toXp - fromXp) / required;
         float seconds = Mathf.Clamp(0.4f + span * 1.1f, 0.4f, 1.5f);
 
+        BeginFillSound();
+
         yield return Tween(seconds, k =>
         {
             float value = Mathf.Lerp(fromXp, toXp, Mathf.SmoothStep(0f, 1f, k));
@@ -482,6 +568,7 @@ public class VictoryController : MonoBehaviour
 
         SetBar(row, Mathf.Clamp01(toXp / required));
         SetText(row.xpText, Mathf.RoundToInt(toXp) + " / " + required + " XP");
+        EndFillSound();
     }
 
     // Subida de nivel: el texto del nivel crece un poco y la fila se ilumina en dorado una sola vez.
@@ -503,6 +590,13 @@ public class VictoryController : MonoBehaviour
 
         if (row.levelText != null)
             row.levelText.color = Gold;
+
+        // Sonido de subida de nivel justo al empezar el realce (una sola vez si varios heroes suben a la vez).
+        if (Time.unscaledTime - lastLevelUpSoundTime > 0.35f)
+        {
+            lastLevelUpSoundTime = Time.unscaledTime;
+            PlaySfx(levelUpSound, levelUpVolume);
+        }
 
         yield return Tween(0.6f, k =>
         {
@@ -546,6 +640,11 @@ public class VictoryController : MonoBehaviour
     private IEnumerator RelicHighlight()
     {
         Color glow = relicGlow != null ? relicGlow.color : Color.clear;
+
+        // Reliquia rara (azul) o exclusiva (morada): sonido mas rico; comun: sonido sencillo.
+        RelicData relic = summary != null ? summary.relic : null;
+        bool special = relic != null && (relic.IsExclusive || relic.rarity == RelicRarity.Rare);
+        PlaySfx(special && relicRareSound != null ? relicRareSound : relicSound, relicVolume);
 
         yield return Tween(0.8f, k =>
         {
@@ -624,7 +723,18 @@ public class VictoryController : MonoBehaviour
             yield return Tween(0.6f, SetFade);
         }
 
+        // Tras vencer al Capitan (jefe final): epilogo y creditos en lugar de volver al mapa.
+        bool bossDefeated = summary != null && summary.encounterId == "BOSS" && !string.IsNullOrEmpty(endingScene) &&
+                            GameSession.IsSceneInBuild(endingScene);
+
         VictorySummary.Clear();
+
+        if (bossDefeated)
+        {
+            SceneManager.LoadScene(endingScene);
+            yield break;
+        }
+
         GameSession.RequestMapFadeIn();
 
         if (GameSession.IsSceneInBuild(nextScene))

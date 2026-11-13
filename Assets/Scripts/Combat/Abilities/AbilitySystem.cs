@@ -9,6 +9,20 @@ public class AbilitySystem : MonoBehaviour
     [SerializeField] private PositionManager positionManager;
 
     // Direccion de PositionManager.MoveUnit: -1 avanzar, +1 retroceder.
+    // Aviso de presentacion: se lanza cuando una habilidad se ejecuta con exito (usuario, objetivo principal, habilidad).
+    // Solo lo escuchan componentes visuales (UnitAnimationDriver); no afecta a ninguna regla de combate.
+    public static event System.Action<BattleUnit, BattleUnit, AbilityData> AbilityExecuted;
+
+    private static void NotifyAbilityExecuted(BattleUnit user, BattleUnit target, AbilityData ability)
+    {
+        AbilityExecuted?.Invoke(user, target, ability);
+    }
+
+    // Presentacion: un ataque ya validado va a resolverse (Starting) o termino sin efecto (Failed). Permiten al enfoque
+    // cinematografico retener los numeros de daño hasta el impacto sin tocar ninguna regla.
+    public static event System.Action<BattleUnit, BattleUnit, AbilityData> AbilityStarting;
+    public static event System.Action AbilityFailed;
+
     private static int GetMoveDirection(UserMovement movement)
     {
         switch (movement)
@@ -131,15 +145,24 @@ public class AbilitySystem : MonoBehaviour
             return false;
         }
 
+        // Limite de usos por combate (invocaciones del jefe).
+        if (cooldowns.UsesExhausted(ability))
+        {
+            Debug.Log(ability.abilityName + " ya alcanzo su limite de usos en este combate.");
+            return false;
+        }
+
         // Validar posicion del usuario.
-        if (!ability.CanUseFromPosition(user.Position))
+        int userSlot = positionManager != null ? positionManager.AbilitySlotOf(user) : user.Position;
+
+        if (!ability.CanUseFromPosition(userSlot))
         {
             Debug.Log(
                 user.Data.unitName +
                 " no puede usar " +
                 ability.abilityName +
                 " desde la posicion " +
-                user.Position
+                userSlot
             );
 
             return false;
@@ -171,8 +194,11 @@ public class AbilitySystem : MonoBehaviour
             return false;
         }
 
-        // Comprobar que ambos personajes esten vivos.
-        if (!user.IsAlive || !target.IsAlive)
+        // Comprobar que ambos personajes esten vivos. Excepcion: una habilidad de CURACION puede apuntar a un heroe aliado
+        // caido (vida 0): es lo que lo levanta.
+        bool healsDownedAlly = ability.abilityType == AbilityType.Heal && target.IsDowned && user.Side == target.Side;
+
+        if (!user.IsAlive || (!target.IsAlive && !healsDownedAlly))
         {
             Debug.LogWarning(
                 "El usuario o el objetivo esta derrotado."
@@ -184,7 +210,11 @@ public class AbilitySystem : MonoBehaviour
             return false;
 
         // Validar posicion del objetivo.
-        if (!ability.CanTargetPosition(target.Position))
+        bool targetPositionOk = positionManager != null && target.Side == TeamSide.Player && target.IsAlive
+            ? positionManager.IsPlayerUnitInPositions(target, ability.CanTargetPosition)
+            : ability.CanTargetPosition(target.Position);
+
+        if (!targetPositionOk)
         {
             Debug.Log(
                 "La posicion " +
@@ -414,6 +444,10 @@ public class AbilitySystem : MonoBehaviour
             int protectorHealthBefore = protector.CurrentHealth;
             protector.TakeReducedDamage(protectorDamage);
 
+            // El protector tambien recibe un golpe: su Defensa elevada se consume.
+            if (protectorDamage > 0)
+                protector.ConsumeDefenseBoostOnHit();
+
             // Insignia de la Trinchera: devuelve parte del daño realmente recibido al atacante.
             int protectorLost = protectorHealthBefore - protector.CurrentHealth;
             RelicEffects.OnIntercept(protector, attacker, protectorLost);
@@ -597,6 +631,9 @@ public class AbilitySystem : MonoBehaviour
             target.Data.unitName
         );
 
+        if (ability.abilityType == AbilityType.Attack || ability.protectiveAura)
+            AbilityStarting?.Invoke(user, target, ability);
+
         // true si la habilidad hizo daño, curo, esquivo o aplico
         // regeneracion.
         bool otherEffect = false;
@@ -656,12 +693,26 @@ public class AbilitySystem : MonoBehaviour
                 ability.statusEffects != null &&
                 ability.statusEffects.Count > 0;
 
-            if (!hasRegeneration && !hasStatusEffects)
+            if (!hasRegeneration && !hasStatusEffects && !ability.IsSummon)
             {
                 Debug.LogWarning(
                     "La habilidad no tiene regeneracion ni estados configurados."
                 );
                 return false;
+            }
+
+            // Invocacion: convoca aliados en las casillas libres. Sin casillas libres no hay accion (no gasta el turno ni la recarga).
+            if (ability.IsSummon)
+            {
+                int summoned = SummonAllies(user, ability);
+
+                if (summoned == 0)
+                {
+                    Debug.Log(ability.abilityName + " no tuvo efecto: no hay casillas libres.");
+                    return false;
+                }
+
+                otherEffect = true;
             }
 
             if (hasRegeneration)
@@ -702,14 +753,147 @@ public class AbilitySystem : MonoBehaviour
             Debug.Log(
                 ability.abilityName + " no tuvo ningun efecto."
             );
+            if (ability.abilityType == AbilityType.Attack || ability.protectiveAura)
+                AbilityFailed?.Invoke();
             return false;
         }
 
         // Accion exitosa: movimiento del usuario y cooldown.
         ApplyUserMovement(user, ability);
         GetCooldowns(user).StartCooldown(ability);
+        NotifyAbilityExecuted(user, target, ability);
 
         return true;
+    }
+
+    // Casillas de la formacion del usuario donde cabe una unidad nueva (libres y sin reservar por un enemigo grande).
+    public List<int> FreeSlots(TeamSide side)
+    {
+        List<int> free = new List<int>();
+
+        if (positionManager == null)
+            return free;
+
+        for (int position = 1; position <= 4; position++)
+            if (positionManager.GetUnitOrWideAt(side, position) == null)
+                free.Add(position);
+
+        return free;
+    }
+
+    // Invoca hasta ability.summonCount unidades en las casillas libres (primero las del frente). Actuan desde la ronda siguiente.
+    // Devuelve cuantas aparecieron.
+    private int SummonAllies(BattleUnit user, AbilityData ability)
+    {
+        if (user == null || ability == null || !ability.IsSummon || positionManager == null || turnManager == null)
+            return 0;
+
+        int summoned = 0;
+        List<int> slots = FreeSlots(user.Side);
+        int count = Mathf.Min(ability.summonCount, slots.Count);
+
+        if (count == 0)
+            return 0;
+
+        // Los invocados entran por el FRENTE (junto a los heroes): la formacion existente retrocede 'count' casillas. Solo si
+        // cabe (formacion compacta, que es lo normal: al caer un secuaz los demas avanzan); si no, ocupan las casillas libres.
+        List<BattleUnit> team = new List<BattleUnit>();
+
+        foreach (BattleUnit other in FindObjectsByType<BattleUnit>())
+            if (other.Side == user.Side && other.IsAlive && other.gameObject.scene == user.gameObject.scene)
+                team.Add(other);
+
+        bool fitsInFront = true;
+
+        foreach (BattleUnit other in team)
+            if (other.Position + count + (PositionManager.IsWide(other) ? 1 : 0) > 4)
+                fitsInFront = false;
+
+        if (fitsInFront)
+        {
+            foreach (BattleUnit other in team)
+                other.SetPosition(other.Position + count);
+
+            slots = new List<int>();
+
+            for (int i = 1; i <= count; i++)
+                slots.Add(i);
+        }
+
+        foreach (int position in slots)
+        {
+            if (summoned >= ability.summonCount)
+                break;
+
+            GameObject prefab = ability.RandomSummon();
+
+            if (prefab == null)
+                break;
+
+            GameObject go = Instantiate(prefab);
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(go, user.gameObject.scene);
+            go.name = prefab.name + " E" + position + " (invocado)";
+            go.SetActive(true);
+
+            BattleUnit unit = go.GetComponent<BattleUnit>();
+            unit.SetPosition(position);
+            unit.InitializeUnit();
+
+            if (!positionManager.RegisterUnit(unit) || !turnManager.AddReinforcement(unit))
+            {
+                Destroy(go);
+                continue;
+            }
+
+            summoned++;
+            CombatFeedback.Show(unit, "¡Convocado!", FeedbackKind.Buff);
+            Debug.Log(user.Data.unitName + " convoca a " + unit.Data.unitName + " en E" + position + " (actuara desde la ronda siguiente).");
+        }
+
+        if (summoned > 0)
+        {
+            positionManager.UpdateVisualPositions();
+
+            // Orden de dibujo estable segun la casilla (el mas cercano a los heroes tapa al siguiente), como al cargar el encuentro.
+            foreach (BattleUnit member in FindObjectsByType<BattleUnit>())
+            {
+                SpriteRenderer body = member.GetComponent<SpriteRenderer>();
+
+                if (member.Side == user.Side && member.IsAlive && body != null && member.gameObject.scene == user.gameObject.scene)
+                    body.sortingOrder = Mathf.Max(0, 2 - member.Position);
+            }
+
+            foreach (CombatHudController hud in FindObjectsByType<CombatHudController>())
+                if (hud.gameObject.scene == user.gameObject.scene)
+                    hud.RefreshUnits();
+        }
+
+        return summoned;
+    }
+
+    // Comprueba (sin ejecutar nada) si un ataque de area inmediato puede usarse ahora: mismas condiciones que ExecuteAreaAbility.
+    // Lo usa el enfoque cinematografico para no animar un ataque que va a ser rechazado. Devuelve los objetivos.
+    public bool CanUseAreaAbility(BattleUnit user, AbilityData ability, out List<BattleUnit> targets)
+    {
+        targets = null;
+
+        if (user == null || ability == null || turnManager == null || positionManager == null)
+            return false;
+
+        if (ability.abilityType != AbilityType.Attack || ability.targetType != AbilityTargetType.AllEnemies ||
+            ability.requiresPreparation || (ability.selectableAreas != null && ability.selectableAreas.Count > 0))
+            return false;
+
+        if (!CanUserAct(user, ability))
+            return false;
+
+        PreparedAbilityController pending = user.GetComponent<PreparedAbilityController>();
+
+        if (pending != null && pending.HasPreparation)
+            return false;
+
+        targets = CollectAreaTargets(user, ability, null);
+        return targets.Count > 0;
     }
 
     // Ataque de area: afecta a todos los enemigos validos con una sola
@@ -807,6 +991,18 @@ public class AbilitySystem : MonoBehaviour
             prepared.Prepare(ability, this, area);
             GetCooldowns(user).StartCooldown(ability);
 
+            // Sonido del anuncio (apuntar, cargar...), de fondo como el resto de efectos de habilidades.
+            CombatCueSounds.Play(ability.preparationSound, AttackCinematic.AbilitySfxVolume);
+
+            // Animacion del anuncio (el impacto se anima al resolverse).
+            if (!string.IsNullOrEmpty(ability.preparationTrigger))
+            {
+                UnitAnimationDriver announceDriver = user.GetComponent<UnitAnimationDriver>();
+
+                if (announceDriver != null)
+                    announceDriver.PlayAttack(ability.preparationTrigger, 1f);
+            }
+
             return true;
         }
 
@@ -815,16 +1011,20 @@ public class AbilitySystem : MonoBehaviour
             " sobre " + targets.Count + " enemigos."
         );
 
+        AbilityStarting?.Invoke(user, targets.Count > 0 ? targets[0] : null, ability);
+
         if (!ApplyAreaHits(user, ability, targets))
         {
             Debug.Log(
                 ability.abilityName + " no tuvo ningun efecto."
             );
+            AbilityFailed?.Invoke();
             return false;
         }
 
         ApplyUserMovement(user, ability);
         GetCooldowns(user).StartCooldown(ability);
+        NotifyAbilityExecuted(user, targets.Count > 0 ? targets[0] : null, ability);
 
         return true;
     }
@@ -843,6 +1043,14 @@ public class AbilitySystem : MonoBehaviour
 
         List<BattleUnit> targets = new List<BattleUnit>();
 
+        // Heroes: casilla real primero, con respaldo a la posicion compactada (ver PositionManager).
+        if (enemySide == TeamSide.Player)
+        {
+            return positionManager.GetPlayerUnitsAtPositions(
+                p => ability.CanTargetPosition(p) && (area == null || area.Contains(p)));
+        }
+
+
         for (int position = 1; position <= 4; position++)
         {
             if (!ability.CanTargetPosition(position))
@@ -853,12 +1061,13 @@ public class AbilitySystem : MonoBehaviour
             if (area != null && !area.Contains(position))
                 continue;
 
-            BattleUnit enemy = positionManager.GetUnitAtPosition(
+            // Una unidad grande tambien recibe el area de su casilla extra (pero un solo golpe).
+            BattleUnit enemy = positionManager.GetUnitOrWideAt(
                 enemySide,
                 position
             );
 
-            if (enemy != null && enemy.IsAlive)
+            if (enemy != null && enemy.IsAlive && !targets.Contains(enemy))
                 targets.Add(enemy);
         }
 
@@ -919,10 +1128,15 @@ public class AbilitySystem : MonoBehaviour
             " sobre " + targets.Count + " enemigos."
         );
 
+        // Enfoque cinematografico + animacion del impacto (mismo camino que un ataque de area inmediato).
+        AbilityStarting?.Invoke(user, targets[0], ability);
+
         bool anyEffect = ApplyAreaHits(user, ability, targets);
 
         if (anyEffect)
             ApplyUserMovement(user, ability);
+        else
+            AbilityFailed?.Invoke();
 
         return anyEffect;
     }

@@ -30,6 +30,29 @@ public class IntroCinematicController : MonoBehaviour
         [Tooltip("Retraso de la voz respecto al inicio de la escena (s).")]
         public float voiceDelay;
         [Range(0f, 1f)] public float voiceVolume = 1f;
+
+        [Header("Efecto de entrada de la ilustracion")]
+        [Tooltip("Activa el efecto: la imagen entra con un acercamiento que se relaja (zoom-out) y despues sigue con un zoom lento. Escenas consecutivas con la MISMA imagen comparten un solo efecto continuo.")]
+        public bool motion;
+        [Tooltip("Escala con la que aparece la imagen (1,10 = 10 % mas grande) antes de relajarse hasta 1.")]
+        [Range(1f, 1.3f)] public float entryZoom = 1.10f;
+        [Tooltip("Segundos que tarda en relajarse la entrada.")]
+        [Min(0.1f)] public float entrySeconds = 1.8f;
+        [Tooltip("Zoom lento posterior, como fraccion de escala por segundo (0,003 = +0,3 % cada segundo).")]
+        [Range(0f, 0.02f)] public float driftPerSecond = 0.003f;
+
+        [Tooltip("Enfoques por panel (para ilustraciones tipo comic): la camara va de uno a otro a estos tiempos, con movimiento suave. Si hay enfoques, sustituyen al zoom de entrada y al zoom lento.")]
+        public List<FocusKey> focusKeys = new List<FocusKey>();
+    }
+
+    // Un enfoque: a 'time' segundos del inicio de la escena la vista esta centrada en 'point' (0-1, origen abajo a la izquierda
+    // de la imagen) con el zoom indicado. Entre dos enfoques se interpola suavemente.
+    [Serializable]
+    public class FocusKey
+    {
+        public float time;
+        public Vector2 point = new Vector2(0.5f, 0.5f);
+        [Min(1f)] public float zoom = 1f;
     }
 
     [Serializable]
@@ -93,6 +116,10 @@ public class IntroCinematicController : MonoBehaviour
     [Header("Musica")]
     public AudioClip music;
     [Range(0f, 1f)] public float musicVolume = 0.7f;
+    [Tooltip("Segundos que tarda en empezar la musica. Sirve para colocar su subida de energia (hacia el segundo 32 de la pista) justo donde la historia lo pide: con 14 cae al empezar 'Un vehiculo perdio el control'.")]
+    [Min(0f)] public float musicStartDelay = 0f;
+    [Tooltip("Fundido de entrada de la musica cuando empieza con retraso.")]
+    [Min(0.1f)] public float musicFadeIn = 4f;
 
     [Header("Volumenes independientes")]
     [Range(0f, 1f)] public float voiceVolume = 1f;
@@ -185,13 +212,13 @@ public class IntroCinematicController : MonoBehaviour
     private bool finished;
     private bool loading;
     private AudioSource musicSource;
+    private bool musicStarted;
     private float impactTime = -1f;
     private float blackoutEnd = -1f;
     private float logoStartTime;
     private Image glow;
 
-    public float Clock => clock;
-    public float TotalDuration => total;
+    public float Clock => clock;    public float TotalDuration => total;
     public int CurrentShot => shownShot + 1;
     public bool IsPaused => paused;
     public bool IsLoadingNextScene => loading;
@@ -239,7 +266,12 @@ public class IntroCinematicController : MonoBehaviour
             musicSource.clip = music;
             musicSource.loop = false;
             musicSource.volume = 0f;
-            musicSource.Play();
+
+            if (musicStartDelay <= 0f)
+            {
+                musicSource.Play();
+                musicStarted = true;
+            }
         }
 
         ShowShot(0);
@@ -469,9 +501,19 @@ public class IntroCinematicController : MonoBehaviour
             cues[cueIndex++].action();
 
         // Si la musica se desfasa de la linea de tiempo (carga lenta, cambio de ventana), se reajusta.
+        // Con retraso, la musica entra cuando llega su momento y su tiempo es el del reloj menos ese retraso.
+        if (!musicStarted && musicSource != null && musicSource.clip != null && clock >= musicStartDelay)
+        {
+            musicSource.time = 0f;
+            musicSource.Play();
+            musicStarted = true;
+        }
+
+        float musicClock = clock - musicStartDelay;
+
         if (musicSource != null && musicSource.isPlaying && musicSource.clip != null &&
-            clock < musicSource.clip.length - 0.1f && Mathf.Abs(musicSource.time - clock) > 0.35f)
-            musicSource.time = clock;
+            musicClock < musicSource.clip.length - 0.1f && Mathf.Abs(musicSource.time - musicClock) > 0.35f)
+            musicSource.time = Mathf.Max(0f, musicClock);
 
         ApplyVolumes(dt);
         UpdateVisuals();
@@ -508,6 +550,7 @@ public class IntroCinematicController : MonoBehaviour
         next.sprite = shot.image;
         next.enabled = shot.image != null;
         next.transform.SetAsLastSibling();
+        layerShot[top] = index;
 
         if (fitters[top] != null && shot.image != null)
             fitters[top].aspectRatio = shot.image.rect.width / shot.image.rect.height;
@@ -556,6 +599,8 @@ public class IntroCinematicController : MonoBehaviour
                 under.enabled = false;
         }
 
+        ApplyMotion(0);
+        ApplyMotion(1);
         UpdateLogo();
         UpdateSubtitles();
 
@@ -571,6 +616,90 @@ public class IntroCinematicController : MonoBehaviour
 
         black = Mathf.Max(black, skipProgress);
         SetAlpha(blackOverlay, black);
+    }
+
+    // Efecto de entrada de las ilustraciones: se calcula solo con el reloj de la introduccion (pausa y omitir lo respetan).
+    // Las escenas consecutivas con la misma imagen forman un grupo y comparten el efecto (sin saltos al cambiar de escena).
+    private readonly int[] layerShot = { -1, -1 };
+
+    private float GroupStart(int index)
+    {
+        int first = index;
+
+        while (first > 0 && shots[first - 1].image != null && shots[first - 1].image == shots[index].image)
+            first--;
+
+        return starts[first];
+    }
+
+    private void ApplyMotion(int layerIndex)
+    {
+        Image layer = layers[layerIndex];
+
+        if (layer == null || !layer.enabled || layerShot[layerIndex] < 0 || layerShot[layerIndex] >= shots.Count)
+            return;
+
+        int si = layerShot[layerIndex];
+        IntroShot shot = shots[si];
+        float scale = 1f;
+        Vector2 offset = Vector2.zero;
+
+        if (shot.motion && shot.focusKeys != null && shot.focusKeys.Count > 0)
+        {
+            // Enfoques por panel: la camara sigue la narracion (tiempos relativos al inicio de esta escena).
+            float tt = clock - starts[si];
+            List<FocusKey> keys = shot.focusKeys;
+            FocusKey a = keys[0], b = keys[0];
+
+            if (tt >= keys[keys.Count - 1].time)
+            {
+                a = b = keys[keys.Count - 1];
+            }
+            else if (tt > keys[0].time)
+            {
+                for (int i = 0; i < keys.Count - 1; i++)
+                {
+                    if (tt >= keys[i].time && tt < keys[i + 1].time)
+                    {
+                        a = keys[i];
+                        b = keys[i + 1];
+                        break;
+                    }
+                }
+            }
+
+            float span = Mathf.Max(0.0001f, b.time - a.time);
+            float k = (a == b) ? 0f : Mathf.SmoothStep(0f, 1f, Mathf.Clamp01((tt - a.time) / span));
+            scale = Mathf.Lerp(a.zoom, b.zoom, k);
+            Vector2 p = Vector2.Lerp(a.point, b.point, k);
+
+            if (impactTime >= 0f && (si + 1 == impactShot || si + 2 == impactShot) && clock >= impactTime)
+                scale *= 1f + 0.05f * Mathf.Clamp01((clock - impactTime) / 0.08f);
+
+            Rect r = layer.rectTransform.rect;
+            float maxX = Mathf.Max(0f, (scale - 1f) * r.width * 0.5f);
+            float maxY = Mathf.Max(0f, (scale - 1f) * r.height * 0.5f);
+            offset = new Vector2(Mathf.Clamp((0.5f - p.x) * r.width * scale, -maxX, maxX), Mathf.Clamp((0.5f - p.y) * r.height * scale, -maxY, maxY));
+            layer.rectTransform.anchoredPosition = offset;
+            layer.rectTransform.localScale = new Vector3(scale, scale, 1f);
+            return;
+        }
+
+        layer.rectTransform.anchoredPosition = Vector2.zero;
+
+        if (shot.motion)
+        {
+            float t = Mathf.Max(0f, clock - GroupStart(si));
+            float k = Mathf.Clamp01(t / Mathf.Max(0.1f, shot.entrySeconds));
+            float ease = 1f - (1f - k) * (1f - k) * (1f - k);
+            scale = Mathf.Lerp(shot.entryZoom, 1f, ease) * (1f + shot.driftPerSecond * t);
+
+            // Golpe del impacto: un tiron de zoom justo antes de que caiga la pantalla negra.
+            if (impactTime >= 0f && (si + 1 == impactShot || si + 2 == impactShot) && clock >= impactTime)
+                scale *= 1f + 0.05f * Mathf.Clamp01((clock - impactTime) / 0.08f);
+        }
+
+        layer.rectTransform.localScale = new Vector3(scale, scale, 1f);
     }
 
     // Subtitulos: se calculan solo con el reloj de la introduccion (pausa y omitir los respetan).
@@ -768,7 +897,10 @@ public class IntroCinematicController : MonoBehaviour
         float master = (1f - skipProgress) * (1f - endProgress);
 
         if (musicSource != null)
-            musicSource.volume = musicVolume * Mathf.Lerp(1f, musicDuck, duck) * impact * master;
+        {
+            float entry = musicStartDelay > 0f ? Mathf.SmoothStep(0f, 1f, Mathf.Clamp01((clock - musicStartDelay) / musicFadeIn)) : 1f;
+            musicSource.volume = musicVolume * Mathf.Lerp(1f, musicDuck, duck) * impact * master * entry;
+        }
 
         float ambientFactor = Mathf.Lerp(1f, ambientDuck, duck) * impact;
 

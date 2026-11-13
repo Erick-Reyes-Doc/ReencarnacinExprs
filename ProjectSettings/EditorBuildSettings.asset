@@ -32,6 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: 8e4e6e2160419fb4fafb7e4ec4268e78
+  - enabled: 1
+    path: Assets/Scenes/FinalDialogo.unity
+    guid: 8096019d35506fa4482d41d68aa7743b
+  - enabled: 1
+    path: Assets/Scenes/Creditos.unity
+    guid: 92db8b2ddc0854c499fd0068a5f3258c
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

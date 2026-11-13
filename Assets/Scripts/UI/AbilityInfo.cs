@@ -363,7 +363,7 @@ public static class AbilityInfo
             case StatusEffectType.Vulnerability:
                 return name + ": −" + power + " % de protección, " + duration;
             case StatusEffectType.DefenseBoost:
-                return name + ": +" + power + " %, " + duration;
+                return name + ": +" + power + " %, " + duration + " (se pierde al recibir un golpe)";
             case StatusEffectType.EvasionBoost:
                 return name + ": +" + power + " %, " + duration;
             case StatusEffectType.Guard:

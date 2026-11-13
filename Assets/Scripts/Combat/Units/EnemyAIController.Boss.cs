@@ -243,6 +243,53 @@ public partial class EnemyAIController
     }
 
     // ------------------------------------------------------------
+    // Invocacion de secuaces (Llamado a Filas)
+    // ------------------------------------------------------------
+
+    // Probabilidad de invocar cuando se cumplen las condiciones (nunca es automatico, para que no sea predecible).
+    private const float SummonChanceOneEscortLeft = 0.60f;
+    private const float SummonChanceNoEscortLeft = 0.90f;
+
+    // El jefe convoca refuerzos solo si: la habilidad esta lista (recarga, ronda minima y limite de usos del combate), queda
+    // algun hueco en su formacion y le quedan 0 o 1 secuaces vivos. Aun asi lo hace con una probabilidad, asi no es un
+    // patron fijo; con la recarga larga y el maximo de usos no puede abusar. Devuelve true si invoco (accion del turno).
+    private bool TryBossSummon(BattleUnit self)
+    {
+        AbilityData summon = specialAbilities.Find(a => a != null && a.IsSummon && PhaseAllows(self, a));
+
+        if (summon == null)
+            return false;
+
+        AbilityCooldownController cooldowns = self.GetComponent<AbilityCooldownController>();
+
+        if (cooldowns != null && (!cooldowns.IsReady(summon) || cooldowns.UsesExhausted(summon)))
+            return false;
+
+        if (abilitySystem.FreeSlots(self.Side).Count == 0)
+            return false;
+
+        int escorts = 0;
+
+        foreach (BattleUnit other in FindObjectsByType<BattleUnit>())
+            if (other != self && other.Side == self.Side && other.IsAlive && other.gameObject.scene == self.gameObject.scene)
+                escorts++;
+
+        if (escorts >= 2)
+            return false;
+
+        float chance = escorts == 0 ? SummonChanceNoEscortLeft : SummonChanceOneEscortLeft;
+
+        if (Random.value >= chance)
+            return false;
+
+        if (!abilitySystem.ExecuteAbility(self, self, summon))
+            return false;
+
+        NotifyAction(self, summon, self);
+        return true;
+    }
+
+    // ------------------------------------------------------------
     // Ataques preparados por areas (Fuego de Supresion)
     // ------------------------------------------------------------
 
@@ -267,6 +314,13 @@ public partial class EnemyAIController
 
         if (abilitySystem == null || positionManager == null)
             return false;
+
+        // Invocacion de secuaces: solo cuando la situacion lo pide (ver TryBossSummon).
+        if (TryBossSummon(self))
+        {
+            result = TurnResult.Acted;
+            return true;
+        }
 
         // Ataque preparado por areas (Fuego de Supresion) y ataque de area
         // inmediato (Ultima Orden). Ambos respetan las fases y el cooldown.
@@ -328,9 +382,12 @@ public partial class EnemyAIController
 
             int covered = 0;
 
+            // Heroes alcanzados por el area: casilla real primero, con respaldo a la posicion compactada.
+            List<BattleUnit> hit = positionManager.GetPlayerUnitsAtPositions(area.Contains);
+
             foreach (BattleUnit foe in foes)
             {
-                if (!area.Contains(foe.Position))
+                if (!hit.Contains(foe))
                     continue;
 
                 float damage = BossExpectedDamage(self, foe, fire);
@@ -338,7 +395,7 @@ public partial class EnemyAIController
             }
 
             foreach (BattleUnit foe in foes)
-                if (area.Contains(foe.Position))
+                if (hit.Contains(foe))
                     covered++;
 
             // Fuego de Supresion se prioriza cuando el area alcanza a varios protagonistas.

@@ -370,8 +370,32 @@ public partial class WorldMapController
 
     // Tres estados: disponible (borde dorado + espadas), bloqueado (azul grisaceo + candado)
     // y completado (mas discreto + verificacion). Sin brillos ni animaciones.
+    // Sin mision disponible (bloqueado o completado): el cursor no hace sonido de hover, ni en el marcador ni en su etiqueta.
+    private static void ApplyHoverSilence(LocationView view, PlaceState state)
+    {
+        bool silent = state == PlaceState.Completed || state == PlaceState.Locked;
+        SetHoverSilent(view.button, silent);
+
+        if (view.locationTag != null)
+            SetHoverSilent(view.locationTag.GetComponent<Button>(), silent);
+    }
+
+    private static void SetHoverSilent(Button button, bool silent)
+    {
+        if (button == null)
+            return;
+
+        MapHoverSoundGate gate = button.GetComponent<MapHoverSoundGate>();
+
+        if (gate == null)
+            gate = button.gameObject.AddComponent<MapHoverSoundGate>();
+
+        gate.silent = silent;
+    }
+
     private void RefreshMedallion(LocationView view, PlaceState state, bool evt, bool open, bool hover, bool hint)
     {
+
         Color frame = MapGold, body = MapNavy, iconColor = MapIvory;
         Sprite icon = null;
         bool showQuest = false;

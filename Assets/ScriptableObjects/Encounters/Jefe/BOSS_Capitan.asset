@@ -18,11 +18,13 @@ MonoBehaviour:
   mandatory: 1
   background: {fileID: 5444188873556868792, guid: 41b6000cf6bc30641bb247ba591b6c37, type: 3}
   enemies:
-  - prefab: {fileID: 5314035158176758356, guid: 72a8eef793f2a95448df4ab33381cc29, type: 3}
+  - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
     position: 1
   - prefab: {fileID: 8639463936333187311, guid: c5312b5811b1aaa438132447406d1da8, type: 3}
     position: 2
+  - prefab: {fileID: 5314035158176758356, guid: 72a8eef793f2a95448df4ab33381cc29, type: 3}
+    position: 3
   minionsFleeWhenBossFalls: 1
-  bossFallsMessage: "\xA1El Capit\xE1n ha ca\xEDdo! El enemigo restante huye del campo de batalla"
+  bossFallsMessage: "\xA1El Capit\xE1n ha ca\xEDdo! Los enemigos restantes huyen del campo de batalla"
   experienceReward: 200
   coinReward: 100

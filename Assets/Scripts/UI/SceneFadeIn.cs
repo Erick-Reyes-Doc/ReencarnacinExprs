@@ -20,6 +20,9 @@ public class SceneFadeIn : MonoBehaviour
     private float leaveSeconds;
     private float leaveElapsed;
 
+    // 0 mientras el mapa sigue en pantalla; sube a 1 durante el fundido de salida (la musica baja a la par).
+    public float LeaveProgress => string.IsNullOrEmpty(leaveScene) ? 0f : Mathf.Clamp01(leaveElapsed / Mathf.Max(leaveSeconds, 0.01f));
+
     private void Start()
     {
         active = GameSession.ConsumeMapFadeIn();
@@ -50,6 +53,29 @@ public class SceneFadeIn : MonoBehaviour
         leaveElapsed = 0f;
         overlay.gameObject.SetActive(true);
         SetAlpha(0f);
+
+        // La escena se va cargando en segundo plano MIENTRAS se funde a negro (sin congelar el mapa); se activa al terminar el fundido.
+        measureStart = Time.realtimeSinceStartup;
+        loadOp = SceneManager.LoadSceneAsync(sceneName);
+
+        if (loadOp != null)
+            loadOp.allowSceneActivation = false;
+    }
+
+    private AsyncOperation loadOp;
+    private static float measureStart = -1f;   // medicion temporal de tiempos de carga (quitar tras medir)
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    private static void HookMeasure()
+    {
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            if (measureStart < 0f)
+                return;
+
+            Debug.Log("[CargaMedida] '" + scene.name + "': " + (Time.realtimeSinceStartup - measureStart).ToString("0.00") + " s desde que se pidio la carga hasta que la escena estuvo activa.");
+            measureStart = -1f;
+        };
     }
 
     private void Update()
@@ -62,9 +88,22 @@ public class SceneFadeIn : MonoBehaviour
 
             if (k >= 1f)
             {
-                string target = leaveScene;
-                leaveScene = null;
-                SceneManager.LoadScene(target);
+                if (loadOp != null)
+                {
+                    // Pantalla en negro: se espera a que la carga en segundo plano este lista y se activa la escena.
+                    if (loadOp.progress >= 0.9f)
+                    {
+                        Debug.Log("[CargaMedida] carga en segundo plano lista a los " + (Time.realtimeSinceStartup - measureStart).ToString("0.00") + " s (el fundido dura " + leaveSeconds.ToString("0.0") + " s).");
+                        loadOp.allowSceneActivation = true;
+                        loadOp = null;
+                    }
+                }
+                else
+                {
+                    string target = leaveScene;
+                    leaveScene = null;
+                    SceneManager.LoadScene(target);
+                }
             }
 
             return;

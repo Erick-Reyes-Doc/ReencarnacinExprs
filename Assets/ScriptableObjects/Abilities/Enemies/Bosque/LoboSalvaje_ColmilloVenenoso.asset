@@ -17,17 +17,41 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilityType: 0
   useAnnouncement: 
+  animationTrigger: ColmilloVenenoso
+  animationSpeed: 1
+  impactTime: 0.204
+  hitSound: {fileID: 8300000, guid: d1a4c57fc2d848f4faea6a67ce2dc54b, type: 3}
+  hitSoundLead: 0.2
+  impactSlashAngle: 0
+  impactEffect: 5
+  projectileFlightSeconds: 0
+  projectileKind: 0
+  extraProjectiles: 0
+  projectileColor: {r: 0.4, g: 1, b: 0.3, a: 1}
+  shotSound: {fileID: 0}
+  preparationSound: {fileID: 0}
+  shotSoundLead: 0
+  impactPower: 1
+  protectiveAura: 0
+  auraColor: {r: 0.55, g: 0.82, b: 1, a: 1}
+  auraRings: 2
+  auraSparks: 14
   targetType: 0
   basePower: 0
   damagePercent: 100
   canCritical: 1
-  usablePositions: 01010000y
+  usablePositions: 01010100y
   targetPositions: 01010000y
   movementEffect: 0
   movementDistance: 0
   movementChance: 100
   cooldown: 2
   availableFromTurn: 1
+  speechLine: 
+  preparationTrigger: 
+  summonPool: []
+  summonCount: 0
+  maxUsesPerCombat: 0
   regenerationPerTurn: 0
   regenerationDuration: 0
   regenerationPercentMaxHealth: 0

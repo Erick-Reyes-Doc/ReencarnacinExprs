@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
     // Recuperacion poscombate (regla ajustada del GDD): al ganar, los
     // derrotados reviven con este % de su vida maxima efectiva; los
     // supervivientes conservan exactamente su vida (sin curacion).
-    public const int ReviveHealthPercent = 20;
+    public const int ReviveHealthPercent = 30;
 
     private bool recoveryApplied;
 
@@ -113,10 +113,14 @@ public class TurnManager : MonoBehaviour
         unit.OnDefeated -= HandleUnitDefeated;
         unit.OnDefeated += HandleUnitDefeated;
 
+        // Toda unidad lleva su control de recargas desde el principio (si no, la interfaz no ve el bloqueo inicial
+        // "desde la ronda N" de habilidades como el Meteorito hasta que la unidad usa su primera habilidad).
         AbilityCooldownController cooldowns = unit.GetComponent<AbilityCooldownController>();
 
-        if (cooldowns != null)
-            cooldowns.ResetAll();
+        if (cooldowns == null)
+            cooldowns = unit.gameObject.AddComponent<AbilityCooldownController>();
+
+        cooldowns.ResetAll();
 
         return true;
     }
@@ -168,6 +172,7 @@ public class TurnManager : MonoBehaviour
     public void StartBattle()
     {
         currentRound = 0;
+        AbilityCooldownController.CombatRound = 0;
         currentTurnIndex = 0;
         battleFinished = false;
         experienceAwarded = false;
@@ -193,6 +198,8 @@ public class TurnManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        AbilityCooldownController.CombatRound = 0;
+
         foreach (BattleUnit unit in units)
         {
             if (unit != null)
@@ -216,8 +223,10 @@ public class TurnManager : MonoBehaviour
             AbilityCooldownController cooldowns =
                 unit.GetComponent<AbilityCooldownController>();
 
-            if (cooldowns != null)
-                cooldowns.ResetAll();
+            if (cooldowns == null)
+                cooldowns = unit.gameObject.AddComponent<AbilityCooldownController>();
+
+            cooldowns.ResetAll();
 
             PreparedAbilityController prepared =
                 unit.GetComponent<PreparedAbilityController>();
@@ -247,6 +256,7 @@ public class TurnManager : MonoBehaviour
             return;
 
         currentRound++;
+        AbilityCooldownController.CombatRound = currentRound;   // "desde la ronda N" se mide con la ronda real del combate
 
         // Ordenar solamente las unidades vivas.
         turnOrder = units
@@ -276,6 +286,13 @@ public class TurnManager : MonoBehaviour
 
         if (CheckBattleEnd())
             return;
+
+        // Un jefe entra en su nueva fase: los turnos esperan a que termine su animacion de entrada.
+        if (Application.isPlaying && !PhasePause && AnyBossPhaseEntryBusy())
+        {
+            StartCoroutine(PhasePauseRoutine());
+            return;
+        }
 
         // Buscar la siguiente unidad viva.
         while (currentTurnIndex < turnOrder.Count)
@@ -372,6 +389,14 @@ public class TurnManager : MonoBehaviour
                         " esta aturdido y pierde su accion."
                     );
 
+                    // Enemigo aturdido: el selector se detiene en el, sale el aviso "¡Aturdido!" y luego pasa el turno.
+                    if (Application.isPlaying)
+                    {
+                        ShowingStunNotice = true;
+                        StartCoroutine(StunnedEnemyTurnRoutine(unit, ++enemyActionToken));
+                        return;
+                    }
+
                     currentTurnIndex++;
                     StartNextTurn();
                     return;
@@ -414,10 +439,10 @@ public class TurnManager : MonoBehaviour
 
     [Header("Ritmo del turno enemigo")]
     [Tooltip("Segundos que el enemigo espera antes de actuar (se ve quien tiene el turno). Se usa el mayor entre este valor y el retardo de su arquetipo.")]
-    [SerializeField, Min(0f)] private float enemyPreActionSeconds = 2f;
+    [SerializeField, Min(0f)] private float enemyPreActionSeconds = 1.2f;
 
     [Tooltip("Segundos que se mantiene la escena tras la accion del enemigo (se leen el daño, los estados y el mensaje) antes de pasar al siguiente turno.")]
-    [SerializeField, Min(0f)] private float enemyPostActionSeconds = 3f;
+    [SerializeField, Min(0f)] private float enemyPostActionSeconds = 2.8f;
 
     private IEnumerator EnemyActionRoutine(
         BattleUnit unit,
@@ -439,6 +464,73 @@ public class TurnManager : MonoBehaviour
 
         if (!battleFinished && CurrentUnit == unit)
             EndTurn();
+    }
+
+    [Tooltip("Segundos que el selector espera sobre un enemigo aturdido antes de mostrar el aviso.")]
+    [SerializeField, Min(0f)] private float stunnedNoticeDelay = 0.8f;
+
+    [Tooltip("Segundos que se mantiene el aviso de aturdimiento antes de pasar al siguiente turno.")]
+    [SerializeField, Min(0f)] private float stunnedNoticeHold = 1.6f;
+
+    // true mientras los turnos esperan la animacion de entrada a fase del jefe (la interfaz no ofrece acciones).
+    public bool PhasePause { get; private set; }
+
+    [Tooltip("Segundos extra tras terminar la animacion de entrada a fase del jefe, antes de seguir con los turnos.")]
+    [SerializeField, Min(0f)] private float phaseEntryExtraSeconds = 1f;
+
+    [Tooltip("Tiempo maximo de espera por la animacion de fase (seguridad).")]
+    [SerializeField, Min(1f)] private float phaseEntryMaxSeconds = 10f;
+
+    private static bool AnyBossPhaseEntryBusy()
+    {
+        foreach (UnitAnimationDriver driver in FindObjectsByType<UnitAnimationDriver>())
+            if (driver != null && driver.isActiveAndEnabled && driver.PhaseEntryBusy)
+                return true;
+
+        return false;
+    }
+
+    private IEnumerator PhasePauseRoutine()
+    {
+        PhasePause = true;
+        float waited = 0f;
+
+        while (!battleFinished && waited < phaseEntryMaxSeconds && AnyBossPhaseEntryBusy())
+        {
+            waited += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!battleFinished)
+            yield return new WaitForSeconds(phaseEntryExtraSeconds);
+
+        PhasePause = false;
+        StartNextTurn();
+    }
+
+    // true mientras una unidad aturdida muestra su aviso (la interfaz no ofrece acciones en ese lapso).
+    public bool ShowingStunNotice { get; private set; }
+
+    private IEnumerator StunnedEnemyTurnRoutine(BattleUnit unit, int token)
+    {
+        yield return new WaitForSeconds(stunnedNoticeDelay);
+
+        if (token != enemyActionToken || battleFinished || CurrentUnit != unit)
+        {
+            ShowingStunNotice = false;
+            yield break;
+        }
+
+        CombatFeedback.Show(unit, "¡Aturdido!", FeedbackKind.Debuff);
+
+        yield return new WaitForSeconds(stunnedNoticeHold);
+
+        ShowingStunNotice = false;
+
+        if (token != enemyActionToken || battleFinished || CurrentUnit != unit)
+            yield break;
+
+        EndTurn();
     }
 
     // Una accion como maximo y un unico EndTurn por turno enemigo.
@@ -530,12 +622,19 @@ public class TurnManager : MonoBehaviour
     // Recuperacion poscombate: una sola vez por victoria. Solo revive a los
     // derrotados (ReviveHealthPercent de su vida maxima efectiva); los vivos
     // no reciben curacion.
+    // Regla vigente: los heroes caidos (vida 0) reviven al ganar el combate con ReviveHealthPercent (30 %) de su vida maxima
+    // efectiva; los que siguen en pie conservan su vida. Poner a false para que sigan caidos hasta curarlos (pocion o Noelle).
+    private const bool ReviveDownedHeroesAfterVictory = true;
+
     private void ApplyPostBattleRecovery()
     {
         if (recoveryApplied)
             return;
 
         recoveryApplied = true;
+
+        if (!ReviveDownedHeroesAfterVictory)
+            return;
 
         foreach (BattleUnit unit in units)
         {
@@ -565,7 +664,7 @@ public class TurnManager : MonoBehaviour
 
         // Cancela cualquier accion enemiga pendiente.
         enemyActionToken++;
-        Debug.Log(string.IsNullOrEmpty(bossFallsMessage) ? "¡El jefe ha caído! El enemigo restante huye del campo de batalla." : bossFallsMessage);
+        Debug.Log(string.IsNullOrEmpty(bossFallsMessage) ? "¡El jefe ha caído! Los enemigos restantes huyen del campo de batalla." : bossFallsMessage);
 
         foreach (BattleUnit unit in fleeing)
             unit.Flee();

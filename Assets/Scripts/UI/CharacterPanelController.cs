@@ -133,6 +133,32 @@ public class CharacterPanelController : MonoBehaviour
     public HeroProfile[] Heroes => heroes;
     public string CurrentHeroId => heroes != null && heroIndex >= 0 && heroIndex < heroes.Length && heroes[heroIndex] != null ? heroes[heroIndex].unitId : null;
 
+    // Zonas que ilumina el tutorial del mapa (null si no estan visibles): ficha, ventana de inventario, primera casilla de
+    // equipo y primera reliquia del inventario.
+    public RectTransform TutorialRect(string key)
+    {
+        switch (key)
+        {
+            case "ficha":
+                return open && !inventoryOnly ? charWindow : null;
+            case "inventario":
+                return open && inventoryOpen ? invWindow : null;
+            case "equip":
+                return open && equipSlots != null && equipSlots.Length > 0 && equipSlots[0] != null ? (RectTransform)equipSlots[0].transform : null;
+            case "reliquia":
+                if (!open || !inventoryOpen)
+                    return null;
+
+                foreach (RelicSlotView slot in invSlots)
+                    if (slot != null && slot.gameObject.activeInHierarchy && slot.Uid != 0)
+                        return (RectTransform)slot.transform;
+
+                return null;
+            default:
+                return null;
+        }
+    }
+
     public HeroProfile Profile(string unitId)
     {
         foreach (HeroProfile hero in heroes)
@@ -333,6 +359,8 @@ public class CharacterPanelController : MonoBehaviour
             return;
         }
 
+        AnimatePortrait();
+
         float eased = Smooth(openT);
         rootGroup.alpha = eased;
         rootGroup.interactable = open;
@@ -411,6 +439,26 @@ public class CharacterPanelController : MonoBehaviour
     // Presentacion
     // ------------------------------------------------------------
 
+    // Animacion Idle del retrato grande (null = retrato estatico). Avanza con tiempo no escalado solo con la ventana visible.
+    private Sprite[] idleFrames;
+    private float idleFps = 8f;
+    private float idleStart;
+    private int idleShown = -1;
+
+    private void AnimatePortrait()
+    {
+        if (idleFrames == null || idleFrames.Length < 2 || bigPortrait == null)
+            return;
+
+        int index = Mathf.FloorToInt((Time.unscaledTime - idleStart) * idleFps) % idleFrames.Length;
+
+        if (index != idleShown)
+        {
+            idleShown = index;
+            bigPortrait.sprite = idleFrames[index];
+        }
+    }
+
     private HeroProfile Hero => heroes != null && heroIndex >= 0 && heroIndex < heroes.Length ? heroes[heroIndex] : null;
 
     private void RefreshAll()
@@ -425,9 +473,24 @@ public class CharacterPanelController : MonoBehaviour
         // Cabecera y retrato.
         headPortrait.sprite = hero.Icon;
         headPortrait.color = hero.IconTint;
-        bigPortrait.sprite = hero.bodySprite;
-        bigPortrait.color = hero.tint;
-        bigPortrait.enabled = hero.bodySprite != null;
+        // Retrato grande: la animacion Idle del personaje si la tiene (solo mientras esta seleccionado); si no, el sprite estatico.
+        if (hero.HasIdle)
+        {
+            idleFrames = hero.ActiveIdleFrames;
+            idleFps = Mathf.Max(1f, hero.idleFps);
+            idleStart = Time.unscaledTime;
+            idleShown = 0;
+            bigPortrait.sprite = idleFrames[0];
+            bigPortrait.color = Color.white;
+            bigPortrait.enabled = true;
+        }
+        else
+        {
+            idleFrames = null;   // al cambiar a otro personaje la animacion se detiene
+            bigPortrait.sprite = hero.Body;
+            bigPortrait.color = Color.white;   // imagen original, sin tinte
+            bigPortrait.enabled = hero.Body != null;
+        }
         nameText.text = hero.displayName.ToUpperInvariant();
         levelText.text = "Nivel " + stats.level;
 
@@ -902,6 +965,7 @@ public class CharacterPanelController : MonoBehaviour
         }
 
         target.Flash();
+        UiHoverSound.PlayEquip();
         AfterEquipmentChange();
     }
 
@@ -1098,9 +1162,12 @@ public class CharacterPanelController : MonoBehaviour
             fit.aspectRatio = portraitBackground.rect.width / portraitBackground.rect.height;
         }
 
-        RectTransform big = Rect("Imagen", scene, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f));
-        big.offsetMin = new Vector2(-34f, -66f);
-        big.offsetMax = new Vector2(34f, 66f);
+        // Todos los heroes se muestran a la misma altura (la de Evanora, la mas ancha: 332 px de ancho -> 509 px de alto).
+        // Los fotogramas ocupan ~98 % de su alto, asi que con el mismo alto la figura mide igual en todos; los mas
+        // estrechos (Elaina, Noelle, Valerian) ya no se amplian hasta llenar todo el marco.
+        RectTransform big = Rect("Imagen", scene, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        big.anchoredPosition = Vector2.zero;
+        big.sizeDelta = new Vector2(332f, 509f);
         bigPortrait = Img(big, null, Color.white, false, 1f, false);
         bigPortrait.preserveAspect = true;
 
@@ -1144,6 +1211,7 @@ public class CharacterPanelController : MonoBehaviour
             card.anchoredPosition = new Vector2((i % 2) * 280f, -54f - (i / 2) * 150f);
             card.sizeDelta = new Vector2(260f, 142f);
             Image cardFrame = Img(card, null, new Color(Gold.r, Gold.g, Gold.b, 0f), false, 1f, true);
+            card.gameObject.AddComponent<UiSoundZone>();   // suena como un boton (UI_Hover / UI_Click)
             abilityTips[i] = card.gameObject.AddComponent<TipZone>();
             abilityTips[i].Setup(this, "", "");
             abilityTips[i].SetHover(cardFrame, null, new Color(Gold.r, Gold.g, Gold.b, 0f), new Color(Gold.r, Gold.g, Gold.b, 0.14f), Panel, Panel);
@@ -1308,6 +1376,7 @@ public class CharacterPanelController : MonoBehaviour
         TMP_Text count = Txt(countRect, "", 24f, GoldBright, TextAlignmentOptions.BottomRight);
         count.gameObject.SetActive(false);
 
+        rect.gameObject.AddComponent<UiSoundZone>();   // casillas de reliquia: suenan como un boton (UI_Hover / UI_Click)
         RelicSlotView view = rect.gameObject.AddComponent<RelicSlotView>();
         view.Setup(this, kind, index, frame);
         view.SetParts(icon, holeImage, flash, count);

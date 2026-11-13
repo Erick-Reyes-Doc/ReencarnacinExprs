@@ -160,6 +160,13 @@ public class EncounterLoader : MonoBehaviour
             BattleUnit unit = go.GetComponent<BattleUnit>();
             unit.SetPosition(slot.position);
 
+            // Orden de dibujo estable entre vecinos: el enemigo mas cercano a los heroes (casilla menor) tapa al siguiente.
+            // Sin esto todos comparten orden y, al solaparse, se pisan de forma inestable (parpadeo / "trabados").
+            SpriteRenderer body = go.GetComponent<SpriteRenderer>();
+
+            if (body != null)
+                body.sortingOrder += Mathf.Max(0, data.enemies.Count - 1 - slot.position);
+
             // Vida inicial completa (Awake ya lo hace al instanciar en
             // ejecucion; esto lo garantiza tambien fuera de ella).
             unit.InitializeUnit();

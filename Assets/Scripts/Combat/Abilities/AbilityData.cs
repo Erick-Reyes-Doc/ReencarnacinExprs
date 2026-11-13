@@ -3,6 +3,28 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Efecto visual que el enfoque cinematografico dibuja sobre el objetivo en el impacto.
+public enum ImpactEffect
+{
+    Slash,       // tajo (diagonal u horizontal segun 'impactSlashAngle')
+    Shockwave,   // onda de choque: anillo expansivo y chispas (golpes contundentes, p. ej. embate de escudo)
+    ArrowHit,    // flecha clavada con unas chispas (disparo normal)
+    Pierce,      // flecha que atraviesa: linea de luz a traves del objetivo y chispas de metal (flecha perforante)
+    Mark,        // marca: mira roja que se estampa sobre el objetivo (marca del cazador); sin dano visual
+    Burst,       // estallido magico del color del proyectil (orbe arcano)
+    Fire,        // explosion de llamas con brasas que suben (llamarada)
+    Eruption,    // sello en el suelo que erupciona en una columna de fuego (ruptura ignea)
+    MeteorRain   // lluvia de meteoritos que cae del cielo sobre todos los enemigos (golpe de meteorito)
+}
+
+// Aspecto del proyectil visible (ver AbilityData.projectileFlightSeconds).
+public enum ProjectileKind
+{
+    Arrow,       // flecha con asta, punta y plumas
+    Orb,         // orbe luminoso con estela (magia arcana)
+    Fireball     // bola de fuego con estela y brasas
+}
+
 // Estado alterado que una habilidad intenta aplicar al impactar.
 // La Regeneracion se sigue configurando con los campos de
 // regeneracion de AbilityData (RegenerationEffect).
@@ -151,6 +173,66 @@ public class AbilityData : ScriptableObject
     [Tooltip("Opcional. Frase que muestra el HUD cuando un enemigo usa esta habilidad (p. ej. la de un jefe). Vacio = ninguna.")]
     public string useAnnouncement = "";
 
+    [Header("Animacion")]
+    [Tooltip("Opcional. Nombre del trigger del Animator del usuario que se lanza al ejecutar la habilidad (p. ej. 'Corte'). Vacio = sin animacion.")]
+    public string animationTrigger = "";
+
+    [Tooltip("Velocidad de reproduccion de la animacion del usuario (1 = normal; 1,5 = mas agresiva y rapida).")]
+    [Min(0.1f)] public float animationSpeed = 1f;
+
+    [Tooltip("Segundos DENTRO de la animacion (a velocidad 1) en que ocurre el golpe. El enfoque cinematografico sincroniza ahi el destello, la sacudida, la pausa y el numero de daño. 0 = usa el valor por defecto del enfoque.")]
+    [Min(0f)] public float impactTime = 0f;
+
+    [Tooltip("Opcional. Sonido del golpe de esta habilidad (lo reproduce el enfoque cinematografico). Vacio = el sonido por defecto del enfoque.")]
+    public AudioClip hitSound;
+
+    [Tooltip("Segundos ANTES del impacto en que empieza 'Hit Sound' (= donde cae el golpe dentro del clip). -1 = usa el valor general del enfoque. " +
+             "Asi el golpe del sonido coincide con 'Impact Time' en cada habilidad.")]
+    public float hitSoundLead = -1f;
+
+    [Tooltip("Angulo (grados) del tajo de impacto sobre el objetivo: -35 = diagonal descendente (tajo), 0 = horizontal (estocada), 35 = diagonal ascendente. Se espeja segun hacia donde mire el golpe.")]
+    [Range(-90f, 90f)] public float impactSlashAngle = -35f;
+
+    [Tooltip("Efecto de impacto sobre el objetivo: Tajo (por defecto), Onda de choque (golpes contundentes), Flecha, Perforante o Marca.")]
+    public ImpactEffect impactEffect = ImpactEffect.Slash;
+
+    [Tooltip("Mayor que 0 = la habilidad dispara una flecha visible que vuela del usuario al objetivo en este tiempo (segundos). " +
+             "'Impact Time' pasa a ser el momento en que la flecha LLEGA; sale 'Projectile Flight Seconds' antes. 0 = sin proyectil.")]
+    [Min(0f)] public float projectileFlightSeconds = 0f;
+
+    [Tooltip("Aspecto del proyectil: flecha, orbe magico o bola de fuego. En 'Meteor Rain' son los meteoritos que caen.")]
+    public ProjectileKind projectileKind = ProjectileKind.Arrow;
+
+    [Tooltip("Meteor Rain: meteoritos extra (ademas de uno por enemigo) que caen entre ellos para dar sensacion de lluvia.")]
+    [Range(0, 12)] public int extraProjectiles = 0;
+
+    [Tooltip("Color del brillo y la estela del proyectil (y de las explosiones de impacto).")]
+    public Color projectileColor = new Color(1f, 0.95f, 0.8f, 1f);
+
+    [Tooltip("Opcional. Sonido al soltar la flecha (el de impacto es 'Hit Sound').")]
+    public AudioClip shotSound;
+
+    [Tooltip("Opcional. Sonido del ANUNCIO de una habilidad de preparacion diferida (p. ej. el Fuego de Supresion del Capitan: apuntar). Suena al anunciarla.")]
+    public AudioClip preparationSound;
+
+    [Tooltip("Segundos ANTES de soltar el proyectil en que empieza 'Shot Sound' (= donde cae la suelta de la cuerda / el lanzamiento dentro del clip).")]
+    [Min(0f)] public float shotSoundLead = 0f;
+
+    [Tooltip("Contundencia del golpe: multiplica la sacudida, la pausa de impacto, el retroceso del objetivo y el tiron de zoom (1 = normal, 1,5 = muy pesado).")]
+    [Range(0.5f, 2f)] public float impactPower = 1f;
+
+    [Tooltip("Habilidad de apoyo sobre un aliado (Guardia de Trinchera): el enfoque cinematografico acerca la vista a usuario y aliado, oscurece al resto y muestra un aura de proteccion sobre el aliado en el momento clave (Impact Time).")]
+    public bool protectiveAura = false;
+
+    [Tooltip("Aura: color del resplandor, anillos y chispas (azul-blanco = proteccion; verde-dorado = curacion; dorado = refuerzo).")]
+    public Color auraColor = new Color(0.55f, 0.82f, 1f, 1f);
+
+    [Tooltip("Aura: numero de anillos que se expanden desde el pecho del objetivo (0 a 3).")]
+    [Range(0, 3)] public int auraRings = 2;
+
+    [Tooltip("Aura: numero de chispas que suben alrededor del objetivo (mas = mas efecto de curacion).")]
+    [Range(0, 40)] public int auraSparks = 14;
+
     [Header("Tipo de objetivo")]
     public AbilityTargetType targetType =
     AbilityTargetType.Single;
@@ -192,6 +274,38 @@ public class AbilityData : ScriptableObject
 
     [Tooltip("Primer turno propio del combate en que la habilidad ya puede usarse (1 = desde el inicio, 3 = desde el tercer turno propio / ronda 3).")]
     [Min(1)] public int availableFromTurn = 1;
+
+    [Header("Frase del jefe")]
+    [Tooltip("Frase que dice el jefe al usar la habilidad: se muestra como rotulo grande en pantalla (BossSpeechBanner). Vacio = sin frase.")]
+    public string speechLine = "";
+
+    [Header("Preparacion diferida (animacion del anuncio)")]
+    [Tooltip("Trigger del Animator que se lanza al ANUNCIAR una habilidad con preparacion diferida (p. ej. Fuego de Supresion). " +
+             "El impacto del turno siguiente usa 'Animation Trigger'. Vacio = el anuncio no se anima.")]
+    public string preparationTrigger = "";
+
+    [Header("Invocacion (solo enemigos con IA de jefe)")]
+    [Tooltip("Unidades que puede convocar: cada invocado se elige al azar de esta lista. Aparecen en la formacion del usuario y actuan desde la ronda siguiente. Vacio = no invoca. No incluir unidades de dos casillas.")]
+    public System.Collections.Generic.List<GameObject> summonPool = new System.Collections.Generic.List<GameObject>();
+
+    [Tooltip("Cuantas unidades invoca como maximo por uso (menos si no hay casillas libres).")]
+    [Min(0)] public int summonCount = 0;
+
+    [Tooltip("Veces maximas que puede usarse por combate (0 = sin limite). Evita que el jefe abuse de la invocacion.")]
+    [Min(0)] public int maxUsesPerCombat = 0;
+
+    // Habilidad de invocacion: solo la usa la IA del jefe cuando la situacion lo pide (ver EnemyAIController.Boss).
+    public bool IsSummon => summonPool != null && summonPool.Exists(p => p != null) && summonCount > 0;
+
+    // Una unidad al azar de la lista de invocacion (null si no hay).
+    public GameObject RandomSummon()
+    {
+        if (summonPool == null)
+            return null;
+
+        System.Collections.Generic.List<GameObject> valid = summonPool.FindAll(p => p != null);
+        return valid.Count == 0 ? null : valid[UnityEngine.Random.Range(0, valid.Count)];
+    }
 
     [Header("Regeneracion")]
     [Min(0)]
