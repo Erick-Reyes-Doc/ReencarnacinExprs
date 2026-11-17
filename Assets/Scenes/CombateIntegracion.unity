@@ -7222,6 +7222,26 @@ MonoBehaviour:
   - {fileID: 807748000}
   - {fileID: 1970887766}
   - {fileID: 1980085580}
+  showSlotLabels: 1
+  slotLabelFont: {fileID: 0}
+  slotLabelFontSize: 2.8
+  slotLabelsOnTop: 1
+  slotLabelTopMargin: 0.25
+  slotLabelScreenTop: 0.835
+  slotLabelTopFallback: 5.5
+  slotLabelOffset: {x: 0, y: -2, z: 0}
+  slotLabelTextColor: {r: 1, g: 0.95, b: 0.8, a: 1}
+  slotLabelsOneRow: 1
+  slotLabelBackground: 1
+  slotLabelBackgroundColor: {r: 0, g: 0, b: 0, a: 0.55}
+  slotLabelBgPadding: {x: 0.22, y: 0.05}
+  slotLabelCornerRadius: 0.14
+  slotLabelsBehindUnits: 1
+  slotLabelsInFrontWhenOnTop: 1
+  slotLabelOrderBelowUnits: 1
+  slotLabelSortingLayer: Default
+  slotLabelSorting: -1
+  enemyLabelsOnlyOccupied: 1
 --- !u!4 &551953008
 Transform:
   m_ObjectHideFlags: 0
@@ -13149,11 +13169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5928dc7f878f93446892e5e5fe6fbfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleMusic
-  clip: {fileID: 8300000, guid: 7d2b9e4a1c3f4b8d9a5e6f0c8b17a3e2, type: 3}
+  clip: {fileID: 8300000, guid: 92ab44fe492e0a146af4cb69e187975a, type: 3}
   turnManager: {fileID: 1542171287}
   fadeInSeconds: 2.5
   fadeOutSeconds: 1.5
-  volumeScale: 1.5
+  volumeScale: 1
 --- !u!4 &922415585
 Transform:
   m_ObjectHideFlags: 0

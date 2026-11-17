@@ -1168,6 +1168,11 @@ public class CharacterPanelController : MonoBehaviour
         RectTransform big = Rect("Imagen", scene, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         big.anchoredPosition = Vector2.zero;
         big.sizeDelta = new Vector2(332f, 509f);
+        // Con el inventario abierto el marco pasa al diseno compacto (226 x 340): un tamano fijo recortaba cabeza y pies por la
+        // mascara. El ajustador mantiene la proporcion 332:509 y la escala para que la figura siempre quepa entera en el marco.
+        AspectRatioFitter bigFit = big.gameObject.AddComponent<AspectRatioFitter>();
+        bigFit.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+        bigFit.aspectRatio = 332f / 509f;
         bigPortrait = Img(big, null, Color.white, false, 1f, false);
         bigPortrait.preserveAspect = true;
 
