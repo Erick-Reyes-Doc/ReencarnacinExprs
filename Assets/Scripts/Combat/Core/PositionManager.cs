@@ -1,24 +1,77 @@
-
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PositionManager : MonoBehaviour
 {
     [Header("Equipo del jugador")]
-    [SerializeField] private List<BattleUnit> playerUnits =
+    [SerializeField]
+    private List<BattleUnit> playerUnits =
         new List<BattleUnit>();
 
     [Header("Equipo enemigo")]
-    [SerializeField] private List<BattleUnit> enemyUnits =
+    [SerializeField]
+    private List<BattleUnit> enemyUnits =
         new List<BattleUnit>();
 
     [Header("Puntos visuales del jugador")]
-    [SerializeField] private Transform[] playerPositions =
+    [SerializeField]
+    private Transform[] playerPositions =
         new Transform[4];
 
     [Header("Puntos visuales del enemigo")]
-    [SerializeField] private Transform[] enemyPositions =
+    [SerializeField]
+    private Transform[] enemyPositions =
         new Transform[4];
+
+    [Header("Etiquetas de casilla (P1-P4)")]
+    [SerializeField] private bool showSlotLabels = true;
+    [SerializeField] private TMP_FontAsset slotLabelFont;
+    [SerializeField] private float slotLabelFontSize = 2.8f;   // campo renombrado (antes slotLabelSize = 4) para que el nuevo tamano se aplique solo
+    // true = las etiquetas van ENCIMA de los personajes; false = debajo de las barras de vida (comportamiento anterior).
+    [SerializeField] private bool slotLabelsOnTop = true;
+    // Arriba: separacion sobre la cabeza mas alta de todas las unidades (sombreros incluidos).
+    [SerializeField] private float slotLabelTopMargin = 0.25f;
+    // Arriba: limite superior en pantalla (0 = borde inferior, 1 = borde superior). El borde de arriba de la etiqueta nunca
+    // pasa de aqui, para no quedar tapada por el HUD superior. Bajalo si aun se mete bajo la barra; 1 = sin limite.
+    [SerializeField, Range(0f, 1f)] private float slotLabelScreenTop = 0.835f;   // renombrado (antes slotLabelTopLimit = 0.86) para que el nuevo valor se aplique solo
+    // Arriba: altura sobre la casilla si aun no hay sprites que medir (p. ej. el encuentro todavia no cargo las unidades).
+    [SerializeField] private float slotLabelTopFallback = 5.5f;
+    // Solo modo abajo: Y mas negativa = mas abajo. La X se usa en ambos modos.
+    [SerializeField] private Vector3 slotLabelOffset = new Vector3(0f, -2.0f, 0f);
+    // Campo renombrado (antes slotLabelColor) para que el nuevo color claro se aplique sin tocar el Inspector.
+    [SerializeField] private Color slotLabelTextColor = new Color(1f, 0.95f, 0.80f, 1f);
+    // true = todas las etiquetas (heroes y enemigos) van en la misma fila.
+    // Arriba: la fila de la cabeza mas alta. Abajo: la del punto mas bajo de ambos bandos.
+    [SerializeField] private bool slotLabelsOneRow = true;
+
+    [Header("Fondo de las etiquetas")]
+    [SerializeField] private bool slotLabelBackground = true;
+    [SerializeField] private Color slotLabelBackgroundColor = new Color(0f, 0f, 0f, 0.55f);
+    // Margen interior (unidades de mundo) entre el texto y el borde del fondo.
+    [SerializeField] private Vector2 slotLabelBgPadding = new Vector2(0.22f, 0.05f);
+    // Radio de las esquinas redondeadas (unidades de mundo). 0 = esquinas rectas.
+    [SerializeField] private float slotLabelCornerRadius = 0.14f;
+
+    private static Texture2D labelBgTexture;
+    private static Sprite labelBgSprite;
+    private static float labelBgSpriteRadius = -1f;
+    private bool slotLabelsBuilt;
+
+    [Header("Orden de dibujo de las etiquetas")]
+    // true = copia la Sorting Layer de las unidades y se dibuja siempre DETRAS de ellas (recomendado).
+    [SerializeField] private bool slotLabelsBehindUnits = true;
+    // true = con las etiquetas arriba, se dibujan DELANTE de los personajes (si no, las cabezas altas las tapan).
+    [SerializeField] private bool slotLabelsInFrontWhenOnTop = true;
+    // Cuantos niveles por debajo del Order in Layer de las unidades (solo si slotLabelsBehindUnits).
+    [SerializeField] private int slotLabelOrderBelowUnits = 1;
+    // Valores manuales (solo si slotLabelsBehindUnits esta desactivado, o si aun no hay unidades que copiar).
+    [SerializeField] private string slotLabelSortingLayer = "Default";
+    [SerializeField] private int slotLabelSorting = -1;
+
+    // Etiquetas P1-P4 del bando enemigo: solo se muestran las casillas ocupadas (ver RefreshEnemySlotLabels).
+    [SerializeField] private bool enemyLabelsOnlyOccupied = true;
+    private readonly TextMeshPro[] enemyLabels = new TextMeshPro[4];
 
     private void OnDestroy()
     {
@@ -350,6 +403,390 @@ public class PositionManager : MonoBehaviour
 
         // Colocar los sprites en sus posiciones.
         UpdateVisualPositions();
+
+        // Etiquetas P1-P4 sobre las casillas fijas.
+        if (showSlotLabels)
+            RebuildSlotLabels();
+    }
+
+    // Reconstruye todas las etiquetas (util tras cambiar valores en el Inspector con el juego en marcha).
+    [ContextMenu("Reconstruir etiquetas")]
+    public void RebuildSlotLabels()
+    {
+        float rowY;
+
+        if (slotLabelsOnTop)
+        {
+            // Fila comun: justo encima de la cabeza mas alta (si no hay sprites, a una altura fija sobre las casillas).
+            rowY = HighestUnitTop();
+
+            if (rowY == float.MinValue)
+            {
+                rowY = ExtremeSlotY(true);
+
+                if (rowY == float.MinValue)
+                    return;
+
+                rowY += slotLabelTopFallback;
+            }
+            else
+            {
+                rowY += slotLabelTopMargin;
+            }
+        }
+        else
+        {
+            // Fila comun: la Y mas baja entre todas las casillas.
+            rowY = ExtremeSlotY(false);
+
+            if (rowY == float.MaxValue)
+                return;
+
+            rowY += slotLabelOffset.y;
+        }
+
+        BuildSlotLabels(playerPositions, rowY, null);
+        BuildSlotLabels(enemyPositions, rowY, enemyLabels);
+        RefreshEnemySlotLabels();
+        slotLabelsBuilt = true;
+    }
+
+    // Y de mundo que corresponde a slotLabelScreenTop en la camara principal (sin camara o con 1 = sin limite).
+    private float ViewportLimitWorldY(float worldZ)
+    {
+        Camera cam = Camera.main;
+
+        if (cam == null || slotLabelScreenTop >= 1f)
+            return float.MaxValue;
+
+        float distance = Mathf.Abs(worldZ - cam.transform.position.z);
+        return cam.ViewportToWorldPoint(new Vector3(0.5f, slotLabelScreenTop, distance)).y;
+    }
+
+    // highest = true: Y mas alta de las casillas (float.MinValue si no hay); false: la mas baja (float.MaxValue si no hay).
+    private float ExtremeSlotY(bool highest)
+    {
+        float y = highest ? float.MinValue : float.MaxValue;
+
+        foreach (Transform[] slots in new[] { playerPositions, enemyPositions })
+        {
+            foreach (Transform t in slots)
+            {
+                if (t == null)
+                    continue;
+
+                y = highest ? Mathf.Max(y, t.position.y) : Mathf.Min(y, t.position.y);
+            }
+        }
+
+        return y;
+    }
+
+    // Borde superior del sprite visible mas alto de ambos bandos (float.MinValue si no hay ninguno).
+    private float HighestUnitTop()
+    {
+        float top = float.MinValue;
+
+        foreach (List<BattleUnit> team in new[] { playerUnits, enemyUnits })
+        {
+            foreach (BattleUnit unit in team)
+            {
+                if (unit == null)
+                    continue;
+
+                SpriteRenderer sprite = unit.GetComponent<SpriteRenderer>();
+
+                if (sprite != null && sprite.enabled && sprite.sprite != null)
+                    top = Mathf.Max(top, sprite.bounds.max.y);
+            }
+        }
+
+        return top;
+    }
+
+    // Sprite blanco de esquinas redondeadas (9-slice) que se tine con slotLabelBackgroundColor.
+    private Sprite GetLabelBackgroundSprite()
+    {
+        const int size = 32;
+        const float radiusPx = 12f;
+
+        float radius = Mathf.Max(0.01f, slotLabelCornerRadius);
+
+        if (labelBgSprite != null && Mathf.Approximately(labelBgSpriteRadius, radius))
+            return labelBgSprite;
+
+        if (labelBgTexture == null)
+        {
+            labelBgTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            labelBgTexture.wrapMode = TextureWrapMode.Clamp;
+            labelBgTexture.filterMode = FilterMode.Bilinear;
+
+            Color32[] pixels = new Color32[size * size];
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float px = x + 0.5f;
+                    float py = y + 0.5f;
+                    float dx = Mathf.Max(0f, Mathf.Max(radiusPx - px, px - (size - radiusPx)));
+                    float dy = Mathf.Max(0f, Mathf.Max(radiusPx - py, py - (size - radiusPx)));
+                    float alpha = Mathf.Clamp01(radiusPx - Mathf.Sqrt(dx * dx + dy * dy) + 0.5f);
+                    pixels[y * size + x] = new Color32(255, 255, 255, (byte)Mathf.RoundToInt(alpha * 255f));
+                }
+            }
+
+            labelBgTexture.SetPixels32(pixels);
+            labelBgTexture.Apply();
+        }
+
+        // pixelsPerUnit hace que la esquina mida 'radius' unidades de mundo.
+        labelBgSprite = Sprite.Create(
+            labelBgTexture,
+            new Rect(0f, 0f, size, size),
+            new Vector2(0.5f, 0.5f),
+            radiusPx / radius,
+            0,
+            SpriteMeshType.FullRect,
+            new Vector4(radiusPx, radiusPx, radiusPx, radiusPx));
+
+        labelBgSpriteRadius = radius;
+        return labelBgSprite;
+    }
+
+    // Contorno real de las letras visibles (espacio local de la etiqueta). textBounds incluye el hueco reservado para letras
+    // altas y el relleno de la fuente, y deja mucho espacio muerto encima del texto.
+    private static Bounds GetGlyphBounds(TextMeshPro label)
+    {
+        label.ForceMeshUpdate();
+        TMP_TextInfo info = label.textInfo;
+
+        bool any = false;
+        Vector2 min = Vector2.zero;
+        Vector2 max = Vector2.zero;
+
+        for (int i = 0; i < info.characterCount; i++)
+        {
+            TMP_CharacterInfo ch = info.characterInfo[i];
+
+            if (!ch.isVisible)
+                continue;
+
+            Vector2 tl = ch.topLeft;
+            Vector2 br = ch.bottomRight;
+
+            if (!any)
+            {
+                min = new Vector2(tl.x, br.y);
+                max = new Vector2(br.x, tl.y);
+                any = true;
+            }
+            else
+            {
+                min = Vector2.Min(min, new Vector2(tl.x, br.y));
+                max = Vector2.Max(max, new Vector2(br.x, tl.y));
+            }
+        }
+
+        if (!any)
+            return label.textBounds;
+
+        Bounds bounds = new Bounds();
+        bounds.SetMinMax(new Vector3(min.x, min.y, 0f), new Vector3(max.x, max.y, 0f));
+        return bounds;
+    }
+
+    // Anade (o reemplaza) el fondo de una etiqueta, ajustado al texto.
+    private void AddLabelBackground(TextMeshPro label, int layerId, int order)
+    {
+        label.ForceMeshUpdate();
+        Bounds bounds = GetGlyphBounds(label);
+
+        GameObject bg = new GameObject("Fondo");
+        bg.transform.SetParent(label.transform, false);
+        bg.transform.localPosition = new Vector3(bounds.center.x, bounds.center.y, 0f);
+
+        SpriteRenderer renderer = bg.AddComponent<SpriteRenderer>();
+        renderer.sprite = GetLabelBackgroundSprite();
+        renderer.drawMode = SpriteDrawMode.Sliced;
+
+        Vector3 scale = label.transform.lossyScale;
+        float padX = slotLabelBgPadding.x / Mathf.Max(0.0001f, Mathf.Abs(scale.x));
+        float padY = slotLabelBgPadding.y / Mathf.Max(0.0001f, Mathf.Abs(scale.y));
+        float minSide = 2f * Mathf.Max(0.01f, slotLabelCornerRadius);
+
+        renderer.size = new Vector2(
+            Mathf.Max(minSide, bounds.size.x + padX * 2f),
+            Mathf.Max(minSide, bounds.size.y + padY * 2f));
+
+        renderer.color = slotLabelBackgroundColor;
+        renderer.sortingLayerID = layerId;
+        renderer.sortingOrder = order - 1;   // siempre detras de su texto
+    }
+
+    // Muestra solo las etiquetas de las casillas enemigas ocupadas (p. ej. 2 enemigos = P1 y P2). Una unidad grande
+    // cuenta sus dos casillas. Se llama al reconstruir etiquetas y cada vez que cambia la formacion.
+    private void RefreshEnemySlotLabels()
+    {
+        for (int i = 0; i < enemyLabels.Length; i++)
+        {
+            if (enemyLabels[i] == null)
+                continue;
+
+            bool visible = !enemyLabelsOnlyOccupied || GetUnitOrWideAt(TeamSide.Enemy, i + 1) != null;
+
+            if (enemyLabels[i].gameObject.activeSelf != visible)
+                enemyLabels[i].gameObject.SetActive(visible);
+        }
+    }
+
+    // Busca la Sorting Layer y el Order in Layer que deben usar las etiquetas.
+    // Con slotLabelsBehindUnits copia el de una unidad existente y resta niveles, para quedar siempre detras de los personajes.
+    private void ResolveLabelSorting(out int layerId, out int order)
+    {
+        layerId = SortingLayer.NameToID(slotLabelSortingLayer);
+        order = slotLabelSorting;
+
+        // Arriba no hay suelo detras: se dibujan DELANTE de todas las unidades para que ninguna cabeza las tape.
+        if (slotLabelsOnTop && slotLabelsInFrontWhenOnTop)
+        {
+            bool found = false;
+            int maxOrder = int.MinValue;
+
+            foreach (List<BattleUnit> team in new[] { playerUnits, enemyUnits })
+            {
+                foreach (BattleUnit unit in team)
+                {
+                    SpriteRenderer sprite = unit != null ? unit.GetComponent<SpriteRenderer>() : null;
+
+                    if (sprite == null)
+                        continue;
+
+                    if (!found)
+                        layerId = sprite.sortingLayerID;
+
+                    found = true;
+                    maxOrder = Mathf.Max(maxOrder, sprite.sortingOrder);
+                }
+            }
+
+            // +10 de holgura por si alguna unidad sube su orden al actuar; el fondo usa order - 1.
+            if (found)
+                order = maxOrder + 10;
+
+            return;
+        }
+
+        if (!slotLabelsBehindUnits)
+            return;
+
+        SpriteRenderer reference = FindReferenceSprite(playerUnits);
+
+        if (reference == null)
+            reference = FindReferenceSprite(enemyUnits);
+
+        if (reference == null)
+            return;   // aun no hay unidades: se usan los valores manuales
+
+        layerId = reference.sortingLayerID;
+        order = reference.sortingOrder - Mathf.Max(1, slotLabelOrderBelowUnits);
+    }
+
+    private static SpriteRenderer FindReferenceSprite(List<BattleUnit> team)
+    {
+        foreach (BattleUnit unit in team)
+        {
+            if (unit == null)
+                continue;
+
+            SpriteRenderer sprite = unit.GetComponent<SpriteRenderer>();
+
+            if (sprite != null)
+                return sprite;
+        }
+
+        return null;
+    }
+
+    // Crea una etiqueta "P1".."P4" hija de cada punto visual (las casillas son fijas).
+    private void BuildSlotLabels(Transform[] slots, float rowY, TextMeshPro[] store)
+    {
+        ResolveLabelSorting(out int layerId, out int order);
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] == null)
+                continue;
+
+            string labelName = "Etiqueta_P" + (i + 1);
+
+            // Evita etiquetas duplicadas si se reconstruyen.
+            // (Destroy es diferido: se desactivan y renombran ya, por si se reconstruye varias veces en el mismo frame.)
+            for (int c = slots[i].childCount - 1; c >= 0; c--)
+            {
+                Transform old = slots[i].GetChild(c);
+
+                if (old.name != labelName)
+                    continue;
+
+                old.name = labelName + "_old";
+                old.gameObject.SetActive(false);
+                Destroy(old.gameObject);
+            }
+
+            GameObject go = new GameObject(labelName);
+            go.transform.SetParent(slots[i], false);
+            go.transform.localPosition = slotLabelsOnTop
+                ? new Vector3(slotLabelOffset.x, slotLabelTopFallback, slotLabelOffset.z)
+                : slotLabelOffset;
+
+            if (slotLabelsOneRow)
+            {
+                // Misma altura de mundo para ambos bandos; la X sigue a su casilla.
+                Vector3 world = slots[i].position;
+                world.x += slotLabelOffset.x;
+                world.y = rowY;
+                go.transform.position = world;
+            }
+
+            TextMeshPro label = go.AddComponent<TextMeshPro>();
+
+            if (slotLabelFont != null)
+                label.font = slotLabelFont;
+
+            label.text = "P" + (i + 1);
+            label.fontSize = slotLabelFontSize;
+            label.color = slotLabelTextColor;
+            label.alignment = TextAlignmentOptions.Center;
+
+            // Se dibuja detras de los personajes (el fondo, un nivel mas atras).
+            MeshRenderer meshRenderer = label.GetComponent<MeshRenderer>();
+            meshRenderer.sortingLayerID = layerId;
+            meshRenderer.sortingOrder = order;
+
+            if (slotLabelBackground)
+                AddLabelBackground(label, layerId, order);
+
+            // Arriba: rowY es el borde inferior de la etiqueta, para que el fondo no toque las cabezas.
+            if (slotLabelsOnTop)
+            {
+                Bounds glyphs = GetGlyphBounds(label);
+                float halfHeight = glyphs.extents.y +
+                                   (slotLabelBackground ? slotLabelBgPadding.y / Mathf.Max(0.0001f, Mathf.Abs(go.transform.lossyScale.y)) : 0f);
+                go.transform.position += Vector3.up * (halfHeight - glyphs.center.y) * go.transform.lossyScale.y;
+
+                // Si el borde superior se mete bajo el HUD, se baja hasta el limite.
+                float limitY = ViewportLimitWorldY(go.transform.position.z);
+                float topY = go.transform.position.y +
+                             (glyphs.center.y + halfHeight) * go.transform.lossyScale.y;
+
+                if (topY > limitY)
+                    go.transform.position += Vector3.down * (topY - limitY);
+            }
+
+            if (store != null && i < store.Length)
+                store[i] = label;
+        }
     }
 
     // Comprueba que las posiciones iniciales sean validas.
@@ -508,45 +945,45 @@ public class PositionManager : MonoBehaviour
             UpdateVisualPositions();
     }
 
-    
-public void HandleDefeatedUnit(BattleUnit unit)
-{
-    if (unit == null || unit.IsAlive)
-        return;
 
-    Debug.Log(
-        unit.Data.unitName + " ha sido derrotado."
-    );
-
-    // Los heroes NO mueren: quedan caidos en el suelo (sin turno ni objetivo) hasta que se les cura.
-    if (unit.Side == TeamSide.Player)
+    public void HandleDefeatedUnit(BattleUnit unit)
     {
-        HandleHeroDowned(unit);
-        return;
+        if (unit == null || unit.IsAlive)
+            return;
+
+        Debug.Log(
+            unit.Data.unitName + " ha sido derrotado."
+        );
+
+        // Los heroes NO mueren: quedan caidos en el suelo (sin turno ni objetivo) hasta que se les cura.
+        if (unit.Side == TeamSide.Player)
+        {
+            HandleHeroDowned(unit);
+            return;
+        }
+
+        // El personaje derrotado se oscurece, muestra un craneo y se desvanece (UnitDeathEffect); al terminar queda oculto.
+        SpriteRenderer sprite =
+            unit.GetComponent<SpriteRenderer>();
+
+        if (sprite != null)
+        {
+            UnitDeathEffect.Play(unit, sprite);
+        }
+
+        // Recordar su lugar en la formacion completa (contando los huecos de
+        // los caidos) para poder restaurarlo si revive.
+        defeatedAt[unit] = FullFormationSlot(unit);
+
+        // Reorganizar al equipo correspondiente.
+        // Los supervivientes se recolocan visualmente cuando termina la animacion del caido (si no, tapan su silueta).
+        ReorganizeTeam(unit.Side, true);
+
+        if (sprite != null && sprite.enabled && isActiveAndEnabled)
+            StartCoroutine(UpdateVisualsAfterDeath());
+        else
+            UpdateVisualPositions();
     }
-
-    // El personaje derrotado se oscurece, muestra un craneo y se desvanece (UnitDeathEffect); al terminar queda oculto.
-    SpriteRenderer sprite =
-        unit.GetComponent<SpriteRenderer>();
-
-    if (sprite != null)
-    {
-        UnitDeathEffect.Play(unit, sprite);
-    }
-
-    // Recordar su lugar en la formacion completa (contando los huecos de
-    // los caidos) para poder restaurarlo si revive.
-    defeatedAt[unit] = FullFormationSlot(unit);
-
-    // Reorganizar al equipo correspondiente.
-    // Los supervivientes se recolocan visualmente cuando termina la animacion del caido (si no, tapan su silueta).
-    ReorganizeTeam(unit.Side, true);
-
-    if (sprite != null && sprite.enabled && isActiveAndEnabled)
-        StartCoroutine(UpdateVisualsAfterDeath());
-    else
-        UpdateVisualPositions();
-}
 
     private void HandleHeroDowned(BattleUnit unit, bool silent = false)
     {
@@ -626,6 +1063,7 @@ public void HandleDefeatedUnit(BattleUnit unit)
         );
 
         PlaceDownedUnits();
+        RefreshEnemySlotLabels();
     }
 
     // Coloca cada unidad en su punto visual correspondiente.
@@ -689,7 +1127,7 @@ public void HandleDefeatedUnit(BattleUnit unit)
         }
     }
 
-    
+
     // Anade una unidad a su formacion (carga de encuentros). Se rechaza si
     // ya esta registrada, si su posicion es invalida o si esta ocupada.
     public bool RegisterUnit(BattleUnit unit)
@@ -718,6 +1156,10 @@ public void HandleDefeatedUnit(BattleUnit unit)
         unit.OnRevived += HandleRevivedUnit;
 
         UpdateVisualPositions();
+
+        // Las etiquetas de arriba dependen de la altura de los sprites: se recolocan con cada unidad nueva.
+        if (showSlotLabels && slotLabelsOnTop && slotLabelsBuilt)
+            RebuildSlotLabels();
 
         return true;
     }

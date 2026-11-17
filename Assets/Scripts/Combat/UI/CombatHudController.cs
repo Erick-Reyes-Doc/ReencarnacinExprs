@@ -299,11 +299,19 @@ public class CombatHudController : MonoBehaviour
     }
 
     private void AddTiles(List<RectTransform> rects, int from, int count)
+{
+    for (int i = from; i < from + count && i < tileImages.Length; i++)
     {
-        for (int i = from; i < from + count && i < tileImages.Length; i++)
-            if (tileImages[i] != null && tileImages[i].gameObject.activeInHierarchy && TileUnit(i) != null)
-                rects.Add(tileImages[i].rectTransform);
+        if (tileImages[i] != null && tileImages[i].gameObject.activeInHierarchy && TileUnit(i) != null)
+        {
+            rects.Add(tileImages[i].rectTransform);
+
+            // Incluir también la zona clicable sobre el sprite (si existe).
+            if (targetZones[i] != null)
+                rects.Add(targetZones[i]);
+        }
     }
+}
 
     // Retratos provisionales del orden de turnos: para usar uno definitivo, anadir aqui el nombre de la unidad
     // (UnitData.unitName) y su sprite.
